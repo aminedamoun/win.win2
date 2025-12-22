@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-black text-white font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:bg-white/10 hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(225, 29, 46, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(225, 29, 46, 0.6);
+  }
+}
+
+.radial-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(225, 29, 46, 0.15) 0%, transparent 50%);
+}
+
+.radial-glow {
+  background: radial-gradient(ellipse at center, rgba(225, 29, 46, 0.2) 0%, rgba(225, 29, 46, 0.05) 40%, transparent 70%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #e11d2e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-effect {
+  box-shadow: 0 0 80px rgba(225, 29, 46, 0.3), 0 0 120px rgba(225, 29, 46, 0.15);
+}
+
+.image-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+}
+
+.butter-cms-content {
+  @apply text-gray-300 leading-relaxed;
+}
+
+.butter-cms-content p {
+  @apply mb-6 text-lg leading-relaxed;
+}
+
+.butter-cms-content h1 {
+  @apply text-4xl font-bold mt-10 mb-6 text-white;
+}
+
+.butter-cms-content h2 {
+  @apply text-3xl font-bold mt-8 mb-4 text-white;
+}
+
+.butter-cms-content h3 {
+  @apply text-2xl font-bold mt-6 mb-3 text-white;
+}
+
+.butter-cms-content h4 {
+  @apply text-xl font-bold mt-4 mb-2 text-white;
+}
+
+.butter-cms-content ul {
+  @apply mb-6 list-disc list-inside space-y-2;
+}
+
+.butter-cms-content ol {
+  @apply mb-6 list-decimal list-inside space-y-2;
+}
+
+.butter-cms-content li {
+  @apply text-lg leading-relaxed;
+}
+
+.butter-cms-content a {
+  @apply text-red-500 hover:text-red-400 underline transition-colors;
+}
+
+.butter-cms-content blockquote {
+  @apply border-l-4 border-red-500 pl-6 italic my-6 text-gray-400;
+}
+
+.butter-cms-content code {
+  @apply bg-white/10 px-2 py-1 rounded text-sm font-mono;
+}
+
+.butter-cms-content pre {
+  @apply bg-white/10 p-4 rounded-lg overflow-x-auto my-6;
+}
+
+.butter-cms-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.butter-cms-content img {
+  @apply rounded-lg my-8 w-full;
+}
+
+.butter-cms-content strong {
+  @apply font-bold text-white;
+}
+
+.butter-cms-content em {
+  @apply italic;
+}
+
+.butter-cms-content hr {
+  @apply border-white/10 my-8;
+}

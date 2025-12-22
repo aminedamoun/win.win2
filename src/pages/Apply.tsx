@@ -1,0 +1,264 @@
+import { useState } from 'react';
+import { Send, CheckCircle2, Calendar } from 'lucide-react';
+
+export default function Apply() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    preferredTime: '',
+    message: '',
+    gdprConsent: false,
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        preferredTime: '',
+        message: '',
+        gdprConsent: false,
+      });
+    }, 3000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+    }));
+  };
+
+  return (
+    <div className="min-h-screen bg-black pt-20">
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
+        <div className="absolute inset-0 radial-gradient" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up">
+              Apply to <span className="text-red-500">Win Win</span>
+            </h1>
+            <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              Take the first step towards building your sales career. Fill out the form below and we'll get back to you within 24 hours.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 bg-gradient-to-b from-black to-neutral-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            {submitted ? (
+              <div className="glass-card p-12 text-center animate-fade-in">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="text-green-500" size={40} />
+                </div>
+                <h2 className="text-3xl font-bold mb-4">Application Submitted!</h2>
+                <p className="text-lg text-gray-300">
+                  Thank you for your interest in joining Win Win. We'll review your application and get back to you soon.
+                </p>
+              </div>
+            ) : (
+              <div className="glass-card p-8 md:p-12">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+                        First Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        required
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
+                        placeholder="John"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+                        Last Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        required
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
+                      placeholder="john.doe@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      required
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
+                      placeholder="+386 XX XXX XXX"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-300 mb-2">
+                      Preferred Interview Time
+                    </label>
+                    <input
+                      type="text"
+                      id="preferredTime"
+                      name="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
+                      placeholder="e.g., Weekday mornings, Afternoons"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                      Additional Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white resize-none"
+                      placeholder="Tell us about yourself, your experience, and why you want to join Win Win..."
+                    />
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="gdprConsent"
+                      name="gdprConsent"
+                      required
+                      checked={formData.gdprConsent}
+                      onChange={handleChange}
+                      className="mt-1 w-5 h-5 bg-black/50 border border-white/10 rounded focus:ring-2 focus:ring-red-500/20 text-red-500"
+                    />
+                    <label htmlFor="gdprConsent" className="text-sm text-gray-400">
+                      I agree to the processing of my personal data in accordance with the{' '}
+                      <button
+                        type="button"
+                        className="text-red-500 hover:underline"
+                        onClick={() => window.open('/privacy', '_blank')}
+                      >
+                        Privacy Policy
+                      </button>{' '}
+                      and{' '}
+                      <button
+                        type="button"
+                        className="text-red-500 hover:underline"
+                        onClick={() => window.open('/cookies', '_blank')}
+                      >
+                        Cookie Policy
+                      </button>
+                      . *
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                  >
+                    Submit Application
+                    <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                  </button>
+                </form>
+
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <div className="flex items-start gap-3 text-gray-400 text-sm">
+                    <Calendar className="text-red-500 flex-shrink-0 mt-1" size={20} />
+                    <p>
+                      Prefer to schedule an interview directly? Contact us at{' '}
+                      <a href="mailto:info@winwin.si" className="text-red-500 hover:underline">
+                        info@winwin.si
+                      </a>{' '}
+                      or call{' '}
+                      <a href="tel:+386XXXXXXXX" className="text-red-500 hover:underline">
+                        +386 XX XXX XXX
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+              What Happens <span className="text-red-500">Next?</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <div className="glass-card p-6">
+                <div className="text-4xl font-bold text-red-500 mb-2">1</div>
+                <h3 className="text-lg font-semibold mb-2">We Review</h3>
+                <p className="text-gray-400 text-sm">Your application is reviewed by our recruitment team</p>
+              </div>
+
+              <div className="glass-card p-6">
+                <div className="text-4xl font-bold text-red-500 mb-2">2</div>
+                <h3 className="text-lg font-semibold mb-2">We Contact</h3>
+                <p className="text-gray-400 text-sm">We'll reach out within 24 hours to schedule an interview</p>
+              </div>
+
+              <div className="glass-card p-6">
+                <div className="text-4xl font-bold text-red-500 mb-2">3</div>
+                <h3 className="text-lg font-semibold mb-2">You Start</h3>
+                <p className="text-gray-400 text-sm">Join our selection program and begin your career</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

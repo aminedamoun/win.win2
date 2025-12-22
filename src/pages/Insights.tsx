@@ -1,0 +1,205 @@
+import { useEffect, useState } from 'react';
+import { Lightbulb, Filter, AlertCircle } from 'lucide-react';
+import { getAllPosts, getAllCategories, ButterPost, ButterCategory, calculateReadTime } from '../utils/buttercms';
+import FeaturedArticle from '../components/FeaturedArticle';
+import ArticleCard from '../components/ArticleCard';
+import ScrollIndicator from '../components/ScrollIndicator';
+
+export default function Insights() {
+  const [articles, setArticles] = useState<ButterPost[]>([]);
+  const [categories, setCategories] = useState<ButterCategory[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [articlesResponse, categoriesData] = await Promise.all([
+        getAllPosts(1, 100),
+        getAllCategories()
+      ]);
+
+      setArticles(articlesResponse.data || []);
+      setCategories(categoriesData || []);
+    } catch (err) {
+      console.error('Error fetching data from ButterCMS:', err);
+      setError('Unable to load articles. Please check your ButterCMS configuration.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const featuredArticle = articles[0];
+  const regularArticles = articles.slice(1);
+
+  const filteredArticles = selectedCategory
+    ? regularArticles.filter((article) =>
+        article.categories.some(cat => cat.slug === selectedCategory)
+      )
+    : regularArticles;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
+      <ScrollIndicator sectionCount={3} />
+
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-20">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              'url(https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/60" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-red-500/10 rounded-full border border-red-500/20">
+              <Lightbulb className="text-red-500" size={20} />
+              <span className="text-red-500 font-semibold">Knowledge Hub</span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Insights from the World of{' '}
+              <span className="gradient-text">Sales</span>
+            </h1>
+            <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed">
+              Sales strategies, team culture, career growth, and real stories from the Win Win team.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {error && (
+        <section className="relative py-16 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-black to-neutral-950" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="glass-card p-8 max-w-2xl mx-auto text-center">
+              <AlertCircle className="mx-auto mb-4 text-red-500" size={48} />
+              <h2 className="text-2xl font-bold mb-2">Unable to Load Content</h2>
+              <p className="text-gray-400 mb-4">{error}</p>
+              <p className="text-sm text-gray-500">
+                Please ensure your ButterCMS API key is configured correctly in the environment variables.
+              </p>
+              <button
+                onClick={fetchData}
+                className="mt-6 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {!loading && !error && featuredArticle && (
+        <section className="relative py-16 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-black to-neutral-950" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <FeaturedArticle
+              slug={featuredArticle.slug}
+              title={featuredArticle.title}
+              excerpt={featuredArticle.summary}
+              category={featuredArticle.categories[0]?.name || 'Uncategorized'}
+              categorySlug={featuredArticle.categories[0]?.slug || 'uncategorized'}
+              featuredImageUrl={featuredArticle.featured_image}
+              readTime={calculateReadTime(featuredArticle.body)}
+              publishedAt={featuredArticle.published}
+              author={`${featuredArticle.author.first_name} ${featuredArticle.author.last_name}`}
+            />
+          </div>
+        </section>
+      )}
+
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black" />
+        <div className="absolute inset-0 radial-glow opacity-20" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold">
+              Latest <span className="text-red-500">Insights</span>
+            </h2>
+
+            {categories.length > 0 && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <Filter className="text-gray-400" size={20} />
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                    selectedCategory === null
+                      ? 'bg-red-500 text-white'
+                      : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  All
+                </button>
+                {categories.slice(0, 5).map((category) => (
+                  <button
+                    key={category.slug}
+                    onClick={() => setSelectedCategory(category.slug)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                      selectedCategory === category.slug
+                        ? 'bg-red-500 text-white'
+                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="flex flex-col items-center gap-4">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+                <p className="text-gray-400">Loading articles from ButterCMS...</p>
+              </div>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <p className="text-gray-400 text-lg">Unable to load articles</p>
+            </div>
+          ) : filteredArticles.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredArticles.map((article) => (
+                <ArticleCard
+                  key={article.slug}
+                  slug={article.slug}
+                  title={article.title}
+                  excerpt={article.summary}
+                  category={article.categories[0]?.name || 'Uncategorized'}
+                  categorySlug={article.categories[0]?.slug || 'uncategorized'}
+                  featuredImageUrl={article.featured_image}
+                  readTime={calculateReadTime(article.body)}
+                  publishedAt={article.published}
+                  author={`${article.author.first_name} ${article.author.last_name}`}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-gray-400 text-lg">
+                {selectedCategory
+                  ? 'No articles found in this category.'
+                  : 'No articles available yet. Check back soon!'}
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Add content through your ButterCMS Dashboard
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
