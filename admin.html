@@ -597,6 +597,22 @@ async function saveImage(e){
   const file = document.getElementById("imageFile").files[0];
   let imageUrl = document.getElementById("imageUrl").value;
   let fileName = null;
+  let oldStoragePath = null;
+  let oldUsageLocation = null;
+
+  // If editing, get the old storage path and usage location from database first
+  if(id){
+    const { data: existingImage } = await window.supabase
+      .from('website-images')
+      .select('storage_path, usage_location')
+      .eq('id', id)
+      .maybeSingle();
+
+    if(existingImage){
+      oldStoragePath = existingImage.storage_path;
+      oldUsageLocation = existingImage.usage_location;
+    }
+  }
 
   // Upload file if provided
   if(file){
@@ -618,13 +634,10 @@ async function saveImage(e){
     imageUrl = urlData.publicUrl;
 
     // If editing and had an old storage file, delete it
-    if(id){
-      const oldStoragePath = document.getElementById("imageId").dataset.storagePath;
-      if(oldStoragePath){
-        await window.supabase.storage
-          .from('website-images')
-          .remove([oldStoragePath]);
-      }
+    if(id && oldStoragePath){
+      await window.supabase.storage
+        .from('website-images')
+        .remove([oldStoragePath]);
     }
   }
 
@@ -662,14 +675,23 @@ async function saveImage(e){
     return;
   }
 
-  // Clear localStorage cache for the updated location
-  const usageLocation = data.usage_location;
-  if(usageLocation === 'home-hero'){
-    localStorage.removeItem('home-hero-image');
-  } else if(usageLocation === 'about-hero'){
-    localStorage.removeItem('about-hero-image');
-  } else if(usageLocation === 'home-about'){
-    localStorage.removeItem('home-about-image');
+  // Clear localStorage cache for both old and new locations
+  const clearCache = (location) => {
+    if(location === 'home-hero'){
+      localStorage.removeItem('home-hero-image');
+    } else if(location === 'about-hero'){
+      localStorage.removeItem('about-hero-image');
+    } else if(location === 'home-about'){
+      localStorage.removeItem('home-about-image');
+    }
+  };
+
+  // Clear cache for the new location
+  clearCache(data.usage_location);
+
+  // If editing and location changed, also clear old location cache
+  if(id && oldUsageLocation && oldUsageLocation !== data.usage_location){
+    clearCache(oldUsageLocation);
   }
 
   closeImageModal();
@@ -679,13 +701,21 @@ async function saveImage(e){
 async function deleteImage(id, name){
   if(!confirm(`Delete image "${name}"?`)) return;
 
-  // Get the usage_location before deleting
+  // Get the usage_location and storage_path before deleting
   const { data: imageData } = await window.supabase
     .from("website_images")
-    .select("usage_location")
+    .select("usage_location, storage_path")
     .eq("id", id)
     .maybeSingle();
 
+  // Delete the file from storage first
+  if(imageData && imageData.storage_path){
+    await window.supabase.storage
+      .from('website-images')
+      .remove([imageData.storage_path]);
+  }
+
+  // Then delete the database record
   const { error } = await window.supabase.from("website_images").delete().eq("id", id);
 
   if(error){
