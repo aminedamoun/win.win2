@@ -97,10 +97,13 @@
     e.preventDefault();
     errorBox.style.display="none";
 
-    const email = email.value;
-    const password = password.value;
+    const emailValue = document.getElementById("email").value;
+    const passwordValue = document.getElementById("password").value;
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: emailValue,
+      password: passwordValue
+    });
 
     if(error){
       errorBox.textContent = error.message;
