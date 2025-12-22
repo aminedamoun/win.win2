@@ -23,7 +23,9 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [heroImageUrl, setHeroImageUrl] = useState(() => {
+    return localStorage.getItem('home-hero-image') || 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  });
 
   useEffect(() => {
     const fetchHeroImage = async () => {
@@ -36,6 +38,7 @@ export default function Home() {
 
         if (data && data.url) {
           setHeroImageUrl(data.url);
+          localStorage.setItem('home-hero-image', data.url);
         }
       } catch (err) {
         console.error('Error fetching hero image:', err);

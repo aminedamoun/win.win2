@@ -662,6 +662,14 @@ async function saveImage(e){
     return;
   }
 
+  // Clear localStorage cache for the updated location
+  const usageLocation = data.usage_location;
+  if(usageLocation === 'home-hero'){
+    localStorage.removeItem('home-hero-image');
+  } else if(usageLocation === 'about-hero'){
+    localStorage.removeItem('about-hero-image');
+  }
+
   closeImageModal();
   loadImages();
 }
@@ -669,11 +677,28 @@ async function saveImage(e){
 async function deleteImage(id, name){
   if(!confirm(`Delete image "${name}"?`)) return;
 
+  // Get the usage_location before deleting
+  const { data: imageData } = await window.supabase
+    .from("website_images")
+    .select("usage_location")
+    .eq("id", id)
+    .maybeSingle();
+
   const { error } = await window.supabase.from("website_images").delete().eq("id", id);
 
   if(error){
     alert("Error deleting image: " + error.message);
     return;
+  }
+
+  // Clear localStorage cache for the deleted location
+  if(imageData){
+    const usageLocation = imageData.usage_location;
+    if(usageLocation === 'home-hero'){
+      localStorage.removeItem('home-hero-image');
+    } else if(usageLocation === 'about-hero'){
+      localStorage.removeItem('about-hero-image');
+    }
   }
 
   loadImages();

@@ -6,7 +6,9 @@ import { supabase } from '../utils/supabase';
 export default function About() {
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [heroImageUrl, setHeroImageUrl] = useState(() => {
+    return localStorage.getItem('about-hero-image') || 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  });
 
   useEffect(() => {
     const fetchHeroImage = async () => {
@@ -19,6 +21,7 @@ export default function About() {
 
         if (data && data.url) {
           setHeroImageUrl(data.url);
+          localStorage.setItem('about-hero-image', data.url);
         }
       } catch (err) {
         console.error('Error fetching hero image:', err);
