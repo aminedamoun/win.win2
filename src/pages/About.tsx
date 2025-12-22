@@ -1,5 +1,6 @@
 import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import FAQ from '../components/FAQ';
 
 export default function About() {
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
@@ -248,6 +249,17 @@ export default function About() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        ref={(el) => (sectionRefs.current[4] = el)}
+        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
+          visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FAQ />
         </div>
       </section>
     </div>
