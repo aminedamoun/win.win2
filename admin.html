@@ -574,11 +574,12 @@ async function saveImage(e){
   const id = document.getElementById("imageId").value;
   const file = document.getElementById("imageFile").files[0];
   let imageUrl = document.getElementById("imageUrl").value;
+  let fileName = null;
 
   // Upload file if provided
   if(file && !id){
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+    fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const { data: uploadData, error: uploadError } = await window.supabase.storage
       .from('website-images')
       .upload(fileName, file);
@@ -606,7 +607,7 @@ async function saveImage(e){
     category: document.getElementById("imageCategory").value,
     usage_location: document.getElementById("imageLocation").value,
     alt_text: document.getElementById("imageAlt").value,
-    storage_path: file ? fileName : null
+    storage_path: fileName
   };
 
   let result;
