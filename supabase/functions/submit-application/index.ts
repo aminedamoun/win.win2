@@ -13,6 +13,7 @@ interface ApplicationData {
   phone: string;
   preferredTime: string;
   message: string;
+  resumeUrl?: string;
 }
 
 Deno.serve(async (req: Request) => {
@@ -40,6 +41,7 @@ Deno.serve(async (req: Request) => {
         phone: applicationData.phone,
         preferred_time: applicationData.preferredTime,
         message: applicationData.message,
+        resume_url: applicationData.resumeUrl || null,
         status: 'pending'
       }])
       .select()
@@ -59,6 +61,8 @@ Preferred Interview Time: ${applicationData.preferredTime || 'Not specified'}
 
 Message:
 ${applicationData.message || 'No message provided'}
+
+Resume: ${applicationData.resumeUrl ? applicationData.resumeUrl : 'Not provided'}
 
 Application ID: ${data.id}
 Submitted: ${new Date().toLocaleString()}

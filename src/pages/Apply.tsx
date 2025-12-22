@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Send, CheckCircle2, Calendar } from 'lucide-react';
+import { Send, CheckCircle2, Calendar, Upload, FileText, X } from 'lucide-react';
+import { supabase } from '../utils/supabase';
 
 export default function Apply() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ export default function Apply() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [uploadingResume, setUploadingResume] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +25,33 @@ export default function Apply() {
     setError(null);
 
     try {
+      let resumeUrl = '';
+
+      if (resumeFile) {
+        setUploadingResume(true);
+        const fileExt = resumeFile.name.split('.').pop();
+        const fileName = `${Date.now()}_${formData.firstName}_${formData.lastName}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('resumes')
+          .upload(filePath, resumeFile, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+
+        if (uploadError) {
+          throw new Error(`Failed to upload resume: ${uploadError.message}`);
+        }
+
+        const { data: urlData } = supabase.storage
+          .from('resumes')
+          .getPublicUrl(filePath);
+
+        resumeUrl = urlData.publicUrl;
+        setUploadingResume(false);
+      }
+
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-application`, {
         method: 'POST',
         headers: {
@@ -35,6 +65,7 @@ export default function Apply() {
           phone: formData.phone,
           preferredTime: formData.preferredTime,
           message: formData.message,
+          resumeUrl: resumeUrl,
         }),
       });
 
@@ -57,12 +88,14 @@ export default function Apply() {
           message: '',
           gdprConsent: false,
         });
+        setResumeFile(null);
       }, 5000);
     } catch (err) {
       console.error('Error submitting application:', err);
       setError(err instanceof Error ? err.message : 'Failed to submit application. Please try again.');
     } finally {
       setSubmitting(false);
+      setUploadingResume(false);
     }
   };
 
@@ -72,6 +105,26 @@ export default function Apply() {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setError('Please upload a PDF file');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setError('File size must be less than 5MB');
+        return;
+      }
+      setResumeFile(file);
+      setError(null);
+    }
+  };
+
+  const removeFile = () => {
+    setResumeFile(null);
   };
 
   return (
@@ -209,6 +262,51 @@ export default function Apply() {
                     />
                   </div>
 
+                  <div>
+                    <label htmlFor="resume" className="block text-sm font-medium text-gray-300 mb-2">
+                      Resume / CV (PDF, max 5MB)
+                    </label>
+                    {!resumeFile ? (
+                      <label
+                        htmlFor="resume"
+                        className="w-full px-4 py-8 bg-black/50 border-2 border-dashed border-white/10 rounded-lg hover:border-red-500/50 transition-all cursor-pointer flex flex-col items-center justify-center gap-2 group"
+                      >
+                        <Upload className="text-gray-400 group-hover:text-red-500 transition-colors" size={32} />
+                        <span className="text-gray-400 group-hover:text-red-500 transition-colors">
+                          Click to upload your resume
+                        </span>
+                        <span className="text-xs text-gray-500">PDF only, max 5MB</span>
+                        <input
+                          type="file"
+                          id="resume"
+                          name="resume"
+                          accept="application/pdf"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                      </label>
+                    ) : (
+                      <div className="w-full px-4 py-4 bg-black/50 border border-white/10 rounded-lg flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <FileText className="text-red-500" size={24} />
+                          <div>
+                            <p className="text-white font-medium">{resumeFile.name}</p>
+                            <p className="text-xs text-gray-400">
+                              {(resumeFile.size / 1024 / 1024).toFixed(2)} MB
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={removeFile}
+                          className="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+                        >
+                          <X className="text-red-500" size={20} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="flex items-start gap-3">
                     <input
                       type="checkbox"
@@ -242,10 +340,10 @@ export default function Apply() {
 
                   <button
                     type="submit"
-                    disabled={submitting}
+                    disabled={submitting || uploadingResume}
                     className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {submitting ? 'Submitting...' : 'Submit Application'}
+                    {uploadingResume ? 'Uploading Resume...' : submitting ? 'Submitting...' : 'Submit Application'}
                     <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                   </button>
                 </form>
