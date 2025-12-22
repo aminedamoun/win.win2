@@ -23,6 +23,27 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
+  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920');
+
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('website_images')
+          .select('url')
+          .eq('usage_location', 'home-hero')
+          .maybeSingle();
+
+        if (data && data.url) {
+          setHeroImageUrl(data.url);
+        }
+      } catch (err) {
+        console.error('Error fetching hero image:', err);
+      }
+    };
+
+    fetchHeroImage();
+  }, []);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -226,7 +247,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+            backgroundImage: `url(${heroImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
