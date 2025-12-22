@@ -82,36 +82,51 @@
 <script src="/js/supabaseClient.js"></script>
 
 <script>
-  const supabase = window.supabase;
   const errorBox = document.getElementById("error");
+  const loginForm = document.getElementById("loginForm");
+  const submitButton = loginForm.querySelector("button");
 
   async function checkSession(){
-    const { data } = await supabase.auth.getSession();
-    if(data.session){
-      location.href = "/admin.html";
+    try {
+      const { data } = await window.supabase.auth.getSession();
+      if(data.session){
+        location.href = "/admin.html";
+      }
+    } catch(err) {
+      console.error("Session check error:", err);
     }
   }
   checkSession();
 
-  document.getElementById("loginForm").onsubmit = async (e)=>{
+  loginForm.onsubmit = async (e)=>{
     e.preventDefault();
     errorBox.style.display="none";
+    submitButton.disabled = true;
+    submitButton.textContent = "Signing in...";
 
-    const emailValue = document.getElementById("email").value;
-    const passwordValue = document.getElementById("password").value;
+    try {
+      const emailValue = document.getElementById("email").value;
+      const passwordValue = document.getElementById("password").value;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: emailValue,
-      password: passwordValue
-    });
+      const { data, error } = await window.supabase.auth.signInWithPassword({
+        email: emailValue,
+        password: passwordValue
+      });
 
-    if(error){
-      errorBox.textContent = error.message;
+      if(error){
+        throw error;
+      }
+
+      if(data.session){
+        location.href = "/admin.html";
+      }
+    } catch(error) {
+      console.error("Login error:", error);
+      errorBox.textContent = error.message || "Login failed. Please try again.";
       errorBox.style.display="block";
-      return;
+      submitButton.disabled = false;
+      submitButton.textContent = "Sign In";
     }
-
-    location.href = "/admin.html";
   };
 </script>
 
