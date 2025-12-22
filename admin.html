@@ -307,12 +307,11 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
 <script src="/js/supabaseClient.js"></script>
 
 <script>
-const supabase = window.supabase;
 let categories = [];
 let allImages = [];
 
 (async()=>{
-  const { data } = await supabase.auth.getSession();
+  const { data } = await window.supabase.auth.getSession();
   if(!data.session) location.href="/login.html";
   await loadCategories();
   await loadBlogs();
@@ -320,7 +319,7 @@ let allImages = [];
 })();
 
 async function logout(){
-  await supabase.auth.signOut();
+  await window.supabase.auth.signOut();
   location.href="/login.html";
 }
 
@@ -333,7 +332,7 @@ function switchTab(tab){
 
 // === BLOG FUNCTIONS ===
 async function loadCategories(){
-  const { data } = await supabase
+  const { data } = await window.supabase
     .from("article_categories")
     .select("*")
     .order("name");
@@ -349,7 +348,7 @@ async function loadBlogs(){
   const list = document.getElementById("blogList");
   list.innerHTML = '<div class="loading">Loading articles...</div>';
 
-  const { data, error } = await supabase
+  const { data, error } = await window.supabase
     .from("articles")
     .select("*, article_categories(name)")
     .order("created_at", {ascending: false});
@@ -433,9 +432,9 @@ async function saveBlog(e){
 
   let result;
   if(id){
-    result = await supabase.from("articles").update(data).eq("id", id);
+    result = await window.supabase.from("articles").update(data).eq("id", id);
   } else {
-    result = await supabase.from("articles").insert([data]);
+    result = await window.supabase.from("articles").insert([data]);
   }
 
   if(result.error){
@@ -450,7 +449,7 @@ async function saveBlog(e){
 async function deleteBlog(id, title){
   if(!confirm(`Delete article "${title}"?`)) return;
 
-  const { error } = await supabase.from("articles").delete().eq("id", id);
+  const { error } = await window.supabase.from("articles").delete().eq("id", id);
 
   if(error){
     alert("Error deleting article: " + error.message);
@@ -465,7 +464,7 @@ async function loadImages(){
   const gallery = document.getElementById("imageGallery");
   gallery.innerHTML = '<div class="loading">Loading images...</div>';
 
-  const { data, error } = await supabase
+  const { data, error } = await window.supabase
     .from("website_images")
     .select("*")
     .order("created_at", {ascending: false});
@@ -580,7 +579,7 @@ async function saveImage(e){
   if(file && !id){
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await window.supabase.storage
       .from('website-images')
       .upload(fileName, file);
 
@@ -589,7 +588,7 @@ async function saveImage(e){
       return;
     }
 
-    const { data: urlData } = supabase.storage
+    const { data: urlData } = window.supabase.storage
       .from('website-images')
       .getPublicUrl(fileName);
 
@@ -612,9 +611,9 @@ async function saveImage(e){
 
   let result;
   if(id){
-    result = await supabase.from("website_images").update(data).eq("id", id);
+    result = await window.supabase.from("website_images").update(data).eq("id", id);
   } else {
-    result = await supabase.from("website_images").insert([data]);
+    result = await window.supabase.from("website_images").insert([data]);
   }
 
   if(result.error){
@@ -629,7 +628,7 @@ async function saveImage(e){
 async function deleteImage(id, name){
   if(!confirm(`Delete image "${name}"?`)) return;
 
-  const { error } = await supabase.from("website_images").delete().eq("id", id);
+  const { error } = await window.supabase.from("website_images").delete().eq("id", id);
 
   if(error){
     alert("Error deleting image: " + error.message);
