@@ -41,9 +41,9 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           <button
             onClick={() => handleNavigation('/')}
-            className="text-2xl font-bold text-white hover:text-red-500 transition-colors"
+            className="flex items-center hover:opacity-80 transition-opacity"
           >
-            Win Win<span className="text-red-500">.</span>
+            <img src="/logo2.png" alt="Win Win" className="h-10 w-auto" />
           </button>
 
           <nav className="hidden md:flex items-center space-x-8">

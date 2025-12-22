@@ -1,0 +1,98 @@
+import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
+import { useRouter } from '../utils/router';
+
+export default function Footer() {
+  const { navigate } = useRouter();
+
+  const footerLinks = {
+    Company: [
+      { label: 'About Us', path: '/about' },
+      { label: 'Careers', path: '/jobs' },
+      { label: 'Contact', path: '/apply' },
+    ],
+    Legal: [
+      { label: 'Privacy Policy', path: '/privacy' },
+      { label: 'Cookie Policy', path: '/cookies' },
+      { label: 'Terms of Service', path: '/terms' },
+    ],
+  };
+
+  return (
+    <footer className="bg-gradient-to-b from-black to-neutral-950 border-t border-red-900/20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div className="mb-4">
+              <img src="/logo2.png" alt="Win Win" className="h-12 w-auto" />
+            </div>
+            <p className="text-gray-400 text-sm mb-4">
+              Building careers in sales. We are a performance-driven sales company specializing in B2C field sales and telecommunications.
+            </p>
+            <div className="flex space-x-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-500 transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-500 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
+          </div>
+
+          {Object.entries(footerLinks).map(([category, links]) => (
+            <div key={category}>
+              <h4 className="text-white font-semibold mb-4">{category}</h4>
+              <ul className="space-y-2">
+                {links.map((link) => (
+                  <li key={link.path}>
+                    <button
+                      onClick={() => navigate(link.path)}
+                      className="text-gray-400 hover:text-red-500 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div>
+            <h4 className="text-white font-semibold mb-4">Contact</h4>
+            <ul className="space-y-3">
+              <li className="flex items-start space-x-2 text-gray-400 text-sm">
+                <MapPin size={16} className="mt-1 flex-shrink-0 text-red-500" />
+                <span>Trzin, Kranj, Slovenia</span>
+              </li>
+              <li className="flex items-center space-x-2 text-gray-400 text-sm">
+                <Phone size={16} className="flex-shrink-0 text-red-500" />
+                <span>+386 XX XXX XXX</span>
+              </li>
+              <li className="flex items-center space-x-2 text-gray-400 text-sm">
+                <Mail size={16} className="flex-shrink-0 text-red-500" />
+                <span>info@winwin.si</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-red-900/20 pt-8">
+          <p className="text-center text-gray-500 text-sm">
+            © {new Date().getFullYear()} Win Win d.o.o. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
