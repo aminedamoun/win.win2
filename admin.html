@@ -668,6 +668,8 @@ async function saveImage(e){
     localStorage.removeItem('home-hero-image');
   } else if(usageLocation === 'about-hero'){
     localStorage.removeItem('about-hero-image');
+  } else if(usageLocation === 'home-about'){
+    localStorage.removeItem('home-about-image');
   }
 
   closeImageModal();
@@ -698,6 +700,8 @@ async function deleteImage(id, name){
       localStorage.removeItem('home-hero-image');
     } else if(usageLocation === 'about-hero'){
       localStorage.removeItem('about-hero-image');
+    } else if(usageLocation === 'home-about'){
+      localStorage.removeItem('home-about-image');
     }
   }
 

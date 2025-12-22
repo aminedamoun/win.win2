@@ -26,26 +26,42 @@ export default function Home() {
   const [heroImageUrl, setHeroImageUrl] = useState(() => {
     return localStorage.getItem('home-hero-image') || 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920';
   });
+  const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState(() => {
+    return localStorage.getItem('home-about-image') || 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  });
 
   useEffect(() => {
-    const fetchHeroImage = async () => {
+    const fetchImages = async () => {
       try {
-        const { data, error } = await supabase
+        // Fetch hero image
+        const { data: heroData } = await supabase
           .from('website_images')
           .select('url')
           .eq('usage_location', 'home-hero')
           .maybeSingle();
 
-        if (data && data.url) {
-          setHeroImageUrl(data.url);
-          localStorage.setItem('home-hero-image', data.url);
+        if (heroData && heroData.url) {
+          setHeroImageUrl(heroData.url);
+          localStorage.setItem('home-hero-image', heroData.url);
+        }
+
+        // Fetch about section image
+        const { data: aboutData } = await supabase
+          .from('website_images')
+          .select('url')
+          .eq('usage_location', 'home-about')
+          .maybeSingle();
+
+        if (aboutData && aboutData.url) {
+          setAboutSectionImageUrl(aboutData.url);
+          localStorage.setItem('home-about-image', aboutData.url);
         }
       } catch (err) {
-        console.error('Error fetching hero image:', err);
+        console.error('Error fetching images:', err);
       }
     };
 
-    fetchHeroImage();
+    fetchImages();
   }, []);
 
   useEffect(() => {
@@ -476,7 +492,7 @@ export default function Home() {
       >
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src={aboutSectionImageUrl}
             alt="Team success"
             className="w-full h-full object-cover"
           />
