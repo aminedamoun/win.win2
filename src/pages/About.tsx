@@ -34,31 +34,37 @@ export default function About() {
       icon: Shield,
       title: 'Integrity & Honesty',
       description: 'We build trust through transparent communication and ethical business practices',
+      image: 'https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: Handshake,
       title: 'Reliability',
       description: 'Our clients and team members can count on us to deliver on our commitments',
+      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: MessageCircle,
       title: 'Professional Communication',
       description: 'Clear, respectful, and effective communication in every interaction',
+      image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: TrendingUp,
       title: 'Performance & Growth',
       description: 'Continuous improvement and measurable results drive our success',
+      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: Heart,
       title: 'Team Support',
       description: 'We succeed together through collaboration and mutual support',
+      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: Award,
       title: 'Excellence',
       description: 'We strive for the highest standards in everything we do',
+      image: 'https://images.pexels.com/photos/5849585/pexels-photo-5849585.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
   ];
 
@@ -72,17 +78,23 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-black pt-20">
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
-        <div className="absolute inset-0 radial-gradient" />
+    <div className="min-h-screen bg-white pt-20">
+      <section className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt="Team collaboration"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
+        </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up">
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up text-white">
               About <span className="text-red-500">Win Win</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-xl text-gray-200 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               We are a team that lives sales. Win Win d.o.o. was built on the belief that sales can be done differently — honestly, ethically, and with a long-term mindset.
             </p>
           </div>
@@ -91,28 +103,28 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
-        className={`py-20 bg-gradient-to-b from-black to-neutral-950 transition-all duration-1000 ${
+        className={`py-20 bg-gray-50 transition-all duration-1000 ${
           visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            <div className="glass-card p-8">
+            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-6">
                 <Target className="text-red-500" size={32} />
               </div>
-              <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
-              <p className="text-gray-300 text-lg leading-relaxed">
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Vision</h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
                 To become the most effective and respected sales company in Slovenia, known for our integrity, results, and commitment to both clients and team members.
               </p>
             </div>
 
-            <div className="glass-card p-8">
+            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-6">
                 <Heart className="text-red-500" size={32} />
               </div>
-              <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
-              <p className="text-gray-300 text-lg leading-relaxed">
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Mission</h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
                 To deliver more value to customers than they expect, through trust, structure, and top-level sales expertise. We build long-term relationships that benefit everyone involved.
               </p>
             </div>
@@ -122,32 +134,42 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[1] = el)}
-        className={`py-20 transition-all duration-1000 ${
+        className={`py-20 bg-white transition-all duration-1000 ${
           visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
               Our Core <span className="text-red-500">Values</span>
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               These principles guide everything we do and define who we are as a company
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <div
                 key={index}
-                className="glass-card glass-card-hover p-8 group"
+                className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="w-14 h-14 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
-                  <value.icon className="text-red-500" size={28} />
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={value.image}
+                    alt={value.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4 w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                    <value.icon className="text-white" size={24} />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{value.description}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -156,17 +178,17 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[2] = el)}
-        className={`py-20 bg-gradient-to-b from-black to-neutral-950 transition-all duration-1000 ${
+        className={`py-20 bg-gray-50 transition-all duration-1000 ${
           visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
                 Company <span className="text-red-500">Culture</span>
               </h2>
-              <p className="text-lg text-gray-300">
+              <p className="text-lg text-gray-600">
                 We've built an environment where talented professionals can thrive
               </p>
             </div>
@@ -175,12 +197,12 @@ export default function About() {
               {culture.map((item, index) => (
                 <div
                   key={index}
-                  className="glass-card p-6 flex items-start space-x-4 glass-card-hover"
+                  className="bg-white rounded-xl shadow-md p-6 flex items-start space-x-4 hover:shadow-lg transition-shadow"
                 >
                   <div className="flex-shrink-0 w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center mt-1">
                     <div className="w-2 h-2 bg-red-500 rounded-full" />
                   </div>
-                  <p className="text-gray-300">{item}</p>
+                  <p className="text-gray-700">{item}</p>
                 </div>
               ))}
             </div>
@@ -190,38 +212,38 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[3] = el)}
-        className={`py-20 transition-all duration-1000 ${
+        className={`py-20 bg-white transition-all duration-1000 ${
           visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
                 Our <span className="text-red-500">Team</span>
               </h2>
-              <p className="text-lg text-gray-300 mb-8">
+              <p className="text-lg text-gray-600 mb-8">
                 We operate from multiple locations across Slovenia with a growing team of dedicated sales professionals
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="glass-card p-8 text-center">
+              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                 <Users className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">50+</h3>
-                <p className="text-gray-400">Active Team Members</p>
+                <h3 className="text-2xl font-bold mb-2 text-gray-900">50+</h3>
+                <p className="text-gray-600">Active Team Members</p>
               </div>
 
-              <div className="glass-card p-8 text-center">
+              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                 <Target className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Field + Call Center</h3>
-                <p className="text-gray-400">Hybrid Operations</p>
+                <h3 className="text-2xl font-bold mb-2 text-gray-900">Field + Call Center</h3>
+                <p className="text-gray-600">Hybrid Operations</p>
               </div>
 
-              <div className="glass-card p-8 text-center">
+              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                 <Award className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Multiple Locations</h3>
-                <p className="text-gray-400">Trzin, Kranj & Field</p>
+                <h3 className="text-2xl font-bold mb-2 text-gray-900">Multiple Locations</h3>
+                <p className="text-gray-600">Trzin, Kranj & Field</p>
               </div>
             </div>
           </div>
