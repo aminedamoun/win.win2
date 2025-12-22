@@ -6,7 +6,8 @@
 <title>Admin – Win Win</title>
 
 <style>
-body{margin:0;font-family:system-ui;background:#0a0a0a;color:#fff}
+* { box-sizing: border-box; }
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
 header{
   background:#000;
   padding:16px 24px;
@@ -14,11 +15,27 @@ header{
   justify-content:space-between;
   align-items:center;
   border-bottom:1px solid rgba(225,29,46,.3);
+  position:sticky;
+  top:0;
+  z-index:100;
 }
+header h2{margin:0}
 header span{color:#e11d2e}
-button{padding:8px 14px;border-radius:6px;border:none;font-weight:600;cursor:pointer}
+button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
+button:hover{transform:translateY(-1px)}
 .btn{background:#e11d2e;color:#fff}
-.container{max-width:1200px;margin:auto;padding:24px}
+.btn:hover{background:#c11828}
+.btn-secondary{background:#333;color:#fff}
+.btn-secondary:hover{background:#444}
+.btn-danger{background:#dc2626;color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-sm{padding:6px 12px;font-size:14px}
+.container{max-width:1400px;margin:auto;padding:24px}
+.tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid rgba(255,255,255,.1)}
+.tab{padding:12px 24px;background:transparent;border:none;color:#999;cursor:pointer;font-size:16px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab.active{color:#e11d2e;border-bottom-color:#e11d2e}
+.tab-content{display:none}
+.tab-content.active{display:block}
 .card{
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.15);
@@ -26,15 +43,89 @@ button{padding:8px 14px;border-radius:6px;border:none;font-weight:600;cursor:poi
   padding:20px;
   margin-bottom:16px;
 }
-input,textarea{
+.card h3{margin-top:0}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+input,textarea,select{
   width:100%;
-  padding:10px;
+  padding:10px 12px;
   margin-bottom:12px;
   border-radius:8px;
   border:1px solid rgba(255,255,255,.2);
   background:rgba(255,255,255,.08);
   color:#fff;
+  font-family:inherit;
 }
+textarea{min-height:150px;resize:vertical}
+label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
+.form-group{margin-bottom:16px}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{
+  background:#1a1a1a;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:24px;
+  max-width:800px;
+  width:90%;
+  max-height:90vh;
+  overflow-y:auto;
+}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-header h3{margin:0}
+.close-btn{background:transparent;color:#999;font-size:24px;padding:0;width:32px;height:32px}
+.close-btn:hover{color:#fff}
+.article-item{
+  display:flex;
+  gap:16px;
+  align-items:start;
+  padding:16px;
+  background:rgba(255,255,255,.03);
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.1);
+}
+.article-item img{width:120px;height:80px;object-fit:cover;border-radius:6px}
+.article-content{flex:1}
+.article-content h4{margin:0 0 8px 0}
+.article-content p{margin:0;color:#999;font-size:14px}
+.article-actions{display:flex;gap:8px}
+.image-item{
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.03);
+}
+.image-item img{width:100%;height:200px;object-fit:cover;display:block}
+.image-info{padding:12px}
+.image-info h4{margin:0 0 4px 0;font-size:14px}
+.image-info p{margin:0;font-size:12px;color:#999}
+.image-actions{display:flex;gap:4px;margin-top:8px}
+.upload-area{
+  border:2px dashed rgba(255,255,255,.3);
+  border-radius:8px;
+  padding:40px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+}
+.upload-area:hover{border-color:#e11d2e;background:rgba(225,29,46,.05)}
+.upload-area.dragover{border-color:#e11d2e;background:rgba(225,29,46,.1)}
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:600;
+  background:rgba(225,29,46,.2);
+  color:#e11d2e;
+}
+.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.flex-end{justify-content:flex-end}
+.loading{text-align:center;padding:40px;color:#999}
+.empty{text-align:center;padding:60px 20px;color:#999}
+.empty svg{margin:0 auto 16px;opacity:.5}
 </style>
 </head>
 
@@ -42,21 +133,174 @@ input,textarea{
 
 <header>
   <h2>Win Win<span>.</span> Admin</h2>
-  <button onclick="logout()">Logout</button>
+  <button class="btn-secondary" onclick="logout()">Logout</button>
 </header>
 
 <div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('blogs')">Blog Management</button>
+    <button class="tab" onclick="switchTab('images')">Image Management</button>
+  </div>
 
-<div class="card">
-  <h3>Create Article</h3>
-  <input id="title" placeholder="Title"/>
-  <input id="slug" placeholder="Slug"/>
-  <textarea id="content" placeholder="Content"></textarea>
-  <button class="btn" onclick="save()">Save</button>
+  <!-- BLOG MANAGEMENT TAB -->
+  <div id="blogs-tab" class="tab-content active">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" onclick="openBlogModal()">+ Create New Article</button>
+      </div>
+    </div>
+
+    <div id="blogList" class="loading">Loading articles...</div>
+  </div>
+
+  <!-- IMAGE MANAGEMENT TAB -->
+  <div id="images-tab" class="tab-content">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" onclick="openImageModal()">+ Add Image</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Filter by Category:</label>
+      <select id="imageFilter" onchange="filterImages()">
+        <option value="all">All Images</option>
+        <option value="hero">Hero Images</option>
+        <option value="blog">Blog Images</option>
+        <option value="team">Team Images</option>
+        <option value="general">General</option>
+      </select>
+    </div>
+
+    <div id="imageGallery" class="loading">Loading images...</div>
+  </div>
 </div>
 
-<div id="list"></div>
+<!-- BLOG MODAL -->
+<div id="blogModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="blogModalTitle">Create Article</h3>
+      <button class="close-btn" onclick="closeBlogModal()">×</button>
+    </div>
+    <form onsubmit="saveBlog(event)">
+      <input type="hidden" id="blogId">
 
+      <div class="form-group">
+        <label>Title *</label>
+        <input type="text" id="blogTitle" required>
+      </div>
+
+      <div class="form-group">
+        <label>Slug *</label>
+        <input type="text" id="blogSlug" required>
+      </div>
+
+      <div class="form-group">
+        <label>Excerpt</label>
+        <textarea id="blogExcerpt" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Content *</label>
+        <textarea id="blogContent" rows="12" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Featured Image URL</label>
+        <input type="url" id="blogImage">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="blogCategory">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Author</label>
+        <input type="text" id="blogAuthor" value="Win Win Team">
+      </div>
+
+      <div class="form-group">
+        <label>Read Time (minutes)</label>
+        <input type="number" id="blogReadTime" value="5" min="1">
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="blogFeatured" style="width:auto;margin-right:8px">
+          Mark as Featured
+        </label>
+      </div>
+
+      <div class="flex flex-end">
+        <button type="button" class="btn-secondary" onclick="closeBlogModal()">Cancel</button>
+        <button type="submit" class="btn">Save Article</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="imageModalTitle">Add Image</h3>
+      <button class="close-btn" onclick="closeImageModal()">×</button>
+    </div>
+    <form onsubmit="saveImage(event)">
+      <input type="hidden" id="imageId">
+
+      <div class="form-group">
+        <label>Upload Image</label>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+          <p>Click to upload or drag and drop</p>
+          <p style="font-size:12px;color:#999">JPG, PNG, GIF, WebP (max 5MB)</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin:16px 0;color:#999">— OR —</div>
+
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="url" id="imageUrl" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="imageName" required>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="imageCategory">
+          <option value="general">General</option>
+          <option value="hero">Hero</option>
+          <option value="blog">Blog</option>
+          <option value="team">Team</option>
+          <option value="logo">Logo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Usage Location</label>
+        <input type="text" id="imageLocation" placeholder="e.g., home-hero, about-team">
+      </div>
+
+      <div class="form-group">
+        <label>Alt Text</label>
+        <input type="text" id="imageAlt" placeholder="Describe the image for accessibility">
+      </div>
+
+      <div class="flex flex-end">
+        <button type="button" class="btn-secondary" onclick="closeImageModal()">Cancel</button>
+        <button type="submit" class="btn">Save Image</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -64,11 +308,15 @@ input,textarea{
 
 <script>
 const supabase = window.supabase;
+let categories = [];
+let allImages = [];
 
 (async()=>{
   const { data } = await supabase.auth.getSession();
   if(!data.session) location.href="/login.html";
-  load();
+  await loadCategories();
+  await loadBlogs();
+  await loadImages();
 })();
 
 async function logout(){
@@ -76,31 +324,331 @@ async function logout(){
   location.href="/login.html";
 }
 
-async function save(){
-  const data = {
-    title: title.value,
-    slug: slug.value,
-    content: content.value,
-    status: "published"
-  };
-  await supabase.from("articles").insert([data]);
-  title.value = slug.value = content.value = "";
-  load();
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(tab + '-tab').classList.add('active');
 }
 
-async function load(){
+// === BLOG FUNCTIONS ===
+async function loadCategories(){
   const { data } = await supabase
-    .from("articles")
+    .from("article_categories")
     .select("*")
-    .order("created_at",{ascending:false});
+    .order("name");
 
-  document.getElementById("list").innerHTML = data.map(a=>`
-    <div class="card">
-      <h3>${a.title}</h3>
-      <p>${a.content.substring(0,120)}...</p>
+  categories = data || [];
+  const select = document.getElementById("blogCategory");
+  select.innerHTML = categories.map(c =>
+    `<option value="${c.id}">${c.name}</option>`
+  ).join("");
+}
+
+async function loadBlogs(){
+  const list = document.getElementById("blogList");
+  list.innerHTML = '<div class="loading">Loading articles...</div>';
+
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*, article_categories(name)")
+    .order("created_at", {ascending: false});
+
+  if(error){
+    list.innerHTML = '<div class="empty">Error loading articles</div>';
+    return;
+  }
+
+  if(!data || data.length === 0){
+    list.innerHTML = '<div class="empty"><p>No articles yet. Create your first one!</p></div>';
+    return;
+  }
+
+  list.innerHTML = data.map(a => `
+    <div class="article-item">
+      <img src="${a.featured_image_url || 'https://via.placeholder.com/120x80'}" alt="${a.title}">
+      <div class="article-content">
+        <h4>${a.title} ${a.is_featured ? '<span class="badge">FEATURED</span>' : ''}</h4>
+        <p>${a.excerpt || a.content.substring(0, 100)}...</p>
+        <p style="margin-top:8px"><small>By ${a.author} • ${a.read_time} min read • ${a.article_categories?.name || 'Uncategorized'}</small></p>
+      </div>
+      <div class="article-actions">
+        <button class="btn-secondary btn-sm" onclick='editBlog(${JSON.stringify(a)})'>Edit</button>
+        <button class="btn-danger btn-sm" onclick="deleteBlog('${a.id}', '${a.title}')">Delete</button>
+      </div>
     </div>
   `).join("");
 }
+
+function openBlogModal(){
+  document.getElementById("blogModalTitle").textContent = "Create Article";
+  document.getElementById("blogModal").classList.add("active");
+  document.getElementById("blogId").value = "";
+  document.getElementById("blogTitle").value = "";
+  document.getElementById("blogSlug").value = "";
+  document.getElementById("blogExcerpt").value = "";
+  document.getElementById("blogContent").value = "";
+  document.getElementById("blogImage").value = "";
+  document.getElementById("blogCategory").value = categories[0]?.id || "";
+  document.getElementById("blogAuthor").value = "Win Win Team";
+  document.getElementById("blogReadTime").value = "5";
+  document.getElementById("blogFeatured").checked = false;
+}
+
+function editBlog(article){
+  document.getElementById("blogModalTitle").textContent = "Edit Article";
+  document.getElementById("blogModal").classList.add("active");
+  document.getElementById("blogId").value = article.id;
+  document.getElementById("blogTitle").value = article.title;
+  document.getElementById("blogSlug").value = article.slug;
+  document.getElementById("blogExcerpt").value = article.excerpt || "";
+  document.getElementById("blogContent").value = article.content;
+  document.getElementById("blogImage").value = article.featured_image_url || "";
+  document.getElementById("blogCategory").value = article.category_id || "";
+  document.getElementById("blogAuthor").value = article.author;
+  document.getElementById("blogReadTime").value = article.read_time;
+  document.getElementById("blogFeatured").checked = article.is_featured;
+}
+
+function closeBlogModal(){
+  document.getElementById("blogModal").classList.remove("active");
+}
+
+async function saveBlog(e){
+  e.preventDefault();
+
+  const id = document.getElementById("blogId").value;
+  const data = {
+    title: document.getElementById("blogTitle").value,
+    slug: document.getElementById("blogSlug").value,
+    excerpt: document.getElementById("blogExcerpt").value,
+    content: document.getElementById("blogContent").value,
+    featured_image_url: document.getElementById("blogImage").value,
+    category_id: document.getElementById("blogCategory").value || null,
+    author: document.getElementById("blogAuthor").value,
+    read_time: parseInt(document.getElementById("blogReadTime").value),
+    is_featured: document.getElementById("blogFeatured").checked,
+    published_at: new Date().toISOString()
+  };
+
+  let result;
+  if(id){
+    result = await supabase.from("articles").update(data).eq("id", id);
+  } else {
+    result = await supabase.from("articles").insert([data]);
+  }
+
+  if(result.error){
+    alert("Error saving article: " + result.error.message);
+    return;
+  }
+
+  closeBlogModal();
+  loadBlogs();
+}
+
+async function deleteBlog(id, title){
+  if(!confirm(`Delete article "${title}"?`)) return;
+
+  const { error } = await supabase.from("articles").delete().eq("id", id);
+
+  if(error){
+    alert("Error deleting article: " + error.message);
+    return;
+  }
+
+  loadBlogs();
+}
+
+// === IMAGE FUNCTIONS ===
+async function loadImages(){
+  const gallery = document.getElementById("imageGallery");
+  gallery.innerHTML = '<div class="loading">Loading images...</div>';
+
+  const { data, error } = await supabase
+    .from("website_images")
+    .select("*")
+    .order("created_at", {ascending: false});
+
+  if(error){
+    gallery.innerHTML = '<div class="empty">Error loading images</div>';
+    return;
+  }
+
+  allImages = data || [];
+  displayImages(allImages);
+}
+
+function displayImages(images){
+  const gallery = document.getElementById("imageGallery");
+
+  if(!images || images.length === 0){
+    gallery.innerHTML = '<div class="empty"><p>No images yet. Add your first one!</p></div>';
+    return;
+  }
+
+  gallery.innerHTML = '<div class="grid grid-3">' + images.map(img => `
+    <div class="image-item">
+      <img src="${img.url}" alt="${img.alt_text || img.name}">
+      <div class="image-info">
+        <h4>${img.name}</h4>
+        <p><span class="badge">${img.category}</span></p>
+        <p>${img.usage_location || 'No location'}</p>
+        <div class="image-actions">
+          <button class="btn-secondary btn-sm" onclick='editImage(${JSON.stringify(img)})'>Edit</button>
+          <button class="btn-danger btn-sm" onclick="deleteImage('${img.id}', '${img.name}')">Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join("") + '</div>';
+}
+
+function filterImages(){
+  const filter = document.getElementById("imageFilter").value;
+  if(filter === 'all'){
+    displayImages(allImages);
+  } else {
+    displayImages(allImages.filter(img => img.category === filter));
+  }
+}
+
+function openImageModal(){
+  document.getElementById("imageModalTitle").textContent = "Add Image";
+  document.getElementById("imageModal").classList.add("active");
+  document.getElementById("imageId").value = "";
+  document.getElementById("imageUrl").value = "";
+  document.getElementById("imageName").value = "";
+  document.getElementById("imageCategory").value = "general";
+  document.getElementById("imageLocation").value = "";
+  document.getElementById("imageAlt").value = "";
+  document.getElementById("imageFile").value = "";
+}
+
+function editImage(image){
+  document.getElementById("imageModalTitle").textContent = "Edit Image";
+  document.getElementById("imageModal").classList.add("active");
+  document.getElementById("imageId").value = image.id;
+  document.getElementById("imageUrl").value = image.url;
+  document.getElementById("imageName").value = image.name;
+  document.getElementById("imageCategory").value = image.category;
+  document.getElementById("imageLocation").value = image.usage_location || "";
+  document.getElementById("imageAlt").value = image.alt_text || "";
+}
+
+function closeImageModal(){
+  document.getElementById("imageModal").classList.remove("active");
+}
+
+// File upload handling
+const uploadArea = document.getElementById("uploadArea");
+uploadArea.addEventListener("click", () => document.getElementById("imageFile").click());
+uploadArea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  uploadArea.classList.add("dragover");
+});
+uploadArea.addEventListener("dragleave", () => {
+  uploadArea.classList.remove("dragover");
+});
+uploadArea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove("dragover");
+  const files = e.dataTransfer.files;
+  if(files.length > 0) {
+    document.getElementById("imageFile").files = files;
+    handleFileSelect({target: {files}});
+  }
+});
+
+function handleFileSelect(e){
+  const file = e.target.files[0];
+  if(file){
+    uploadArea.querySelector("p").textContent = `Selected: ${file.name}`;
+    if(!document.getElementById("imageName").value){
+      document.getElementById("imageName").value = file.name.replace(/\.[^/.]+$/, "");
+    }
+  }
+}
+
+async function saveImage(e){
+  e.preventDefault();
+
+  const id = document.getElementById("imageId").value;
+  const file = document.getElementById("imageFile").files[0];
+  let imageUrl = document.getElementById("imageUrl").value;
+
+  // Upload file if provided
+  if(file && !id){
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('website-images')
+      .upload(fileName, file);
+
+    if(uploadError){
+      alert("Error uploading file: " + uploadError.message);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage
+      .from('website-images')
+      .getPublicUrl(fileName);
+
+    imageUrl = urlData.publicUrl;
+  }
+
+  if(!imageUrl){
+    alert("Please provide an image URL or upload a file");
+    return;
+  }
+
+  const data = {
+    name: document.getElementById("imageName").value,
+    url: imageUrl,
+    category: document.getElementById("imageCategory").value,
+    usage_location: document.getElementById("imageLocation").value,
+    alt_text: document.getElementById("imageAlt").value,
+    storage_path: file ? fileName : null
+  };
+
+  let result;
+  if(id){
+    result = await supabase.from("website_images").update(data).eq("id", id);
+  } else {
+    result = await supabase.from("website_images").insert([data]);
+  }
+
+  if(result.error){
+    alert("Error saving image: " + result.error.message);
+    return;
+  }
+
+  closeImageModal();
+  loadImages();
+}
+
+async function deleteImage(id, name){
+  if(!confirm(`Delete image "${name}"?`)) return;
+
+  const { error } = await supabase.from("website_images").delete().eq("id", id);
+
+  if(error){
+    alert("Error deleting image: " + error.message);
+    return;
+  }
+
+  loadImages();
+}
+
+// Auto-generate slug from title
+document.getElementById("blogTitle").addEventListener("input", (e) => {
+  if(!document.getElementById("blogId").value){
+    const slug = e.target.value
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+    document.getElementById("blogSlug").value = slug;
+  }
+});
 </script>
 
 </body>
