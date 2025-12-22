@@ -1,233 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard – Win Win</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin – Win Win</title>
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(0,0,0,0.95);
-      border-bottom: 1px solid rgba(225,29,46,0.25);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 span { color: #e11d2e; }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    .btn {
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: none;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary { background: #e11d2e; color: #fff; }
-    .btn-secondary { background: rgba(255,255,255,0.12); color: #fff; }
-    .btn-danger { background: #dc2626; color: #fff; }
-
-    .container {
-      max-width: 1400px;
-      margin: auto;
-      padding: 24px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 6px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-      margin-bottom: 24px;
-    }
-
-    .tab {
-      padding: 12px 20px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: #aaa;
-      font-weight: 600;
-      border-bottom: 3px solid transparent;
-    }
-
-    .tab.active {
-      color: #e11d2e;
-      border-bottom-color: #e11d2e;
-    }
-
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 16px;
-    }
-
-    .badge {
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      background: rgba(34,197,94,0.2);
-      color: #4ade80;
-    }
-
-    .badge.draft {
-      background: rgba(156,163,175,0.2);
-      color: #9ca3af;
-    }
-
-    form {
-      max-width: 900px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    label { font-size: 14px; margin-bottom: 6px; display: block; color: #ccc; }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      margin-bottom: 16px;
-    }
-
-    textarea { min-height: 280px; }
-
-    .message {
-      display: none;
-      margin-bottom: 16px;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-
-    .message.success {
-      background: rgba(34,197,94,0.15);
-      color: #4ade80;
-    }
-
-    .message.error {
-      background: rgba(220,38,38,0.15);
-      color: #ff6b6b;
-    }
-  </style>
+<style>
+body{margin:0;font-family:system-ui;background:#0a0a0a;color:#fff}
+header{
+  background:#000;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(225,29,46,.3);
+}
+header span{color:#e11d2e}
+button{padding:8px 14px;border-radius:6px;border:none;font-weight:600;cursor:pointer}
+.btn{background:#e11d2e;color:#fff}
+.container{max-width:1200px;margin:auto;padding:24px}
+.card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:16px;
+}
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Win Win<span>.</span> Admin</h1>
-  <div class="actions">
-    <span id="userEmail"></span>
-    <a href="/insights.html" class="btn btn-secondary">View Blog</a>
-    <button class="btn btn-secondary" onclick="logout()">Sign out</button>
-  </div>
+  <h2>Win Win<span>.</span> Admin</h2>
+  <button onclick="logout()">Logout</button>
 </header>
 
 <div class="container">
 
-  <div class="tabs">
-    <button class="tab active" data-tab="posts">Posts</button>
-    <button class="tab" data-tab="new">New Post</button>
-    <button class="tab" data-tab="categories">Categories</button>
-  </div>
+<div class="card">
+  <h3>Create Article</h3>
+  <input id="title" placeholder="Title"/>
+  <input id="slug" placeholder="Slug"/>
+  <textarea id="content" placeholder="Content"></textarea>
+  <button class="btn" onclick="save()">Save</button>
+</div>
 
-  <!-- POSTS -->
-  <div id="posts" class="tab-content active">
-    <div id="postsGrid" class="grid"></div>
-  </div>
-
-  <!-- NEW / EDIT -->
-  <div id="new" class="tab-content">
-    <form id="postForm">
-      <div id="formMessage" class="message"></div>
-
-      <input type="hidden" id="postId" />
-
-      <label>Title</label>
-      <input id="title" required />
-
-      <label>Slug</label>
-      <input id="slug" required />
-
-      <label>Excerpt</label>
-      <textarea id="excerpt"></textarea>
-
-      <label>Content</label>
-      <textarea id="content"></textarea>
-
-      <label>Featured Image URL</label>
-      <input id="image" />
-
-      <label>Status</label>
-      <select id="status">
-        <option value="draft">Draft</option>
-        <option value="published">Published</option>
-      </select>
-
-      <button class="btn btn-primary">Save Post</button>
-    </form>
-  </div>
-
-  <!-- CATEGORIES -->
-  <div id="categories" class="tab-content">
-    <form id="categoryForm">
-      <label>Name</label>
-      <input id="catName" required />
-
-      <label>Slug</label>
-      <input id="catSlug" required />
-
-      <button class="btn btn-primary">Add Category</button>
-    </form>
-
-    <div id="categoryList" style="margin-top:24px;"></div>
-  </div>
+<div id="list"></div>
 
 </div>
 
@@ -236,90 +64,42 @@
 
 <script>
 const supabase = window.supabase;
-let currentUser = null;
 
-/* AUTH */
-(async () => {
+(async()=>{
   const { data } = await supabase.auth.getSession();
-  if (!data.session) return location.href = "/login.html";
-
-  const { data: admin } = await supabase
-    .from("admin_users")
-    .select("*")
-    .eq("id", data.session.user.id)
-    .single();
-
-  if (!admin) {
-    await supabase.auth.signOut();
-    return location.href = "/login.html";
-  }
-
-  currentUser = data.session.user;
-  document.getElementById("userEmail").textContent = currentUser.email;
-  loadPosts();
-  loadCategories();
+  if(!data.session) location.href="/login.html";
+  load();
 })();
 
-async function logout() {
+async function logout(){
   await supabase.auth.signOut();
-  location.href = "/login.html";
+  location.href="/login.html";
 }
 
-/* TABS */
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.onclick = () => {
-    document.querySelectorAll(".tab,.tab-content")
-      .forEach(e => e.classList.remove("active"));
-    tab.classList.add("active");
-    document.getElementById(tab.dataset.tab).classList.add("active");
-  };
-});
-
-/* POSTS */
-async function loadPosts() {
-  const { data } = await supabase.from("posts").select("*").order("created_at",{ascending:false});
-  document.getElementById("postsGrid").innerHTML = data.map(p => `
-    <div class="card">
-      ${p.featured_image ? `<img src="${p.featured_image}">` : ""}
-      <div class="card-body">
-        <h3>${p.title}</h3>
-        <span class="badge ${p.status}">${p.status}</span>
-        <br/><br/>
-        <button class="btn btn-secondary" onclick="editPost('${p.id}')">Edit</button>
-        <button class="btn btn-danger" onclick="deletePost('${p.id}')">Delete</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-/* SAVE POST */
-document.getElementById("postForm").onsubmit = async e => {
-  e.preventDefault();
-  const id = postId.value;
+async function save(){
   const data = {
     title: title.value,
     slug: slug.value,
-    excerpt: excerpt.value,
     content: content.value,
-    featured_image: image.value,
-    status: status.value,
-    author_id: currentUser.id
+    status: "published"
   };
+  await supabase.from("articles").insert([data]);
+  title.value = slug.value = content.value = "";
+  load();
+}
 
-  const res = id
-    ? await supabase.from("posts").update(data).eq("id", id)
-    : await supabase.from("posts").insert([data]);
+async function load(){
+  const { data } = await supabase
+    .from("articles")
+    .select("*")
+    .order("created_at",{ascending:false});
 
-  show("formMessage", res.error ? res.error.message : "Saved", !res.error);
-  if (!res.error) loadPosts();
-};
-
-/* UTIL */
-function show(id,msg,ok){
-  const el=document.getElementById(id);
-  el.textContent=msg;
-  el.className="message "+(ok?"success":"error");
-  el.style.display="block";
+  document.getElementById("list").innerHTML = data.map(a=>`
+    <div class="card">
+      <h3>${a.title}</h3>
+      <p>${a.content.substring(0,120)}...</p>
+    </div>
+  `).join("");
 }
 </script>
 
