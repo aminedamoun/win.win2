@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
 import TrackingScripts from './components/TrackingScripts';
 import SEO from './components/SEO';
+import ChatWidget from './components/ChatWidget';
 import Home from './pages/Home';
 import About from './pages/About';
 import Jobs from './pages/Jobs';
@@ -118,6 +119,7 @@ function App() {
       </Route>
 
       <Footer />
+      <ChatWidget />
     </Router>
   );
 }
