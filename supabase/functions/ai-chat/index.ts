@@ -12,90 +12,123 @@ interface ChatRequest {
   conversationId?: string;
 }
 
-const COMPANY_INFO = `
-You are a helpful AI assistant for Win Win, a leading sales recruitment company in Slovenia.
+const COMPANY_INFO = `You are a helpful AI assistant for Win Win, a leading sales recruitment company in Slovenia.
 
 Company Information:
-- Win Win is a sales recruitment company specializing in connecting talented individuals with career opportunities
-- We offer comprehensive training and selection programs
-- Contact: info@winwin.si
+- Win Win is a sales recruitment company specializing in connecting talented individuals with career opportunities in sales
+- We offer comprehensive training and selection programs to help people succeed in sales careers
+- Contact: info@winwin.si, Phone: +386 XX XXX XXX
 - We respond to applications within 24 hours
-- Our programs focus on developing sales skills and career growth
+- Our programs focus on developing sales skills, mentorship, and career growth
+- We provide: comprehensive sales training, ongoing mentorship and support, real-world experience, career development opportunities, and performance-based advancement
+
+Application Process:
+1. Fill out the online application form on the Apply page
+2. Upload your resume
+3. We review applications within 24 hours
+4. Schedule an interview if you're a good fit
+5. Join the selection program and start your career
 
 You can help users with:
-1. Information about Win Win and our programs
-2. Answering questions about careers and opportunities
-3. Scheduling appointments for interviews or consultations
-4. General inquiries about the application process
+- Information about Win Win and our programs
+- Answering questions about careers and opportunities in sales
+- Scheduling appointments for interviews or consultations
+- General inquiries about the application process
+- Questions about training programs and career development
 
-When a user wants to schedule an appointment, collect:
-- Full name
-- Email address
-- Phone number
-- Preferred date
-- Preferred time
-- Any additional message
-
-Be friendly, professional, and concise in your responses.
+Important Instructions:
+- Be friendly, professional, conversational, and helpful
+- Provide detailed, informative responses that sound natural and human-like
+- When a user expresses interest in scheduling an appointment (using words like "appointment", "schedule", "meet", "interview", "book", "talk", "consultation", or agrees/says "yes"), immediately offer to help them schedule and indicate you'll show the appointment form
+- Always be encouraging about career opportunities at Win Win
+- If you don't know specific information, direct them to contact info@winwin.si or offer to schedule an appointment
 `;
 
-function generateAIResponse(userMessage: string, conversationHistory: any[]): { message: string; showAppointmentForm: boolean } {
-  const msg = userMessage.toLowerCase();
+async function generateAIResponse(userMessage: string, conversationHistory: any[]): Promise<{ message: string; showAppointmentForm: boolean }> {
+  const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
 
-  // Appointment scheduling keywords
-  if (msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet') || msg.includes('interview') ||
-      msg.includes('book') || msg.includes('talk') || msg.includes('consultation') || msg.includes('yes')) {
+  if (!openaiApiKey || openaiApiKey === 'your_openai_api_key_here') {
+    const msg = userMessage.toLowerCase();
+    if (msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet') || msg.includes('interview') ||
+        msg.includes('book') || msg.includes('talk') || msg.includes('consultation') || msg.includes('yes')) {
+      return {
+        message: "Great! I'll open the appointment form for you. Please fill in your details and preferred date/time, and we'll get back to you as soon as possible.",
+        showAppointmentForm: true
+      };
+    }
     return {
-      message: "Great! I'll open the appointment form for you. Please fill in your details and preferred date/time, and we'll get back to you as soon as possible.",
-      showAppointmentForm: true
-    };
-  }
-
-  // Company information
-  if (msg.includes('who are you') || msg.includes('what is win win') || msg.includes('about')) {
-    return {
-      message: "Win Win is Slovenia's leading sales recruitment company. We specialize in connecting talented individuals with exciting career opportunities in sales. We offer comprehensive training programs, personalized career development, and ongoing support to help you succeed in your sales career. Would you like to know more about our programs or schedule an interview?",
+      message: "Thank you for your message! I'm here to help with information about Win Win's programs, career opportunities, and scheduling appointments. How can I assist you?",
       showAppointmentForm: false
     };
   }
 
-  // Application process
-  if (msg.includes('apply') || msg.includes('application') || msg.includes('how to join')) {
+  try {
+    const messages = [
+      {
+        role: 'system',
+        content: COMPANY_INFO
+      },
+      ...conversationHistory.slice(-6).map((msg: any) => ({
+        role: msg.role,
+        content: msg.content
+      })),
+      {
+        role: 'user',
+        content: userMessage
+      }
+    ];
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${openaiApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-4',
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 500,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const aiMessage = data.choices[0].message.content;
+
+    const msg = userMessage.toLowerCase();
+    const aiMsgLower = aiMessage.toLowerCase();
+    const shouldShowForm = (
+      msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet') ||
+      msg.includes('interview') || msg.includes('book') || msg.includes('talk') ||
+      msg.includes('consultation') || (msg.includes('yes') && conversationHistory.length > 0)
+    ) || (
+      aiMsgLower.includes('schedule') || aiMsgLower.includes('appointment') ||
+      aiMsgLower.includes('book a') || aiMsgLower.includes('form')
+    );
+
     return {
-      message: "Great question! Here's how to apply to Win Win:\n\n1. Fill out our online application form (you can find it on the Apply page)\n2. Upload your resume\n3. We'll review your application within 24 hours\n4. If you're a good fit, we'll schedule an interview\n5. Join our selection program and start your career!\n\nWould you like me to help you schedule an appointment, or do you have any other questions?",
+      message: aiMessage,
+      showAppointmentForm: shouldShowForm
+    };
+
+  } catch (error) {
+    console.error('OpenAI API error:', error);
+    const msg = userMessage.toLowerCase();
+    if (msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet')) {
+      return {
+        message: "I'd be happy to help you schedule an appointment! Let me open the form for you.",
+        showAppointmentForm: true
+      };
+    }
+    return {
+      message: "Thank you for your message! I'm here to help with information about Win Win. How can I assist you today?",
       showAppointmentForm: false
     };
   }
-
-  // Contact information
-  if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
-    return {
-      message: "You can reach us at:\n\nEmail: info@winwin.si\nPhone: +386 XX XXX XXX\n\nWe typically respond within 24 hours. Is there anything specific I can help you with right now?",
-      showAppointmentForm: false
-    };
-  }
-
-  // Programs and training
-  if (msg.includes('program') || msg.includes('training') || msg.includes('learn')) {
-    return {
-      message: "Our training programs are designed to help you succeed in sales:\n\n- Comprehensive sales training\n- Ongoing mentorship and support\n- Real-world experience\n- Career development opportunities\n- Performance-based advancement\n\nWould you like to learn more or schedule an appointment to discuss which program is right for you?",
-      showAppointmentForm: false
-    };
-  }
-
-  // Greeting
-  if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-    return {
-      message: "Hello! Welcome to Win Win. I'm here to help answer your questions about our sales programs and career opportunities. How can I assist you today?",
-      showAppointmentForm: false
-    };
-  }
-
-  // Default response
-  return {
-    message: "Thank you for your message! I'm here to help you with:\n\n- Information about Win Win and our programs\n- Career opportunities in sales\n- Scheduling appointments\n- Application process\n\nWhat would you like to know more about?",
-    showAppointmentForm: false
-  };
 }
 
 Deno.serve(async (req: Request) => {
@@ -162,7 +195,7 @@ Deno.serve(async (req: Request) => {
       .limit(10);
 
     // Generate AI response
-    const aiResponse = generateAIResponse(message, history || []);
+    const aiResponse = await generateAIResponse(message, history || []);
 
     // Save AI response
     const { error: aiMsgError } = await supabase

@@ -82,7 +82,47 @@ Requested: ${new Date().toLocaleString()}
       `.trim();
 
       console.log('Appointment received:', emailBody);
-      console.log('Email would be sent to: info@win-win.si');
+
+      const resendApiKey = Deno.env.get('RESEND_API_KEY');
+      if (resendApiKey && resendApiKey !== 'your_resend_api_key_here') {
+        try {
+          const emailResponse = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resendApiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: 'Win Win Appointments <appointments@resend.dev>',
+              to: ['info@winwin.si'],
+              subject: `New Appointment Request from ${appointmentData.name}`,
+              html: `
+                <h2>New Appointment Request</h2>
+                <p><strong>Name:</strong> ${appointmentData.name}</p>
+                <p><strong>Email:</strong> ${appointmentData.email}</p>
+                <p><strong>Phone:</strong> ${appointmentData.phone}</p>
+                <p><strong>Preferred Date:</strong> ${appointmentData.preferred_date}</p>
+                <p><strong>Preferred Time:</strong> ${appointmentData.preferred_time}</p>
+                <p><strong>Message:</strong></p>
+                <p>${appointmentData.message || 'No message provided'}</p>
+                <hr>
+                <p><small>Appointment ID: ${data.id}</small></p>
+                <p><small>Requested: ${new Date().toLocaleString()}</small></p>
+              `,
+            }),
+          });
+
+          if (!emailResponse.ok) {
+            console.error('Failed to send email:', await emailResponse.text());
+          } else {
+            console.log('Email sent successfully');
+          }
+        } catch (emailError) {
+          console.error('Error sending email:', emailError);
+        }
+      } else {
+        console.log('Email not sent: RESEND_API_KEY not configured');
+      }
 
       return new Response(
         JSON.stringify({
@@ -139,7 +179,47 @@ Submitted: ${new Date().toLocaleString()}
     `.trim();
 
     console.log('Application received:', emailBody);
-    console.log('Email would be sent to: info@win-win.si');
+
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    if (resendApiKey && resendApiKey !== 'your_resend_api_key_here') {
+      try {
+        const emailResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Win Win Applications <applications@resend.dev>',
+            to: ['info@winwin.si'],
+            subject: `New Job Application from ${applicationData.firstName} ${applicationData.lastName}`,
+            html: `
+              <h2>New Job Application Received</h2>
+              <p><strong>Name:</strong> ${applicationData.firstName} ${applicationData.lastName}</p>
+              <p><strong>Email:</strong> ${applicationData.email}</p>
+              <p><strong>Phone:</strong> ${applicationData.phone}</p>
+              <p><strong>Preferred Interview Time:</strong> ${applicationData.preferredTime || 'Not specified'}</p>
+              <p><strong>Message:</strong></p>
+              <p>${applicationData.message || 'No message provided'}</p>
+              ${applicationData.resumeUrl ? `<p><strong>Resume:</strong> <a href="${applicationData.resumeUrl}">Download Resume</a></p>` : '<p><strong>Resume:</strong> Not provided</p>'}
+              <hr>
+              <p><small>Application ID: ${data.id}</small></p>
+              <p><small>Submitted: ${new Date().toLocaleString()}</small></p>
+            `,
+          }),
+        });
+
+        if (!emailResponse.ok) {
+          console.error('Failed to send email:', await emailResponse.text());
+        } else {
+          console.log('Email sent successfully');
+        }
+      } catch (emailError) {
+        console.error('Error sending email:', emailError);
+      }
+    } else {
+      console.log('Email not sent: RESEND_API_KEY not configured');
+    }
 
     return new Response(
       JSON.stringify({ 
