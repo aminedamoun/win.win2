@@ -1,13 +1,28 @@
-import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown } from 'lucide-react';
+import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown, BookOpen } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
 import ScrollIndicator from '../components/ScrollIndicator';
+import ArticleCard from '../components/ArticleCard';
+import { supabase } from '../utils/supabase';
+
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  featured_image_url: string;
+  author: string;
+  read_time: number;
+  published_at: string;
+}
 
 export default function Home() {
   const { navigate } = useRouter();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [recentArticles, setRecentArticles] = useState<Article[]>([]);
+  const [loadingArticles, setLoadingArticles] = useState(true);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -31,6 +46,27 @@ export default function Home() {
     return () => {
       observers.forEach((observer) => observer?.disconnect());
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchRecentArticles = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(3);
+
+        if (error) throw error;
+        setRecentArticles(data || []);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+      } finally {
+        setLoadingArticles(false);
+      }
+    };
+
+    fetchRecentArticles();
   }, []);
 
   const benefits = [
@@ -185,7 +221,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
-      <ScrollIndicator sectionCount={8} />
+      <ScrollIndicator sectionCount={9} />
       <section className="relative min-h-screen flex items-center justify-end overflow-hidden">
         <div
           className="absolute inset-0"
@@ -653,6 +689,69 @@ export default function Home() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        ref={(el) => (sectionRefs.current[8] = el)}
+        className={`relative py-20 overflow-hidden transition-all duration-1000 ${
+          visibleSections.has(8) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-black to-black" />
+        <div className="absolute inset-0 radial-glow opacity-20" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-red-500/10 rounded-full border border-red-500/20">
+              <BookOpen className="text-red-500" size={20} />
+              <span className="text-red-500 font-semibold">Latest Insights</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+              From Our <span className="text-red-500">Blog</span>
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Sales strategies, career advice, and stories from the Win Win team
+            </p>
+          </div>
+
+          {loadingArticles ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+            </div>
+          ) : recentArticles.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {recentArticles.map((article) => (
+                  <ArticleCard
+                    key={article.slug}
+                    slug={article.slug}
+                    title={article.title}
+                    excerpt={article.excerpt}
+                    category="Insights"
+                    categorySlug="insights"
+                    featuredImageUrl={article.featured_image_url}
+                    readTime={article.read_time}
+                    publishedAt={article.published_at}
+                    author={article.author}
+                  />
+                ))}
+              </div>
+              <div className="text-center">
+                <button
+                  onClick={() => navigate('/insights')}
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold inline-flex items-center group"
+                >
+                  View All Articles
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-lg">No articles available yet. Check back soon!</p>
+            </div>
+          )}
         </div>
       </section>
     </div>
