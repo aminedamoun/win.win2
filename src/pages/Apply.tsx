@@ -13,23 +13,57 @@ export default function Apply() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
 
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        preferredTime: '',
-        message: '',
-        gdprConsent: false,
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-application`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          preferredTime: formData.preferredTime,
+          message: formData.message,
+        }),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to submit application');
+      }
+
+      setSubmitted(true);
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          preferredTime: '',
+          message: '',
+          gdprConsent: false,
+        });
+      }, 5000);
+    } catch (err) {
+      console.error('Error submitting application:', err);
+      setError(err instanceof Error ? err.message : 'Failed to submit application. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -68,11 +102,16 @@ export default function Apply() {
                 </div>
                 <h2 className="text-3xl font-bold mb-4">Application Submitted!</h2>
                 <p className="text-lg text-gray-300">
-                  Thank you for your interest in joining Win Win. We'll review your application and get back to you soon.
+                  Thank you for your interest in joining Win Win. We've received your application and will contact you within 24 hours at {formData.email}.
                 </p>
               </div>
             ) : (
               <div className="glass-card p-8 md:p-12">
+                {error && (
+                  <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400">
+                    {error}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -203,9 +242,10 @@ export default function Apply() {
 
                   <button
                     type="submit"
-                    className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                    disabled={submitting}
+                    className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Submit Application
+                    {submitting ? 'Submitting...' : 'Submit Application'}
                     <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                   </button>
                 </form>
