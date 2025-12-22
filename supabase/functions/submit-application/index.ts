@@ -16,6 +16,17 @@ interface ApplicationData {
   resumeUrl?: string;
 }
 
+interface AppointmentData {
+  type: 'appointment';
+  conversationId?: string;
+  name: string;
+  email: string;
+  phone: string;
+  preferred_date: string;
+  preferred_time: string;
+  message: string;
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, {
@@ -30,7 +41,66 @@ Deno.serve(async (req: Request) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const applicationData: ApplicationData = await req.json();
+    const requestData = await req.json();
+
+    if (requestData.type === 'appointment') {
+      const appointmentData: AppointmentData = requestData;
+
+      const { data, error } = await supabase
+        .from('appointments')
+        .insert([{
+          conversation_id: appointmentData.conversationId || null,
+          name: appointmentData.name,
+          email: appointmentData.email,
+          phone: appointmentData.phone,
+          preferred_date: appointmentData.preferred_date,
+          preferred_time: appointmentData.preferred_time,
+          message: appointmentData.message || '',
+          status: 'pending'
+        }])
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      const emailBody = `
+New Appointment Request
+
+Name: ${appointmentData.name}
+Email: ${appointmentData.email}
+Phone: ${appointmentData.phone}
+Preferred Date: ${appointmentData.preferred_date}
+Preferred Time: ${appointmentData.preferred_time}
+
+Message:
+${appointmentData.message || 'No message provided'}
+
+Appointment ID: ${data.id}
+Requested: ${new Date().toLocaleString()}
+      `.trim();
+
+      console.log('Appointment received:', emailBody);
+      console.log('Email would be sent to: info@win-win.si');
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: 'Appointment scheduled successfully',
+          id: data.id
+        }),
+        {
+          status: 200,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    }
+
+    const applicationData: ApplicationData = requestData;
 
     const { data, error } = await supabase
       .from('job_applications')

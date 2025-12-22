@@ -39,41 +39,63 @@ When a user wants to schedule an appointment, collect:
 Be friendly, professional, and concise in your responses.
 `;
 
-function generateAIResponse(userMessage: string, conversationHistory: any[]): string {
+function generateAIResponse(userMessage: string, conversationHistory: any[]): { message: string; showAppointmentForm: boolean } {
   const msg = userMessage.toLowerCase();
-  
+
   // Appointment scheduling keywords
-  if (msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet') || msg.includes('interview')) {
-    return "I'd be happy to help you schedule an appointment! To book a consultation or interview, I'll need the following information:\n\n1. Your full name\n2. Email address\n3. Phone number\n4. Preferred date\n5. Preferred time\n\nYou can also apply directly through our application form on the website, or I can help you schedule something right here. What would you prefer?";
+  if (msg.includes('appointment') || msg.includes('schedule') || msg.includes('meet') || msg.includes('interview') ||
+      msg.includes('book') || msg.includes('talk') || msg.includes('consultation') || msg.includes('yes')) {
+    return {
+      message: "Great! I'll open the appointment form for you. Please fill in your details and preferred date/time, and we'll get back to you as soon as possible.",
+      showAppointmentForm: true
+    };
   }
-  
+
   // Company information
   if (msg.includes('who are you') || msg.includes('what is win win') || msg.includes('about')) {
-    return "Win Win is Slovenia's leading sales recruitment company. We specialize in connecting talented individuals with exciting career opportunities in sales. We offer comprehensive training programs, personalized career development, and ongoing support to help you succeed in your sales career. Would you like to know more about our programs or schedule an interview?";
+    return {
+      message: "Win Win is Slovenia's leading sales recruitment company. We specialize in connecting talented individuals with exciting career opportunities in sales. We offer comprehensive training programs, personalized career development, and ongoing support to help you succeed in your sales career. Would you like to know more about our programs or schedule an interview?",
+      showAppointmentForm: false
+    };
   }
-  
+
   // Application process
   if (msg.includes('apply') || msg.includes('application') || msg.includes('how to join')) {
-    return "Great question! Here's how to apply to Win Win:\n\n1. Fill out our online application form (you can find it on the Apply page)\n2. Upload your resume\n3. We'll review your application within 24 hours\n4. If you're a good fit, we'll schedule an interview\n5. Join our selection program and start your career!\n\nWould you like me to help you schedule an appointment, or do you have any other questions?";
+    return {
+      message: "Great question! Here's how to apply to Win Win:\n\n1. Fill out our online application form (you can find it on the Apply page)\n2. Upload your resume\n3. We'll review your application within 24 hours\n4. If you're a good fit, we'll schedule an interview\n5. Join our selection program and start your career!\n\nWould you like me to help you schedule an appointment, or do you have any other questions?",
+      showAppointmentForm: false
+    };
   }
-  
+
   // Contact information
   if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
-    return "You can reach us at:\n\nEmail: info@winwin.si\nPhone: +386 XX XXX XXX\n\nWe typically respond within 24 hours. Is there anything specific I can help you with right now?";
+    return {
+      message: "You can reach us at:\n\nEmail: info@winwin.si\nPhone: +386 XX XXX XXX\n\nWe typically respond within 24 hours. Is there anything specific I can help you with right now?",
+      showAppointmentForm: false
+    };
   }
-  
+
   // Programs and training
   if (msg.includes('program') || msg.includes('training') || msg.includes('learn')) {
-    return "Our training programs are designed to help you succeed in sales:\n\n- Comprehensive sales training\n- Ongoing mentorship and support\n- Real-world experience\n- Career development opportunities\n- Performance-based advancement\n\nWould you like to learn more or schedule an appointment to discuss which program is right for you?";
+    return {
+      message: "Our training programs are designed to help you succeed in sales:\n\n- Comprehensive sales training\n- Ongoing mentorship and support\n- Real-world experience\n- Career development opportunities\n- Performance-based advancement\n\nWould you like to learn more or schedule an appointment to discuss which program is right for you?",
+      showAppointmentForm: false
+    };
   }
-  
+
   // Greeting
   if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-    return "Hello! Welcome to Win Win. I'm here to help answer your questions about our sales programs and career opportunities. How can I assist you today?";
+    return {
+      message: "Hello! Welcome to Win Win. I'm here to help answer your questions about our sales programs and career opportunities. How can I assist you today?",
+      showAppointmentForm: false
+    };
   }
-  
+
   // Default response
-  return "Thank you for your message! I'm here to help you with:\n\n- Information about Win Win and our programs\n- Career opportunities in sales\n- Scheduling appointments\n- Application process\n\nWhat would you like to know more about?";
+  return {
+    message: "Thank you for your message! I'm here to help you with:\n\n- Information about Win Win and our programs\n- Career opportunities in sales\n- Scheduling appointments\n- Application process\n\nWhat would you like to know more about?",
+    showAppointmentForm: false
+  };
 }
 
 Deno.serve(async (req: Request) => {
@@ -148,7 +170,7 @@ Deno.serve(async (req: Request) => {
       .insert([{
         conversation_id: convId,
         role: 'assistant',
-        content: aiResponse
+        content: aiResponse.message
       }]);
 
     if (aiMsgError) throw aiMsgError;
@@ -157,7 +179,8 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({
         success: true,
         conversationId: convId,
-        message: aiResponse
+        message: aiResponse.message,
+        showAppointmentForm: aiResponse.showAppointmentForm
       }),
       {
         status: 200,
