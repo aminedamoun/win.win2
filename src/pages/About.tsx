@@ -1,10 +1,32 @@
 import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import FAQ from '../components/FAQ';
+import { supabase } from '../utils/supabase';
 
 export default function About() {
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920');
+
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('website_images')
+          .select('url')
+          .eq('usage_location', 'about-hero')
+          .maybeSingle();
+
+        if (data && data.url) {
+          setHeroImageUrl(data.url);
+        }
+      } catch (err) {
+        console.error('Error fetching hero image:', err);
+      }
+    };
+
+    fetchHeroImage();
+  }, []);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -85,7 +107,7 @@ export default function About() {
         <div className="absolute inset-0 radial-gradient" />
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src={heroImageUrl}
             alt="Team collaboration"
             className="w-full h-full object-cover opacity-20"
           />
