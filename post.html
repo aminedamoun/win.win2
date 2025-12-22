@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Post - Win Win Blog</title>
+  <meta name="description" id="pageDescription" content="Read the latest insights from Win Win.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      line-height: 1.7;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(225, 29, 46, 0.2);
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: #e11d2e;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #cccccc;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .article-hero {
+      margin-top: 70px;
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 60px 24px;
+    }
+
+    .article-hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-category {
+      color: #e11d2e;
+      font-weight: 600;
+    }
+
+    .article-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .article-excerpt {
+      font-size: 20px;
+      color: #cccccc;
+      line-height: 1.6;
+    }
+
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .article-content {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #cccccc;
+    }
+
+    .article-content h1,
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+      color: #ffffff;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .article-content h1 {
+      font-size: 36px;
+    }
+
+    .article-content h2 {
+      font-size: 30px;
+    }
+
+    .article-content h3 {
+      font-size: 24px;
+    }
+
+    .article-content h4 {
+      font-size: 20px;
+    }
+
+    .article-content p {
+      margin-bottom: 24px;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+
+    .article-content li {
+      margin-bottom: 8px;
+    }
+
+    .article-content a {
+      color: #e11d2e;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    .article-content a:hover {
+      color: #ff3344;
+    }
+
+    .article-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid #e11d2e;
+      padding-left: 24px;
+      margin: 32px 0;
+      font-style: italic;
+      color: #999;
+    }
+
+    .article-content code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+    }
+
+    .article-content pre {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e11d2e;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 40px;
+      transition: gap 0.3s;
+    }
+
+    .back-link:hover {
+      gap: 12px;
+    }
+
+    .loading {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(225, 29, 46, 0.2);
+      border-top-color: #e11d2e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-state {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .error-state h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .error-state p {
+      color: #999;
+      margin-bottom: 24px;
+    }
+
+    .error-state a {
+      color: #e11d2e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer {
+      background: rgba(0, 0, 0, 0.95);
+      border-top: 1px solid rgba(225, 29, 46, 0.2);
+      padding: 40px 24px;
+      text-align: center;
+      color: #999;
+    }
+
+    @media (max-width: 768px) {
+      .article-title {
+        font-size: 32px;
+      }
+
+      .article-excerpt {
+        font-size: 16px;
+      }
+
+      .article-content {
+        font-size: 16px;
+      }
+
+      .article-hero {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <a href="/" class="logo">Win Win<span class="dot">.</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/insights.html">Insights</a>
+        <a href="/admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="loadingState" class="loading">
+    <div class="spinner"></div>
+    <p>Loading article...</p>
+  </div>
+
+  <div id="errorState" class="error-state" style="display: none;">
+    <h1>Post Not Found</h1>
+    <p>The post you're looking for doesn't exist or has been removed.</p>
+    <a href="/insights.html">← Back to Insights</a>
+  </div>
+
+  <main id="articleMain" style="display: none;">
+    <section class="article-hero" id="articleHero">
+      <img id="heroImage" class="article-hero-image" alt="">
+      <div class="article-hero-overlay">
+        <div class="article-hero-content">
+          <div class="article-meta">
+            <span id="articleCategory" class="article-category"></span>
+            <span id="articleDate"></span>
+          </div>
+          <h1 id="articleTitle" class="article-title"></h1>
+          <p id="articleExcerpt" class="article-excerpt"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="article-container">
+      <a href="/insights.html" class="back-link">← Back to Insights</a>
+      <article id="articleContent" class="article-content"></article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Win Win. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://owvufovfnngqdhbscoci.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93dnVmb3Zmbm5ncWRoYnNjb2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTEwOTQsImV4cCI6MjA4MTk4NzA5NH0.sDDk9dKx_jHCEArBsyFzOrEMbSfHHnmZmcMD8znP2_I';
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function getSlugFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('slug');
+    }
+
+    async function loadPost() {
+      const slug = getSlugFromURL();
+
+      if (!slug) {
+        showError();
+        return;
+      }
+
+      const { data: post, error } = await supabase
+        .from('posts')
+        .select('*, categories(name, slug)')
+        .eq('slug', slug)
+        .eq('status', 'published')
+        .single();
+
+      document.getElementById('loadingState').style.display = 'none';
+
+      if (error || !post) {
+        showError();
+        return;
+      }
+
+      renderPost(post);
+    }
+
+    function showError() {
+      document.getElementById('errorState').style.display = 'flex';
+    }
+
+    function renderPost(post) {
+      document.getElementById('pageTitle').textContent = `${post.title} - Win Win Blog`;
+      document.getElementById('pageDescription').setAttribute('content', post.excerpt || post.title);
+
+      const date = new Date(post.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      if (post.featured_image) {
+        document.getElementById('heroImage').src = post.featured_image;
+        document.getElementById('heroImage').alt = post.title;
+      } else {
+        document.getElementById('articleHero').style.display = 'none';
+      }
+
+      document.getElementById('articleTitle').textContent = post.title;
+      document.getElementById('articleExcerpt').textContent = post.excerpt || '';
+      document.getElementById('articleDate').textContent = date;
+
+      if (post.categories) {
+        document.getElementById('articleCategory').textContent = post.categories.name;
+      }
+
+      const contentDiv = document.getElementById('articleContent');
+      contentDiv.innerHTML = post.content;
+
+      document.getElementById('articleMain').style.display = 'block';
+    }
+
+    loadPost();
+  </script>
+</body>
+</html>
