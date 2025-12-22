@@ -78,15 +78,16 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-white pt-20">
+    <div className="min-h-screen bg-black pt-20">
       <section className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
+        <div className="absolute inset-0 radial-gradient" />
         <div className="absolute inset-0">
           <img
             src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt="Team collaboration"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -103,28 +104,28 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
-        className={`py-20 bg-gray-50 transition-all duration-1000 ${
+        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
           visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+            <div className="glass-card p-8">
               <div className="w-16 h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-6">
                 <Target className="text-red-500" size={32} />
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Vision</h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
+              <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
+              <p className="text-gray-300 text-lg leading-relaxed">
                 To become the most effective and respected sales company in Slovenia, known for our integrity, results, and commitment to both clients and team members.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+            <div className="glass-card p-8">
               <div className="w-16 h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-6">
                 <Heart className="text-red-500" size={32} />
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Mission</h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
+              <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
+              <p className="text-gray-300 text-lg leading-relaxed">
                 To deliver more value to customers than they expect, through trust, structure, and top-level sales expertise. We build long-term relationships that benefit everyone involved.
               </p>
             </div>
@@ -134,16 +135,16 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[1] = el)}
-        className={`py-20 bg-white transition-all duration-1000 ${
+        className={`py-20 bg-black transition-all duration-1000 ${
           visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               Our Core <span className="text-red-500">Values</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               These principles guide everything we do and define who we are as a company
             </p>
           </div>
@@ -152,7 +153,7 @@ export default function About() {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="glass-card glass-card-hover overflow-hidden group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative h-48 overflow-hidden">
@@ -161,14 +162,14 @@ export default function About() {
                     alt={value.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
                     <value.icon className="text-white" size={24} />
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                  <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
                 </div>
               </div>
             ))}
@@ -178,17 +179,17 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[2] = el)}
-        className={`py-20 bg-gray-50 transition-all duration-1000 ${
+        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
           visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
                 Company <span className="text-red-500">Culture</span>
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-300">
                 We've built an environment where talented professionals can thrive
               </p>
             </div>
@@ -197,12 +198,12 @@ export default function About() {
               {culture.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl shadow-md p-6 flex items-start space-x-4 hover:shadow-lg transition-shadow"
+                  className="glass-card p-6 flex items-start space-x-4 glass-card-hover"
                 >
                   <div className="flex-shrink-0 w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center mt-1">
                     <div className="w-2 h-2 bg-red-500 rounded-full" />
                   </div>
-                  <p className="text-gray-700">{item}</p>
+                  <p className="text-gray-300">{item}</p>
                 </div>
               ))}
             </div>
@@ -212,38 +213,38 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[3] = el)}
-        className={`py-20 bg-white transition-all duration-1000 ${
+        className={`py-20 bg-black transition-all duration-1000 ${
           visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
                 Our <span className="text-red-500">Team</span>
               </h2>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-gray-300 mb-8">
                 We operate from multiple locations across Slovenia with a growing team of dedicated sales professionals
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+              <div className="glass-card p-8 text-center">
                 <Users className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2 text-gray-900">50+</h3>
-                <p className="text-gray-600">Active Team Members</p>
+                <h3 className="text-2xl font-bold mb-2">50+</h3>
+                <p className="text-gray-400">Active Team Members</p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+              <div className="glass-card p-8 text-center">
                 <Target className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2 text-gray-900">Field + Call Center</h3>
-                <p className="text-gray-600">Hybrid Operations</p>
+                <h3 className="text-2xl font-bold mb-2">Field + Call Center</h3>
+                <p className="text-gray-400">Hybrid Operations</p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+              <div className="glass-card p-8 text-center">
                 <Award className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2 text-gray-900">Multiple Locations</h3>
-                <p className="text-gray-600">Trzin, Kranj & Field</p>
+                <h3 className="text-2xl font-bold mb-2">Multiple Locations</h3>
+                <p className="text-gray-400">Trzin, Kranj & Field</p>
               </div>
             </div>
           </div>
