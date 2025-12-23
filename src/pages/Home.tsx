@@ -331,46 +331,44 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Desktop: Side-by-Side Layout */}
+        {/* Desktop: Background Image with Right-Aligned Content */}
         <div className="hidden lg:block relative h-screen">
-          <div className="absolute inset-0 flex">
-            {/* Image - Left Side */}
-            <div className="w-1/2 relative overflow-hidden">
-              <img
-                src={heroImageUrl}
-                alt="Win Win Sales Team"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40" />
-            </div>
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={heroImageUrl}
+              alt="Win Win Sales Team"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
+          </div>
 
-            {/* Content - Right Side */}
-            <div className="w-1/2 flex items-center bg-black/90">
-              <div className="px-16 xl:px-24">
-                <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
-                  Build Your Career with{' '}
-                  <span className="gradient-text">Win Win</span>
-                  <br />
-                  <span className="text-red-500">Sales Team</span>
-                </h1>
-                <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed max-w-2xl" style={{ animationDelay: '0.2s' }}>
-                  We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
-                </p>
-                <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-                  <button
-                    onClick={() => navigate('/apply')}
-                    className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
-                  >
-                    Join the Team
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                  </button>
-                  <button
-                    onClick={() => navigate('/jobs')}
-                    className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
-                  >
-                    View Open Positions
-                  </button>
-                </div>
+          {/* Content */}
+          <div className="relative h-full flex items-center justify-end">
+            <div className="px-16 xl:px-24 max-w-3xl">
+              <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
+                Build Your Career with{' '}
+                <span className="gradient-text">Win Win</span>
+                <br />
+                <span className="text-red-500">Sales Team</span>
+              </h1>
+              <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
+                We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
+              </p>
+              <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                <button
+                  onClick={() => navigate('/apply')}
+                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
+                >
+                  Join the Team
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </button>
+                <button
+                  onClick={() => navigate('/jobs')}
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
+                >
+                  View Open Positions
+                </button>
               </div>
             </div>
           </div>
