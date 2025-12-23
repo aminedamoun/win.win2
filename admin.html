@@ -677,12 +677,17 @@ async function saveImage(e){
 
   // Clear localStorage cache for both old and new locations
   const clearCache = (location) => {
-    if(location === 'home-hero'){
-      localStorage.removeItem('home-hero-image');
-    } else if(location === 'about-hero'){
-      localStorage.removeItem('about-hero-image');
-    } else if(location === 'home-about'){
-      localStorage.removeItem('home-about-image');
+    const cacheMap = {
+      'home-hero': 'home-hero-image',
+      'home-about': 'home-about-image',
+      'home-why-choose': 'home-why-choose-image',
+      'home-benefits': 'home-benefits-image',
+      'about-hero': 'about-hero-image',
+      'insights-hero': 'insights-hero-image'
+    };
+
+    if(cacheMap[location]){
+      localStorage.removeItem(cacheMap[location]);
     }
   };
 
@@ -725,13 +730,18 @@ async function deleteImage(id, name){
 
   // Clear localStorage cache for the deleted location
   if(imageData){
-    const usageLocation = imageData.usage_location;
-    if(usageLocation === 'home-hero'){
-      localStorage.removeItem('home-hero-image');
-    } else if(usageLocation === 'about-hero'){
-      localStorage.removeItem('about-hero-image');
-    } else if(usageLocation === 'home-about'){
-      localStorage.removeItem('home-about-image');
+    const cacheMap = {
+      'home-hero': 'home-hero-image',
+      'home-about': 'home-about-image',
+      'home-why-choose': 'home-why-choose-image',
+      'home-benefits': 'home-benefits-image',
+      'about-hero': 'about-hero-image',
+      'insights-hero': 'insights-hero-image'
+    };
+
+    const cacheKey = cacheMap[imageData.usage_location];
+    if(cacheKey){
+      localStorage.removeItem(cacheKey);
     }
   }
 

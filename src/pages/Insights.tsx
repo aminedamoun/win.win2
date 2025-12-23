@@ -22,10 +22,28 @@ export default function Insights() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920');
 
   useEffect(() => {
     fetchData();
+    fetchHeroImage();
   }, []);
+
+  const fetchHeroImage = async () => {
+    try {
+      const { data } = await supabase
+        .from('website_images')
+        .select('url')
+        .eq('usage_location', 'insights-hero')
+        .maybeSingle();
+
+      if (data && data.url) {
+        setHeroImageUrl(data.url);
+      }
+    } catch (err) {
+      console.error('Error fetching hero image:', err);
+    }
+  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -58,8 +76,7 @@ export default function Insights() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              'url(https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+            backgroundImage: `url(${heroImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

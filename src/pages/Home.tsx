@@ -23,38 +23,32 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
-  const [heroImageUrl, setHeroImageUrl] = useState(() => {
-    return localStorage.getItem('home-hero-image') || 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920';
-  });
-  const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState(() => {
-    return localStorage.getItem('home-about-image') || 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920';
-  });
+  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800');
+  const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800');
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        // Fetch hero image
-        const { data: heroData } = await supabase
+        // Fetch all images from database
+        const { data: images } = await supabase
           .from('website_images')
-          .select('url')
-          .eq('usage_location', 'home-hero')
-          .maybeSingle();
+          .select('url, usage_location')
+          .in('usage_location', ['home-hero', 'home-about', 'home-why-choose', 'home-benefits']);
 
-        if (heroData && heroData.url) {
-          setHeroImageUrl(heroData.url);
-          localStorage.setItem('home-hero-image', heroData.url);
-        }
-
-        // Fetch about section image
-        const { data: aboutData } = await supabase
-          .from('website_images')
-          .select('url')
-          .eq('usage_location', 'home-about')
-          .maybeSingle();
-
-        if (aboutData && aboutData.url) {
-          setAboutSectionImageUrl(aboutData.url);
-          localStorage.setItem('home-about-image', aboutData.url);
+        if (images) {
+          images.forEach(img => {
+            if (img.usage_location === 'home-hero') {
+              setHeroImageUrl(img.url);
+            } else if (img.usage_location === 'home-about') {
+              setAboutSectionImageUrl(img.url);
+            } else if (img.usage_location === 'home-why-choose') {
+              setWhyChooseImageUrl(img.url);
+            } else if (img.usage_location === 'home-benefits') {
+              setBenefitsImageUrl(img.url);
+            }
+          });
         }
       } catch (err) {
         console.error('Error fetching images:', err);
@@ -349,7 +343,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-red-500/10 rounded-2xl blur-2xl" />
               <img
-                src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src={whyChooseImageUrl}
                 alt="Team collaboration"
                 className="relative rounded-2xl shadow-2xl border border-red-500/20"
               />
@@ -541,7 +535,7 @@ export default function Home() {
               <div className="relative order-2 lg:order-1">
                 <div className="absolute inset-0 bg-red-500/10 rounded-2xl blur-2xl" />
                 <img
-                  src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={benefitsImageUrl}
                   alt="Professional office environment"
                   className="relative rounded-2xl shadow-2xl border border-red-500/20"
                 />
