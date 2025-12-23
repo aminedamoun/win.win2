@@ -290,44 +290,87 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
       <ScrollIndicator sectionCount={9} />
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
-        <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
-          <picture>
-            <source media="(min-width: 768px)" srcSet={heroImageUrl} />
+        {/* Mobile: Overlay Layout */}
+        <div className="lg:hidden">
+          <div className="relative h-[50vh] overflow-hidden">
             <img
               src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
             />
-          </picture>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
-        </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
+          </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 lg:-mt-20 relative z-10 pb-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up leading-tight text-center">
+          <div className="container mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-12">
+            <div className="glass-card p-6 sm:p-8 backdrop-blur-xl bg-black/40 border-red-500/20">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-4 animate-fade-in-up leading-tight text-center">
                 Build Your Career with{' '}
                 <span className="gradient-text">Win Win</span>
                 <br />
                 <span className="text-red-500">Sales Team</span>
               </h1>
-              <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-8 animate-fade-in-up leading-relaxed text-center max-w-4xl mx-auto" style={{ animationDelay: '0.2s' }}>
+              <p className="text-base sm:text-lg text-gray-200 mb-6 animate-fade-in-up leading-relaxed text-center" style={{ animationDelay: '0.2s' }}>
                 We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                  className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                 >
                   Join the Team
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
-                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
+                  className="px-6 py-3 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 font-semibold"
                 >
                   View Open Positions
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop: Side-by-Side Layout */}
+        <div className="hidden lg:block relative h-screen">
+          <div className="absolute inset-0 flex">
+            {/* Image - Left Side */}
+            <div className="w-1/2 relative overflow-hidden">
+              <img
+                src={heroImageUrl}
+                alt="Win Win Sales Team"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40" />
+            </div>
+
+            {/* Content - Right Side */}
+            <div className="w-1/2 flex items-center bg-black/90">
+              <div className="px-16 xl:px-24">
+                <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
+                  Build Your Career with{' '}
+                  <span className="gradient-text">Win Win</span>
+                  <br />
+                  <span className="text-red-500">Sales Team</span>
+                </h1>
+                <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed max-w-2xl" style={{ animationDelay: '0.2s' }}>
+                  We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
+                </p>
+                <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                  <button
+                    onClick={() => navigate('/apply')}
+                    className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
+                  >
+                    Join the Team
+                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                  </button>
+                  <button
+                    onClick={() => navigate('/jobs')}
+                    className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
+                  >
+                    View Open Positions
+                  </button>
+                </div>
               </div>
             </div>
           </div>
