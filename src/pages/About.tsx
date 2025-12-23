@@ -61,7 +61,7 @@ export default function About() {
       icon: Shield,
       title: 'Integrity & Honesty',
       description: 'We build trust through transparent communication and ethical business practices',
-      image: 'https://unsplash.com/photos/young-asian-female-economist-with-document-making-presentation-of-financial-data-or-new-project-by-interactive-screen-jXiLtQd9HGY',
+      image: 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp',
     },
     {
       icon: Handshake,
