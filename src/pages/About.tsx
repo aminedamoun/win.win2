@@ -67,7 +67,7 @@ export default function About() {
       icon: Handshake,
       title: 'Reliability',
       description: 'Our clients and team members can count on us to deliver on our commitments',
-      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png',
     },
     {
       icon: MessageCircle,
