@@ -5,6 +5,7 @@ import CookieConsent from './components/CookieConsent';
 import TrackingScripts from './components/TrackingScripts';
 import SEO from './components/SEO';
 import ChatWidget from './components/ChatWidget';
+import PageLoader from './components/PageLoader';
 import Home from './pages/Home';
 import About from './pages/About';
 import Jobs from './pages/Jobs';
@@ -15,7 +16,9 @@ import InsightDetail from './pages/InsightDetail';
 
 function App() {
   return (
-    <Router>
+    <>
+      <PageLoader />
+      <Router>
       <TrackingScripts />
       <CookieConsent />
       <Header />
@@ -120,7 +123,8 @@ function App() {
 
       <Footer />
       <ChatWidget />
-    </Router>
+      </Router>
+    </>
   );
 }
 
