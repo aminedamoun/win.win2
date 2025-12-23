@@ -28,6 +28,8 @@ export default function Home() {
   const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=800');
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -106,6 +108,34 @@ export default function Home() {
     fetchRecentArticles();
   }, []);
 
+  useEffect(() => {
+    if (visibleSections.has(0) && !hasAnimated) {
+      setHasAnimated(true);
+      stats.forEach((stat, index) => {
+        const duration = 2000;
+        const steps = 60;
+        const increment = stat.value / steps;
+        let currentStep = 0;
+
+        const timer = setInterval(() => {
+          currentStep++;
+          if (currentStep <= steps) {
+            setAnimatedStats((prev) => {
+              const newStats = [...prev];
+              newStats[index] = Math.round(increment * currentStep);
+              return newStats;
+            });
+          } else {
+            clearInterval(timer);
+          }
+        }, duration / steps);
+      });
+    } else if (!visibleSections.has(0) && hasAnimated) {
+      setHasAnimated(false);
+      setAnimatedStats([0, 0, 0, 0]);
+    }
+  }, [visibleSections, hasAnimated]);
+
   const benefits = [
     {
       icon: Users,
@@ -140,10 +170,10 @@ export default function Home() {
   ];
 
   const stats = [
-    { value: '500+', label: 'Active Clients' },
-    { value: '50+', label: 'Team Members' },
-    { value: '3', label: 'Office Locations' },
-    { value: '10+', label: 'Years Experience' },
+    { value: 500, label: 'Active Clients', suffix: '+' },
+    { value: 50, label: 'Team Members', suffix: '+' },
+    { value: 3, label: 'Office Locations', suffix: '' },
+    { value: 10, label: 'Years Experience', suffix: '+' },
   ];
 
   const coreServices = [
@@ -336,7 +366,9 @@ export default function Home() {
                     className="glass-card p-6 text-center glass-card-hover"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="text-3xl font-bold text-red-500 mb-1">{stat.value}</div>
+                    <div className="text-3xl font-bold text-red-500 mb-1">
+                      {animatedStats[index]}{stat.suffix}
+                    </div>
                     <div className="text-gray-400 text-xs">{stat.label}</div>
                   </div>
                 ))}
