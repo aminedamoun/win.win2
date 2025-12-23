@@ -6,7 +6,7 @@ import { supabase } from '../utils/supabase';
 export default function About() {
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [heroImageUrl, setHeroImageUrl] = useState('?auto=compress&cs=tinysrgb&w=1920');
 
   useEffect(() => {
     const fetchHeroImage = async () => {
