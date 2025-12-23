@@ -23,7 +23,7 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  const [heroImageUrl, setHeroImageUrl] = useState('?auto=compress&cs=tinysrgb&w=1920');
   const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800');
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800');
