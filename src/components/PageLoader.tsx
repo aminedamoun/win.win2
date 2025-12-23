@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Loader2 } from 'lucide-react';
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,12 +37,17 @@ export default function PageLoader() {
       }`}
     >
       <div className="text-center">
-        <div className="relative mb-6">
-          <div className="absolute inset-0 bg-red-500/20 rounded-full blur-3xl animate-pulse" />
-          <Loader2 className="w-16 h-16 text-red-500 animate-spin relative" />
+        <div className="relative inline-block">
+          <div className="absolute inset-0 bg-red-500/30 rounded-full blur-3xl animate-pulse scale-150" />
+          <div className="absolute inset-0 bg-red-500/20 rounded-full blur-2xl animate-pulse scale-125" />
+          <img
+            src="/logo2.png"
+            alt="Win Win Logo"
+            className="w-48 h-48 object-contain relative animate-pulse"
+            style={{ animationDuration: '2s' }}
+          />
         </div>
-        <h2 className="text-2xl font-bold text-white mb-2">Win Win</h2>
-        <p className="text-gray-400">Loading...</p>
+        <p className="text-gray-400 mt-6 animate-pulse">Loading...</p>
       </div>
     </div>
   );
