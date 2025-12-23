@@ -291,11 +291,14 @@ export default function Home() {
       <ScrollIndicator sectionCount={9} />
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
-          <img
-            src={heroImageUrl}
-            alt="Win Win Sales Team"
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source media="(min-width: 768px)" srcSet={heroImageUrl} />
+            <img
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg"
+              alt="Win Win Sales Team"
+              className="w-full h-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
         </div>
 
@@ -510,11 +513,14 @@ export default function Home() {
         }`}
       >
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
-          <img
-            src={joinTeamImageUrl}
-            alt="Team success"
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source media="(min-width: 768px)" srcSet={joinTeamImageUrl} />
+            <img
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg"
+              alt="Team success"
+              className="w-full h-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
         </div>
 
