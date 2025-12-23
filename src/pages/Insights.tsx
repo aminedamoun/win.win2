@@ -38,11 +38,7 @@ export default function Insights() {
         .maybeSingle();
 
       if (data && data.url) {
-        // Add cache-busting parameter to force browser to reload
-        const urlWithCacheBust = data.url.includes('?')
-          ? `${data.url}&t=${Date.now()}`
-          : `${data.url}?t=${Date.now()}`;
-        setHeroImageUrl(urlWithCacheBust);
+        setHeroImageUrl(data.url);
       }
     } catch (err) {
       console.error('Error fetching hero image:', err);

@@ -39,19 +39,14 @@ export default function Home() {
 
         if (images) {
           images.forEach(img => {
-            // Add cache-busting parameter to force browser to reload
-            const urlWithCacheBust = img.url.includes('?')
-              ? `${img.url}&t=${Date.now()}`
-              : `${img.url}?t=${Date.now()}`;
-
             if (img.usage_location === 'home-hero') {
-              setHeroImageUrl(urlWithCacheBust);
+              setHeroImageUrl(img.url);
             } else if (img.usage_location === 'home-about') {
-              setAboutSectionImageUrl(urlWithCacheBust);
+              setAboutSectionImageUrl(img.url);
             } else if (img.usage_location === 'home-why-choose') {
-              setWhyChooseImageUrl(urlWithCacheBust);
+              setWhyChooseImageUrl(img.url);
             } else if (img.usage_location === 'home-benefits') {
-              setBenefitsImageUrl(urlWithCacheBust);
+              setBenefitsImageUrl(img.url);
             }
           });
         }
@@ -348,7 +343,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-red-500/10 rounded-2xl blur-2xl" />
               <img
-                src={whyChooseImageUrl}
+                src={aboutSectionImageUrl}
                 alt="Team collaboration"
                 className="relative rounded-2xl shadow-2xl border border-red-500/20"
               />
