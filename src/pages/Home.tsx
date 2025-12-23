@@ -25,6 +25,7 @@ export default function Home() {
   const [loadingArticles, setLoadingArticles] = useState(true);
   const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
   const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=1920');
+  const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=1920');
   const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=800');
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
 
@@ -35,7 +36,7 @@ export default function Home() {
         const { data: images } = await supabase
           .from('website_images')
           .select('url, usage_location')
-          .in('usage_location', ['home-hero', 'home-about', 'home-why-choose', 'home-benefits']);
+          .in('usage_location', ['home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits']);
 
         if (images) {
           images.forEach(img => {
@@ -43,6 +44,8 @@ export default function Home() {
               setHeroImageUrl(img.url);
             } else if (img.usage_location === 'home-about') {
               setAboutSectionImageUrl(img.url);
+            } else if (img.usage_location === 'home-join-team') {
+              setJoinTeamImageUrl(img.url);
             } else if (img.usage_location === 'home-why-choose') {
               setWhyChooseImageUrl(img.url);
             } else if (img.usage_location === 'home-benefits') {
@@ -486,7 +489,7 @@ export default function Home() {
       >
         <div className="absolute inset-0">
           <img
-            src={aboutSectionImageUrl}
+            src={joinTeamImageUrl}
             alt="Team success"
             className="w-full h-full object-cover"
           />

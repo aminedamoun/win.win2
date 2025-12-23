@@ -290,6 +290,7 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
           <optgroup label="Home Page">
             <option value="home-hero">Home - Hero Background</option>
             <option value="home-about">Home - About Section Background</option>
+            <option value="home-join-team">Home - Join Team Section Background</option>
             <option value="home-why-choose">Home - Why Choose Image</option>
             <option value="home-benefits">Home - Benefits Image</option>
           </optgroup>
@@ -562,7 +563,7 @@ function editImage(image){
   // Handle usage location - check if it's in the dropdown
   const locationSelect = document.getElementById("imageLocation");
   const usageLocation = image.usage_location || "";
-  const validLocations = ['home-hero', 'home-about', 'home-why-choose', 'home-benefits', 'about-hero', 'insights-hero'];
+  const validLocations = ['home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits', 'about-hero', 'insights-hero'];
 
   if (validLocations.includes(usageLocation)) {
     locationSelect.value = usageLocation;
@@ -731,6 +732,7 @@ async function saveImage(e){
     const cacheMap = {
       'home-hero': 'home-hero-image',
       'home-about': 'home-about-image',
+      'home-join-team': 'home-join-team-image',
       'home-why-choose': 'home-why-choose-image',
       'home-benefits': 'home-benefits-image',
       'about-hero': 'about-hero-image',
@@ -784,6 +786,7 @@ async function deleteImage(id, name){
     const cacheMap = {
       'home-hero': 'home-hero-image',
       'home-about': 'home-about-image',
+      'home-join-team': 'home-join-team-image',
       'home-why-choose': 'home-why-choose-image',
       'home-benefits': 'home-benefits-image',
       'about-hero': 'about-hero-image',
