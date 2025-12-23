@@ -39,14 +39,19 @@ export default function Home() {
 
         if (images) {
           images.forEach(img => {
+            // Add cache-busting parameter to force browser to reload
+            const urlWithCacheBust = img.url.includes('?')
+              ? `${img.url}&t=${Date.now()}`
+              : `${img.url}?t=${Date.now()}`;
+
             if (img.usage_location === 'home-hero') {
-              setHeroImageUrl(img.url);
+              setHeroImageUrl(urlWithCacheBust);
             } else if (img.usage_location === 'home-about') {
-              setAboutSectionImageUrl(img.url);
+              setAboutSectionImageUrl(urlWithCacheBust);
             } else if (img.usage_location === 'home-why-choose') {
-              setWhyChooseImageUrl(img.url);
+              setWhyChooseImageUrl(urlWithCacheBust);
             } else if (img.usage_location === 'home-benefits') {
-              setBenefitsImageUrl(img.url);
+              setBenefitsImageUrl(urlWithCacheBust);
             }
           });
         }
