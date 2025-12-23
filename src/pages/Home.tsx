@@ -289,33 +289,29 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
       <ScrollIndicator sectionCount={9} />
-      <section className="relative min-h-screen flex items-center justify-end overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${heroImageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+      <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
+        <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
+          <img
+            src={heroImageUrl}
+            alt="Win Win Sales Team"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
+        </div>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/40 to-black/90" />
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div></div>
-
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up leading-tight">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 lg:-mt-20 relative z-10 pb-20">
+          <div className="max-w-5xl mx-auto">
+            <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up leading-tight text-center">
                 Build Your Career with{' '}
                 <span className="gradient-text">Win Win</span>
                 <br />
                 <span className="text-red-500">Sales Team</span>
               </h1>
-              <p className="text-xl sm:text-2xl text-gray-200 mb-8 animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-8 animate-fade-in-up leading-relaxed text-center max-w-4xl mx-auto" style={{ animationDelay: '0.2s' }}>
                 We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
                   className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
@@ -325,18 +321,12 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
-                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold backdrop-blur-sm"
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
                 >
                   View Open Positions
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-red-500/50 rounded-full flex justify-center">
-            <div className="w-1.5 h-3 bg-red-500 rounded-full mt-2 animate-pulse" />
           </div>
         </div>
       </section>
