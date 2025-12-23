@@ -102,25 +102,26 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-black pt-20">
-      <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
-        <div className="absolute inset-0 radial-gradient" />
-        <div className="absolute inset-0">
+      <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
+        <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
           <img
             src={heroImageUrl}
             alt="Team collaboration"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up text-white">
-              About <span className="text-red-500">Win Win</span>
-            </h1>
-            <p className="text-xl text-gray-200 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              We are a team that lives sales. Win Win d.o.o. was built on the belief that sales can be done differently — honestly, ethically, and with a long-term mindset.
-            </p>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 lg:-mt-20 relative z-10 pb-20">
+          <div className="max-w-5xl mx-auto">
+            <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up text-center">
+                About <span className="text-red-500">Win Win</span>
+              </h1>
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 leading-relaxed animate-fade-in-up text-center max-w-4xl mx-auto" style={{ animationDelay: '0.2s' }}>
+                We are a team that lives sales. Win Win d.o.o. was built on the belief that sales can be done differently — honestly, ethically, and with a long-term mindset.
+              </p>
+            </div>
           </div>
         </div>
       </section>

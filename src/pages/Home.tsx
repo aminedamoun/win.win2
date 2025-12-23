@@ -505,41 +505,43 @@ export default function Home() {
 
       <section
         ref={(el) => (sectionRefs.current[3] = el)}
-        className={`relative py-24 overflow-hidden transition-all duration-1000 ${
+        className={`relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black transition-all duration-1000 ${
           visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="absolute inset-0">
+        <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
           <img
             src={joinTeamImageUrl}
             alt="Team success"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Join Slovenia's Leading <span className="text-red-500">Sales Team</span>
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              We're building the most effective and respected sales organization in Slovenia. Our team members benefit from industry-leading training, competitive compensation, and a culture that celebrates success.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
-              >
-                Start Your Journey
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </button>
-              <button
-                onClick={() => navigate('/about')}
-                className="px-8 py-4 border-2 border-white/30 text-white rounded-lg hover:border-red-500 hover:bg-red-500/10 transition-all duration-200 text-lg font-semibold"
-              >
-                Learn More
-              </button>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 lg:-mt-20 relative z-10 pb-20">
+          <div className="max-w-5xl mx-auto">
+            <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-center">
+                Join Slovenia's Leading <span className="text-red-500">Sales Team</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed text-center max-w-3xl mx-auto">
+                We're building the most effective and respected sales organization in Slovenia. Our team members benefit from industry-leading training, competitive compensation, and a culture that celebrates success.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => navigate('/apply')}
+                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                >
+                  Start Your Journey
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </button>
+                <button
+                  onClick={() => navigate('/about')}
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
+                >
+                  Learn More
+                </button>
+              </div>
             </div>
           </div>
         </div>
