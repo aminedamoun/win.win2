@@ -43,7 +43,7 @@ export default function PageLoader() {
           <img
             src="/logo2.png"
             alt="Win Win Logo"
-            className="w-48 h-48 object-contain relative animate-pulse"
+            className="w-24 h-24 object-contain relative animate-pulse"
             style={{ animationDuration: '2s' }}
           />
         </div>
