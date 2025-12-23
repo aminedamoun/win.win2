@@ -114,7 +114,7 @@ export default function About() {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 lg:-mt-20 relative z-10 pb-8 sm:pb-12 lg:pb-20">
           <div className="max-w-5xl mx-auto">
-            <div className="glass-card p-6 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
+            <div className="glass-card p-6 sm:p-8 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-fade-in-up text-center">
                 About <span className="text-red-500">Win Win</span>
               </h1>
@@ -133,9 +133,9 @@ export default function About() {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-0 lg:mb-20">
             <div className="glass-card p-6 sm:p-8">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6">
+              <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Target className="text-red-500" size={28} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Vision</h2>
@@ -145,7 +145,7 @@ export default function About() {
             </div>
 
             <div className="glass-card p-6 sm:p-8">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6">
+              <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Heart className="text-red-500" size={28} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Mission</h2>
@@ -165,10 +165,10 @@ export default function About() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
               Our Core <span className="text-red-500">Values</span>
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
               These principles guide everything we do and define who we are as a company
             </p>
           </div>
@@ -191,7 +191,7 @@ export default function About() {
                     <value.icon className="text-white" size={24} />
                   </div>
                 </div>
-                <div className="p-4 sm:p-6">
+                <div className="p-4 sm:p-5 lg:p-6">
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{value.title}</h3>
                   <p className="text-gray-400 leading-relaxed">{value.description}</p>
                 </div>
@@ -209,11 +209,11 @@ export default function About() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-6 sm:mb-8 lg:mb-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 lg:mb-6">
+            <div className="text-center mb-6 sm:mb-10 lg:mb-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
                 Company <span className="text-red-500">Culture</span>
               </h2>
-              <p className="text-lg text-gray-300">
+              <p className="text-base sm:text-lg text-gray-300">
                 We've built an environment where talented professionals can thrive
               </p>
             </div>
@@ -243,8 +243,8 @@ export default function About() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-6 sm:mb-8 lg:mb-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 lg:mb-6">
+            <div className="text-center mb-6 sm:mb-10 lg:mb-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
                 Our <span className="text-red-500">Team</span>
               </h2>
               <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8">
