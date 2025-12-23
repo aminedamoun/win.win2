@@ -128,7 +128,7 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
-        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
+        className={`py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
           visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -159,7 +159,7 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[1] = el)}
-        className={`py-20 bg-black transition-all duration-1000 ${
+        className={`py-12 sm:py-16 lg:py-20 bg-black transition-all duration-1000 ${
           visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -203,7 +203,7 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[2] = el)}
-        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
+        className={`py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
           visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -237,7 +237,7 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[3] = el)}
-        className={`py-20 bg-black transition-all duration-1000 ${
+        className={`py-12 sm:py-16 lg:py-20 bg-black transition-all duration-1000 ${
           visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -277,7 +277,7 @@ export default function About() {
 
       <section
         ref={(el) => (sectionRefs.current[4] = el)}
-        className={`py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
+        className={`py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-black via-red-950/10 to-black transition-all duration-1000 ${
           visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
