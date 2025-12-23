@@ -177,9 +177,10 @@ export default function InsightDetail() {
               <p className="text-xl text-gray-300 mb-8 leading-relaxed font-medium">
                 {article.excerpt}
               </p>
-              <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                {article.content}
-              </div>
+              <div
+                className="blog-content text-gray-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
             </div>
           </div>
 
