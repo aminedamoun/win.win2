@@ -138,12 +138,24 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
 
 <div class="container">
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('blogs')">Blog Management</button>
+    <button class="tab active" onclick="switchTab('jobs')">Jobs Management</button>
+    <button class="tab" onclick="switchTab('blogs')">Blog Management</button>
     <button class="tab" onclick="switchTab('images')">Image Management</button>
   </div>
 
+  <!-- JOBS MANAGEMENT TAB -->
+  <div id="jobs-tab" class="tab-content active">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" onclick="openJobModal()">+ Create New Job Position</button>
+      </div>
+    </div>
+
+    <div id="jobList" class="loading">Loading job positions...</div>
+  </div>
+
   <!-- BLOG MANAGEMENT TAB -->
-  <div id="blogs-tab" class="tab-content active">
+  <div id="blogs-tab" class="tab-content">
     <div class="card">
       <div class="flex flex-end">
         <button class="btn" onclick="openBlogModal()">+ Create New Article</button>
@@ -243,6 +255,67 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
   </div>
 </div>
 
+<!-- JOB MODAL -->
+<div id="jobModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="jobModalTitle">Create Job Position</h3>
+      <button class="close-btn" onclick="closeJobModal()">×</button>
+    </div>
+    <form onsubmit="saveJob(event)">
+      <input type="hidden" id="jobId">
+
+      <div class="form-group">
+        <label>Job Title *</label>
+        <input type="text" id="jobTitle" placeholder="e.g., Sales Advisor - Field Sales" required>
+      </div>
+
+      <div class="form-group">
+        <label>Job Type *</label>
+        <select id="jobType" required>
+          <option value="field-sales">Field Sales</option>
+          <option value="call-center">Call Center</option>
+          <option value="team-leader">Team Leader</option>
+          <option value="management">Management</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Location *</label>
+        <input type="text" id="jobLocation" placeholder="e.g., Trzin, Kranj, Nationwide" required>
+      </div>
+
+      <div class="form-group">
+        <label>Short Description *</label>
+        <textarea id="jobDescription" rows="3" placeholder="Brief description of the role and responsibilities" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Salary Range *</label>
+        <input type="text" id="jobSalary" placeholder="e.g., Base + Commission or €2,000+ Base + Bonuses" required>
+      </div>
+
+      <div class="form-group">
+        <label>Display Order</label>
+        <input type="number" id="jobOrder" value="0" min="0" placeholder="Lower numbers appear first">
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="jobActive" style="width:auto;margin-right:8px" checked>
+          Active (visible to public)
+        </label>
+      </div>
+
+      <div class="flex flex-end">
+        <button type="button" class="btn-secondary" onclick="closeJobModal()">Cancel</button>
+        <button type="submit" class="btn">Save Job Position</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
@@ -334,6 +407,7 @@ let allImages = [];
 (async()=>{
   const { data } = await window.supabase.auth.getSession();
   if(!data.session) location.href="/login.html";
+  await loadJobs();
   await loadCategories();
   await loadBlogs();
   await loadImages();
@@ -349,6 +423,137 @@ function switchTab(tab){
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   event.target.classList.add('active');
   document.getElementById(tab + '-tab').classList.add('active');
+}
+
+// === JOB FUNCTIONS ===
+async function loadJobs(){
+  const list = document.getElementById("jobList");
+  list.innerHTML = '<div class="loading">Loading job positions...</div>';
+
+  const { data, error } = await window.supabase
+    .from("jobs")
+    .select("*")
+    .order("display_order", {ascending: true})
+    .order("created_at", {ascending: false});
+
+  if(error){
+    list.innerHTML = '<div class="empty">Error loading jobs</div>';
+    console.error(error);
+    return;
+  }
+
+  if(!data || data.length === 0){
+    list.innerHTML = '<div class="empty"><p>No job positions yet. Create your first one!</p></div>';
+    return;
+  }
+
+  list.innerHTML = data.map(job => `
+    <div class="article-item">
+      <div class="article-content" style="flex: 2">
+        <h4>
+          ${job.title}
+          ${!job.is_active ? '<span class="badge" style="background:rgba(156,163,175,0.2);color:#9ca3af">INACTIVE</span>' : ''}
+          <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order}</span>
+        </h4>
+        <p><strong>Type:</strong> ${job.type} | <strong>Location:</strong> ${job.location}</p>
+        <p><strong>Salary:</strong> ${job.salary_range}</p>
+        <p style="margin-top:4px">${job.short_description}</p>
+      </div>
+      <div class="article-actions" style="flex-direction:column">
+        <button class="btn-secondary btn-sm" onclick='editJob(${JSON.stringify(job)})'>Edit</button>
+        <button class="btn btn-sm" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
+        <button class="btn-danger btn-sm" onclick="deleteJob('${job.id}', '${job.title}')">Delete</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openJobModal(){
+  document.getElementById("jobModalTitle").textContent = "Create Job Position";
+  document.getElementById("jobModal").classList.add("active");
+  document.getElementById("jobId").value = "";
+  document.getElementById("jobTitle").value = "";
+  document.getElementById("jobType").value = "field-sales";
+  document.getElementById("jobLocation").value = "";
+  document.getElementById("jobDescription").value = "";
+  document.getElementById("jobSalary").value = "";
+  document.getElementById("jobOrder").value = "0";
+  document.getElementById("jobActive").checked = true;
+}
+
+function editJob(job){
+  document.getElementById("jobModalTitle").textContent = "Edit Job Position";
+  document.getElementById("jobModal").classList.add("active");
+  document.getElementById("jobId").value = job.id;
+  document.getElementById("jobTitle").value = job.title;
+  document.getElementById("jobType").value = job.type;
+  document.getElementById("jobLocation").value = job.location;
+  document.getElementById("jobDescription").value = job.short_description;
+  document.getElementById("jobSalary").value = job.salary_range;
+  document.getElementById("jobOrder").value = job.display_order;
+  document.getElementById("jobActive").checked = job.is_active;
+}
+
+function closeJobModal(){
+  document.getElementById("jobModal").classList.remove("active");
+}
+
+async function saveJob(e){
+  e.preventDefault();
+
+  const id = document.getElementById("jobId").value;
+  const data = {
+    title: document.getElementById("jobTitle").value,
+    type: document.getElementById("jobType").value,
+    location: document.getElementById("jobLocation").value,
+    short_description: document.getElementById("jobDescription").value,
+    salary_range: document.getElementById("jobSalary").value,
+    display_order: parseInt(document.getElementById("jobOrder").value) || 0,
+    is_active: document.getElementById("jobActive").checked,
+    updated_at: new Date().toISOString()
+  };
+
+  let result;
+  if(id){
+    result = await window.supabase.from("jobs").update(data).eq("id", id);
+  } else {
+    result = await window.supabase.from("jobs").insert([data]);
+  }
+
+  if(result.error){
+    alert("Error saving job: " + result.error.message);
+    return;
+  }
+
+  closeJobModal();
+  loadJobs();
+}
+
+async function toggleJobStatus(id, newStatus){
+  const { error } = await window.supabase
+    .from("jobs")
+    .update({ is_active: newStatus, updated_at: new Date().toISOString() })
+    .eq("id", id);
+
+  if(error){
+    alert("Error updating job status: " + error.message);
+    return;
+  }
+
+  loadJobs();
+}
+
+async function deleteJob(id, title){
+  if(!confirm(`Delete job position "${title}"?\n\nThis action cannot be undone.`)) return;
+
+  const { error } = await window.supabase.from("jobs").delete().eq("id", id);
+
+  if(error){
+    alert("Error deleting job: " + error.message);
+    return;
+  }
+
+  loadJobs();
 }
 
 // === BLOG FUNCTIONS ===

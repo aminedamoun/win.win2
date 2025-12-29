@@ -1,16 +1,23 @@
 import { MapPin, DollarSign, ArrowRight, CheckCircle2, Briefcase, Clock } from 'lucide-react';
 import { useRouter } from '../utils/router';
-import { jobs } from '../data/jobs';
 import { useEffect, useRef, useState } from 'react';
 import ScrollIndicator from '../components/ScrollIndicator';
+import { supabase } from '../utils/supabase';
+import { Job } from '../types';
 
 export default function JobDetail() {
   const { currentPath, navigate } = useRouter();
   const jobId = currentPath.split('/').pop();
-  const job = jobs.find((j) => j.id === jobId);
-
+  const [job, setJob] = useState<Job | null>(null);
+  const [loading, setLoading] = useState(true);
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (jobId) {
+      fetchJob();
+    }
+  }, [jobId]);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -36,6 +43,42 @@ export default function JobDetail() {
     };
   }, []);
 
+  const fetchJob = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('id', jobId)
+        .eq('is_active', true)
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (data) {
+        setJob({
+          id: data.id,
+          title: data.title,
+          type: data.type,
+          location: data.location,
+          shortDescription: data.short_description,
+          salaryRange: data.salary_range,
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching job:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+      </div>
+    );
+  }
+
   if (!job) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -52,7 +95,7 @@ export default function JobDetail() {
     );
   }
 
-  const isTeamLeader = job.id === 'sales-team-leader';
+  const isTeamLeader = job.type === 'team-leader';
 
   const responsibilities = isTeamLeader
     ? [

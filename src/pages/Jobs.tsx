@@ -1,13 +1,20 @@
 import { MapPin, Briefcase, ArrowRight, DollarSign } from 'lucide-react';
 import { useRouter } from '../utils/router';
-import { jobs } from '../data/jobs';
 import { useEffect, useRef, useState } from 'react';
 import ScrollIndicator from '../components/ScrollIndicator';
+import { supabase } from '../utils/supabase';
+import { Job } from '../types';
 
 export default function Jobs() {
   const { navigate } = useRouter();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -32,6 +39,34 @@ export default function Jobs() {
       observers.forEach((observer) => observer?.disconnect());
     };
   }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const formattedJobs: Job[] = (data || []).map(job => ({
+        id: job.id,
+        title: job.title,
+        type: job.type,
+        location: job.location,
+        shortDescription: job.short_description,
+        salaryRange: job.salary_range,
+      }));
+
+      setJobs(formattedJobs);
+    } catch (err) {
+      console.error('Error fetching jobs:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getJobIcon = (type: string) => {
     return <Briefcase className="text-gray-400" size={24} />;
@@ -64,8 +99,17 @@ export default function Jobs() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 gap-6">
-              {jobs.map((job, index) => (
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+              </div>
+            ) : jobs.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-400 text-lg">No open positions at the moment. Check back soon!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-6">
+                {jobs.map((job, index) => (
                 <div
                   key={job.id}
                   className="glass-card glass-card-hover p-8 group cursor-pointer"
@@ -108,7 +152,8 @@ export default function Jobs() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
