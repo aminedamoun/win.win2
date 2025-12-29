@@ -304,10 +304,9 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-12">
             <div className="glass-card p-6 sm:p-8 backdrop-blur-xl bg-black/40 border-red-500/20">
               <h1 className="text-3xl sm:text-4xl font-bold mb-4 animate-fade-in-up leading-tight text-center">
-                Build Your Career with{' '}
-                <span className="gradient-text">Win Win</span>
+                Build Your Career with Win Win
                 <br />
-                <span className="text-red-500">Sales Team</span>
+                Sales Team
               </h1>
               <p className="text-base sm:text-lg text-gray-200 mb-6 animate-fade-in-up leading-relaxed text-center" style={{ animationDelay: '0.2s' }}>
                 We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
@@ -347,10 +346,9 @@ export default function Home() {
           <div className="relative h-full flex items-center justify-end">
             <div className="px-16 xl:px-24 max-w-3xl">
               <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
-                Build Your Career with{' '}
-                <span className="gradient-text">Win Win</span>
+                Build Your Career with Win Win
                 <br />
-                <span className="text-red-500">Sales Team</span>
+                Sales Team
               </h1>
               <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
                 We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
@@ -388,7 +386,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                Who We <span className="text-red-500">Are</span>
+                Who We Are
               </h2>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
                 Win Win d.o.o. is a team of experienced sales professionals specializing in direct marketing and long-term customer relationships. We operate from multiple locations across Slovenia and build an environment where effort, discipline, and persistence are rewarded.
@@ -400,7 +398,7 @@ export default function Home() {
                     className="glass-card p-6 text-center glass-card-hover"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="text-3xl font-bold text-red-500 mb-1">
+                    <div className="text-3xl font-bold text-white mb-1">
                       {animatedStats[index]}{stat.suffix}
                     </div>
                     <div className="text-gray-400 text-xs">{stat.label}</div>
@@ -433,7 +431,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Our <span className="text-red-500">Services</span>
+              Our Services
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               Comprehensive sales solutions and support systems that drive results
@@ -443,8 +441,8 @@ export default function Home() {
           <div className="space-y-16">
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-1 bg-red-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-red-500">Core Services</h3>
+                <div className="w-12 h-1 bg-gray-500 rounded-full" />
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">Core Services</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {coreServices.map((service, index) => (
@@ -453,8 +451,8 @@ export default function Home() {
                     className="glass-card glass-card-hover p-6 group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
-                      <service.icon className="text-red-500" size={24} />
+                    <div className="w-12 h-12 bg-gray-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gray-500/20 transition-colors">
+                      <service.icon className="text-gray-400" size={24} />
                     </div>
                     <h4 className="text-lg font-semibold mb-2">{service.title}</h4>
                     <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
@@ -465,8 +463,8 @@ export default function Home() {
 
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-1 bg-red-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-red-500">Internal Support Services</h3>
+                <div className="w-12 h-1 bg-gray-500 rounded-full" />
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">Internal Support Services</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {supportServices.map((service, index) => (
@@ -475,8 +473,8 @@ export default function Home() {
                     className="glass-card glass-card-hover p-6 group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
-                      <service.icon className="text-red-500" size={24} />
+                    <div className="w-12 h-12 bg-gray-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gray-500/20 transition-colors">
+                      <service.icon className="text-gray-400" size={24} />
                     </div>
                     <h4 className="text-lg font-semibold mb-2">{service.title}</h4>
                     <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
@@ -487,8 +485,8 @@ export default function Home() {
 
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-1 bg-red-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-red-500">Market Focus</h3>
+                <div className="w-12 h-1 bg-gray-500 rounded-full" />
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">Market Focus</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {marketFocus.map((service, index) => (
@@ -497,8 +495,8 @@ export default function Home() {
                     className="glass-card glass-card-hover p-8 group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="w-14 h-14 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
-                      <service.icon className="text-red-500" size={28} />
+                    <div className="w-14 h-14 bg-gray-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gray-500/20 transition-colors">
+                      <service.icon className="text-gray-400" size={28} />
                     </div>
                     <h4 className="text-xl font-semibold mb-3">{service.title}</h4>
                     <p className="text-gray-400 leading-relaxed">{service.description}</p>
@@ -522,7 +520,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Why Choose <span className="text-red-500">Win Win</span>
+              Why Choose Win Win
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               We provide everything you need to build a successful career in sales
@@ -536,8 +534,8 @@ export default function Home() {
                 className="glass-card glass-card-hover p-8 group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="w-14 h-14 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
-                  <benefit.icon className="text-red-500" size={28} />
+                <div className="w-14 h-14 bg-gray-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gray-500/20 transition-colors">
+                  <benefit.icon className="text-gray-400" size={28} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
                 <p className="text-gray-400 leading-relaxed">{benefit.description}</p>
@@ -569,7 +567,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-center">
-                Join Slovenia's Leading <span className="text-red-500">Sales Team</span>
+                Join Slovenia's Leading Sales Team
               </h2>
               <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed text-center max-w-3xl mx-auto">
                 We're building the most effective and respected sales organization in Slovenia. Our team members benefit from industry-leading training, competitive compensation, and a culture that celebrates success.
@@ -617,7 +615,7 @@ export default function Home() {
 
               <div className="order-1 lg:order-2">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                  Ready to Start Your <span className="text-red-500">Sales Career?</span>
+                  Ready to Start Your Sales Career?
                 </h2>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                   Join a team of dedicated professionals who are committed to excellence, growth, and results. We're looking for motivated individuals ready to take their career to the next level.
@@ -655,7 +653,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Our <span className="text-red-500">Process</span>
+              Our Process
             </h2>
             <p className="text-lg text-gray-300 mb-12">
               A simple, transparent path to joining our team
@@ -670,13 +668,13 @@ export default function Home() {
               ].map((item, index) => (
                 <div key={index} className="relative">
                   <div className="glass-card glass-card-hover p-6 text-center h-full flex flex-col justify-center">
-                    <div className="text-5xl font-bold text-red-500/20 mb-2">{item.step}</div>
+                    <div className="text-5xl font-bold text-gray-500/20 mb-2">{item.step}</div>
                     <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-400">{item.desc}</p>
                   </div>
                   {index < 3 && (
                     <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                      <ArrowRight className="text-red-500/30" size={24} />
+                      <ArrowRight className="text-gray-500/30" size={24} />
                     </div>
                   )}
                 </div>
@@ -709,12 +707,12 @@ export default function Home() {
             <div className="glass-card p-8 md:p-10">
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-shrink-0">
-                  <Smartphone className="w-16 h-16 text-red-500" />
+                  <Smartphone className="w-16 h-16 text-gray-400" />
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-                    Apply On The <span className="text-red-500">Go</span>
+                    Apply On The Go
                   </h2>
                   <p className="text-gray-300 mb-6">
                     Track your application, get instant updates, and stay connected with our mobile app
@@ -742,11 +740,11 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/10 rounded-full mb-4">
-                <HelpCircle className="text-red-500" size={32} />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-500/10 rounded-full mb-4">
+                <HelpCircle className="text-gray-400" size={32} />
               </div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-                Frequently Asked <span className="text-red-500">Questions</span>
+                Frequently Asked Questions
               </h2>
               <p className="text-lg text-gray-300">
                 Everything you need to know about joining Win Win
@@ -765,7 +763,7 @@ export default function Home() {
                   >
                     <span className="text-lg font-semibold pr-4">{faq.question}</span>
                     <ChevronDown
-                      className={`flex-shrink-0 text-red-500 transition-transform duration-300 ${
+                      className={`flex-shrink-0 text-gray-400 transition-transform duration-300 ${
                         expandedFaq === index ? 'rotate-180' : ''
                       }`}
                       size={20}
@@ -811,12 +809,12 @@ export default function Home() {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-red-500/10 rounded-full border border-red-500/20">
-              <BookOpen className="text-red-500" size={20} />
-              <span className="text-red-500 font-semibold">Latest Insights</span>
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-gray-500/10 rounded-full border border-gray-500/20">
+              <BookOpen className="text-gray-400" size={20} />
+              <span className="text-gray-300 font-semibold">Latest Insights</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              From Our <span className="text-red-500">Blog</span>
+              From Our Blog
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               Sales strategies, career advice, and stories from the Win Win team
