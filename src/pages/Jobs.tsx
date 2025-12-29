@@ -33,19 +33,19 @@ export default function Jobs() {
   }, []);
 
   const getJobIcon = (type: string) => {
-    return <Briefcase className="text-red-500" size={24} />;
+    return <Briefcase className="text-gray-400" size={24} />;
   };
 
   return (
     <div className="min-h-screen bg-black pt-20">
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/20 via-black to-black" />
         <div className="absolute inset-0 radial-gradient" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up">
-              Open <span className="text-red-500">Positions</span>
+              Open Positions
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               Join our team of high-performing sales professionals. We offer competitive compensation, comprehensive training, and clear career progression.
@@ -73,21 +73,21 @@ export default function Jobs() {
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div className="flex-1">
                       <div className="flex items-start gap-4 mb-4">
-                        <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-red-500/20 transition-colors">
+                        <div className="w-12 h-12 bg-gray-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gray-500/20 transition-colors">
                           {getJobIcon(job.type)}
                         </div>
                         <div>
-                          <h3 className="text-2xl font-bold mb-2 group-hover:text-red-500 transition-colors">
+                          <h3 className="text-2xl font-bold mb-2 transition-colors">
                             {job.title}
                           </h3>
                           <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                             <div className="flex items-center gap-2">
-                              <MapPin size={16} className="text-red-500" />
+                              <MapPin size={16} className="text-gray-400" />
                               <span>{job.location}</span>
                             </div>
                             {job.salaryRange && (
                               <div className="flex items-center gap-2">
-                                <DollarSign size={16} className="text-red-500" />
+                                <DollarSign size={16} className="text-gray-400" />
                                 <span>{job.salaryRange}</span>
                               </div>
                             )}
@@ -121,7 +121,7 @@ export default function Jobs() {
           <div className="max-w-4xl mx-auto">
             <div className="glass-card p-12 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Don't See the Right <span className="text-red-500">Position?</span>
+                Don't See the Right Position?
               </h2>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                 We're always looking for talented sales professionals. Send us your application and we'll keep you in mind for future opportunities.
