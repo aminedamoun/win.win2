@@ -2,6 +2,7 @@ import { MapPin, DollarSign, ArrowRight, CheckCircle2, Briefcase, Clock } from '
 import { useRouter } from '../utils/router';
 import { jobs } from '../data/jobs';
 import { useEffect, useRef, useState } from 'react';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 export default function JobDetail() {
   const { currentPath, navigate } = useRouter();
@@ -124,6 +125,7 @@ export default function JobDetail() {
 
   return (
     <div className="min-h-screen bg-black pt-20">
+      <ScrollIndicator sectionCount={3} />
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
         <div className="absolute inset-0 radial-gradient" />

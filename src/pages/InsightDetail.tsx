@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Clock, Calendar, ArrowLeft, Share2, AlertCircle } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { supabase } from '../utils/supabase';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 interface Article {
   id: string;
@@ -122,6 +123,7 @@ export default function InsightDetail() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
+      <ScrollIndicator sectionCount={2} />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <button
           onClick={() => navigate('/insights')}

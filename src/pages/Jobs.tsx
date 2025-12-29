@@ -2,6 +2,7 @@ import { MapPin, Briefcase, ArrowRight, DollarSign } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { jobs } from '../data/jobs';
 import { useEffect, useRef, useState } from 'react';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 export default function Jobs() {
   const { navigate } = useRouter();
@@ -38,6 +39,7 @@ export default function Jobs() {
 
   return (
     <div className="min-h-screen bg-black pt-20">
+      <ScrollIndicator sectionCount={2} />
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-950/20 via-black to-black" />
         <div className="absolute inset-0 radial-gradient" />

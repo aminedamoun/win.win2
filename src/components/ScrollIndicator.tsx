@@ -29,11 +29,11 @@ export default function ScrollIndicator({ sectionCount }: ScrollIndicatorProps) 
   return (
     <div className="hidden lg:block fixed right-12 top-0 h-screen z-50 pointer-events-none">
       <div className="relative h-full w-px flex items-center justify-center py-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-        <div className="relative h-full w-px bg-red-500/10">
+        <div className="relative h-full w-px bg-white/10">
           <div
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-red-500 to-red-600 shadow-[0_0_10px_rgba(239,68,68,0.5)] transition-all duration-300 ease-out"
+            className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-gray-200 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-300 ease-out"
             style={{ height: `${scrollProgress}%` }}
           />
 
@@ -46,12 +46,12 @@ export default function ScrollIndicator({ sectionCount }: ScrollIndicatorProps) 
               <div
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   scrollProgress >= dot.position
-                    ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)] scale-100'
-                    : 'bg-red-500/30 scale-75'
+                    ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] scale-100'
+                    : 'bg-white/30 scale-75'
                 }`}
               />
               {scrollProgress >= dot.position && (
-                <div className="absolute inset-0 w-2 h-2 rounded-full bg-red-500 animate-ping opacity-75" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-white animate-ping opacity-75" />
               )}
             </div>
           ))}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Send, CheckCircle2, Calendar, Upload, FileText, X } from 'lucide-react';
 import { supabase } from '../utils/supabase';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 export default function Apply() {
   const [formData, setFormData] = useState({
@@ -129,6 +130,7 @@ export default function Apply() {
 
   return (
     <div className="min-h-screen bg-black pt-20">
+      <ScrollIndicator sectionCount={2} />
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
         <div className="absolute inset-0 radial-gradient" />

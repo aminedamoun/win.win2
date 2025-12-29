@@ -1,6 +1,7 @@
 import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import FAQ from '../components/FAQ';
+import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 
 export default function About() {
@@ -102,6 +103,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-black pt-20">
+      <ScrollIndicator sectionCount={5} />
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
           <img
