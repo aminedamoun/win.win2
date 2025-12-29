@@ -334,14 +334,12 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
 <script src="/js/supabaseClient.js"></script>
 
 <script>
-let categories = [];
 let allImages = [];
 
 (async()=>{
   const { data } = await window.supabase.auth.getSession();
   if(!data.session) location.href="/login.html";
   await loadJobs();
-  await loadCategories();
   await loadBlogs();
   await loadImages();
 })();
@@ -490,19 +488,6 @@ async function deleteJob(id, title){
 }
 
 // === BLOG FUNCTIONS ===
-async function loadCategories(){
-  const { data } = await window.supabase
-    .from("article_categories")
-    .select("*")
-    .order("name");
-
-  categories = data || [];
-  const select = document.getElementById("blogCategory");
-  select.innerHTML = categories.map(c =>
-    `<option value="${c.id}">${c.name}</option>`
-  ).join("");
-}
-
 async function loadBlogs(){
   const list = document.getElementById("blogList");
   list.innerHTML = '<div class="loading">Loading articles...</div>';
