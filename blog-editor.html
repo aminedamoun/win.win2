@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Blog Editor – Win Win Admin</title>
+
+<style>
+* { box-sizing: border-box; }
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
+header{
+  background:#000;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(225,29,46,.3);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+header h2{margin:0}
+header span{color:#e11d2e}
+button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
+button:hover{transform:translateY(-1px)}
+.btn{background:#e11d2e;color:#fff}
+.btn:hover{background:#c11828}
+.btn-secondary{background:#333;color:#fff}
+.btn-secondary:hover{background:#444}
+.container{max-width:1200px;margin:auto;padding:24px}
+.editor-layout{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+.editor-main{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px}
+.editor-sidebar{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px;position:sticky;top:80px}
+input,textarea,select{
+  width:100%;
+  padding:10px 12px;
+  margin-bottom:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-family:inherit;
+  font-size:14px;
+}
+textarea{min-height:150px;resize:vertical;font-family:inherit}
+textarea#content{min-height:500px;font-family:'Courier New',monospace;font-size:14px;line-height:1.6}
+label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
+.form-group{margin-bottom:20px}
+.flex{display:flex;gap:12px;align-items:center}
+.flex-end{justify-content:flex-end}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:#999;text-decoration:none;margin-bottom:24px;transition:color .2s}
+.back-btn:hover{color:#e11d2e}
+.image-preview{width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px;display:none}
+.image-preview.show{display:block}
+h1{margin:0 0 24px 0;font-size:28px}
+.help-text{font-size:12px;color:#888;margin-top:-8px;margin-bottom:12px}
+.save-status{padding:8px 12px;border-radius:6px;font-size:14px;margin-bottom:16px;display:none}
+.save-status.success{background:rgba(34,197,94,.2);color:#4ade80;display:block}
+.save-status.error{background:rgba(239,68,68,.2);color:#f87171;display:block}
+@media(max-width:968px){
+  .editor-layout{grid-template-columns:1fr}
+  .editor-sidebar{position:static}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Win Win<span>.</span> Admin</h2>
+  <a href="admin.html" class="btn-secondary" style="text-decoration:none">Back to Dashboard</a>
+</header>
+
+<div class="container">
+  <a href="admin.html" class="back-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back to Blog Management
+  </a>
+
+  <h1 id="pageTitle">Create New Article</h1>
+
+  <div id="saveStatus" class="save-status"></div>
+
+  <form id="blogForm">
+    <div class="editor-layout">
+      <div class="editor-main">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" id="title" required placeholder="Enter article title">
+        </div>
+
+        <div class="form-group">
+          <label>Slug *</label>
+          <input type="text" id="slug" required placeholder="article-url-slug">
+          <p class="help-text">This will be used in the URL. Auto-generated from title.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Excerpt</label>
+          <textarea id="excerpt" rows="3" placeholder="Brief summary of the article (optional)"></textarea>
+          <p class="help-text">A short description shown in article previews.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Content *</label>
+          <textarea id="content" required placeholder="Write your article content here...
+
+You can use HTML tags for formatting:
+- <h2>Heading 2</h2>
+- <h3>Heading 3</h3>
+- <p>Paragraph</p>
+- <strong>Bold text</strong>
+- <em>Italic text</em>
+- <ul><li>List item</li></ul>
+- <a href='url'>Link</a>
+- <img src='url' alt='description'>"></textarea>
+          <p class="help-text">Write your article content. HTML is supported for formatting.</p>
+        </div>
+      </div>
+
+      <div class="editor-sidebar">
+        <div class="form-group">
+          <label>Featured Image URL</label>
+          <input type="url" id="image" placeholder="https://example.com/image.jpg">
+          <img id="imagePreview" class="image-preview" alt="Preview">
+          <p class="help-text">Enter image URL to preview it.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select id="category">
+            <option value="">Loading...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Author</label>
+          <input type="text" id="author" value="Win Win Team">
+        </div>
+
+        <div class="form-group">
+          <label>Read Time (minutes)</label>
+          <input type="number" id="readTime" value="5" min="1">
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="featured" style="width:auto;margin:0">
+            <span>Mark as Featured</span>
+          </label>
+        </div>
+
+        <div class="flex" style="margin-top:32px;flex-direction:column;gap:8px">
+          <button type="submit" class="btn" style="width:100%">Publish Article</button>
+          <button type="button" class="btn-secondary" onclick="window.location.href='admin.html'" style="width:100%">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+
+<script>
+let categories = [];
+let articleId = null;
+
+(async()=>{
+  const { data } = await window.supabase.auth.getSession();
+  if(!data.session) location.href="/login.html";
+
+  const urlParams = new URLSearchParams(window.location.search);
+  articleId = urlParams.get('id');
+
+  await loadCategories();
+
+  if(articleId){
+    await loadArticle();
+  }
+})();
+
+async function loadCategories(){
+  const { data } = await window.supabase
+    .from("article_categories")
+    .select("*")
+    .order("name");
+
+  categories = data || [];
+  const select = document.getElementById("category");
+  select.innerHTML = categories.map(c =>
+    `<option value="${c.id}">${c.name}</option>`
+  ).join("");
+}
+
+async function loadArticle(){
+  document.getElementById("pageTitle").textContent = "Edit Article";
+
+  const { data, error } = await window.supabase
+    .from("articles")
+    .select("*")
+    .eq("id", articleId)
+    .maybeSingle();
+
+  if(error || !data){
+    showStatus("Error loading article", "error");
+    return;
+  }
+
+  document.getElementById("title").value = data.title;
+  document.getElementById("slug").value = data.slug;
+  document.getElementById("excerpt").value = data.excerpt || "";
+  document.getElementById("content").value = data.content;
+  document.getElementById("image").value = data.featured_image_url || "";
+  document.getElementById("category").value = data.category_id || "";
+  document.getElementById("author").value = data.author;
+  document.getElementById("readTime").value = data.read_time;
+  document.getElementById("featured").checked = data.is_featured;
+
+  if(data.featured_image_url){
+    const preview = document.getElementById("imagePreview");
+    preview.src = data.featured_image_url;
+    preview.classList.add("show");
+  }
+}
+
+document.getElementById("blogForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Publishing...";
+  submitBtn.disabled = true;
+
+  const data = {
+    title: document.getElementById("title").value,
+    slug: document.getElementById("slug").value,
+    excerpt: document.getElementById("excerpt").value,
+    content: document.getElementById("content").value,
+    featured_image_url: document.getElementById("image").value || null,
+    category_id: document.getElementById("category").value || null,
+    author: document.getElementById("author").value,
+    read_time: parseInt(document.getElementById("readTime").value),
+    is_featured: document.getElementById("featured").checked,
+    published_at: new Date().toISOString()
+  };
+
+  let result;
+  if(articleId){
+    result = await window.supabase.from("articles").update(data).eq("id", articleId);
+  } else {
+    result = await window.supabase.from("articles").insert([data]);
+  }
+
+  submitBtn.textContent = originalText;
+  submitBtn.disabled = false;
+
+  if(result.error){
+    showStatus("Error: " + result.error.message, "error");
+    return;
+  }
+
+  showStatus("Article published successfully!", "success");
+  setTimeout(() => {
+    window.location.href = "admin.html";
+  }, 1500);
+});
+
+document.getElementById("title").addEventListener("input", (e) => {
+  if(!articleId){
+    const slug = e.target.value
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+    document.getElementById("slug").value = slug;
+  }
+});
+
+document.getElementById("image").addEventListener("input", (e) => {
+  const preview = document.getElementById("imagePreview");
+  if(e.target.value){
+    preview.src = e.target.value;
+    preview.classList.add("show");
+    preview.onerror = () => {
+      preview.classList.remove("show");
+    };
+  } else {
+    preview.classList.remove("show");
+  }
+});
+
+function showStatus(message, type){
+  const status = document.getElementById("saveStatus");
+  status.textContent = message;
+  status.className = "save-status " + type;
+
+  if(type === "success"){
+    setTimeout(() => {
+      status.classList.remove("success");
+    }, 3000);
+  }
+}
+</script>
+
+</body>
+</html>
