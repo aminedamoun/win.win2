@@ -373,6 +373,63 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative py-16 overflow-hidden bg-gradient-to-b from-black via-neutral-900 to-neutral-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-300 mb-2">
+              Our Trusted Partners
+            </h2>
+            <p className="text-gray-500 text-sm">
+              Working together to deliver excellence
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16 max-w-5xl mx-auto">
+            <a
+              href="#"
+              className="group transition-all duration-300 hover:scale-105"
+              aria-label="Partner 1"
+            >
+              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
+                <img
+                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+1"
+                  alt="Partner 1"
+                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+                />
+              </div>
+            </a>
+
+            <a
+              href="#"
+              className="group transition-all duration-300 hover:scale-105"
+              aria-label="Partner 2"
+            >
+              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
+                <img
+                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+2"
+                  alt="Partner 2"
+                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+                />
+              </div>
+            </a>
+
+            <a
+              href="#"
+              className="group transition-all duration-300 hover:scale-105"
+              aria-label="Partner 3"
+            >
+              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
+                <img
+                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+3"
+                  alt="Partner 3"
+                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
         className={`relative py-20 overflow-hidden transition-all duration-1000 ${
