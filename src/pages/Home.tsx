@@ -373,58 +373,49 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative py-16 overflow-hidden bg-gradient-to-b from-black via-neutral-900 to-neutral-950">
+      <section className="relative py-8 overflow-hidden bg-black/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-300 mb-2">
+          <div className="text-center mb-6">
+            <p className="text-gray-500 text-xs uppercase tracking-wider">
               Our Trusted Partners
-            </h2>
-            <p className="text-gray-500 text-sm">
-              Working together to deliver excellence
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16 max-w-5xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 max-w-4xl mx-auto">
             <a
               href="#"
-              className="group transition-all duration-300 hover:scale-105"
+              className="group transition-all duration-300"
               aria-label="Partner 1"
             >
-              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
-                <img
-                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+1"
-                  alt="Partner 1"
-                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
+              <img
+                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+1"
+                alt="Partner 1"
+                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+              />
             </a>
 
             <a
               href="#"
-              className="group transition-all duration-300 hover:scale-105"
+              className="group transition-all duration-300"
               aria-label="Partner 2"
             >
-              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
-                <img
-                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+2"
-                  alt="Partner 2"
-                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
+              <img
+                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+2"
+                alt="Partner 2"
+                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+              />
             </a>
 
             <a
               href="#"
-              className="group transition-all duration-300 hover:scale-105"
+              className="group transition-all duration-300"
               aria-label="Partner 3"
             >
-              <div className="w-32 h-24 sm:w-40 sm:h-28 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 group-hover:border-red-500/30 transition-all duration-300">
-                <img
-                  src="https://placehold.co/200x100/1a1a1a/gray?text=Partner+3"
-                  alt="Partner 3"
-                  className="w-full h-full object-contain p-4 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
+              <img
+                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+3"
+                alt="Partner 3"
+                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+              />
             </a>
           </div>
         </div>
