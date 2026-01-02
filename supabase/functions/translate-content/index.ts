@@ -41,7 +41,6 @@ Deno.serve(async (req: Request) => {
     const fromLanguage = languageNames[fromLang] || fromLang;
     const toLanguage = languageNames[toLang] || toLang;
 
-    // Check if OpenAI API key is configured
     const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
 
     if (!openaiApiKey) {
@@ -72,7 +71,6 @@ Deno.serve(async (req: Request) => {
       userPrompt += `\n\nText: ${text}`;
     }
 
-    // Call OpenAI API for translation
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
