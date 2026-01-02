@@ -604,7 +604,7 @@ export default function Home() {
               <img
                 src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png"
                 alt="Optispin"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
               />
             </div>
 
@@ -612,7 +612,7 @@ export default function Home() {
               <img
                 src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png"
                 alt="Partner Logo"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
               />
             </div>
 
@@ -620,7 +620,7 @@ export default function Home() {
               <img
                 src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo1.png"
                 alt="Partner Logo"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
               />
             </div>
           </div>
