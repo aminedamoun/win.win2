@@ -174,7 +174,7 @@ export default function ChatWidget() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-all duration-200 flex items-center justify-center group hover:shadow-xl hover:shadow-red-500/50 z-50 animate-bounce"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-all duration-200 flex items-center justify-center group hover:shadow-xl hover:shadow-red-600/50 z-50 animate-bounce"
         aria-label="Open chat"
       >
         <MessageCircle size={28} className="group-hover:scale-110 transition-transform" />
@@ -230,7 +230,7 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                     msg.role === 'user'
-                      ? 'bg-red-500 text-white rounded-br-none'
+                      ? 'bg-red-600 text-white rounded-br-none'
                       : 'bg-white/5 text-gray-200 rounded-bl-none border border-white/10'
                   }`}
                 >
@@ -313,7 +313,7 @@ export default function ChatWidget() {
                     <button
                       onClick={submitAppointment}
                       disabled={isLoading}
-                      className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 text-sm font-medium"
+                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 text-sm font-medium"
                     >
                       Schedule Appointment
                     </button>
@@ -346,7 +346,7 @@ export default function ChatWidget() {
               <button
                 onClick={sendMessage}
                 disabled={!inputValue.trim() || isLoading}
-                className="px-4 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center hover:shadow-lg hover:shadow-red-500/50"
+                className="px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center hover:shadow-lg hover:shadow-red-600/50"
                 aria-label="Send message"
               >
                 <Send size={20} />

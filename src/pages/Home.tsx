@@ -339,7 +339,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                  className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center justify-center group"
                 >
                   {t('home.hero.joinTeam')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
@@ -384,7 +384,7 @@ export default function Home() {
               <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
+                  className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center group"
                 >
                   {t('home.hero.joinTeam')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -650,7 +650,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                  className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center justify-center group"
                 >
                   {t('home.joinSection.startJourney')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -701,7 +701,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => navigate('/jobs')}
-                    className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
+                    className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center justify-center group"
                   >
                     {t('home.cta.explore')}
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -762,7 +762,7 @@ export default function Home() {
             <div className="mt-12">
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
+                className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 inline-flex items-center group"
               >
                 {t('home.process.startApplication')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -795,7 +795,7 @@ export default function Home() {
                   <p className="text-gray-300 mb-6">
                     {t('home.app.description')}
                   </p>
-                  <button className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold inline-flex items-center gap-2">
+                  <button className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold inline-flex items-center gap-2">
                     <Download size={20} />
                     {t('home.app.comingSoon')}
                   </button>
@@ -866,7 +866,7 @@ export default function Home() {
               <p className="text-gray-400 mb-6">{t('home.faq.stillQuestions')}</p>
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
+                className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 inline-flex items-center group"
               >
                 {t('home.faq.getInTouch')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />

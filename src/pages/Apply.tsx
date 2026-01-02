@@ -329,7 +329,7 @@ export default function Apply() {
                   <button
                     type="submit"
                     disabled={submitting || uploadingResume}
-                    className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {uploadingResume ? t('apply.form.uploadingResume') : submitting ? t('apply.form.submitting') : t('apply.form.submit')}
                     <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />

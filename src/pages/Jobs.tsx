@@ -158,7 +158,7 @@ export default function Jobs() {
                       </p>
                     </div>
 
-                    <button className="flex items-center gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-medium group-hover:shadow-lg group-hover:shadow-red-500/30 self-start md:self-center">
+                    <button className="flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-medium group-hover:shadow-lg group-hover:shadow-red-600/30 self-start md:self-center">
                       {t('jobs.viewDetails')}
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -188,7 +188,7 @@ export default function Jobs() {
               </p>
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
+                className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 inline-flex items-center group"
               >
                 {t('jobs.submitGeneral')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />

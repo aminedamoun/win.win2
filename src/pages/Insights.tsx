@@ -126,7 +126,7 @@ export default function Insights() {
               <p className="text-gray-400 mb-4">{error}</p>
               <button
                 onClick={fetchData}
-                className="mt-6 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold"
+                className="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold"
               >
                 {t('insights.error.retry')}
               </button>

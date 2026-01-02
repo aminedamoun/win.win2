@@ -111,7 +111,7 @@ export default function InsightDetail() {
           </p>
           <button
             onClick={() => navigate('/insights')}
-            className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold inline-flex items-center gap-2"
+            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold inline-flex items-center gap-2"
           >
             <ArrowLeft size={18} />
             Back to Insights

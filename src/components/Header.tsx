@@ -140,7 +140,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => handleNavigation('/apply')}
-              className="px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-sm font-medium hover:shadow-lg hover:shadow-red-500/50"
+              className="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-sm font-medium hover:shadow-lg hover:shadow-red-600/50"
             >
               {t('nav.joinTeam')}
             </button>
@@ -194,7 +194,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => handleNavigation('/apply')}
-                className="w-full px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-sm font-medium"
+                className="w-full px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-sm font-medium"
               >
                 {t('nav.joinTeam')}
               </button>

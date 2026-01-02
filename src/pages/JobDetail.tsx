@@ -99,7 +99,7 @@ export default function JobDetail() {
           <h1 className="text-4xl font-bold mb-4">Position Not Found</h1>
           <button
             onClick={() => navigate('/jobs')}
-            className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
           >
             View All Positions
           </button>
@@ -191,7 +191,7 @@ export default function JobDetail() {
 
             <button
               onClick={() => navigate('/apply')}
-              className="w-full md:w-auto px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group mb-12 animate-fade-in-up"
+              className="w-full md:w-auto px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 flex items-center justify-center group mb-12 animate-fade-in-up"
               style={{ animationDelay: '0.2s' }}
             >
               {t('jobs.applyForPosition')}
@@ -271,7 +271,7 @@ export default function JobDetail() {
               </p>
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
+                className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-600/50 inline-flex items-center group"
               >
                 {t('jobs.applyNow')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />

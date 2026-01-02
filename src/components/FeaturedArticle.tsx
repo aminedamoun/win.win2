@@ -83,7 +83,7 @@ export default function FeaturedArticle({
             </span>
           </div>
 
-          <button className="inline-flex items-center gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold group w-fit">
+          <button className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold group w-fit">
             Read Article
             <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
           </button>
