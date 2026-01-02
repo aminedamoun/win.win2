@@ -54,7 +54,7 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-white font-semibold mb-4">{category}</h4>
+              <h3 className="text-white font-semibold mb-4">{category}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.path}>
@@ -71,7 +71,7 @@ export default function Footer() {
           ))}
 
           <div>
-            <h4 className="text-white font-semibold mb-4">{t('footer.contact')}</h4>
+            <h3 className="text-white font-semibold mb-4">{t('footer.contact')}</h3>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-gray-400 text-sm">
                 <MapPin size={16} className="mt-1 flex-shrink-0 text-red-500" />
