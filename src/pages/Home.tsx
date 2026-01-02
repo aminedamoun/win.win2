@@ -114,25 +114,26 @@ export default function Home() {
   useEffect(() => {
     if (visibleSections.has(0) && !hasAnimated) {
       setHasAnimated(true);
-      stats.forEach((stat, index) => {
-        const duration = 2000;
-        const steps = 60;
-        const increment = stat.value / steps;
-        let currentStep = 0;
+      const duration = 2000;
+      const startTime = performance.now();
+      let rafId: number;
 
-        const timer = setInterval(() => {
-          currentStep++;
-          if (currentStep <= steps) {
-            setAnimatedStats((prev) => {
-              const newStats = [...prev];
-              newStats[index] = Math.round(increment * currentStep);
-              return newStats;
-            });
-          } else {
-            clearInterval(timer);
-          }
-        }, duration / steps);
-      });
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        setAnimatedStats(stats.map((stat) => Math.round(stat.value * progress)));
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(animate);
+        }
+      };
+
+      rafId = requestAnimationFrame(animate);
+
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
     } else if (!visibleSections.has(0) && hasAnimated) {
       setHasAnimated(false);
       setAnimatedStats([0, 0, 0, 0]);
