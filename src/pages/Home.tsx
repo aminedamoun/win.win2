@@ -114,6 +114,7 @@ export default function Home() {
   useEffect(() => {
     if (visibleSections.has(0) && !hasAnimated) {
       setHasAnimated(true);
+      const statValues = [500, 50, 3, 15];
       const duration = 2000;
       const startTime = performance.now();
       let rafId: number;
@@ -122,7 +123,7 @@ export default function Home() {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        setAnimatedStats(stats.map((stat) => Math.round(stat.value * progress)));
+        setAnimatedStats(statValues.map((value) => Math.round(value * progress)));
 
         if (progress < 1) {
           rafId = requestAnimationFrame(animate);
