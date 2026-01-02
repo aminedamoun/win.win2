@@ -1,16 +1,21 @@
 # robots.txt for Win Win Sales Company
 
 User-agent: *
+Disallow: /admin
+Disallow: /login
+Disallow: /blog-editor
+Disallow: /job-editor
 Allow: /
 
 # Sitemap location
 Sitemap: https://winwingroup.net/sitemap.xml
 
-# Disallow admin and internal pages
-Disallow: /admin
-Disallow: /login
-Disallow: /blog-editor
-Disallow: /job-editor
-
-# Crawl delay (optional - helps prevent server overload)
-Crawl-delay: 1
+# Block AI training crawlers (optional - uncomment if needed)
+# User-agent: CCBot
+# Disallow: /
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ChatGPT-User
+# Disallow: /
+# User-agent: Google-Extended
+# Disallow: /
