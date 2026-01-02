@@ -457,9 +457,24 @@ async function translateField(field, fromLang, toLang){
       })
     });
 
-    const result = await response.json();
+    console.log('Response status:', response.status);
 
-    if(!response.ok || !result.success){
+    if(!response.ok){
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
+      throw new Error(`Translation service error (${response.status}): ${errorText}`);
+    }
+
+    const responseText = await response.text();
+    console.log('Response length:', responseText.length);
+
+    if(!responseText){
+      throw new Error('Empty response from translation service');
+    }
+
+    const result = JSON.parse(responseText);
+
+    if(!result.success){
       throw new Error(result.error || 'Translation failed');
     }
 
