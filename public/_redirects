@@ -1,0 +1,8 @@
+# Netlify redirects for SPA routing
+
+# Serve robots.txt and sitemap.xml directly
+/robots.txt   /robots.txt   200
+/sitemap.xml  /sitemap.xml  200
+
+# All other routes redirect to index.html for SPA routing
+/*    /index.html   200
