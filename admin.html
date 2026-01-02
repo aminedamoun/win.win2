@@ -259,6 +259,12 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
         <label>Usage Location</label>
         <select id="imageLocation">
           <option value="">Select a location</option>
+          <optgroup label="Logos">
+            <option value="main-logo">Main Logo</option>
+            <option value="partner-logo-1">Partner Logo 1</option>
+            <option value="partner-logo-2">Partner Logo 2</option>
+            <option value="partner-logo-3">Partner Logo 3</option>
+          </optgroup>
           <optgroup label="Home Page">
             <option value="home-hero">Home - Hero Background</option>
             <option value="home-about">Home - About Section Background</option>
@@ -551,7 +557,7 @@ function editImage(image){
   // Handle usage location - check if it's in the dropdown
   const locationSelect = document.getElementById("imageLocation");
   const usageLocation = image.usage_location || "";
-  const validLocations = ['home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits', 'about-hero', 'insights-hero'];
+  const validLocations = ['main-logo', 'partner-logo-1', 'partner-logo-2', 'partner-logo-3', 'home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits', 'about-hero', 'insights-hero'];
 
   if (validLocations.includes(usageLocation)) {
     locationSelect.value = usageLocation;
