@@ -1,4 +1,4 @@
-import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown, BookOpen } from 'lucide-react';
+import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown, BookOpen, ShoppingBag } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
 import ScrollIndicator from '../components/ScrollIndicator';
@@ -178,24 +178,19 @@ export default function Home() {
 
   const coreServices = [
     {
-      icon: HomeIcon,
-      title: 'B2C Field Sales',
-      description: 'Door-to-door sales with direct customer visits, on-site presentations, and in-person contract signing across Slovenia.',
+      icon: ShoppingBag,
+      title: 'Promotions in Shopping Centers',
+      description: 'On-site promotional activities and direct customer engagement in high-traffic retail locations across Slovenia.',
     },
     {
       icon: Phone,
-      title: 'Call Center Sales',
-      description: 'Outbound telemarketing with structured scripts, KPI-driven performance, and CRM-based customer management.',
+      title: 'Call Center',
+      description: 'Professional outbound telemarketing with structured scripts, KPI-driven performance, and CRM-based customer management.',
     },
     {
-      icon: Wifi,
-      title: 'Telecommunications Sales',
-      description: 'Internet, TV, mobile contracts, and bundled solutions with contract upgrades and renewals.',
-    },
-    {
-      icon: MessageSquare,
-      title: 'Direct Marketing',
-      description: 'Performance-based acquisition with long-term customer relationships and ethical, transparent selling.',
+      icon: Building2,
+      title: 'B2B Professional Sales',
+      description: 'Business-to-business sales solutions, corporate telecommunications, and professional service offerings.',
     },
   ];
 
@@ -441,9 +436,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">Core Services</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">B2C Field</h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {coreServices.map((service, index) => (
                   <div
                     key={index}
