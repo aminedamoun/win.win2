@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Send, CheckCircle2, Calendar, Upload, FileText, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../utils/supabase';
 import ScrollIndicator from '../components/ScrollIndicator';
 
 export default function Apply() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -112,11 +114,11 @@ export default function Apply() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.type !== 'application/pdf') {
-        setError('Please upload a PDF file');
+        setError(t('apply.form.error'));
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        setError('File size must be less than 5MB');
+        setError(t('apply.form.error'));
         return;
       }
       setResumeFile(file);
@@ -138,10 +140,10 @@ export default function Apply() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up">
-              Apply to <span className="text-red-500">Win Win</span>
+              {t('apply.title')}
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              Take the first step towards building your sales career. Fill out the form below and we'll get back to you within 24 hours.
+              {t('apply.description')}
             </p>
           </div>
         </div>
@@ -155,9 +157,9 @@ export default function Apply() {
                 <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 className="text-green-500" size={40} />
                 </div>
-                <h2 className="text-3xl font-bold mb-4">Application Submitted!</h2>
+                <h2 className="text-3xl font-bold mb-4">{t('apply.form.success')}</h2>
                 <p className="text-lg text-gray-300">
-                  Thank you for your interest in joining Win Win. We've received your application and will contact you within 24 hours at {formData.email}.
+                  {t('apply.form.successMessage')} {formData.email}.
                 </p>
               </div>
             ) : (
@@ -171,7 +173,7 @@ export default function Apply() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
-                        First Name *
+                        {t('apply.form.firstName')} *
                       </label>
                       <input
                         type="text"
@@ -181,13 +183,13 @@ export default function Apply() {
                         value={formData.firstName}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
-                        placeholder="John"
+                        placeholder={t('apply.form.firstNamePlaceholder')}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
-                        Last Name *
+                        {t('apply.form.lastName')} *
                       </label>
                       <input
                         type="text"
@@ -197,14 +199,14 @@ export default function Apply() {
                         value={formData.lastName}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
-                        placeholder="Doe"
+                        placeholder={t('apply.form.lastNamePlaceholder')}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      Email Address *
+                      {t('apply.form.email')} *
                     </label>
                     <input
                       type="email"
@@ -214,13 +216,13 @@ export default function Apply() {
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
-                      placeholder="john.doe@example.com"
+                      placeholder={t('apply.form.emailPlaceholder')}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                      Phone Number *
+                      {t('apply.form.phone')} *
                     </label>
                     <input
                       type="tel"
@@ -230,13 +232,13 @@ export default function Apply() {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
-                      placeholder="+386 XX XXX XXX"
+                      placeholder={t('apply.form.phonePlaceholder')}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-300 mb-2">
-                      Preferred Interview Time
+                      {t('apply.form.preferredTime')}
                     </label>
                     <input
                       type="text"
@@ -245,13 +247,13 @@ export default function Apply() {
                       value={formData.preferredTime}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white"
-                      placeholder="e.g., Weekday mornings, Afternoons"
+                      placeholder={t('apply.form.preferredTimePlaceholder')}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                      Additional Message
+                      {t('apply.form.message')}
                     </label>
                     <textarea
                       id="message"
@@ -260,13 +262,13 @@ export default function Apply() {
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white resize-none"
-                      placeholder="Tell us about yourself, your experience, and why you want to join Win Win..."
+                      placeholder={t('apply.form.messagePlaceholder')}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="resume" className="block text-sm font-medium text-gray-300 mb-2">
-                      Resume / CV (PDF, max 5MB)
+                      {t('apply.form.resume')}
                     </label>
                     {!resumeFile ? (
                       <label
@@ -275,9 +277,9 @@ export default function Apply() {
                       >
                         <Upload className="text-gray-400 group-hover:text-red-500 transition-colors" size={32} />
                         <span className="text-gray-400 group-hover:text-red-500 transition-colors">
-                          Click to upload your resume
+                          {t('apply.form.uploadResume')}
                         </span>
-                        <span className="text-xs text-gray-500">PDF only, max 5MB</span>
+                        <span className="text-xs text-gray-500">{t('apply.form.uploadInfo')}</span>
                         <input
                           type="file"
                           id="resume"
@@ -320,23 +322,7 @@ export default function Apply() {
                       className="mt-1 w-5 h-5 bg-black/50 border border-white/10 rounded focus:ring-2 focus:ring-red-500/20 text-red-500"
                     />
                     <label htmlFor="gdprConsent" className="text-sm text-gray-400">
-                      I agree to the processing of my personal data in accordance with the{' '}
-                      <button
-                        type="button"
-                        className="text-red-500 hover:underline"
-                        onClick={() => window.open('/privacy', '_blank')}
-                      >
-                        Privacy Policy
-                      </button>{' '}
-                      and{' '}
-                      <button
-                        type="button"
-                        className="text-red-500 hover:underline"
-                        onClick={() => window.open('/cookies', '_blank')}
-                      >
-                        Cookie Policy
-                      </button>
-                      . *
+                      {t('apply.form.gdprConsent')} *
                     </label>
                   </div>
 
@@ -345,7 +331,7 @@ export default function Apply() {
                     disabled={submitting || uploadingResume}
                     className="w-full px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {uploadingResume ? 'Uploading Resume...' : submitting ? 'Submitting...' : 'Submit Application'}
+                    {uploadingResume ? t('apply.form.uploadingResume') : submitting ? t('apply.form.submitting') : t('apply.form.submit')}
                     <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                   </button>
                 </form>
@@ -354,11 +340,11 @@ export default function Apply() {
                   <div className="flex items-start gap-3 text-gray-400 text-sm">
                     <Calendar className="text-red-500 flex-shrink-0 mt-1" size={20} />
                     <p>
-                      Prefer to schedule an interview directly? Contact us at{' '}
+                      {t('apply.contact.prefer')}{' '}
                       <a href="mailto:info@winwin.si" className="text-red-500 hover:underline">
                         info@winwin.si
                       </a>{' '}
-                      or call{' '}
+                      {t('apply.contact.or')}{' '}
                       <a href="tel:+386XXXXXXXX" className="text-red-500 hover:underline">
                         +386 XX XXX XXX
                       </a>
@@ -375,25 +361,25 @@ export default function Apply() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              What Happens <span className="text-red-500">Next?</span>
+              {t('apply.process.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <div className="glass-card p-6">
                 <div className="text-4xl font-bold text-red-500 mb-2">1</div>
-                <h3 className="text-lg font-semibold mb-2">We Review</h3>
-                <p className="text-gray-400 text-sm">Your application is reviewed by our recruitment team</p>
+                <h3 className="text-lg font-semibold mb-2">{t('apply.process.step1.title')}</h3>
+                <p className="text-gray-400 text-sm">{t('apply.process.step1.desc')}</p>
               </div>
 
               <div className="glass-card p-6">
                 <div className="text-4xl font-bold text-red-500 mb-2">2</div>
-                <h3 className="text-lg font-semibold mb-2">We Contact</h3>
-                <p className="text-gray-400 text-sm">We'll reach out within 24 hours to schedule an interview</p>
+                <h3 className="text-lg font-semibold mb-2">{t('apply.process.step2.title')}</h3>
+                <p className="text-gray-400 text-sm">{t('apply.process.step2.desc')}</p>
               </div>
 
               <div className="glass-card p-6">
                 <div className="text-4xl font-bold text-red-500 mb-2">3</div>
-                <h3 className="text-lg font-semibold mb-2">You Start</h3>
-                <p className="text-gray-400 text-sm">Join our selection program and begin your career</p>
+                <h3 className="text-lg font-semibold mb-2">{t('apply.process.step3.title')}</h3>
+                <p className="text-gray-400 text-sm">{t('apply.process.step3.desc')}</p>
               </div>
             </div>
           </div>

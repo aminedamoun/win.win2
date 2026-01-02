@@ -280,12 +280,15 @@
     }
   },
   "jobs": {
-    "title": "Career Opportunities",
-    "description": "Join our team and build your career in sales",
+    "title": "Open Positions",
+    "description": "Join our team of high-performing sales professionals. We offer competitive compensation, comprehensive training, and clear career progression.",
     "viewDetails": "View Details",
     "applyNow": "Apply Now",
     "loading": "Loading positions...",
-    "noJobs": "No positions currently available",
+    "noJobs": "No open positions at the moment. Check back soon!",
+    "noPosition": "Don't See the Right Position?",
+    "noPositionDesc": "We're always looking for talented sales professionals. Send us your application and we'll keep you in mind for future opportunities.",
+    "submitGeneral": "Submit General Application",
     "filters": {
       "all": "All Positions",
       "location": "Location",
@@ -304,31 +307,69 @@
     }
   },
   "insights": {
-    "title": "Insights & Articles",
-    "description": "Sales strategies, career advice, and expert insights",
+    "title": "Insights from the World of Sales",
+    "subtitle": "Knowledge Hub",
+    "description": "Sales strategies, team culture, career growth, and real stories from the Win Win team.",
     "readMore": "Read More",
     "loading": "Loading articles...",
-    "noArticles": "No articles available yet",
+    "loadingText": "Loading articles...",
+    "noArticles": "No articles available yet. Check back soon!",
+    "latest": "Latest Insights",
     "backToInsights": "Back to Insights",
-    "shareArticle": "Share Article"
+    "shareArticle": "Share Article",
+    "error": {
+      "title": "Unable to Load Content",
+      "retry": "Retry",
+      "loadFailed": "Unable to load articles"
+    }
   },
   "apply": {
-    "title": "Apply for Career",
-    "description": "Start your journey with Win Win",
+    "title": "Apply to Win Win",
+    "description": "Take the first step towards building your sales career. Fill out the form below and we'll get back to you within 24 hours.",
     "form": {
       "firstName": "First Name",
+      "firstNamePlaceholder": "John",
       "lastName": "Last Name",
-      "email": "Email",
-      "phone": "Phone",
-      "position": "Position",
-      "selectPosition": "Select Position",
-      "resume": "Resume / CV",
-      "uploadResume": "Upload Resume",
-      "coverLetter": "Cover Letter (Optional)",
+      "lastNamePlaceholder": "Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "john.doe@example.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+386 XX XXX XXX",
+      "preferredTime": "Preferred Interview Time",
+      "preferredTimePlaceholder": "e.g., Weekday mornings, Afternoons",
+      "message": "Additional Message",
+      "messagePlaceholder": "Tell us about yourself, your experience, and why you want to join Win Win...",
+      "resume": "Resume / CV (PDF, max 5MB)",
+      "uploadResume": "Click to upload your resume",
+      "uploadInfo": "PDF only, max 5MB",
+      "gdprConsent": "I agree to the processing of my personal data in accordance with the Privacy Policy and Cookie Policy.",
+      "privacyPolicy": "Privacy Policy",
+      "cookiePolicy": "Cookie Policy",
       "submit": "Submit Application",
       "submitting": "Submitting...",
-      "success": "Application submitted successfully!",
+      "uploadingResume": "Uploading Resume...",
+      "success": "Application Submitted!",
+      "successMessage": "Thank you for your interest in joining Win Win. We've received your application and will contact you within 24 hours at",
       "error": "An error occurred. Please try again."
+    },
+    "contact": {
+      "prefer": "Prefer to schedule an interview directly? Contact us at",
+      "or": "or call"
+    },
+    "process": {
+      "title": "What Happens Next?",
+      "step1": {
+        "title": "We Review",
+        "desc": "Your application is reviewed by our recruitment team"
+      },
+      "step2": {
+        "title": "We Contact",
+        "desc": "We'll reach out within 24 hours to schedule an interview"
+      },
+      "step3": {
+        "title": "You Start",
+        "desc": "Join our selection program and begin your career"
+      }
     }
   },
   "footer": {

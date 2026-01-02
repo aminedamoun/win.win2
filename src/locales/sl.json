@@ -280,12 +280,15 @@
     }
   },
   "jobs": {
-    "title": "Karierne priložnosti",
-    "description": "Pridruži se naši ekipi in zgradi svojo kariero v prodaji",
+    "title": "Odprte pozicije",
+    "description": "Pridruži se naši ekipi visoko uspešnih prodajnih strokovnjakov. Nudimo konkurenčno plačilo, celovito usposabljanje in jasno napredovanje v karieri.",
     "viewDetails": "Poglej podrobnosti",
     "applyNow": "Prijavi se zdaj",
     "loading": "Nalaganje pozicij...",
-    "noJobs": "Trenutno ni razpoložljivih pozicij",
+    "noJobs": "Trenutno ni odprtih pozicij. Preverite kmalu!",
+    "noPosition": "Ne vidiš prave pozicije?",
+    "noPositionDesc": "Vedno iščemo nadarjene prodajne strokovnjake. Pošlji nam svojo prijavo in te bomo imeli v mislih za prihodnje priložnosti.",
+    "submitGeneral": "Oddaj splošno prijavo",
     "filters": {
       "all": "Vse pozicije",
       "location": "Lokacija",
@@ -304,31 +307,69 @@
     }
   },
   "insights": {
-    "title": "Vpogledi in članki",
-    "description": "Prodajne strategije, karierni nasveti in strokovni vpogledi",
+    "title": "Vpogledi iz sveta prodaje",
+    "subtitle": "Središče znanja",
+    "description": "Prodajne strategije, kultura ekipe, karierna rast in resnične zgodbe iz Win Win ekipe.",
     "readMore": "Preberi več",
     "loading": "Nalaganje člankov...",
-    "noArticles": "Članki še niso na voljo",
+    "loadingText": "Nalaganje člankov...",
+    "noArticles": "Članki še niso na voljo. Preverite kmalu!",
+    "latest": "Najnovejši vpogledi",
     "backToInsights": "Nazaj na vpoglede",
-    "shareArticle": "Deli članek"
+    "shareArticle": "Deli članek",
+    "error": {
+      "title": "Ni mogoče naložiti vsebine",
+      "retry": "Poskusi znova",
+      "loadFailed": "Ni mogoče naložiti člankov"
+    }
   },
   "apply": {
-    "title": "Prijavi se za kariero",
-    "description": "Začni svojo pot z Win Win",
+    "title": "Prijavi se v Win Win",
+    "description": "Naredi prvi korak k gradnji svoje prodajne kariere. Izpolni spodnji obrazec in odgovorili ti bomo v 24 urah.",
     "form": {
       "firstName": "Ime",
+      "firstNamePlaceholder": "Janez",
       "lastName": "Priimek",
-      "email": "E-pošta",
-      "phone": "Telefon",
-      "position": "Pozicija",
-      "selectPosition": "Izberi pozicijo",
-      "resume": "CV / življenjepis",
-      "uploadResume": "Naloži CV",
-      "coverLetter": "Spremno pismo (neobvezno)",
+      "lastNamePlaceholder": "Novak",
+      "email": "E-poštni naslov",
+      "emailPlaceholder": "janez.novak@primer.si",
+      "phone": "Telefonska številka",
+      "phonePlaceholder": "+386 XX XXX XXX",
+      "preferredTime": "Željen čas razgovora",
+      "preferredTimePlaceholder": "npr. Dopoldne med tednom, Popoldne",
+      "message": "Dodatno sporočilo",
+      "messagePlaceholder": "Povej nam o sebi, svojih izkušnjah in zakaj se želiš pridružiti Win Win...",
+      "resume": "CV / življenjepis (PDF, max 5MB)",
+      "uploadResume": "Klikni za nalaganje življenjepisa",
+      "uploadInfo": "Samo PDF, max 5MB",
+      "gdprConsent": "Strinjam se z obdelavo mojih osebnih podatkov v skladu s Politiko zasebnosti in Politiko piškotkov.",
+      "privacyPolicy": "Politiko zasebnosti",
+      "cookiePolicy": "Politiko piškotkov",
       "submit": "Oddaj prijavo",
       "submitting": "Oddajanje...",
-      "success": "Prijava uspešno oddana!",
+      "uploadingResume": "Nalaganje CV...",
+      "success": "Prijava oddana!",
+      "successMessage": "Hvala za tvoje zanimanje za pridružitev Win Win. Prejeli smo tvojo prijavo in te bomo kontaktirali v 24 urah na",
       "error": "Prišlo je do napake. Poskusi ponovno."
+    },
+    "contact": {
+      "prefer": "Raje razporeš razgovor direktno? Kontaktiraj nas na",
+      "or": "ali pokliči"
+    },
+    "process": {
+      "title": "Kaj sledi?",
+      "step1": {
+        "title": "Pregledamo",
+        "desc": "Tvojo prijavo pregleda naša ekipa za zaposlovanje"
+      },
+      "step2": {
+        "title": "Kontaktiramo",
+        "desc": "Odgovorili ti bomo v 24 urah za dogovor razgovora"
+      },
+      "step3": {
+        "title": "Začneš",
+        "desc": "Pridruži se našemu selekcijskemu programu in začni svojo kariero"
+      }
     }
   },
   "footer": {

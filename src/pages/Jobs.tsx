@@ -1,12 +1,14 @@
 import { MapPin, Briefcase, ArrowRight, DollarSign } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 import { Job } from '../types';
 
 export default function Jobs() {
   const { navigate } = useRouter();
+  const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -14,7 +16,7 @@ export default function Jobs() {
 
   useEffect(() => {
     fetchJobs();
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -51,14 +53,24 @@ export default function Jobs() {
 
       if (error) throw error;
 
-      const formattedJobs: Job[] = (data || []).map(job => ({
-        id: job.id,
-        title: job.title,
-        type: job.type,
-        location: job.location,
-        shortDescription: job.short_description,
-        salaryRange: job.salary_range,
-      }));
+      const currentLang = i18n.language;
+      const formattedJobs: Job[] = (data || []).map(job => {
+        const title = currentLang === 'sl'
+          ? (job.title_sl || job.title)
+          : (job.title_en || job.title);
+        const shortDescription = currentLang === 'sl'
+          ? (job.short_description_sl || job.short_description)
+          : (job.short_description_en || job.short_description);
+
+        return {
+          id: job.id,
+          title,
+          type: job.type,
+          location: job.location,
+          shortDescription,
+          salaryRange: job.salary_range,
+        };
+      });
 
       setJobs(formattedJobs);
     } catch (err) {
@@ -82,10 +94,10 @@ export default function Jobs() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 animate-fade-in-up">
-              Open Positions
+              {t('jobs.title')}
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              Join our team of high-performing sales professionals. We offer competitive compensation, comprehensive training, and clear career progression.
+              {t('jobs.description')}
             </p>
           </div>
         </div>
@@ -105,7 +117,7 @@ export default function Jobs() {
               </div>
             ) : jobs.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-400 text-lg">No open positions at the moment. Check back soon!</p>
+                <p className="text-gray-400 text-lg">{t('jobs.noJobs')}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-6">
@@ -146,7 +158,7 @@ export default function Jobs() {
                     </div>
 
                     <button className="flex items-center gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-medium group-hover:shadow-lg group-hover:shadow-red-500/30 self-start md:self-center">
-                      View Details
+                      {t('jobs.viewDetails')}
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
@@ -168,16 +180,16 @@ export default function Jobs() {
           <div className="max-w-4xl mx-auto">
             <div className="glass-card p-12 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Don't See the Right Position?
+                {t('jobs.noPosition')}
               </h2>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                We're always looking for talented sales professionals. Send us your application and we'll keep you in mind for future opportunities.
+                {t('jobs.noPositionDesc')}
               </p>
               <button
                 onClick={() => navigate('/apply')}
                 className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
-                Submit General Application
+                {t('jobs.submitGeneral')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>

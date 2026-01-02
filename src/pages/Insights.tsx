@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Lightbulb, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../utils/supabase';
 import FeaturedArticle from '../components/FeaturedArticle';
 import ArticleCard from '../components/ArticleCard';
@@ -19,6 +20,7 @@ interface Article {
 }
 
 export default function Insights() {
+  const { t, i18n } = useTranslation();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,7 @@ export default function Insights() {
   useEffect(() => {
     fetchData();
     fetchHeroImage();
-  }, []);
+  }, [i18n.language]);
 
   const fetchHeroImage = async () => {
     try {
@@ -56,10 +58,24 @@ export default function Insights() {
 
       if (fetchError) throw fetchError;
 
-      setArticles(data || []);
+      const currentLang = i18n.language;
+      const translatedArticles = (data || []).map(article => ({
+        ...article,
+        title: currentLang === 'sl'
+          ? (article.title_sl || article.title)
+          : (article.title_en || article.title),
+        excerpt: currentLang === 'sl'
+          ? (article.excerpt_sl || article.excerpt)
+          : (article.excerpt_en || article.excerpt),
+        content: currentLang === 'sl'
+          ? (article.content_sl || article.content)
+          : (article.content_en || article.content),
+      }));
+
+      setArticles(translatedArticles);
     } catch (err) {
       console.error('Error fetching articles:', err);
-      setError('Unable to load articles from database.');
+      setError(t('insights.error.loadFailed'));
     } finally {
       setLoading(false);
     }
@@ -87,14 +103,13 @@ export default function Insights() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-red-500/10 rounded-full border border-red-500/20">
               <Lightbulb className="text-red-500" size={20} />
-              <span className="text-red-500 font-semibold">Knowledge Hub</span>
+              <span className="text-red-500 font-semibold">{t('insights.subtitle')}</span>
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Insights from the World of{' '}
-              <span className="gradient-text">Sales</span>
+              {t('insights.title')}
             </h1>
             <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed">
-              Sales strategies, team culture, career growth, and real stories from the Win Win team.
+              {t('insights.description')}
             </p>
           </div>
         </div>
@@ -106,13 +121,13 @@ export default function Insights() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="glass-card p-8 max-w-2xl mx-auto text-center">
               <AlertCircle className="mx-auto mb-4 text-red-500" size={48} />
-              <h2 className="text-2xl font-bold mb-2">Unable to Load Content</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('insights.error.title')}</h2>
               <p className="text-gray-400 mb-4">{error}</p>
               <button
                 onClick={fetchData}
                 className="mt-6 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold"
               >
-                Retry
+                {t('insights.error.retry')}
               </button>
             </div>
           </div>
@@ -145,7 +160,7 @@ export default function Insights() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold">
-              Latest <span className="text-red-500">Insights</span>
+              <span dangerouslySetInnerHTML={{ __html: t('insights.latest') }} />
             </h2>
           </div>
 
@@ -153,12 +168,12 @@ export default function Insights() {
             <div className="flex items-center justify-center py-20">
               <div className="flex flex-col items-center gap-4">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
-                <p className="text-gray-400">Loading articles...</p>
+                <p className="text-gray-400">{t('insights.loadingText')}</p>
               </div>
             </div>
           ) : error ? (
             <div className="text-center py-20">
-              <p className="text-gray-400 text-lg">Unable to load articles</p>
+              <p className="text-gray-400 text-lg">{t('insights.error.loadFailed')}</p>
             </div>
           ) : regularArticles.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,7 +195,7 @@ export default function Insights() {
           ) : (
             <div className="text-center py-20">
               <p className="text-gray-400 text-lg">
-                No articles available yet. Check back soon!
+                {t('insights.noArticles')}
               </p>
             </div>
           )}
