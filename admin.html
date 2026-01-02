@@ -207,12 +207,31 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
       <input type="hidden" id="imageId">
 
       <div class="form-group">
-        <label>Upload Image *</label>
-        <div class="upload-area" id="uploadArea">
-          <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
-          <p>Click to upload or drag and drop</p>
-          <p style="font-size:12px;color:#999">JPG, PNG, GIF, WebP (max 5MB)</p>
+        <label>Image Source *</label>
+        <div style="display:flex;gap:16px;margin-bottom:12px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="radio" name="imageSource" value="upload" checked onchange="toggleImageSource()">
+            <span>Upload File</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="radio" name="imageSource" value="url" onchange="toggleImageSource()">
+            <span>Use URL</span>
+          </label>
         </div>
+
+        <div id="uploadSection">
+          <div class="upload-area" id="uploadArea">
+            <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+            <p>Click to upload or drag and drop</p>
+            <p style="font-size:12px;color:#999">JPG, PNG, GIF, WebP (max 5MB)</p>
+          </div>
+        </div>
+
+        <div id="urlSection" style="display:none">
+          <input type="url" id="imageUrlInput" placeholder="https://example.com/image.jpg" onchange="handleUrlInput()">
+          <p style="font-size:12px;color:#999;margin-top:4px">Enter the full URL of the image</p>
+        </div>
+
         <div id="currentImagePreview" style="margin-top:12px;display:none">
           <img id="previewImg" style="max-width:200px;max-height:200px;border-radius:8px" />
         </div>
@@ -496,6 +515,7 @@ function openImageModal(){
   document.getElementById("imageModal").classList.add("active");
   document.getElementById("imageId").value = "";
   document.getElementById("imageUrl").value = "";
+  document.getElementById("imageUrlInput").value = "";
   document.getElementById("imageName").value = "";
   document.getElementById("imageCategory").value = "general";
   document.getElementById("imageLocation").value = "";
@@ -504,6 +524,9 @@ function openImageModal(){
   document.getElementById("imageAlt").value = "";
   document.getElementById("imageFile").value = "";
   document.getElementById("currentImagePreview").style.display = "none";
+  document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+  document.getElementById("uploadSection").style.display = "block";
+  document.getElementById("urlSection").style.display = "none";
   uploadArea.querySelector("p").textContent = "Click to upload or drag and drop";
 }
 
@@ -514,10 +537,16 @@ function editImage(image){
   imageIdInput.value = image.id;
   imageIdInput.dataset.storagePath = image.storage_path || "";
   document.getElementById("imageUrl").value = image.url;
+  document.getElementById("imageUrlInput").value = "";
   document.getElementById("imageName").value = image.name;
   document.getElementById("imageCategory").value = image.category;
   document.getElementById("imageAlt").value = image.alt_text || "";
   document.getElementById("imageFile").value = "";
+
+  // Set to upload mode by default when editing
+  document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+  document.getElementById("uploadSection").style.display = "block";
+  document.getElementById("urlSection").style.display = "none";
 
   // Handle usage location - check if it's in the dropdown
   const locationSelect = document.getElementById("imageLocation");
@@ -542,7 +571,7 @@ function editImage(image){
     const previewImg = document.getElementById("previewImg");
     previewImg.src = image.url;
     previewContainer.style.display = "block";
-    uploadArea.querySelector("p").textContent = "Current image shown below. Upload new file to replace.";
+    uploadArea.querySelector("p").textContent = "Current image shown below. Upload new file or enter URL to replace.";
   }
 }
 
@@ -570,6 +599,39 @@ uploadArea.addEventListener("drop", (e) => {
   }
 });
 
+function toggleImageSource(){
+  const source = document.querySelector('input[name="imageSource"]:checked').value;
+  const uploadSection = document.getElementById("uploadSection");
+  const urlSection = document.getElementById("urlSection");
+
+  if(source === "upload"){
+    uploadSection.style.display = "block";
+    urlSection.style.display = "none";
+    document.getElementById("imageUrlInput").value = "";
+  } else {
+    uploadSection.style.display = "none";
+    urlSection.style.display = "block";
+    document.getElementById("imageFile").value = "";
+  }
+}
+
+function handleUrlInput(){
+  const url = document.getElementById("imageUrlInput").value;
+  if(url){
+    const previewContainer = document.getElementById("currentImagePreview");
+    const previewImg = document.getElementById("previewImg");
+    previewImg.src = url;
+    previewContainer.style.display = "block";
+
+    // Auto-fill name if empty
+    if(!document.getElementById("imageName").value){
+      const urlParts = url.split('/');
+      const filename = urlParts[urlParts.length - 1].split('?')[0];
+      document.getElementById("imageName").value = filename.replace(/\.[^/.]+$/, "") || "Image";
+    }
+  }
+}
+
 function handleFileSelect(e){
   const file = e.target.files[0];
   if(file){
@@ -594,7 +656,9 @@ async function saveImage(e){
   e.preventDefault();
 
   const id = document.getElementById("imageId").value;
+  const source = document.querySelector('input[name="imageSource"]:checked').value;
   const file = document.getElementById("imageFile").files[0];
+  const urlInput = document.getElementById("imageUrlInput").value;
   let imageUrl = document.getElementById("imageUrl").value;
   let fileName = null;
   let oldStoragePath = null;
@@ -603,7 +667,7 @@ async function saveImage(e){
   // If editing, get the old storage path and usage location from database first
   if(id){
     const { data: existingImage } = await window.supabase
-      .from('website-images')
+      .from('website_images')
       .select('storage_path, usage_location')
       .eq('id', id)
       .maybeSingle();
@@ -614,8 +678,20 @@ async function saveImage(e){
     }
   }
 
-  // Upload file if provided
-  if(file){
+  // Handle URL source
+  if(source === "url" && urlInput){
+    imageUrl = urlInput;
+    fileName = null; // No storage path for URL-based images
+
+    // If editing and switching from uploaded file to URL, delete the old file
+    if(id && oldStoragePath){
+      await window.supabase.storage
+        .from('website-images')
+        .remove([oldStoragePath]);
+    }
+  }
+  // Handle file upload source
+  else if(source === "upload" && file){
     const fileExt = file.name.split('.').pop();
     fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const { data: uploadData, error: uploadError } = await window.supabase.storage
@@ -641,9 +717,9 @@ async function saveImage(e){
     }
   }
 
-  // When editing, keep the existing URL if no new file is uploaded
+  // Validation: Need either an existing URL (when editing) or new source
   if(!imageUrl && !id){
-    alert("Please upload an image file");
+    alert("Please upload an image file or enter an image URL");
     return;
   }
 
@@ -665,17 +741,17 @@ async function saveImage(e){
     alt_text: document.getElementById("imageAlt").value
   };
 
-  // Only update URL and storage path if a new file was uploaded
-  if(file){
+  // Update URL and storage path based on source
+  if(file || urlInput){
     data.url = imageUrl;
-    data.storage_path = fileName;
+    data.storage_path = fileName; // Will be null for URL-based images
   }
 
   let result;
   if(id){
     result = await window.supabase.from("website_images").update(data).eq("id", id);
   } else {
-    // For new images, URL and storage_path are required
+    // For new images, URL is required but storage_path can be null for URL-based images
     data.url = imageUrl;
     data.storage_path = fileName;
     result = await window.supabase.from("website_images").insert([data]);
