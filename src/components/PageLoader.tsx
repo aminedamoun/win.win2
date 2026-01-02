@@ -1,8 +1,30 @@
 import { useEffect, useState } from 'react';
+import { supabase } from '../utils/supabase';
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [logoUrl, setLogoUrl] = useState('/logo2.png');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const { data } = await supabase
+          .from('website_images')
+          .select('url')
+          .eq('usage_location', 'main-logo')
+          .maybeSingle();
+
+        if (data && data.url) {
+          setLogoUrl(data.url);
+        }
+      } catch (err) {
+        console.error('Error fetching logo:', err);
+      }
+    };
+
+    fetchLogo();
+  }, []);
 
   useEffect(() => {
     const minLoadTime = 1000;
@@ -41,7 +63,7 @@ export default function PageLoader() {
           <div className="absolute inset-0 bg-red-500/30 rounded-full blur-3xl animate-pulse scale-150" />
           <div className="absolute inset-0 bg-red-500/20 rounded-full blur-2xl animate-pulse scale-125" />
           <img
-            src="/logo2.png"
+            src={logoUrl}
             alt="Win Win Logo"
             className="w-24 h-24 object-contain relative animate-pulse"
             style={{ animationDuration: '2s' }}

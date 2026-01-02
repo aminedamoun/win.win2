@@ -1,10 +1,33 @@
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
 
 export default function Footer() {
   const { navigate } = useRouter();
   const { t } = useTranslation();
+  const [logoUrl, setLogoUrl] = useState('/logo2.png');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const { data } = await supabase
+          .from('website_images')
+          .select('url')
+          .eq('usage_location', 'main-logo')
+          .maybeSingle();
+
+        if (data && data.url) {
+          setLogoUrl(data.url);
+        }
+      } catch (err) {
+        console.error('Error fetching logo:', err);
+      }
+    };
+
+    fetchLogo();
+  }, []);
 
   const footerLinks = {
     [t('footer.company')]: [
@@ -25,7 +48,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="mb-4">
-              <img src="/logo2.png" alt="Win Win" className="h-12 w-auto" />
+              <img src={logoUrl} alt="Win Win" className="h-12 w-auto" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               {t('footer.description')}

@@ -31,6 +31,10 @@ export default function Home() {
   const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=800');
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
+  const [partnerLogo1, setPartnerLogo1] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80');
+  const [partnerLogo2, setPartnerLogo2] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80');
+  const [partnerLogo3, setPartnerLogo3] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80');
+  const [mainLogo, setMainLogo] = useState('/logo2.png');
   const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -41,7 +45,17 @@ export default function Home() {
         const { data: images } = await supabase
           .from('website_images')
           .select('url, usage_location')
-          .in('usage_location', ['home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits']);
+          .in('usage_location', [
+            'home-hero',
+            'home-about',
+            'home-join-team',
+            'home-why-choose',
+            'home-benefits',
+            'partner-logo-1',
+            'partner-logo-2',
+            'partner-logo-3',
+            'main-logo'
+          ]);
 
         if (images) {
           images.forEach(img => {
@@ -55,6 +69,14 @@ export default function Home() {
               setWhyChooseImageUrl(img.url);
             } else if (img.usage_location === 'home-benefits') {
               setBenefitsImageUrl(img.url);
+            } else if (img.usage_location === 'partner-logo-1') {
+              setPartnerLogo1(img.url);
+            } else if (img.usage_location === 'partner-logo-2') {
+              setPartnerLogo2(img.url);
+            } else if (img.usage_location === 'partner-logo-3') {
+              setPartnerLogo3(img.url);
+            } else if (img.usage_location === 'main-logo') {
+              setMainLogo(img.url);
             }
           });
         }
@@ -390,9 +412,9 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80"
-                alt="Optispin"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                src={partnerLogo1}
+                alt="Partner 1"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
                 loading="lazy"
                 width="200"
                 height="64"
@@ -401,9 +423,9 @@ export default function Home() {
 
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80"
-                alt="Partner Logo"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                src={partnerLogo2}
+                alt="Partner 2"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
                 loading="lazy"
                 width="200"
                 height="64"
@@ -412,9 +434,9 @@ export default function Home() {
 
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80"
-                alt="Telemach"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                src={partnerLogo3}
+                alt="Partner 3"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
                 loading="lazy"
                 width="200"
                 height="64"
