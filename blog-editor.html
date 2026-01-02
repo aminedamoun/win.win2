@@ -134,7 +134,7 @@ h1{margin:0 0 24px 0;font-size:28px}
         </div>
 
         <!-- Slovenian Content -->
-        <div class="language-content active" id="content-sl">
+        <div class="language-content active" id="content-sl-tab">
           <div class="form-group">
             <div class="label-with-button">
               <label>Naslov (Slovenščina) *</label>
@@ -185,7 +185,7 @@ Lahko uporabite HTML oznake za oblikovanje:
         </div>
 
         <!-- English Content -->
-        <div class="language-content" id="content-en">
+        <div class="language-content" id="content-en-tab">
           <div class="form-group">
             <div class="label-with-button">
               <label>Title (English) *</label>
@@ -325,7 +325,7 @@ function switchLanguage(lang){
   });
 
   document.querySelectorAll('.language-content').forEach(content => {
-    content.classList.toggle('active', content.id === 'content-' + lang);
+    content.classList.toggle('active', content.id === 'content-' + lang + '-tab');
   });
 
   document.getElementById('slug-display').value = document.getElementById('slug').value;
@@ -373,6 +373,15 @@ async function loadArticle(){
   console.log("Content SL length:", data.content_sl?.length || 0);
   console.log("First 100 chars of content_en:", data.content_en?.substring(0, 100));
 
+  // Switch to English tab FIRST if only English content exists
+  if(data.content_en && !data.content_sl){
+    console.log("Switching to English tab before loading content");
+    switchLanguage('en');
+  }
+
+  // Small delay to ensure DOM is ready
+  await new Promise(resolve => setTimeout(resolve, 50));
+
   // Populate fields with explicit checks
   const titleSlField = document.getElementById("title-sl");
   const titleEnField = document.getElementById("title-en");
@@ -395,7 +404,9 @@ async function loadArticle(){
   if(contentEnField) {
     contentEnField.value = data.content_en || "";
     console.log("Set content-en field, length:", contentEnField.value.length);
-    console.log("Textarea element:", contentEnField);
+    console.log("Content preview:", data.content_en?.substring(0, 50));
+  } else {
+    console.error("content-en field not found!");
   }
 
   document.getElementById("image").value = data.featured_image_url || "";
@@ -403,12 +414,6 @@ async function loadArticle(){
   document.getElementById("author").value = data.author || "Win Win Team";
   document.getElementById("readTime").value = data.read_time || 5;
   document.getElementById("featured").checked = data.is_featured || false;
-
-  // Switch to English tab if only English content exists
-  if(data.content_en && !data.content_sl){
-    console.log("Switching to English tab");
-    switchLanguage('en');
-  }
 
   if(data.featured_image_url){
     const preview = document.getElementById("imagePreview");
