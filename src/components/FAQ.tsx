@@ -76,6 +76,8 @@ export default function FAQ() {
             <button
               onClick={() => toggleFAQ(index)}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+              aria-expanded={openIndex === index}
+              aria-label={`Toggle FAQ: ${faq.question}`}
             >
               <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
               <ChevronDown

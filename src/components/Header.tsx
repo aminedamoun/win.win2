@@ -76,6 +76,7 @@ export default function Header() {
           <button
             onClick={() => handleNavigation('/')}
             className="flex items-center hover:opacity-80 transition-opacity"
+            aria-label="Go to homepage"
           >
             <img src="/logo2.png" alt="Win Win" className="h-10 w-auto" />
           </button>
@@ -108,6 +109,7 @@ export default function Header() {
                   ? 'text-red-500 hover:bg-red-500/10'
                   : 'text-gray-500 hover:text-gray-300'
               }`}
+              aria-label={isAuthenticated ? 'Admin Panel' : 'Login'}
               title={isAuthenticated ? 'Admin Panel' : 'Login'}
             >
               <User size={20} />
@@ -129,6 +131,8 @@ export default function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden text-white hover:text-red-500 transition-colors"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

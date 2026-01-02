@@ -31,9 +31,9 @@ export default function CookieConsent() {
             <Cookie className="text-red-500 flex-shrink-0 mt-1" size={24} />
             <div>
               <h3 className="text-white font-semibold mb-1">Cookie Notice</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm">
                 We use cookies to improve your experience. By using our website, you agree to our use of cookies.{' '}
-                <button className="text-red-500 hover:underline">Learn more</button>
+                <button className="text-red-400 hover:text-red-300 hover:underline" aria-label="Learn more about cookies">Learn more</button>
               </p>
             </div>
           </div>
@@ -41,13 +41,15 @@ export default function CookieConsent() {
           <div className="flex items-center gap-3 flex-shrink-0">
             <button
               onClick={declineCookies}
-              className="px-5 py-2.5 border border-white/20 text-white rounded-lg hover:border-red-500 hover:text-red-500 transition-all duration-200 text-sm font-medium"
+              className="px-6 py-3 border-2 border-white/30 text-white rounded-lg hover:border-red-500 hover:bg-red-500/10 transition-all duration-200 text-sm font-semibold"
+              aria-label="Decline cookies"
             >
               Decline
             </button>
             <button
               onClick={acceptCookies}
-              className="px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-sm font-medium"
+              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 text-sm font-semibold shadow-lg"
+              aria-label="Accept cookies"
             >
               Accept
             </button>
