@@ -286,19 +286,25 @@ let articleId = null;
 let currentLang = 'sl';
 
 (async()=>{
-  const { data } = await window.supabase.auth.getSession();
-  if(!data.session) location.href="/login.html";
+  try {
+    const { data } = await window.supabase.auth.getSession();
+    if(!data.session) location.href="/login.html";
 
-  const urlParams = new URLSearchParams(window.location.search);
-  articleId = urlParams.get('id');
+    const urlParams = new URLSearchParams(window.location.search);
+    articleId = urlParams.get('id');
+    console.log("Article ID from URL:", articleId);
 
-  await loadCategories();
+    await loadCategories();
 
-  if(articleId){
-    await loadArticle();
+    if(articleId){
+      await loadArticle();
+    }
+
+    setupLanguageTabs();
+  } catch(error) {
+    console.error("Initialization error:", error);
+    showStatus("Failed to load editor: " + error.message, "error");
   }
-
-  setupLanguageTabs();
 })();
 
 function setupLanguageTabs(){
@@ -341,40 +347,66 @@ async function loadCategories(){
 async function loadArticle(){
   document.getElementById("pageTitle").textContent = "Edit Article";
 
+  console.log("Loading article with ID:", articleId);
+
   const { data, error } = await window.supabase
     .from("articles")
     .select("*")
     .eq("id", articleId)
     .maybeSingle();
 
-  if(error || !data){
-    showStatus("Error loading article", "error");
-    console.error("Load error:", error);
+  if(error){
+    console.error("Database error:", error);
+    showStatus("Error loading article: " + error.message, "error");
     return;
   }
 
-  console.log("Loaded article data:", data);
+  if(!data){
+    console.error("No article found with ID:", articleId);
+    showStatus("Article not found", "error");
+    return;
+  }
 
-  // Populate fields
-  document.getElementById("title-sl").value = data.title_sl || "";
-  document.getElementById("title-en").value = data.title_en || "";
+  console.log("Article loaded successfully");
+  console.log("Title EN:", data.title_en);
+  console.log("Content EN length:", data.content_en?.length || 0);
+  console.log("Content SL length:", data.content_sl?.length || 0);
+  console.log("First 100 chars of content_en:", data.content_en?.substring(0, 100));
+
+  // Populate fields with explicit checks
+  const titleSlField = document.getElementById("title-sl");
+  const titleEnField = document.getElementById("title-en");
+  const contentSlField = document.getElementById("content-sl");
+  const contentEnField = document.getElementById("content-en");
+
+  if(titleSlField) titleSlField.value = data.title_sl || "";
+  if(titleEnField) titleEnField.value = data.title_en || "";
+
   document.getElementById("slug").value = data.slug || "";
   document.getElementById("slug-display").value = data.slug || "";
   document.getElementById("excerpt-sl").value = data.excerpt_sl || "";
   document.getElementById("excerpt-en").value = data.excerpt_en || "";
-  document.getElementById("content-sl").value = data.content_sl || "";
-  document.getElementById("content-en").value = data.content_en || "";
+
+  if(contentSlField) {
+    contentSlField.value = data.content_sl || "";
+    console.log("Set content-sl field, length:", contentSlField.value.length);
+  }
+
+  if(contentEnField) {
+    contentEnField.value = data.content_en || "";
+    console.log("Set content-en field, length:", contentEnField.value.length);
+    console.log("Textarea element:", contentEnField);
+  }
+
   document.getElementById("image").value = data.featured_image_url || "";
   document.getElementById("category").value = data.category_id || "";
   document.getElementById("author").value = data.author || "Win Win Team";
   document.getElementById("readTime").value = data.read_time || 5;
   document.getElementById("featured").checked = data.is_featured || false;
 
-  console.log("Content EN length:", data.content_en?.length || 0);
-  console.log("Content SL length:", data.content_sl?.length || 0);
-
   // Switch to English tab if only English content exists
   if(data.content_en && !data.content_sl){
+    console.log("Switching to English tab");
     switchLanguage('en');
   }
 
@@ -383,6 +415,8 @@ async function loadArticle(){
     preview.src = data.featured_image_url;
     preview.classList.add("show");
   }
+
+  showStatus("Article loaded successfully", "success");
 }
 
 async function translateField(field, fromLang, toLang){
