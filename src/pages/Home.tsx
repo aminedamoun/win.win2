@@ -294,10 +294,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="relative h-[45vh] overflow-hidden">
             <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=800&q=75"
-              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=400&q=75 400w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=800&q=75 800w"
-              sizes="100vw"
+              src={heroImageUrl}
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
               fetchPriority="high"
@@ -341,11 +338,7 @@ export default function Home() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1920&q=80"
-              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1280&q=80 1280w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1920&q=80 1920w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=2560&q=80 2560w"
-              sizes="100vw"
+              src={heroImageUrl}
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
               fetchPriority="high"
@@ -467,11 +460,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-white/5 rounded-2xl blur-2xl" />
               <img
-                src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600"
-                srcSet="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=600&h=450 600w,
-                        https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600 800w,
-                        https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=900 1200w"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                src={aboutSectionImageUrl}
                 alt="Team collaboration"
                 className="relative rounded-2xl shadow-2xl border border-white/20"
                 loading="lazy"
@@ -617,11 +606,7 @@ export default function Home() {
       >
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
           <img
-            src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1200&q=80"
-            srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=800&q=80 800w,
-                    https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1200&q=80 1200w,
-                    https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1920&q=80 1920w"
-            sizes="100vw"
+            src={joinTeamImageUrl}
             alt="Team success"
             className="w-full h-full object-cover"
             loading="lazy"
@@ -675,11 +660,7 @@ export default function Home() {
               <div className="relative order-2 lg:order-1">
                 <div className="absolute inset-0 bg-white/5 rounded-2xl blur-2xl" />
                 <img
-                  src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=800&q=80"
-                  srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=600&q=80 600w,
-                          https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=800&q=80 800w,
-                          https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=1200&q=80 1200w"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  src={benefitsImageUrl}
                   alt="Professional office environment"
                   className="relative rounded-2xl shadow-2xl border border-white/20"
                   loading="lazy"
