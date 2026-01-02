@@ -3,6 +3,7 @@ import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
+import SEOContent from '../components/SEOContent';
 import { supabase } from '../utils/supabase';
 import { Job } from '../types';
 
@@ -194,6 +195,15 @@ export default function Jobs() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-neutral-900 via-black to-neutral-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <SEOContent
+            title={t('seo.jobs.title')}
+            content={t('seo.jobs.content')}
+          />
         </div>
       </section>
     </div>

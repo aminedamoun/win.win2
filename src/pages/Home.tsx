@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ArticleCard from '../components/ArticleCard';
+import SEOContent from '../components/SEOContent';
 import { supabase } from '../utils/supabase';
 
 interface Article {
@@ -890,6 +891,15 @@ export default function Home() {
               <p className="text-gray-400 text-lg">{t('home.blog.noArticles')}</p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-neutral-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <SEOContent
+            title={t('seo.home.title')}
+            content={t('seo.home.content')}
+          />
         </div>
       </section>
     </div>

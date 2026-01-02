@@ -2,6 +2,7 @@ import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handsha
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import FAQ from '../components/FAQ';
+import SEOContent from '../components/SEOContent';
 import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 
@@ -280,6 +281,15 @@ export default function About() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <FAQ />
+        </div>
+      </section>
+
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-neutral-900 via-black to-neutral-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <SEOContent
+            title={t('seo.about.title')}
+            content={t('seo.about.content')}
+          />
         </div>
       </section>
     </div>

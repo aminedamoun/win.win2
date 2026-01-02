@@ -5,6 +5,7 @@ import { supabase } from '../utils/supabase';
 import FeaturedArticle from '../components/FeaturedArticle';
 import ArticleCard from '../components/ArticleCard';
 import ScrollIndicator from '../components/ScrollIndicator';
+import SEOContent from '../components/SEOContent';
 
 interface Article {
   id: string;
@@ -199,6 +200,15 @@ export default function Insights() {
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-neutral-900 via-black to-neutral-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <SEOContent
+            title={t('seo.insights.title')}
+            content={t('seo.insights.content')}
+          />
         </div>
       </section>
     </div>
