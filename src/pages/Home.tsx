@@ -373,54 +373,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative py-8 overflow-hidden bg-black/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <p className="text-gray-500 text-xs uppercase tracking-wider">
-              Our Trusted Partners
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 max-w-4xl mx-auto">
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 1"
-            >
-              <img
-                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+1"
-                alt="Partner 1"
-                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
-              />
-            </a>
-
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 2"
-            >
-              <img
-                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+2"
-                alt="Partner 2"
-                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
-              />
-            </a>
-
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 3"
-            >
-              <img
-                src="https://placehold.co/140x60/0a0a0a/4a4a4a?text=Partner+3"
-                alt="Partner 3"
-                className="h-12 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
-              />
-            </a>
-          </div>
-        </div>
-      </section>
-
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
         className={`relative py-20 overflow-hidden transition-all duration-1000 ${
