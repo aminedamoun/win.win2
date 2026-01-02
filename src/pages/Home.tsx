@@ -294,9 +294,9 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="relative h-[45vh] overflow-hidden">
             <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=800&q=75"
-              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=400&q=75 400w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=800&q=75 800w"
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=800&q=75"
+              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=400&q=75 400w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&crop=top&w=800&q=75 800w"
               sizes="100vw"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
@@ -341,10 +341,10 @@ export default function Home() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1920&q=80"
-              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1280&q=80 1280w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1920&q=80 1920w,
-                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=2560&q=80 2560w"
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1920&q=80"
+              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1280&q=80 1280w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=1920&q=80 1920w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&crop=top&w=2560&q=80 2560w"
               sizes="100vw"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
