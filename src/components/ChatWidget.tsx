@@ -98,7 +98,7 @@ export default function ChatWidget() {
       console.error('Error sending message:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm sorry, I'm having trouble processing your request right now. Please try again or contact us directly at info@winwin.si",
+        content: "I'm sorry, I'm having trouble processing your request right now. Please try again or contact us directly at office@win-win.si",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -161,7 +161,7 @@ export default function ChatWidget() {
       console.error('Error submitting appointment:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm sorry, there was an error scheduling your appointment. Please try again or contact us directly at info@winwin.si",
+        content: "I'm sorry, there was an error scheduling your appointment. Please try again or contact us directly at office@win-win.si",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);

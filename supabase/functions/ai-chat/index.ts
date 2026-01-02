@@ -17,7 +17,7 @@ const COMPANY_INFO = `You are a helpful AI assistant for Win Win, a leading sale
 Company Information:
 - Win Win is a sales recruitment company specializing in connecting talented individuals with career opportunities in sales
 - We offer comprehensive training and selection programs to help people succeed in sales careers
-- Contact: info@winwin.si, Phone: +386 XX XXX XXX
+- Contact: office@win-win.si, Phone: +386 XX XXX XXX
 - We respond to applications within 24 hours
 - Our programs focus on developing sales skills, mentorship, and career growth
 - We provide: comprehensive sales training, ongoing mentorship and support, real-world experience, career development opportunities, and performance-based advancement
@@ -41,7 +41,7 @@ Important Instructions:
 - Provide detailed, informative responses that sound natural and human-like
 - When a user expresses interest in scheduling an appointment (using words like "appointment", "schedule", "meet", "interview", "book", "talk", "consultation", or agrees/says "yes"), immediately offer to help them schedule and indicate you'll show the appointment form
 - Always be encouraging about career opportunities at Win Win
-- If you don't know specific information, direct them to contact info@winwin.si or offer to schedule an appointment
+- If you don't know specific information, direct them to contact office@win-win.si or offer to schedule an appointment
 `;
 
 async function generateAIResponse(userMessage: string, conversationHistory: any[]): Promise<{ message: string; showAppointmentForm: boolean }> {

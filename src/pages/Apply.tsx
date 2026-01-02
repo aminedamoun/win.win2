@@ -341,8 +341,8 @@ export default function Apply() {
                     <Calendar className="text-red-500 flex-shrink-0 mt-1" size={20} />
                     <p>
                       {t('apply.contact.prefer')}{' '}
-                      <a href="mailto:info@winwin.si" className="text-red-500 hover:underline">
-                        info@winwin.si
+                      <a href="mailto:office@win-win.si" className="text-red-500 hover:underline">
+                        office@win-win.si
                       </a>{' '}
                       {t('apply.contact.or')}{' '}
                       <a href="tel:+386XXXXXXXX" className="text-red-500 hover:underline">

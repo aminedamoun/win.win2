@@ -94,7 +94,7 @@ Requested: ${new Date().toLocaleString()}
             },
             body: JSON.stringify({
               from: 'Win Win Appointments <appointments@resend.dev>',
-              to: ['info@winwin.si'],
+              to: ['office@win-win.si'],
               subject: `New Appointment Request from ${appointmentData.name}`,
               html: `
                 <h2>New Appointment Request</h2>
@@ -191,7 +191,7 @@ Submitted: ${new Date().toLocaleString()}
           },
           body: JSON.stringify({
             from: 'Win Win Applications <applications@resend.dev>',
-            to: ['info@winwin.si'],
+            to: ['office@win-win.si'],
             subject: `New Job Application from ${applicationData.firstName} ${applicationData.lastName}`,
             html: `
               <h2>New Job Application Received</h2>
