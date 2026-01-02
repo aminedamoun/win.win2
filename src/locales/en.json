@@ -343,7 +343,7 @@
       "email": "Email Address",
       "emailPlaceholder": "john.doe@example.com",
       "phone": "Phone Number",
-      "phonePlaceholder": "+386 XX XXX XXX",
+      "phonePlaceholder": "+386 31 234 567",
       "preferredTime": "Preferred Interview Time",
       "preferredTimePlaceholder": "e.g., Weekday mornings, Afternoons",
       "message": "Additional Message",

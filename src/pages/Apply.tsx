@@ -345,8 +345,8 @@ export default function Apply() {
                         office@win-win.si
                       </a>{' '}
                       {t('apply.contact.or')}{' '}
-                      <a href="tel:+386XXXXXXXX" className="text-red-500 hover:underline">
-                        +386 XX XXX XXX
+                      <a href="tel:+38631678732" className="text-red-500 hover:underline">
+                        +386 31 678 732
                       </a>
                     </p>
                   </div>
