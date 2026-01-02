@@ -295,6 +295,7 @@ export default function Home() {
               src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
           </div>
@@ -336,6 +337,7 @@ export default function Home() {
               src={heroImageUrl}
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
           </div>
