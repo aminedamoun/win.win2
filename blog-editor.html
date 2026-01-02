@@ -27,6 +27,9 @@ button:hover{transform:translateY(-1px)}
 .btn:hover{background:#c11828}
 .btn-secondary{background:#333;color:#fff}
 .btn-secondary:hover{background:#444}
+.btn-translate{background:#2563eb;color:#fff;font-size:13px;padding:8px 14px}
+.btn-translate:hover{background:#1d4ed8}
+.btn-translate:disabled{opacity:0.5;cursor:not-allowed}
 .container{max-width:1200px;margin:auto;padding:24px}
 .editor-layout{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
 .editor-main{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px}
@@ -43,7 +46,7 @@ input,textarea,select{
   font-size:14px;
 }
 textarea{min-height:150px;resize:vertical;font-family:inherit}
-textarea#content{min-height:500px;font-family:'Courier New',monospace;font-size:14px;line-height:1.6}
+textarea.content-field{min-height:500px;font-family:'Courier New',monospace;font-size:14px;line-height:1.6}
 label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
 .form-group{margin-bottom:20px}
 .flex{display:flex;gap:12px;align-items:center}
@@ -57,6 +60,45 @@ h1{margin:0 0 24px 0;font-size:28px}
 .save-status{padding:8px 12px;border-radius:6px;font-size:14px;margin-bottom:16px;display:none}
 .save-status.success{background:rgba(34,197,94,.2);color:#4ade80;display:block}
 .save-status.error{background:rgba(239,68,68,.2);color:#f87171;display:block}
+
+.language-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:24px;
+  border-bottom:2px solid rgba(255,255,255,.1);
+}
+.language-tab{
+  padding:12px 24px;
+  background:transparent;
+  border:none;
+  color:#999;
+  font-weight:600;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:all .2s;
+}
+.language-tab:hover{
+  color:#fff;
+  transform:none;
+}
+.language-tab.active{
+  color:#e11d2e;
+  border-bottom-color:#e11d2e;
+}
+.language-content{
+  display:none;
+}
+.language-content.active{
+  display:block;
+}
+.label-with-button{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
+
 @media(max-width:968px){
   .editor-layout{grid-template-columns:1fr}
   .editor-sidebar{position:static}
@@ -86,26 +128,99 @@ h1{margin:0 0 24px 0;font-size:28px}
   <form id="blogForm">
     <div class="editor-layout">
       <div class="editor-main">
-        <div class="form-group">
-          <label>Title *</label>
-          <input type="text" id="title" required placeholder="Enter article title">
+        <div class="language-tabs">
+          <button type="button" class="language-tab active" data-lang="sl">🇸🇮 Slovenščina</button>
+          <button type="button" class="language-tab" data-lang="en">🇬🇧 English</button>
         </div>
 
-        <div class="form-group">
-          <label>Slug *</label>
-          <input type="text" id="slug" required placeholder="article-url-slug">
-          <p class="help-text">This will be used in the URL. Auto-generated from title.</p>
+        <!-- Slovenian Content -->
+        <div class="language-content active" id="content-sl">
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Naslov (Slovenščina) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('title', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <input type="text" id="title-sl" placeholder="Vnesite naslov članka">
+          </div>
+
+          <div class="form-group">
+            <label>URL Slug *</label>
+            <input type="text" id="slug" required placeholder="clanek-url-slug">
+            <p class="help-text">Uporablja se v URL naslovu. Samodejno generiran iz naslova.</p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Izvleček (Slovenščina)</label>
+              <button type="button" class="btn-translate" onclick="translateField('excerpt', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <textarea id="excerpt-sl" rows="3" placeholder="Kratek povzetek članka (neobvezno)"></textarea>
+            <p class="help-text">Kratek opis prikazan v predogledu člankov.</p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Vsebina (Slovenščina) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('content', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <textarea id="content-sl" class="content-field" placeholder="Napišite vsebino članka...
+
+Lahko uporabite HTML oznake za oblikovanje:
+- <h2>Naslov 2</h2>
+- <h3>Naslov 3</h3>
+- <p>Odstavek</p>
+- <strong>Krepko besedilo</strong>
+- <em>Poševno besedilo</em>
+- <ul><li>Element seznama</li></ul>
+- <a href='url'>Povezava</a>
+- <img src='url' alt='opis'>"></textarea>
+            <p class="help-text">Napišite vsebino članka. HTML je podprt za oblikovanje.</p>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Excerpt</label>
-          <textarea id="excerpt" rows="3" placeholder="Brief summary of the article (optional)"></textarea>
-          <p class="help-text">A short description shown in article previews.</p>
-        </div>
+        <!-- English Content -->
+        <div class="language-content" id="content-en">
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Title (English) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('title', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <input type="text" id="title-en" placeholder="Enter article title">
+          </div>
 
-        <div class="form-group">
-          <label>Content *</label>
-          <textarea id="content" required placeholder="Write your article content here...
+          <div class="form-group">
+            <label>URL Slug *</label>
+            <input type="text" id="slug-display" disabled placeholder="Same as Slovenian">
+            <p class="help-text">URL slug is shared between languages.</p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Excerpt (English)</label>
+              <button type="button" class="btn-translate" onclick="translateField('excerpt', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <textarea id="excerpt-en" rows="3" placeholder="Brief summary of the article (optional)"></textarea>
+            <p class="help-text">A short description shown in article previews.</p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Content (English) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('content', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <textarea id="content-en" class="content-field" placeholder="Write your article content here...
 
 You can use HTML tags for formatting:
 - <h2>Heading 2</h2>
@@ -116,7 +231,8 @@ You can use HTML tags for formatting:
 - <ul><li>List item</li></ul>
 - <a href='url'>Link</a>
 - <img src='url' alt='description'>"></textarea>
-          <p class="help-text">Write your article content. HTML is supported for formatting.</p>
+            <p class="help-text">Write your article content. HTML is supported for formatting.</p>
+          </div>
         </div>
       </div>
 
@@ -167,6 +283,7 @@ You can use HTML tags for formatting:
 <script>
 let categories = [];
 let articleId = null;
+let currentLang = 'sl';
 
 (async()=>{
   const { data } = await window.supabase.auth.getSession();
@@ -180,7 +297,33 @@ let articleId = null;
   if(articleId){
     await loadArticle();
   }
+
+  setupLanguageTabs();
 })();
+
+function setupLanguageTabs(){
+  const tabs = document.querySelectorAll('.language-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const lang = tab.getAttribute('data-lang');
+      switchLanguage(lang);
+    });
+  });
+}
+
+function switchLanguage(lang){
+  currentLang = lang;
+
+  document.querySelectorAll('.language-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.getAttribute('data-lang') === lang);
+  });
+
+  document.querySelectorAll('.language-content').forEach(content => {
+    content.classList.toggle('active', content.id === 'content-' + lang);
+  });
+
+  document.getElementById('slug-display').value = document.getElementById('slug').value;
+}
 
 async function loadCategories(){
   const { data } = await window.supabase
@@ -209,10 +352,14 @@ async function loadArticle(){
     return;
   }
 
-  document.getElementById("title").value = data.title;
+  document.getElementById("title-sl").value = data.title_sl || data.title || "";
+  document.getElementById("title-en").value = data.title_en || "";
   document.getElementById("slug").value = data.slug;
-  document.getElementById("excerpt").value = data.excerpt || "";
-  document.getElementById("content").value = data.content;
+  document.getElementById("slug-display").value = data.slug;
+  document.getElementById("excerpt-sl").value = data.excerpt_sl || data.excerpt || "";
+  document.getElementById("excerpt-en").value = data.excerpt_en || "";
+  document.getElementById("content-sl").value = data.content_sl || data.content || "";
+  document.getElementById("content-en").value = data.content_en || "";
   document.getElementById("image").value = data.featured_image_url || "";
   document.getElementById("category").value = data.category_id || "";
   document.getElementById("author").value = data.author;
@@ -226,8 +373,73 @@ async function loadArticle(){
   }
 }
 
+async function translateField(field, fromLang, toLang){
+  const sourceId = `${field}-${fromLang}`;
+  const targetId = `${field}-${toLang}`;
+
+  const sourceValue = document.getElementById(sourceId).value.trim();
+
+  if(!sourceValue){
+    showStatus(`Please enter ${field} in ${fromLang.toUpperCase()} first`, "error");
+    return;
+  }
+
+  const targetField = document.getElementById(targetId);
+  const translateBtn = event.target;
+  const originalText = translateBtn.textContent;
+
+  translateBtn.textContent = 'Translating...';
+  translateBtn.disabled = true;
+
+  try {
+    const response = await fetch(`${window.supabaseUrl}/functions/v1/translate-content`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.supabaseAnonKey}`,
+      },
+      body: JSON.stringify({
+        text: sourceValue,
+        fromLang: fromLang,
+        toLang: toLang,
+        fieldType: field
+      })
+    });
+
+    const result = await response.json();
+
+    if(!response.ok || !result.success){
+      throw new Error(result.error || 'Translation failed');
+    }
+
+    targetField.value = result.translation;
+    showStatus('Translation completed successfully!', 'success');
+  } catch(error){
+    console.error('Translation error:', error);
+    showStatus('Translation failed: ' + error.message, 'error');
+  } finally {
+    translateBtn.textContent = originalText;
+    translateBtn.disabled = false;
+  }
+}
+
 document.getElementById("blogForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  const titleSl = document.getElementById("title-sl").value.trim();
+  const titleEn = document.getElementById("title-en").value.trim();
+  const contentSl = document.getElementById("content-sl").value.trim();
+  const contentEn = document.getElementById("content-en").value.trim();
+
+  if(!titleSl && !titleEn){
+    showStatus("Please enter a title in at least one language", "error");
+    return;
+  }
+
+  if(!contentSl && !contentEn){
+    showStatus("Please enter content in at least one language", "error");
+    return;
+  }
 
   const submitBtn = e.target.querySelector('button[type="submit"]');
   const originalText = submitBtn.textContent;
@@ -235,10 +447,16 @@ document.getElementById("blogForm").addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
 
   const data = {
-    title: document.getElementById("title").value,
+    title_sl: titleSl,
+    title_en: titleEn,
+    title: titleSl || titleEn,
     slug: document.getElementById("slug").value,
-    excerpt: document.getElementById("excerpt").value,
-    content: document.getElementById("content").value,
+    excerpt_sl: document.getElementById("excerpt-sl").value,
+    excerpt_en: document.getElementById("excerpt-en").value,
+    excerpt: document.getElementById("excerpt-sl").value || document.getElementById("excerpt-en").value,
+    content_sl: contentSl,
+    content_en: contentEn,
+    content: contentSl || contentEn,
     featured_image_url: document.getElementById("image").value || null,
     category_id: document.getElementById("category").value || null,
     author: document.getElementById("author").value,
@@ -268,14 +486,20 @@ document.getElementById("blogForm").addEventListener("submit", async (e) => {
   }, 1500);
 });
 
-document.getElementById("title").addEventListener("input", (e) => {
+document.getElementById("title-sl").addEventListener("input", (e) => {
   if(!articleId){
     const slug = e.target.value
       .toLowerCase()
+      .replace(/č/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
     document.getElementById("slug").value = slug;
+    document.getElementById("slug-display").value = slug;
   }
+});
+
+document.getElementById("slug").addEventListener("input", (e) => {
+  document.getElementById("slug-display").value = e.target.value;
 });
 
 document.getElementById("image").addEventListener("input", (e) => {
