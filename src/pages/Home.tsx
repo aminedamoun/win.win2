@@ -292,7 +292,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
         {/* Mobile: Overlay Layout */}
         <div className="lg:hidden">
-          <div className="relative h-[50vh] overflow-hidden">
+          <div className="relative h-[45vh] overflow-hidden">
             <img
               src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg"
               alt="Win Win Sales Team"
@@ -331,7 +331,7 @@ export default function Home() {
         </div>
 
         {/* Desktop: Background Image with Right-Aligned Content */}
-        <div className="hidden lg:block relative h-screen">
+        <div className="hidden lg:block relative h-[85vh]">
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
