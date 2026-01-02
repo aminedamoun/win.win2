@@ -4,11 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 import { Job } from '../types';
+import { useTranslation } from 'react-i18next';
 
 export default function JobDetail() {
   const { currentPath, navigate } = useRouter();
+  const { t, i18n } = useTranslation();
   const jobId = currentPath.split('/').pop();
   const [job, setJob] = useState<Job | null>(null);
+  const [jobData, setJobData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -17,7 +20,7 @@ export default function JobDetail() {
     if (jobId) {
       fetchJob();
     }
-  }, [jobId]);
+  }, [jobId, i18n.language]);
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -55,12 +58,22 @@ export default function JobDetail() {
       if (error) throw error;
 
       if (data) {
+        setJobData(data);
+
+        const currentLang = i18n.language;
+        const title = currentLang === 'sl'
+          ? (data.title_sl || data.title)
+          : (data.title_en || data.title);
+        const shortDescription = currentLang === 'sl'
+          ? (data.short_description_sl || data.short_description)
+          : (data.short_description_en || data.short_description);
+
         setJob({
           id: data.id,
-          title: data.title,
+          title,
           type: data.type,
           location: data.location,
-          shortDescription: data.short_description,
+          shortDescription,
           salaryRange: data.salary_range,
         });
       }
@@ -95,76 +108,30 @@ export default function JobDetail() {
     );
   }
 
-  const isTeamLeader = job.type === 'team-leader';
+  const currentLang = i18n.language;
+  const responsibilities = jobData
+    ? (currentLang === 'sl'
+        ? (jobData.responsibilities_sl || jobData.responsibilities || [])
+        : (jobData.responsibilities_en || jobData.responsibilities || []))
+    : [];
 
-  const responsibilities = isTeamLeader
-    ? [
-        'Managing and leading a team of sales advisors',
-        'Coaching and developing team members',
-        'Tracking and analyzing team KPIs',
-        'Optimizing sales processes and strategies',
-        'Conducting team meetings and training sessions',
-        'Reporting to management on team performance',
-      ]
-    : [
-        'Phone and field communication with potential customers',
-        'Presenting telecommunications and ICT solutions',
-        'Preparing customized offers and closing deals',
-        'Daily tracking of KPIs and sales metrics',
-        'Participating in coaching and sales training sessions',
-        'Building long-term customer relationships',
-      ];
+  const whatWeOffer = jobData
+    ? (currentLang === 'sl'
+        ? (jobData.benefits_sl || jobData.benefits || [])
+        : (jobData.benefits_en || jobData.benefits || []))
+    : [];
 
-  const whatWeOffer = isTeamLeader
-    ? [
-        'Base salary: €2,000+ plus performance bonuses',
-        'Leadership autonomy and decision-making power',
-        'Stable long-term employment contract',
-        'Comprehensive support and company structure',
-        'Professional development opportunities',
-        'Modern CRM and management tools',
-      ]
-    : [
-        'Competitive base salary plus uncapped commission',
-        'Qualified leads, proven scripts, and CRM access',
-        'Structured onboarding and continuous training',
-        'Long-term cooperation (employment or freelance options)',
-        'Clear career progression to Team Leader role',
-        'Flexibility in work arrangements (office, field, remote for seniors)',
-        'Meaningful work helping customers save money',
-      ];
+  const requirements = jobData
+    ? (currentLang === 'sl'
+        ? (jobData.requirements_sl || jobData.requirements || [])
+        : (jobData.requirements_en || jobData.requirements || []))
+    : [];
 
-  const requirements = isTeamLeader
-    ? [
-        'Previous sales or leadership experience',
-        'Strong understanding of CRM systems and KPIs',
-        'Excellent communication and motivation skills',
-        'Performance-driven mindset',
-        'Problem-solving abilities',
-        'Team management experience',
-      ]
-    : [
-        'Strong verbal and written communication skills',
-        'High motivation and ambition to succeed',
-        'Discipline, persistence, and responsibility',
-        'Professional approach to customer interactions',
-        'Sales mindset and goal-oriented attitude',
-        'Willingness to learn and develop',
-      ];
-
-  const advantages = isTeamLeader
-    ? [
-        'Experience in telecommunications or insurance sales',
-        'B2B and B2C market knowledge',
-        'Coaching and mentoring certifications',
-        'Advanced data analysis skills',
-      ]
-    : [
-        'Previous experience in telecom or insurance sales',
-        'Knowledge of B2C or B2B markets',
-        'Valid driving license (Category B) for field sales',
-        'Coaching or leadership aspirations',
-      ];
+  const fullDescription = jobData
+    ? (currentLang === 'sl'
+        ? (jobData.full_description_sl || jobData.full_description)
+        : (jobData.full_description_en || jobData.full_description))
+    : null;
 
   return (
     <div className="min-h-screen bg-black pt-20">
@@ -180,7 +147,7 @@ export default function JobDetail() {
               className="text-gray-400 hover:text-red-500 transition-colors mb-6 flex items-center gap-2"
             >
               <ArrowRight size={20} className="rotate-180" />
-              Back to All Positions
+              {t('jobs.backToAll')}
             </button>
 
             <div className="glass-card p-8 mb-8 animate-fade-in-up">
@@ -203,15 +170,23 @@ export default function JobDetail() {
                     )}
                     <div className="flex items-center gap-2">
                       <Clock size={18} className="text-red-500" />
-                      <span>Full-time</span>
+                      <span>{t('jobs.fullTime')}</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <p className="text-lg text-gray-300 leading-relaxed">
-                {job.shortDescription}
-              </p>
+              {fullDescription && (
+                <div className="mt-6 pt-6 border-t border-gray-800">
+                  <div className="text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: fullDescription }} />
+                </div>
+              )}
+
+              {!fullDescription && (
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  {job.shortDescription}
+                </p>
+              )}
             </div>
 
             <button
@@ -219,7 +194,7 @@ export default function JobDetail() {
               className="w-full md:w-auto px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group mb-12 animate-fade-in-up"
               style={{ animationDelay: '0.2s' }}
             >
-              Apply for This Position
+              {t('jobs.applyForPosition')}
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </button>
           </div>
@@ -234,53 +209,47 @@ export default function JobDetail() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto space-y-12">
-            <div className="glass-card p-8">
-              <h2 className="text-3xl font-bold mb-6">Main Responsibilities</h2>
-              <ul className="space-y-4">
-                {responsibilities.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {responsibilities.length > 0 && (
+              <div className="glass-card p-8">
+                <h2 className="text-3xl font-bold mb-6">{t('jobs.responsibilities')}</h2>
+                <ul className="space-y-4">
+                  {responsibilities.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div className="glass-card p-8">
-              <h2 className="text-3xl font-bold mb-6">What We Offer</h2>
-              <ul className="space-y-4">
-                {whatWeOffer.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {whatWeOffer.length > 0 && (
+              <div className="glass-card p-8">
+                <h2 className="text-3xl font-bold mb-6">{t('jobs.whatWeOffer')}</h2>
+                <ul className="space-y-4">
+                  {whatWeOffer.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div className="glass-card p-8">
-              <h2 className="text-3xl font-bold mb-6">What We Expect</h2>
-              <ul className="space-y-4">
-                {requirements.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="glass-card p-8">
-              <h2 className="text-3xl font-bold mb-6">Advantages</h2>
-              <ul className="space-y-4">
-                {advantages.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {requirements.length > 0 && (
+              <div className="glass-card p-8">
+                <h2 className="text-3xl font-bold mb-6">{t('jobs.requirements')}</h2>
+                <ul className="space-y-4">
+                  {requirements.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -295,16 +264,16 @@ export default function JobDetail() {
           <div className="max-w-4xl mx-auto">
             <div className="glass-card p-12 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Ready to <span className="text-red-500">Apply?</span>
+                {t('jobs.readyToApply')} <span className="text-red-500">{t('jobs.apply')}</span>
               </h2>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                Take the first step towards building your career with Win Win. Submit your application today and join our team of high-performing sales professionals.
+                {t('jobs.applyDescription')}
               </p>
               <button
                 onClick={() => navigate('/apply')}
                 className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
-                Apply Now
+                {t('jobs.applyNow')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>

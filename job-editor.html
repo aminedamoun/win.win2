@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Job Editor – Win Win Admin</title>
+
+<style>
+* { box-sizing: border-box; }
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
+header{
+  background:#000;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(225,29,46,.3);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+header h2{margin:0}
+header span{color:#e11d2e}
+button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
+button:hover{transform:translateY(-1px)}
+.btn{background:#e11d2e;color:#fff}
+.btn:hover{background:#c11828}
+.btn-secondary{background:#333;color:#fff}
+.btn-secondary:hover{background:#444}
+.btn-translate{background:#2563eb;color:#fff;font-size:13px;padding:8px 14px}
+.btn-translate:hover{background:#1d4ed8}
+.btn-translate:disabled{opacity:0.5;cursor:not-allowed}
+.container{max-width:1200px;margin:auto;padding:24px}
+.editor-layout{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+.editor-main{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px}
+.editor-sidebar{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px;position:sticky;top:80px}
+input,textarea,select{
+  width:100%;
+  padding:10px 12px;
+  margin-bottom:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-family:inherit;
+  font-size:14px;
+}
+textarea{min-height:100px;resize:vertical;font-family:inherit}
+textarea.content-field{min-height:300px}
+label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
+.form-group{margin-bottom:20px}
+.flex{display:flex;gap:12px;align-items:center}
+.flex-end{justify-content:flex-end}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:#999;text-decoration:none;margin-bottom:24px;transition:color .2s}
+.back-btn:hover{color:#e11d2e}
+h1{margin:0 0 24px 0;font-size:28px}
+.help-text{font-size:12px;color:#888;margin-top:-8px;margin-bottom:12px}
+.save-status{padding:8px 12px;border-radius:6px;font-size:14px;margin-bottom:16px;display:none}
+.save-status.success{background:rgba(34,197,94,.2);color:#4ade80;display:block}
+.save-status.error{background:rgba(239,68,68,.2);color:#f87171;display:block}
+
+.language-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:24px;
+  border-bottom:2px solid rgba(255,255,255,.1);
+}
+.language-tab{
+  padding:12px 24px;
+  background:transparent;
+  border:none;
+  color:#999;
+  font-weight:600;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:all .2s;
+}
+.language-tab:hover{
+  color:#fff;
+  transform:none;
+}
+.language-tab.active{
+  color:#e11d2e;
+  border-bottom-color:#e11d2e;
+}
+.language-content{
+  display:none;
+}
+.language-content.active{
+  display:block;
+}
+.label-with-button{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
+.array-field-container{
+  margin-bottom:12px;
+}
+.array-item{
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+}
+.array-item input{
+  flex:1;
+  margin-bottom:0;
+}
+.btn-remove{
+  background:#dc2626;
+  color:#fff;
+  padding:8px 12px;
+  font-size:14px;
+  flex-shrink:0;
+}
+.btn-remove:hover{
+  background:#b91c1c;
+}
+.btn-add{
+  background:#16a34a;
+  color:#fff;
+  padding:8px 12px;
+  font-size:14px;
+  width:100%;
+}
+.btn-add:hover{
+  background:#15803d;
+}
+
+@media(max-width:968px){
+  .editor-layout{grid-template-columns:1fr}
+  .editor-sidebar{position:static}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Win Win<span>.</span> Admin</h2>
+  <a href="admin.html" class="btn-secondary" style="text-decoration:none">Back to Dashboard</a>
+</header>
+
+<div class="container">
+  <a href="admin.html" class="back-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back to Job Management
+  </a>
+
+  <h1 id="pageTitle">Create New Job Position</h1>
+
+  <div id="saveStatus" class="save-status"></div>
+
+  <form id="jobForm">
+    <div class="editor-layout">
+      <div class="editor-main">
+        <div class="language-tabs">
+          <button type="button" class="language-tab active" data-lang="sl">🇸🇮 Slovenščina</button>
+          <button type="button" class="language-tab" data-lang="en">🇬🇧 English</button>
+        </div>
+
+        <!-- Slovenian Content -->
+        <div class="language-content active" id="content-sl-tab">
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Naziv pozicije (Slovenščina) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('title', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <input type="text" id="title-sl" placeholder="npr. Prodajni svetovalec - Terenec">
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Kratek opis (Slovenščina) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('short_description', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <textarea id="short_description-sl" rows="3" placeholder="Kratek povzetek vloge in odgovornosti"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Celoten opis (Slovenščina)</label>
+              <button type="button" class="btn-translate" onclick="translateField('full_description', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <textarea id="full_description-sl" class="content-field" placeholder="Podroben opis pozicije, nalog in zahtev"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Zahteve (Slovenščina)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('requirements', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <div id="requirements-sl-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('requirements', 'sl')">+ Dodaj zahtevo</button>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Odgovornosti (Slovenščina)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('responsibilities', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <div id="responsibilities-sl-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('responsibilities', 'sl')">+ Dodaj odgovornost</button>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Benefiti (Slovenščina)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('benefits', 'sl', 'en')">
+                Prevedi v EN →
+              </button>
+            </div>
+            <div id="benefits-sl-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('benefits', 'sl')">+ Dodaj benefit</button>
+          </div>
+        </div>
+
+        <!-- English Content -->
+        <div class="language-content" id="content-en-tab">
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Job Title (English) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('title', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <input type="text" id="title-en" placeholder="e.g. Sales Advisor - Field Sales">
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Short Description (English) *</label>
+              <button type="button" class="btn-translate" onclick="translateField('short_description', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <textarea id="short_description-en" rows="3" placeholder="Brief summary of the role and responsibilities"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Full Description (English)</label>
+              <button type="button" class="btn-translate" onclick="translateField('full_description', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <textarea id="full_description-en" class="content-field" placeholder="Detailed description of the position, tasks and requirements"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Requirements (English)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('requirements', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <div id="requirements-en-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('requirements', 'en')">+ Add Requirement</button>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Responsibilities (English)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('responsibilities', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <div id="responsibilities-en-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('responsibilities', 'en')">+ Add Responsibility</button>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-button">
+              <label>Benefits (English)</label>
+              <button type="button" class="btn-translate" onclick="translateArrayField('benefits', 'en', 'sl')">
+                ← Translate to SL
+              </button>
+            </div>
+            <div id="benefits-en-container" class="array-field-container"></div>
+            <button type="button" class="btn-add" onclick="addArrayItem('benefits', 'en')">+ Add Benefit</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-sidebar">
+        <div class="form-group">
+          <label>Job Type *</label>
+          <select id="type" required>
+            <option value="field-sales">Field Sales</option>
+            <option value="call-center">Call Center</option>
+            <option value="team-leader">Team Leader</option>
+            <option value="management">Management</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Location *</label>
+          <input type="text" id="location" placeholder="e.g., Trzin, Kranj, Nationwide" required>
+        </div>
+
+        <div class="form-group">
+          <label>Salary Range *</label>
+          <input type="text" id="salary_range" placeholder="e.g., €2,000+ Base + Bonuses" required>
+        </div>
+
+        <div class="form-group">
+          <label>Display Order</label>
+          <input type="number" id="display_order" value="0" min="0">
+          <p class="help-text">Lower numbers appear first</p>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="is_active" style="width:auto;margin:0" checked>
+            <span>Active (visible to public)</span>
+          </label>
+        </div>
+
+        <div class="flex" style="margin-top:32px;flex-direction:column;gap:8px">
+          <button type="submit" class="btn" style="width:100%">Save Job Position</button>
+          <button type="button" class="btn-secondary" onclick="window.location.href='admin.html'" style="width:100%">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+
+<script>
+let jobId = null;
+let currentLang = 'sl';
+
+(async()=>{
+  try {
+    const { data } = await window.supabase.auth.getSession();
+    if(!data.session) location.href="/login.html";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    jobId = urlParams.get('id');
+
+    if(jobId){
+      await loadJob();
+    } else {
+      // Initialize empty arrays for new job
+      addArrayItem('requirements', 'sl');
+      addArrayItem('requirements', 'en');
+      addArrayItem('responsibilities', 'sl');
+      addArrayItem('responsibilities', 'en');
+      addArrayItem('benefits', 'sl');
+      addArrayItem('benefits', 'en');
+    }
+
+    setupLanguageTabs();
+  } catch(error) {
+    console.error("Initialization error:", error);
+    showStatus("Failed to load editor: " + error.message, "error");
+  }
+})();
+
+function setupLanguageTabs(){
+  const tabs = document.querySelectorAll('.language-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const lang = tab.getAttribute('data-lang');
+      switchLanguage(lang);
+    });
+  });
+}
+
+function switchLanguage(lang){
+  currentLang = lang;
+
+  document.querySelectorAll('.language-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.getAttribute('data-lang') === lang);
+  });
+
+  document.querySelectorAll('.language-content').forEach(content => {
+    content.classList.toggle('active', content.id === 'content-' + lang + '-tab');
+  });
+}
+
+async function loadJob(){
+  document.getElementById("pageTitle").textContent = "Edit Job Position";
+
+  const { data, error } = await window.supabase
+    .from("jobs")
+    .select("*")
+    .eq("id", jobId)
+    .maybeSingle();
+
+  if(error){
+    console.error("Database error:", error);
+    showStatus("Error loading job: " + error.message, "error");
+    return;
+  }
+
+  if(!data){
+    showStatus("Job not found", "error");
+    return;
+  }
+
+  // Switch to English tab if only English content exists
+  if(data.title_en && !data.title_sl){
+    switchLanguage('en');
+  }
+
+  await new Promise(resolve => setTimeout(resolve, 50));
+
+  // Populate fields
+  document.getElementById("title-sl").value = data.title_sl || "";
+  document.getElementById("title-en").value = data.title_en || "";
+  document.getElementById("short_description-sl").value = data.short_description_sl || "";
+  document.getElementById("short_description-en").value = data.short_description_en || "";
+  document.getElementById("full_description-sl").value = data.full_description_sl || "";
+  document.getElementById("full_description-en").value = data.full_description_en || "";
+
+  document.getElementById("type").value = data.type || "field-sales";
+  document.getElementById("location").value = data.location || "";
+  document.getElementById("salary_range").value = data.salary_range || "";
+  document.getElementById("display_order").value = data.display_order || 0;
+  document.getElementById("is_active").checked = data.is_active !== false;
+
+  // Populate array fields
+  loadArrayField('requirements', 'sl', data.requirements_sl || []);
+  loadArrayField('requirements', 'en', data.requirements_en || []);
+  loadArrayField('responsibilities', 'sl', data.responsibilities_sl || []);
+  loadArrayField('responsibilities', 'en', data.responsibilities_en || []);
+  loadArrayField('benefits', 'sl', data.benefits_sl || []);
+  loadArrayField('benefits', 'en', data.benefits_en || []);
+
+  showStatus("Job loaded successfully", "success");
+}
+
+function loadArrayField(field, lang, items){
+  const container = document.getElementById(`${field}-${lang}-container`);
+  container.innerHTML = '';
+
+  if(items.length === 0){
+    addArrayItem(field, lang);
+  } else {
+    items.forEach(item => {
+      addArrayItem(field, lang, item);
+    });
+  }
+}
+
+function addArrayItem(field, lang, value = ''){
+  const container = document.getElementById(`${field}-${lang}-container`);
+  const itemDiv = document.createElement('div');
+  itemDiv.className = 'array-item';
+  itemDiv.innerHTML = `
+    <input type="text" value="${value}" placeholder="Enter ${field.slice(0, -1)}">
+    <button type="button" class="btn-remove" onclick="this.parentElement.remove()">×</button>
+  `;
+  container.appendChild(itemDiv);
+}
+
+function getArrayFieldValues(field, lang){
+  const container = document.getElementById(`${field}-${lang}-container`);
+  const inputs = container.querySelectorAll('input');
+  return Array.from(inputs).map(i => i.value.trim()).filter(v => v);
+}
+
+async function translateField(field, fromLang, toLang){
+  const sourceId = `${field}-${fromLang}`;
+  const targetId = `${field}-${toLang}`;
+
+  const sourceValue = document.getElementById(sourceId).value.trim();
+
+  if(!sourceValue){
+    showStatus(`Please enter ${field} in ${fromLang.toUpperCase()} first`, "error");
+    return;
+  }
+
+  const targetField = document.getElementById(targetId);
+  const translateBtn = event.target;
+  const originalText = translateBtn.textContent;
+
+  translateBtn.textContent = 'Translating...';
+  translateBtn.disabled = true;
+
+  try {
+    const response = await fetch(`${window.supabaseUrl}/functions/v1/translate-content`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.supabaseAnonKey}`,
+      },
+      body: JSON.stringify({
+        text: sourceValue,
+        fromLang: fromLang,
+        toLang: toLang,
+        fieldType: field
+      })
+    });
+
+    if(!response.ok){
+      const errorText = await response.text();
+      throw new Error(`Translation service error (${response.status}): ${errorText}`);
+    }
+
+    const responseText = await response.text();
+    if(!responseText){
+      throw new Error('Empty response from translation service');
+    }
+
+    const result = JSON.parse(responseText);
+
+    if(!result.success){
+      throw new Error(result.error || 'Translation failed');
+    }
+
+    targetField.value = result.translation;
+    showStatus('Translation completed successfully!', 'success');
+  } catch(error){
+    console.error('Translation error:', error);
+    showStatus('Translation failed: ' + error.message, 'error');
+  } finally {
+    translateBtn.textContent = originalText;
+    translateBtn.disabled = false;
+  }
+}
+
+async function translateArrayField(field, fromLang, toLang){
+  const sourceValues = getArrayFieldValues(field, fromLang);
+
+  if(sourceValues.length === 0){
+    showStatus(`Please add at least one ${field.slice(0, -1)} in ${fromLang.toUpperCase()} first`, "error");
+    return;
+  }
+
+  const translateBtn = event.target;
+  const originalText = translateBtn.textContent;
+
+  translateBtn.textContent = 'Translating...';
+  translateBtn.disabled = true;
+
+  try {
+    const translations = await Promise.all(
+      sourceValues.map(async (value) => {
+        const response = await fetch(`${window.supabaseUrl}/functions/v1/translate-content`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${window.supabaseAnonKey}`,
+          },
+          body: JSON.stringify({
+            text: value,
+            fromLang: fromLang,
+            toLang: toLang,
+            fieldType: field
+          })
+        });
+
+        if(!response.ok){
+          throw new Error(`Translation failed for: ${value}`);
+        }
+
+        const result = await response.json();
+        return result.translation;
+      })
+    );
+
+    // Clear target container and populate with translations
+    const container = document.getElementById(`${field}-${toLang}-container`);
+    container.innerHTML = '';
+    translations.forEach(translation => {
+      addArrayItem(field, toLang, translation);
+    });
+
+    showStatus('All items translated successfully!', 'success');
+  } catch(error){
+    console.error('Translation error:', error);
+    showStatus('Translation failed: ' + error.message, 'error');
+  } finally {
+    translateBtn.textContent = originalText;
+    translateBtn.disabled = false;
+  }
+}
+
+document.getElementById("jobForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const titleSl = document.getElementById("title-sl").value.trim();
+  const titleEn = document.getElementById("title-en").value.trim();
+  const shortDescSl = document.getElementById("short_description-sl").value.trim();
+  const shortDescEn = document.getElementById("short_description-en").value.trim();
+
+  if(!titleSl && !titleEn){
+    showStatus("Please enter a title in at least one language", "error");
+    return;
+  }
+
+  if(!shortDescSl && !shortDescEn){
+    showStatus("Please enter a short description in at least one language", "error");
+    return;
+  }
+
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Saving...";
+  submitBtn.disabled = true;
+
+  const data = {
+    title_sl: titleSl,
+    title_en: titleEn,
+    title: titleSl || titleEn,
+    short_description_sl: shortDescSl,
+    short_description_en: shortDescEn,
+    short_description: shortDescSl || shortDescEn,
+    full_description_sl: document.getElementById("full_description-sl").value.trim() || null,
+    full_description_en: document.getElementById("full_description-en").value.trim() || null,
+    requirements_sl: getArrayFieldValues('requirements', 'sl'),
+    requirements_en: getArrayFieldValues('requirements', 'en'),
+    requirements: getArrayFieldValues('requirements', 'sl').length > 0 ? getArrayFieldValues('requirements', 'sl') : getArrayFieldValues('requirements', 'en'),
+    responsibilities_sl: getArrayFieldValues('responsibilities', 'sl'),
+    responsibilities_en: getArrayFieldValues('responsibilities', 'en'),
+    responsibilities: getArrayFieldValues('responsibilities', 'sl').length > 0 ? getArrayFieldValues('responsibilities', 'sl') : getArrayFieldValues('responsibilities', 'en'),
+    benefits_sl: getArrayFieldValues('benefits', 'sl'),
+    benefits_en: getArrayFieldValues('benefits', 'en'),
+    benefits: getArrayFieldValues('benefits', 'sl').length > 0 ? getArrayFieldValues('benefits', 'sl') : getArrayFieldValues('benefits', 'en'),
+    type: document.getElementById("type").value,
+    location: document.getElementById("location").value,
+    salary_range: document.getElementById("salary_range").value,
+    display_order: parseInt(document.getElementById("display_order").value) || 0,
+    is_active: document.getElementById("is_active").checked,
+    updated_at: new Date().toISOString()
+  };
+
+  let result;
+  if(jobId){
+    result = await window.supabase.from("jobs").update(data).eq("id", jobId);
+  } else {
+    result = await window.supabase.from("jobs").insert([data]);
+  }
+
+  submitBtn.textContent = originalText;
+  submitBtn.disabled = false;
+
+  if(result.error){
+    showStatus("Error: " + result.error.message, "error");
+    return;
+  }
+
+  showStatus("Job position saved successfully!", "success");
+  setTimeout(() => {
+    window.location.href = "admin.html";
+  }, 1500);
+});
+
+function showStatus(message, type){
+  const status = document.getElementById("saveStatus");
+  status.textContent = message;
+  status.className = "save-status " + type;
+
+  if(type === "success"){
+    setTimeout(() => {
+      status.classList.remove("success");
+    }, 3000);
+  }
+}
+</script>
+
+</body>
+</html>
