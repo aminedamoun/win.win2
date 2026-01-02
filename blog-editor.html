@@ -349,22 +349,34 @@ async function loadArticle(){
 
   if(error || !data){
     showStatus("Error loading article", "error");
+    console.error("Load error:", error);
     return;
   }
 
-  document.getElementById("title-sl").value = data.title_sl || data.title || "";
+  console.log("Loaded article data:", data);
+
+  // Populate fields
+  document.getElementById("title-sl").value = data.title_sl || "";
   document.getElementById("title-en").value = data.title_en || "";
-  document.getElementById("slug").value = data.slug;
-  document.getElementById("slug-display").value = data.slug;
-  document.getElementById("excerpt-sl").value = data.excerpt_sl || data.excerpt || "";
+  document.getElementById("slug").value = data.slug || "";
+  document.getElementById("slug-display").value = data.slug || "";
+  document.getElementById("excerpt-sl").value = data.excerpt_sl || "";
   document.getElementById("excerpt-en").value = data.excerpt_en || "";
-  document.getElementById("content-sl").value = data.content_sl || data.content || "";
+  document.getElementById("content-sl").value = data.content_sl || "";
   document.getElementById("content-en").value = data.content_en || "";
   document.getElementById("image").value = data.featured_image_url || "";
   document.getElementById("category").value = data.category_id || "";
-  document.getElementById("author").value = data.author;
-  document.getElementById("readTime").value = data.read_time;
-  document.getElementById("featured").checked = data.is_featured;
+  document.getElementById("author").value = data.author || "Win Win Team";
+  document.getElementById("readTime").value = data.read_time || 5;
+  document.getElementById("featured").checked = data.is_featured || false;
+
+  console.log("Content EN length:", data.content_en?.length || 0);
+  console.log("Content SL length:", data.content_sl?.length || 0);
+
+  // Switch to English tab if only English content exists
+  if(data.content_en && !data.content_sl){
+    switchLanguage('en');
+  }
 
   if(data.featured_image_url){
     const preview = document.getElementById("imagePreview");
