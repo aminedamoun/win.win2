@@ -314,14 +314,14 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-white/30 flex items-center justify-center group"
+                  className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                 >
                   Join the Team
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
-                  className="px-6 py-3 border-2 border-white text-white rounded-lg hover:bg-white hover:text-black transition-all duration-200 font-semibold"
+                  className="px-6 py-3 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 font-semibold"
                 >
                   View Open Positions
                 </button>
@@ -356,14 +356,14 @@ export default function Home() {
               <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-white/30 flex items-center group"
+                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
                 >
                   Join the Team
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
-                  className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-black transition-all duration-200 text-lg font-semibold"
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
                 >
                   View Open Positions
                 </button>
@@ -574,14 +574,14 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => navigate('/apply')}
-                  className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-white/30 flex items-center justify-center group"
+                  className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                 >
                   Start Your Journey
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
                 <button
                   onClick={() => navigate('/about')}
-                  className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-black transition-all duration-200 text-lg font-semibold"
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
                 >
                   Learn More
                 </button>
@@ -682,14 +682,14 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => navigate('/jobs')}
-                    className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-white/30 flex items-center justify-center group"
+                    className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                   >
                     Explore Opportunities
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                   </button>
                   <button
                     onClick={() => navigate('/about')}
-                    className="px-8 py-4 border-2 border-white/20 text-white rounded-lg hover:border-white hover:bg-white hover:text-black transition-all duration-200 text-lg font-semibold"
+                    className="px-8 py-4 border-2 border-white/20 text-white rounded-lg hover:border-red-500 hover:text-red-500 transition-all duration-200 text-lg font-semibold"
                   >
                     Learn More About Us
                   </button>
@@ -743,7 +743,7 @@ export default function Home() {
             <div className="mt-12">
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-white/30 inline-flex items-center group"
+                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
                 Start Your Application
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -776,7 +776,7 @@ export default function Home() {
                   <p className="text-gray-300 mb-6">
                     Track your application, get instant updates, and stay connected with our mobile app
                   </p>
-                  <button className="px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 font-semibold inline-flex items-center gap-2">
+                  <button className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold inline-flex items-center gap-2">
                     <Download size={20} />
                     Coming Soon
                   </button>
@@ -847,7 +847,7 @@ export default function Home() {
               <p className="text-gray-400 mb-6">Still have questions?</p>
               <button
                 onClick={() => navigate('/apply')}
-                className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-white/30 inline-flex items-center group"
+                className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
                 Get in Touch
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -882,7 +882,7 @@ export default function Home() {
 
           {loadingArticles ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
             </div>
           ) : recentArticles.length > 0 ? (
             <>
@@ -905,7 +905,7 @@ export default function Home() {
               <div className="text-center">
                 <button
                   onClick={() => navigate('/insights')}
-                  className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-black transition-all duration-200 text-lg font-semibold inline-flex items-center group"
+                  className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold inline-flex items-center group"
                 >
                   View All Articles
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
