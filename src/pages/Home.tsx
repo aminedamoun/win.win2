@@ -371,6 +371,42 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative py-16 overflow-hidden bg-black/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-gray-400 text-sm uppercase tracking-wider">
+              {t('home.partners.title')}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
+            <div className="group transition-all duration-300 flex items-center justify-center">
+              <img
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png"
+                alt="Optispin"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+              />
+            </div>
+
+            <div className="group transition-all duration-300 flex items-center justify-center">
+              <img
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png"
+                alt="Partner Logo"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+              />
+            </div>
+
+            <div className="group transition-all duration-300 flex items-center justify-center">
+              <img
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png"
+                alt="Telemach"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
         className={`relative py-20 overflow-hidden transition-all duration-1000 ${
@@ -584,42 +620,6 @@ export default function Home() {
                   {t('home.joinSection.learnMore')}
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 overflow-hidden bg-black/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-gray-400 text-sm uppercase tracking-wider">
-              {t('home.partners.title')}
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png"
-                alt="Optispin"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
-              />
-            </div>
-
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png"
-                alt="Partner Logo"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
-              />
-            </div>
-
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo1.png"
-                alt="Partner Logo"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
-              />
             </div>
           </div>
         </div>
