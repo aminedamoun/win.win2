@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useRouter } from '../utils/router';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { navigate, currentPath } = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +20,11 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'About Us', path: '/about' },
-    { label: 'Careers', path: '/jobs' },
-    { label: 'Insights', path: '/insights' },
-    { label: 'Apply', path: '/apply' },
+    { label: t('nav.home'), path: '/' },
+    { label: t('nav.aboutUs'), path: '/about' },
+    { label: t('nav.careers'), path: '/jobs' },
+    { label: t('nav.insights'), path: '/insights' },
+    { label: t('nav.apply'), path: '/apply' },
   ];
 
   const handleNavigation = (path: string) => {
@@ -66,17 +69,18 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             <button
               onClick={() => handleNavigation('/jobs')}
               className="px-5 py-2.5 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm font-medium"
             >
-              View Positions
+              {t('nav.viewPositions')}
             </button>
             <button
               onClick={() => handleNavigation('/apply')}
               className="px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-sm font-medium hover:shadow-lg hover:shadow-red-500/50"
             >
-              Join the Team
+              {t('nav.joinTeam')}
             </button>
           </div>
 
@@ -104,17 +108,20 @@ export default function Header() {
               </button>
             ))}
             <div className="pt-4 space-y-3">
+              <div className="flex justify-center pb-3">
+                <LanguageSwitcher />
+              </div>
               <button
                 onClick={() => handleNavigation('/jobs')}
                 className="w-full px-5 py-2.5 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm font-medium"
               >
-                View Positions
+                {t('nav.viewPositions')}
               </button>
               <button
                 onClick={() => handleNavigation('/apply')}
                 className="w-full px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-sm font-medium"
               >
-                Join the Team
+                {t('nav.joinTeam')}
               </button>
             </div>
           </nav>

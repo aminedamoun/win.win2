@@ -1,19 +1,21 @@
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import { useRouter } from '../utils/router';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
   const { navigate } = useRouter();
+  const { t } = useTranslation();
 
   const footerLinks = {
-    Company: [
-      { label: 'About Us', path: '/about' },
-      { label: 'Careers', path: '/jobs' },
-      { label: 'Contact', path: '/apply' },
+    [t('footer.company')]: [
+      { label: t('footer.links.aboutUs'), path: '/about' },
+      { label: t('footer.links.careers'), path: '/jobs' },
+      { label: t('footer.links.contact'), path: '/apply' },
     ],
-    Legal: [
-      { label: 'Privacy Policy', path: '/privacy' },
-      { label: 'Cookie Policy', path: '/cookies' },
-      { label: 'Terms of Service', path: '/terms' },
+    [t('footer.legal')]: [
+      { label: t('footer.links.privacy'), path: '/privacy' },
+      { label: t('footer.links.cookies'), path: '/cookies' },
+      { label: t('footer.links.terms'), path: '/terms' },
     ],
   };
 
@@ -26,7 +28,7 @@ export default function Footer() {
               <img src="/logo2.png" alt="Win Win" className="h-12 w-auto" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
-              Building careers in sales. We are a performance-driven sales company specializing in B2C field sales and telecommunications.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a
@@ -69,11 +71,11 @@ export default function Footer() {
           ))}
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Contact</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.contact')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-gray-400 text-sm">
                 <MapPin size={16} className="mt-1 flex-shrink-0 text-red-500" />
-                <span>Trzin, Kranj, Slovenia</span>
+                <span>{t('footer.address')}</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-400 text-sm">
                 <Phone size={16} className="flex-shrink-0 text-red-500" />
@@ -89,7 +91,7 @@ export default function Footer() {
 
         <div className="border-t border-red-900/20 pt-8">
           <p className="text-center text-gray-500 text-sm">
-            © {new Date().getFullYear()} Win Win d.o.o. All rights reserved.
+            © {new Date().getFullYear()} Win Win d.o.o. {t('footer.rights')}
           </p>
         </div>
       </div>

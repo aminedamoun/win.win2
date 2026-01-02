@@ -1,10 +1,12 @@
 import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FAQ from '../components/FAQ';
 import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 
 export default function About() {
+  const { t } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png?auto=compress&cs=tinysrgb&w=1920');
@@ -56,50 +58,43 @@ export default function About() {
   const values = [
     {
       icon: Shield,
-      title: 'Integrity & Honesty',
-      description: 'We build trust through transparent communication and ethical business practices',
+      title: t('about.values.items.integrity.title'),
+      description: t('about.values.items.integrity.description'),
       image: 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp',
     },
     {
       icon: Handshake,
-      title: 'Reliability',
-      description: 'Our clients and team members can count on us to deliver on our commitments',
+      title: t('about.values.items.reliability.title'),
+      description: t('about.values.items.reliability.description'),
       image: 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png',
     },
     {
       icon: MessageCircle,
-      title: 'Professional Communication',
-      description: 'Clear, respectful, and effective communication in every interaction',
+      title: t('about.values.items.communication.title'),
+      description: t('about.values.items.communication.description'),
       image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: TrendingUp,
-      title: 'Performance & Growth',
-      description: 'Continuous improvement and measurable results drive our success',
+      title: t('about.values.items.performance.title'),
+      description: t('about.values.items.performance.description'),
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: Heart,
-      title: 'Team Support',
-      description: 'We succeed together through collaboration and mutual support',
+      title: t('about.values.items.support.title'),
+      description: t('about.values.items.support.description'),
       image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
     {
       icon: Award,
-      title: 'Excellence',
-      description: 'We strive for the highest standards in everything we do',
+      title: t('about.values.items.excellence.title'),
+      description: t('about.values.items.excellence.description'),
       image: 'https://images.pexels.com/photos/5849585/pexels-photo-5849585.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
   ];
 
-  const culture = [
-    'Results-driven mindset with clear KPIs',
-    'Team collaboration and knowledge sharing',
-    'Continuous learning and skill development',
-    'Coaching and mentoring programs',
-    'Recognition and rewards for excellence',
-    'Work-life balance and flexibility',
-  ];
+  const culture = t('about.culture.items', { returnObjects: true }) as string[];
 
   return (
     <div className="min-h-screen bg-black pt-20">
@@ -118,10 +113,10 @@ export default function About() {
           <div className="max-w-5xl mx-auto">
             <div className="glass-card p-6 sm:p-8 lg:p-12 backdrop-blur-xl bg-black/40 border-red-500/20">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-fade-in-up text-center">
-                About <span className="text-red-500">Win Win</span>
+                <span dangerouslySetInnerHTML={{ __html: t('about.hero.title') }} />
               </h1>
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 leading-relaxed animate-fade-in-up text-center max-w-4xl mx-auto" style={{ animationDelay: '0.2s' }}>
-                We are a team that lives sales. Win Win d.o.o. was built on the belief that sales can be done differently — honestly, ethically, and with a long-term mindset.
+                {t('about.hero.description')}
               </p>
             </div>
           </div>
@@ -140,9 +135,9 @@ export default function About() {
               <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Target className="text-red-500" size={28} />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Vision</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('about.vision.title')}</h2>
               <p className="text-gray-300 text-lg leading-relaxed">
-                To become the most effective and respected sales company in Slovenia, known for our integrity, results, and commitment to both clients and team members.
+                {t('about.vision.description')}
               </p>
             </div>
 
@@ -150,9 +145,9 @@ export default function About() {
               <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Heart className="text-red-500" size={28} />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Mission</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('about.mission.title')}</h2>
               <p className="text-gray-300 text-lg leading-relaxed">
-                To deliver more value to customers than they expect, through trust, structure, and top-level sales expertise. We build long-term relationships that benefit everyone involved.
+                {t('about.mission.description')}
               </p>
             </div>
           </div>
@@ -168,10 +163,10 @@ export default function About() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
-              Our Core <span className="text-red-500">Values</span>
+              <span dangerouslySetInnerHTML={{ __html: t('about.values.title') }} />
             </h2>
             <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
-              These principles guide everything we do and define who we are as a company
+              {t('about.values.description')}
             </p>
           </div>
 
@@ -213,10 +208,10 @@ export default function About() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6 sm:mb-10 lg:mb-12">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
-                Company <span className="text-red-500">Culture</span>
+                <span dangerouslySetInnerHTML={{ __html: t('about.culture.title') }} />
               </h2>
               <p className="text-base sm:text-lg text-gray-300">
-                We've built an environment where talented professionals can thrive
+                {t('about.culture.description')}
               </p>
             </div>
 
@@ -247,10 +242,10 @@ export default function About() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6 sm:mb-10 lg:mb-12">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 lg:mb-6">
-                Our <span className="text-red-500">Team</span>
+                <span dangerouslySetInnerHTML={{ __html: t('about.team.title') }} />
               </h2>
               <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8">
-                We operate from multiple locations across Slovenia with a growing team of dedicated sales professionals
+                {t('about.team.description')}
               </p>
             </div>
 
@@ -258,19 +253,19 @@ export default function About() {
               <div className="glass-card p-6 sm:p-8 text-center">
                 <Users className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
                 <h3 className="text-xl sm:text-2xl font-bold mb-2">50+</h3>
-                <p className="text-gray-400">Active Team Members</p>
+                <p className="text-gray-400">{t('about.team.stats.members')}</p>
               </div>
 
               <div className="glass-card p-6 sm:p-8 text-center">
                 <Target className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-xl sm:text-2xl font-bold mb-2">Field + Call Center</h3>
-                <p className="text-gray-400">Hybrid Operations</p>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('about.team.operationsText')}</h3>
+                <p className="text-gray-400">{t('about.team.stats.operations')}</p>
               </div>
 
               <div className="glass-card p-6 sm:p-8 text-center">
                 <Award className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-xl sm:text-2xl font-bold mb-2">Multiple Locations</h3>
-                <p className="text-gray-400">Trzin, Kranj & Field</p>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('about.team.stats.locations')}</h3>
+                <p className="text-gray-400">{t('about.team.locationsText')}</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown, BookOpen, ShoppingBag } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ArticleCard from '../components/ArticleCard';
 import { supabase } from '../utils/supabase';
@@ -18,6 +19,7 @@ interface Article {
 
 export default function Home() {
   const { navigate } = useRouter();
+  const { t } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -139,145 +141,145 @@ export default function Home() {
   const benefits = [
     {
       icon: Users,
-      title: 'Monthly Training & Mentoring',
-      description: 'Continuous coaching and skill development from experienced sales professionals',
+      title: t('home.benefits.items.training.title'),
+      description: t('home.benefits.items.training.description'),
     },
     {
       icon: TrendingUp,
-      title: 'Clear Career Paths',
-      description: 'Structured progression from Sales Advisor to Team Leader and beyond',
+      title: t('home.benefits.items.career.title'),
+      description: t('home.benefits.items.career.description'),
     },
     {
       icon: Award,
-      title: 'High Earning Potential',
-      description: 'Competitive base salary plus performance-based commission structure',
+      title: t('home.benefits.items.earning.title'),
+      description: t('home.benefits.items.earning.description'),
     },
     {
       icon: Briefcase,
-      title: 'Modern Tools & Scripts',
-      description: 'Access to proven sales scripts, CRM systems, and qualified leads',
+      title: t('home.benefits.items.tools.title'),
+      description: t('home.benefits.items.tools.description'),
     },
     {
       icon: MapPin,
-      title: 'Multiple Locations',
-      description: 'Offices in Trzin and Kranj with nationwide field operations',
+      title: t('home.benefits.items.locations.title'),
+      description: t('home.benefits.items.locations.description'),
     },
     {
       icon: Target,
-      title: 'Performance-Driven',
-      description: 'Clear KPIs and transparent metrics to track your success',
+      title: t('home.benefits.items.performance.title'),
+      description: t('home.benefits.items.performance.description'),
     },
   ];
 
   const stats = [
-    { value: 500, label: 'Active Clients', suffix: '+' },
-    { value: 50, label: 'Team Members', suffix: '+' },
-    { value: 3, label: 'Office Locations', suffix: '' },
-    { value: 10, label: 'Years Experience', suffix: '+' },
+    { value: 500, label: t('home.about.stats.clients'), suffix: '+' },
+    { value: 50, label: t('home.about.stats.team'), suffix: '+' },
+    { value: 3, label: t('home.about.stats.locations'), suffix: '' },
+    { value: 10, label: t('home.about.stats.experience'), suffix: '+' },
   ];
 
   const coreServices = [
     {
       icon: ShoppingBag,
-      title: 'Promotions in Shopping Centers',
-      description: 'On-site promotional activities and direct customer engagement in high-traffic retail locations across Slovenia.',
+      title: t('home.services.core.promotions.title'),
+      description: t('home.services.core.promotions.description'),
     },
     {
       icon: Phone,
-      title: 'Call Center',
-      description: 'Professional outbound telemarketing with structured scripts, KPI-driven performance, and CRM-based customer management.',
+      title: t('home.services.core.callCenter.title'),
+      description: t('home.services.core.callCenter.description'),
     },
     {
       icon: Building2,
-      title: 'B2B Professional Sales',
-      description: 'Business-to-business sales solutions, corporate telecommunications, and professional service offerings.',
+      title: t('home.services.core.b2b.title'),
+      description: t('home.services.core.b2b.description'),
     },
   ];
 
   const supportServices = [
     {
       icon: GraduationCap,
-      title: 'Sales Training & Coaching',
-      description: 'Monthly programs, mentoring, role-play simulations, and skill development workshops.',
+      title: t('home.services.support.training.title'),
+      description: t('home.services.support.training.description'),
     },
     {
       icon: Users,
-      title: 'Team Development',
-      description: '14-day onboarding, selection programs, performance improvement, and career path planning.',
+      title: t('home.services.support.teamDevelopment.title'),
+      description: t('home.services.support.teamDevelopment.description'),
     },
     {
       icon: LineChart,
-      title: 'Leadership & Management',
-      description: 'KPI tracking, performance monitoring, process optimization, and coaching for team leaders.',
+      title: t('home.services.support.leadership.title'),
+      description: t('home.services.support.leadership.description'),
     },
     {
       icon: Settings,
-      title: 'CRM & Process Optimization',
-      description: 'Modern CRM systems, script optimization, lead management, and structured daily targets.',
+      title: t('home.services.support.crm.title'),
+      description: t('home.services.support.crm.description'),
     },
   ];
 
   const marketFocus = [
     {
       icon: UserCheck,
-      title: 'B2C Market Specialization',
-      description: 'Primary focus on residential customers, households, and individual end users.',
+      title: t('home.services.market.b2c.title'),
+      description: t('home.services.market.b2c.description'),
     },
     {
       icon: Building2,
-      title: 'B2B Sales Support',
-      description: 'Secondary focus on business telecom solutions and ICT-related offers.',
+      title: t('home.services.market.b2b.title'),
+      description: t('home.services.market.b2b.description'),
     },
   ];
 
   const faqs = [
     {
-      question: 'Do I need previous sales experience?',
-      answer: 'No. Previous sales experience is an advantage, but it is not mandatory. We provide structured onboarding, scripts, and continuous coaching. What matters most is motivation, discipline, and the willingness to learn.',
+      question: t('home.faq.items.experience.q'),
+      answer: t('home.faq.items.experience.a'),
     },
     {
-      question: 'What type of sales will I be doing?',
-      answer: 'You will work in B2C sales, either door-to-door field sales or call center sales. You will sell telecommunications services, including Internet, TV, and Mobile contracts for end customers.',
+      question: t('home.faq.items.type.q'),
+      answer: t('home.faq.items.type.a'),
     },
     {
-      question: 'Is this a full-time position or freelance work?',
-      answer: 'Both options are possible. Depending on your profile and agreement, you can work as a full-time employee or as a freelancer (s.p. / company collaboration).',
+      question: t('home.faq.items.employment.q'),
+      answer: t('home.faq.items.employment.a'),
     },
     {
-      question: 'What are the working hours?',
-      answer: 'Working hours are structured and clearly defined. Field and call center schedules are organized to support productivity and work-life balance. Specific schedules are discussed during the interview.',
+      question: t('home.faq.items.hours.q'),
+      answer: t('home.faq.items.hours.a'),
     },
     {
-      question: 'How does payment work?',
-      answer: 'You receive a base salary or hourly rate plus performance-based commission. Your earnings depend directly on your results. High performers can achieve above-average monthly income.',
+      question: t('home.faq.items.payment.q'),
+      answer: t('home.faq.items.payment.a'),
     },
     {
-      question: 'How quickly can I advance within the company?',
-      answer: 'Career progression is performance-based. Successful Sales Advisors can advance to Senior Sales Advisor, Sales Team Leader, or Sales Manager. We actively promote from within.',
+      question: t('home.faq.items.advancement.q'),
+      answer: t('home.faq.items.advancement.a'),
     },
     {
-      question: 'Do you provide training and support?',
-      answer: 'Yes. You receive structured onboarding, sales scripts and CRM tools, monthly coaching and mentoring, and regular sales training and feedback sessions. You are never left alone.',
+      question: t('home.faq.items.training.q'),
+      answer: t('home.faq.items.training.a'),
     },
     {
-      question: 'Where are your offices located?',
-      answer: 'We operate from offices in Trzin and Kranj. Field sales cover all of Slovenia.',
+      question: t('home.faq.items.locations.q'),
+      answer: t('home.faq.items.locations.a'),
     },
     {
-      question: 'Is remote work possible?',
-      answer: 'For experienced candidates and leadership positions, remote or hybrid work may be possible. This is evaluated individually.',
+      question: t('home.faq.items.remote.q'),
+      answer: t('home.faq.items.remote.a'),
     },
     {
-      question: 'What is the selection process?',
-      answer: 'The process includes: online application, personal interview & sales simulation, 14-day selection and onboarding program, and contract signing and long-term cooperation.',
+      question: t('home.faq.items.selection.q'),
+      answer: t('home.faq.items.selection.a'),
     },
     {
-      question: 'What kind of people are you looking for?',
-      answer: 'We are looking for people who are competitive by nature, goal-oriented, positive and disciplined, motivated to grow professionally and financially, and ready to take responsibility for their success.',
+      question: t('home.faq.items.profile.q'),
+      answer: t('home.faq.items.profile.a'),
     },
     {
-      question: 'What makes Win Win different from other sales companies?',
-      answer: 'We combine clear structure, honest communication, strong coaching culture, long-term career opportunities, and a results-driven but supportive environment. At Win Win, success is not luck — it is a system.',
+      question: t('home.faq.items.different.q'),
+      answer: t('home.faq.items.different.a'),
     },
   ];
 
@@ -299,26 +301,26 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-12">
             <div className="glass-card p-6 sm:p-8 backdrop-blur-xl bg-black/40 border-white/20">
               <h1 className="text-3xl sm:text-4xl font-bold mb-4 animate-fade-in-up leading-tight text-center">
-                Build Your Career with Win Win
+                {t('home.hero.title')}
                 <br />
-                Sales Team
+                {t('home.hero.subtitle')}
               </h1>
               <p className="text-base sm:text-lg text-gray-200 mb-6 animate-fade-in-up leading-relaxed text-center" style={{ animationDelay: '0.2s' }}>
-                We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
+                {t('home.hero.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
                   className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                 >
-                  Join the Team
+                  {t('home.hero.joinTeam')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
                   className="px-6 py-3 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 font-semibold"
                 >
-                  View Open Positions
+                  {t('home.hero.viewPositions')}
                 </button>
               </div>
             </div>
@@ -341,26 +343,26 @@ export default function Home() {
           <div className="relative h-full flex items-center justify-end">
             <div className="px-16 xl:px-24 max-w-3xl">
               <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
-                Build Your Career with Win Win
+                {t('home.hero.title')}
                 <br />
-                Sales Team
+                {t('home.hero.subtitle')}
               </h1>
               <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
-                We are a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.
+                {t('home.hero.description')}
               </p>
               <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
                   onClick={() => navigate('/apply')}
                   className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center group"
                 >
-                  Join the Team
+                  {t('home.hero.joinTeam')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
                 <button
                   onClick={() => navigate('/jobs')}
                   className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
                 >
-                  View Open Positions
+                  {t('home.hero.viewPositions')}
                 </button>
               </div>
             </div>
@@ -380,10 +382,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                Who We Are
+                {t('home.about.title')}
               </h2>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                Win Win d.o.o. is a team of experienced sales professionals specializing in direct marketing and long-term customer relationships. We operate from multiple locations across Slovenia and build an environment where effort, discipline, and persistence are rewarded.
+                {t('home.about.description')}
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, index) => (
@@ -425,10 +427,10 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Our Services
+              {t('home.services.title')}
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Comprehensive sales solutions and support systems that drive results
+              {t('home.services.description')}
             </p>
           </div>
 
@@ -436,7 +438,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">B2C Field</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.b2cField')}</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {coreServices.map((service, index) => (
@@ -458,7 +460,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">Internal Support Services</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.internalSupport')}</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {supportServices.map((service, index) => (
@@ -480,7 +482,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">Market Focus</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.marketFocus')}</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {marketFocus.map((service, index) => (
@@ -514,10 +516,10 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Why Choose Win Win
+              {t('home.benefits.title')}
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              We provide everything you need to build a successful career in sales
+              {t('home.benefits.description')}
             </p>
           </div>
 
@@ -561,24 +563,24 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-white/20">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-center">
-                Join Slovenia's Leading Sales Team
+                {t('home.joinSection.title')}
               </h2>
               <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed text-center max-w-3xl mx-auto">
-                We're building the most effective and respected sales organization in Slovenia. Our team members benefit from industry-leading training, competitive compensation, and a culture that celebrates success.
+                {t('home.joinSection.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => navigate('/apply')}
                   className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                 >
-                  Start Your Journey
+                  {t('home.joinSection.startJourney')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
                 <button
                   onClick={() => navigate('/about')}
                   className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold"
                 >
-                  Learn More
+                  {t('home.joinSection.learnMore')}
                 </button>
               </div>
             </div>
@@ -590,7 +592,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-gray-400 text-sm uppercase tracking-wider">
-              Our Trusted Partners
+              {t('home.partners.title')}
             </p>
           </div>
 
@@ -645,24 +647,24 @@ export default function Home() {
 
               <div className="order-1 lg:order-2">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                  Ready to Start Your Sales Career?
+                  {t('home.cta.title')}
                 </h2>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                  Join a team of dedicated professionals who are committed to excellence, growth, and results. We're looking for motivated individuals ready to take their career to the next level.
+                  {t('home.cta.description')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => navigate('/jobs')}
                     className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center group"
                   >
-                    Explore Opportunities
+                    {t('home.cta.explore')}
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                   </button>
                   <button
                     onClick={() => navigate('/about')}
                     className="px-8 py-4 border-2 border-white/20 text-white rounded-lg hover:border-red-500 hover:text-red-500 transition-all duration-200 text-lg font-semibold"
                   >
-                    Learn More About Us
+                    {t('home.cta.learnMore')}
                   </button>
                 </div>
               </div>
@@ -683,18 +685,18 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Our Process
+              {t('home.process.title')}
             </h2>
             <p className="text-lg text-gray-300 mb-12">
-              A simple, transparent path to joining our team
+              {t('home.process.description')}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
-                { step: '01', title: 'Apply Online', desc: 'Submit your application through our portal' },
-                { step: '02', title: 'Interview', desc: 'Meet with our team and discuss opportunities' },
-                { step: '03', title: 'Selection Program', desc: '14-day training and evaluation period' },
-                { step: '04', title: 'Start Working', desc: 'Sign contract and begin your career' },
+                { step: '01', title: t('home.process.steps.apply.title'), desc: t('home.process.steps.apply.desc') },
+                { step: '02', title: t('home.process.steps.interview.title'), desc: t('home.process.steps.interview.desc') },
+                { step: '03', title: t('home.process.steps.selection.title'), desc: t('home.process.steps.selection.desc') },
+                { step: '04', title: t('home.process.steps.start.title'), desc: t('home.process.steps.start.desc') },
               ].map((item, index) => (
                 <div key={index} className="relative">
                   <div className="glass-card glass-card-hover p-6 text-center h-full flex flex-col justify-center">
@@ -716,7 +718,7 @@ export default function Home() {
                 onClick={() => navigate('/apply')}
                 className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
-                Start Your Application
+                {t('home.process.startApplication')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>
@@ -742,14 +744,14 @@ export default function Home() {
 
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-                    Apply On The Go
+                    {t('home.app.title')}
                   </h2>
                   <p className="text-gray-300 mb-6">
-                    Track your application, get instant updates, and stay connected with our mobile app
+                    {t('home.app.description')}
                   </p>
                   <button className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-semibold inline-flex items-center gap-2">
                     <Download size={20} />
-                    Coming Soon
+                    {t('home.app.comingSoon')}
                   </button>
                 </div>
               </div>
@@ -774,10 +776,10 @@ export default function Home() {
                 <HelpCircle className="text-gray-400" size={32} />
               </div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-                Frequently Asked Questions
+                {t('home.faq.title')}
               </h2>
               <p className="text-lg text-gray-300">
-                Everything you need to know about joining Win Win
+                {t('home.faq.description')}
               </p>
             </div>
 
@@ -815,12 +817,12 @@ export default function Home() {
             </div>
 
             <div className="mt-12 text-center">
-              <p className="text-gray-400 mb-6">Still have questions?</p>
+              <p className="text-gray-400 mb-6">{t('home.faq.stillQuestions')}</p>
               <button
                 onClick={() => navigate('/apply')}
                 className="px-8 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-lg font-semibold hover:shadow-lg hover:shadow-red-500/50 inline-flex items-center group"
               >
-                Get in Touch
+                {t('home.faq.getInTouch')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>
@@ -841,13 +843,13 @@ export default function Home() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-gray-500/10 rounded-full border border-gray-500/20">
               <BookOpen className="text-gray-400" size={20} />
-              <span className="text-gray-300 font-semibold">Latest Insights</span>
+              <span className="text-gray-300 font-semibold">{t('home.blog.subtitle')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              From Our Blog
+              {t('home.blog.title')}
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Sales strategies, career advice, and stories from the Win Win team
+              {t('home.blog.description')}
             </p>
           </div>
 
@@ -878,14 +880,14 @@ export default function Home() {
                   onClick={() => navigate('/insights')}
                   className="px-8 py-4 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-lg font-semibold inline-flex items-center group"
                 >
-                  View All Articles
+                  {t('home.blog.viewAll')}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
               </div>
             </>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">No articles available yet. Check back soon!</p>
+              <p className="text-gray-400 text-lg">{t('home.blog.noArticles')}</p>
             </div>
           )}
         </div>
