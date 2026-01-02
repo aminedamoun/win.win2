@@ -294,10 +294,15 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="relative h-[45vh] overflow-hidden">
             <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg"
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=800&q=75"
+              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=400&q=75 400w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg?auto=format&fit=crop&w=800&q=75 800w"
+              sizes="100vw"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
               fetchPriority="high"
+              width="800"
+              height="600"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
           </div>
@@ -336,10 +341,16 @@ export default function Home() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={heroImageUrl}
+              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1920&q=80"
+              srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1280&q=80 1280w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=1920&q=80 1920w,
+                      https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=format&fit=crop&w=2560&q=80 2560w"
+              sizes="100vw"
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
               fetchPriority="high"
+              width="1920"
+              height="1080"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
           </div>
@@ -386,25 +397,34 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80"
                 alt="Optispin"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                loading="lazy"
+                width="200"
+                height="64"
               />
             </div>
 
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80"
                 alt="Partner Logo"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                loading="lazy"
+                width="200"
+                height="64"
               />
             </div>
 
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80"
                 alt="Telemach"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+                loading="lazy"
+                width="200"
+                height="64"
               />
             </div>
           </div>
@@ -447,9 +467,16 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-white/5 rounded-2xl blur-2xl" />
               <img
-                src={aboutSectionImageUrl}
+                src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600"
+                srcSet="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=600&h=450 600w,
+                        https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600 800w,
+                        https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=900 1200w"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 alt="Team collaboration"
                 className="relative rounded-2xl shadow-2xl border border-white/20"
+                loading="lazy"
+                width="800"
+                height="600"
               />
             </div>
           </div>
@@ -589,14 +616,18 @@ export default function Home() {
         }`}
       >
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">
-          <picture>
-            <source media="(min-width: 768px)" srcSet={joinTeamImageUrl} />
-            <img
-              src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg"
-              alt="Team success"
-              className="w-full h-full object-cover"
-            />
-          </picture>
+          <img
+            src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1200&q=80"
+            srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=800&q=80 800w,
+                    https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1200&q=80 1200w,
+                    https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin2.jpg?auto=format&fit=crop&w=1920&q=80 1920w"
+            sizes="100vw"
+            alt="Team success"
+            className="w-full h-full object-cover"
+            loading="lazy"
+            width="1920"
+            height="800"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black" />
         </div>
 
@@ -644,9 +675,16 @@ export default function Home() {
               <div className="relative order-2 lg:order-1">
                 <div className="absolute inset-0 bg-white/5 rounded-2xl blur-2xl" />
                 <img
-                  src={benefitsImageUrl}
+                  src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=800&q=80"
+                  srcSet="https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=600&q=80 600w,
+                          https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=800&q=80 800w,
+                          https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=format&fit=crop&w=1200&q=80 1200w"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   alt="Professional office environment"
                   className="relative rounded-2xl shadow-2xl border border-white/20"
+                  loading="lazy"
+                  width="800"
+                  height="600"
                 />
               </div>
 
