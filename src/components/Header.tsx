@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut, LogIn } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import { supabase } from '../utils/supabase';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { navigate, currentPath } = useRouter();
   const { t } = useTranslation();
 
@@ -18,6 +20,27 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    checkAuth();
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+    });
+
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const checkAuth = async () => {
+    const { data } = await supabase.auth.getSession();
+    setIsAuthenticated(!!data.session);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
+  };
 
   const navItems = [
     { label: t('nav.home'), path: '/' },
@@ -70,6 +93,31 @@ export default function Header() {
 
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
+            {isAuthenticated ? (
+              <>
+                <a
+                  href="/admin.html"
+                  className="px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium"
+                >
+                  Admin Panel
+                </a>
+                <button
+                  onClick={handleLogout}
+                  className="px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium flex items-center gap-2"
+                >
+                  <LogOut size={16} />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <a
+                href="/login.html"
+                className="px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium flex items-center gap-2"
+              >
+                <LogIn size={16} />
+                Login
+              </a>
+            )}
             <button
               onClick={() => handleNavigation('/jobs')}
               className="px-5 py-2.5 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm font-medium"
@@ -111,6 +159,31 @@ export default function Header() {
               <div className="flex justify-center pb-3">
                 <LanguageSwitcher />
               </div>
+              {isAuthenticated ? (
+                <>
+                  <a
+                    href="/admin.html"
+                    className="w-full px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium block text-center"
+                  >
+                    Admin Panel
+                  </a>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium flex items-center justify-center gap-2"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <a
+                  href="/login.html"
+                  className="w-full px-5 py-2.5 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all duration-200 text-sm font-medium flex items-center justify-center gap-2"
+                >
+                  <LogIn size={16} />
+                  Login
+                </a>
+              )}
               <button
                 onClick={() => handleNavigation('/jobs')}
                 className="w-full px-5 py-2.5 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm font-medium"
