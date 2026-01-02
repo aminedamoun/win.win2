@@ -591,62 +591,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative py-12 overflow-hidden bg-black/50">
+      <section className="relative py-16 overflow-hidden bg-black/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
+          <div className="text-center mb-12">
             <p className="text-gray-400 text-sm uppercase tracking-wider">
               Our Trusted Partners
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-12 sm:gap-16 lg:gap-20 max-w-5xl mx-auto">
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 1"
-            >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
+            <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://placehold.co/160x70/0a0a0a/4a4a4a?text=Partner+1"
-                alt="Partner 1"
-                className="h-14 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png"
+                alt="Optispin"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
               />
-            </a>
+            </div>
 
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 2"
-            >
+            <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://placehold.co/160x70/0a0a0a/4a4a4a?text=Partner+2"
-                alt="Partner 2"
-                className="h-14 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png"
+                alt="Partner Logo"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
               />
-            </a>
+            </div>
 
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 3"
-            >
+            <div className="group transition-all duration-300 flex items-center justify-center">
               <img
-                src="https://placehold.co/160x70/0a0a0a/4a4a4a?text=Partner+3"
-                alt="Partner 3"
-                className="h-14 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+                src="https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo1.png"
+                alt="Partner Logo"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
               />
-            </a>
-
-            <a
-              href="#"
-              className="group transition-all duration-300"
-              aria-label="Partner 4"
-            >
-              <img
-                src="https://placehold.co/160x70/0a0a0a/4a4a4a?text=Partner+4"
-                alt="Partner 4"
-                className="h-14 w-auto object-contain opacity-40 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
-              />
-            </a>
+            </div>
           </div>
         </div>
       </section>
