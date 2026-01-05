@@ -105,11 +105,33 @@
 
     async function loadTranslations(page, language) {
       try {
-        const response = await fetch(`/src/locales/${language}.json`);
-        if (!response.ok) {
-          throw new Error(`Failed to load translations: ${response.status}`);
+        // Try multiple paths to find the translation file
+        const paths = [
+          `/src/locales/${language}.json`,
+          `./src/locales/${language}.json`,
+          `/locales/${language}.json`
+        ];
+
+        let data = null;
+        let lastError = null;
+
+        for (const path of paths) {
+          try {
+            const response = await fetch(path);
+            if (response.ok) {
+              data = await response.json();
+              console.log(`Loaded translations from ${path}`);
+              break;
+            }
+          } catch (err) {
+            lastError = err;
+          }
         }
-        const data = await response.json();
+
+        if (!data) {
+          throw new Error(`Failed to load translations: ${lastError?.message || 'File not found'}`);
+        }
+
         console.log('Loaded translations:', data);
         return data[page] || {};
       } catch (error) {
