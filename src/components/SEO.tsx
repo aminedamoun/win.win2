@@ -4,12 +4,14 @@ interface SEOProps {
   title?: string;
   description?: string;
   image?: string;
+  canonical?: string;
 }
 
 export default function SEO({
-  title = 'Win Win - Build Your Sales Career',
-  description = 'Join Win Win, a performance-driven sales company specializing in B2C field sales, call center sales, and telecommunications solutions across Slovenia.',
-  image = 'https://bolt.new/static/og_default.png',
+  title = 'Win Win - Agencija za zaposlovanje | Prodajna delovna mesta v Sloveniji',
+  description = 'Win Win je vodilna agencija za zaposlovanje, specializirana za prodajna delovna mesta, telefonsko prodajo, call center in telekomunikacije po Sloveniji.',
+  image = 'https://www.win-win.si/logo2.png',
+  canonical = 'https://www.win-win.si',
 }: SEOProps) {
   useEffect(() => {
     document.title = title;
@@ -48,7 +50,15 @@ export default function SEO({
     if (ogImage) {
       ogImage.setAttribute('content', image);
     }
-  }, [title, description, image]);
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonical);
+  }, [title, description, image, canonical]);
 
   return null;
 }

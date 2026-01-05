@@ -6,6 +6,7 @@ import FeaturedArticle from '../components/FeaturedArticle';
 import ArticleCard from '../components/ArticleCard';
 import ScrollIndicator from '../components/ScrollIndicator';
 import SEOContent from '../components/SEOContent';
+import SEO from '../components/SEO';
 
 interface Article {
   id: string;
@@ -86,8 +87,21 @@ export default function Insights() {
   const featuredArticle = articles[0];
   const regularArticles = articles.slice(1);
 
+  const seoTitle = i18n.language === 'sl'
+    ? 'Vpogledi in nasveti | Win Win - Blog o prodajnih karierah'
+    : 'Insights & Tips | Win Win - Sales Career Blog';
+
+  const seoDescription = i18n.language === 'sl'
+    ? 'Preberite naše strokovne članke, vpoglede in nasvete o prodajnih karierah, poslovnem uspehu in osebnem razvoju. Naučite se najboljših praks v prodaji in napredujte v svoji karieri.'
+    : 'Read our expert articles, insights and tips about sales careers, business success and personal development. Learn best practices in sales and advance your career.';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical="https://www.win-win.si/insights"
+      />
       <ScrollIndicator sectionCount={3} />
 
       <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-20">

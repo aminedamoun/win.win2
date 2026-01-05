@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
 import SEOContent from '../components/SEOContent';
+import SEO from '../components/SEO';
 import { supabase } from '../utils/supabase';
 import { Job } from '../types';
 
@@ -85,8 +86,21 @@ export default function Jobs() {
     return <Briefcase className="text-gray-400" size={24} />;
   };
 
+  const seoTitle = i18n.language === 'sl'
+    ? 'Prosta delovna mesta | Win Win - Prodajne kariere v Sloveniji'
+    : 'Job Openings | Win Win - Sales Careers in Slovenia';
+
+  const seoDescription = i18n.language === 'sl'
+    ? 'Odkrijte prosta delovna mesta pri Win Win. Iščemo prodajnike, svetovalce za stranke in call center agente. Pridružite se našemu dinamičnemu timu in začnite svojo prodajno kariero danes.'
+    : 'Discover job openings at Win Win. We are looking for sales representatives, customer advisors and call center agents. Join our dynamic team and start your sales career today.';
+
   return (
     <div className="min-h-screen bg-black pt-20">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical="https://www.win-win.si/jobs"
+      />
       <ScrollIndicator sectionCount={2} />
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-950/20 via-black to-black" />

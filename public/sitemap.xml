@@ -4,52 +4,52 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://winwingroup.net/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://www.win-win.si/</loc>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://winwingroup.net/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="sl" href="https://winwingroup.net/?lang=sl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.win-win.si/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.win-win.si/?lang=sl"/>
   </url>
 
   <!-- About Page -->
   <url>
-    <loc>https://winwingroup.net/about</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://www.win-win.si/about</loc>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://winwingroup.net/about?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="sl" href="https://winwingroup.net/about?lang=sl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.win-win.si/about?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.win-win.si/about?lang=sl"/>
   </url>
 
   <!-- Jobs Page -->
   <url>
-    <loc>https://winwingroup.net/jobs</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://www.win-win.si/jobs</loc>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://winwingroup.net/jobs?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="sl" href="https://winwingroup.net/jobs?lang=sl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.win-win.si/jobs?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.win-win.si/jobs?lang=sl"/>
   </url>
 
   <!-- Apply Page -->
   <url>
-    <loc>https://winwingroup.net/apply</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://www.win-win.si/apply</loc>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://winwingroup.net/apply?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="sl" href="https://winwingroup.net/apply?lang=sl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.win-win.si/apply?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.win-win.si/apply?lang=sl"/>
   </url>
 
   <!-- Insights/Blog Page -->
   <url>
-    <loc>https://winwingroup.net/insights</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://www.win-win.si/insights</loc>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://winwingroup.net/insights?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="sl" href="https://winwingroup.net/insights?lang=sl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.win-win.si/insights?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.win-win.si/insights?lang=sl"/>
   </url>
 
 </urlset>

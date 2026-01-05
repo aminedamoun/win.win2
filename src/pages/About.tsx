@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import FAQ from '../components/FAQ';
 import SEOContent from '../components/SEOContent';
+import SEO from '../components/SEO';
 import ScrollIndicator from '../components/ScrollIndicator';
 import { supabase } from '../utils/supabase';
 
 export default function About() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png?auto=compress&cs=tinysrgb&w=1920');
@@ -97,8 +98,21 @@ export default function About() {
 
   const culture = t('about.culture.items', { returnObjects: true }) as string[];
 
+  const seoTitle = i18n.language === 'sl'
+    ? 'O nas - Win Win | Vodilna agencija za zaposlovanje v Sloveniji'
+    : 'About Us - Win Win | Leading Employment Agency in Slovenia';
+
+  const seoDescription = i18n.language === 'sl'
+    ? 'Spoznajte Win Win - uspešno agencijo za zaposlovanje s fokusom na prodajne kariere. Naša vizija, vrednote in poslanstvo za razvoj najboljših prodajnih talentov v Sloveniji.'
+    : 'Discover Win Win - a successful employment agency focused on sales careers. Our vision, values and mission for developing the best sales talents in Slovenia.';
+
   return (
     <div className="min-h-screen bg-black pt-20">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical="https://www.win-win.si/about"
+      />
       <ScrollIndicator sectionCount={5} />
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
         <div className="relative h-[40vh] sm:h-[50vh] lg:h-[55vh] overflow-hidden">

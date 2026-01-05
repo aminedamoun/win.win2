@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ArticleCard from '../components/ArticleCard';
 import SEOContent from '../components/SEOContent';
+import SEO from '../components/SEO';
 import { supabase } from '../utils/supabase';
 
 interface Article {
@@ -20,7 +21,7 @@ interface Article {
 
 export default function Home() {
   const { navigate } = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -278,8 +279,21 @@ export default function Home() {
     },
   ];
 
+  const seoTitle = i18n.language === 'sl'
+    ? 'Win Win - Agencija za zaposlovanje | Prodajna delovna mesta v Sloveniji'
+    : 'Win Win - Employment Agency | Sales Jobs in Slovenia';
+
+  const seoDescription = i18n.language === 'sl'
+    ? 'Win Win je vodilna agencija za zaposlovanje, specializirana za prodajna delovna mesta, telefonsko prodajo, call center in telekomunikacije po Sloveniji. Pridružite se uspešnemu timu prodajnikov.'
+    : 'Win Win is a leading employment agency specializing in sales jobs, call center positions, and telecommunications across Slovenia. Join our successful sales team.';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical="https://www.win-win.si"
+      />
       <ScrollIndicator sectionCount={9} />
       <section className="relative overflow-hidden bg-gradient-to-b from-black via-neutral-950 to-black">
         {/* Mobile: Overlay Layout */}

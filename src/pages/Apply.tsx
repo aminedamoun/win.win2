@@ -3,9 +3,10 @@ import { Send, CheckCircle2, Calendar, Upload, FileText, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../utils/supabase';
 import ScrollIndicator from '../components/ScrollIndicator';
+import SEO from '../components/SEO';
 
 export default function Apply() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -130,8 +131,21 @@ export default function Apply() {
     setResumeFile(null);
   };
 
+  const seoTitle = i18n.language === 'sl'
+    ? 'Prijavi se zdaj | Win Win - Začni svojo prodajno kariero'
+    : 'Apply Now | Win Win - Start Your Sales Career';
+
+  const seoDescription = i18n.language === 'sl'
+    ? 'Želite začeti svojo prodajno kariero? Prijavite se pri Win Win in postanite del uspešnega tima. Izpolnite prijavni obrazec in začnite svojo pot do uspeha že danes.'
+    : 'Want to start your sales career? Apply at Win Win and become part of a successful team. Fill out the application form and start your path to success today.';
+
   return (
     <div className="min-h-screen bg-black pt-20">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical="https://www.win-win.si/apply"
+      />
       <ScrollIndicator sectionCount={2} />
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-red-950/20 via-black to-black" />
