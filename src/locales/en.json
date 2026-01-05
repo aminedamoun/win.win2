@@ -20,9 +20,9 @@
       "title": "Who We Are",
       "description": "Win Win d.o.o. is a team of experienced sales managers and professionals specializing in direct marketing and long-term customer relationships. We operate from multiple locations across Slovenia and build an environment where professionalism, effort, discipline, and persistence are rewarded.",
       "stats": {
-        "clients": "Active Clients",
+        "deals": "Completed Deals",
+        "locations": "Locations",
         "team": "Team Members",
-        "locations": "Office Locations",
         "experience": "Years Experience"
       }
     },

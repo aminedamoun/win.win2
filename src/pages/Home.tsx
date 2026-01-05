@@ -197,10 +197,10 @@ export default function Home() {
   ];
 
   const stats = [
-    { value: 500, label: t('home.about.stats.clients'), suffix: '+' },
-    { value: 50, label: t('home.about.stats.team'), suffix: '+' },
+    { value: 60000, label: t('home.about.stats.deals'), suffix: '' },
     { value: 3, label: t('home.about.stats.locations'), suffix: '' },
-    { value: 10, label: t('home.about.stats.experience'), suffix: '+' },
+    { value: 24, label: t('home.about.stats.team'), suffix: '' },
+    { value: 12, label: t('home.about.stats.experience'), suffix: '' },
   ];
 
   const coreServices = [
