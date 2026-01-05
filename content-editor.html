@@ -6,7 +6,6 @@
   <title>Content Management - Win Win Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/supabaseClient.js"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
   <div class="container mx-auto px-4 py-8">
@@ -68,7 +67,11 @@
   </div>
 
   <script>
-    const supabase = window.supabase;
+    const SUPABASE_URL = "https://owvufovfnngqdhbscoci.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93dnVmb3Zmbm5ncWRoYnNjb2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTEwOTQsImV4cCI6MjA4MTk4NzA5NH0.sDDk9dKx_jHCEArBsyFzOrEMbSfHHnmZmcMD8znP2_I";
+
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const pageSelect = document.getElementById('pageSelect');
     const languageSelect = document.getElementById('languageSelect');
@@ -108,16 +111,26 @@
     async function loadTranslations(page, language) {
       try {
         const path = `/locales-${language}.json`;
+        console.log('Fetching translations from:', path);
         const response = await fetch(path);
 
+        console.log('Response status:', response.status);
         if (!response.ok) {
-          throw new Error(`Failed to load translations from ${path}`);
+          throw new Error(`Failed to load translations from ${path} - Status: ${response.status}`);
         }
 
         const data = await response.json();
         console.log(`Loaded translations from ${path}`);
-        console.log('Translation data:', data);
-        return data[page] || {};
+        console.log('Available pages in translation:', Object.keys(data));
+        console.log('Requested page:', page);
+        console.log('Page data exists:', page in data);
+
+        if (!data[page]) {
+          console.warn(`Page "${page}" not found in translations`);
+          return {};
+        }
+
+        return data[page];
       } catch (error) {
         console.error('Error loading translations:', error);
         showMessage(`Error loading translations: ${error.message}`, 'error');
@@ -126,7 +139,7 @@
     }
 
     async function loadDatabaseContent(page, language) {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('website_content')
         .select('*')
         .eq('page', page)
@@ -257,7 +270,7 @@
       }
 
       try {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('website_content')
           .upsert(updates, { onConflict: 'page,section,language' });
 
@@ -274,11 +287,13 @@
 
     async function checkAuth() {
       try {
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
         if (userError || !user) {
-          console.error('Auth error:', userError);
-          window.location.href = '/login.html';
+          console.warn('No user authenticated - content viewing only');
+          showMessage('Not logged in - viewing mode only. Login to save changes.', 'error');
+          saveAll.disabled = true;
+          saveAll.classList.add('opacity-50', 'cursor-not-allowed');
           return;
         }
 
@@ -288,14 +303,17 @@
 
         if (!isAdmin) {
           console.warn('User is not admin');
-          showMessage('Access denied: Admin role required', 'error');
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 2000);
+          showMessage('Not admin - viewing mode only', 'error');
+          saveAll.disabled = true;
+          saveAll.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          console.log('Admin access granted');
         }
       } catch (error) {
         console.error('Auth check failed:', error);
-        window.location.href = '/login.html';
+        showMessage('Auth check failed - viewing mode only', 'error');
+        saveAll.disabled = true;
+        saveAll.classList.add('opacity-50', 'cursor-not-allowed');
       }
     }
 
