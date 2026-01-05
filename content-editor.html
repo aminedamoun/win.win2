@@ -10,7 +10,12 @@
 <body class="bg-gray-900 text-white min-h-screen">
   <div class="container mx-auto px-4 py-8">
     <div class="mb-8">
-      <h1 class="text-4xl font-bold mb-2">Website Content Management</h1>
+      <div class="flex items-center justify-between mb-4">
+        <h1 class="text-4xl font-bold">Website Content Management</h1>
+        <button onclick="window.location.href='/admin.html'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium">
+          ← Back to Admin
+        </button>
+      </div>
       <p class="text-gray-400">Edit website text content page by page and section by section</p>
     </div>
 
@@ -100,10 +105,15 @@
     async function loadTranslations(page, language) {
       try {
         const response = await fetch(`/src/locales/${language}.json`);
+        if (!response.ok) {
+          throw new Error(`Failed to load translations: ${response.status}`);
+        }
         const data = await response.json();
+        console.log('Loaded translations:', data);
         return data[page] || {};
       } catch (error) {
         console.error('Error loading translations:', error);
+        showMessage(`Error loading translations: ${error.message}`, 'error');
         return {};
       }
     }
@@ -136,23 +146,44 @@
         return;
       }
 
+      console.log('Loading content for:', page, language);
+
       loading.classList.remove('hidden');
       contentContainer.classList.add('hidden');
 
-      originalTranslations = await loadTranslations(page, language);
-      const dbContent = await loadDatabaseContent(page, language);
+      try {
+        originalTranslations = await loadTranslations(page, language);
+        console.log('Original translations loaded:', Object.keys(originalTranslations).length, 'top-level keys');
 
-      const flattened = flattenObject(originalTranslations);
-      currentSections = {};
+        const dbContent = await loadDatabaseContent(page, language);
+        console.log('Database content loaded:', Object.keys(dbContent).length, 'entries');
 
-      for (const key in flattened) {
-        currentSections[key] = dbContent[key] || flattened[key];
+        const flattened = flattenObject(originalTranslations);
+        console.log('Flattened sections:', Object.keys(flattened).length, 'keys');
+
+        currentSections = {};
+
+        for (const key in flattened) {
+          currentSections[key] = dbContent[key] || flattened[key];
+        }
+
+        if (Object.keys(currentSections).length === 0) {
+          showMessage('No content sections found for this page', 'error');
+          loading.classList.add('hidden');
+          return;
+        }
+
+        renderSections(page, language);
+
+        loading.classList.add('hidden');
+        contentContainer.classList.remove('hidden');
+
+        showMessage(`Loaded ${Object.keys(currentSections).length} content sections`, 'success');
+      } catch (error) {
+        console.error('Error in loadContent:', error);
+        showMessage('Error loading content: ' + error.message, 'error');
+        loading.classList.add('hidden');
       }
-
-      renderSections(page, language);
-
-      loading.classList.add('hidden');
-      contentContainer.classList.remove('hidden');
     });
 
     function renderSections(page, language) {
@@ -235,21 +266,29 @@
     });
 
     async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
+      try {
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-      if (!user) {
+        if (userError || !user) {
+          console.error('Auth error:', userError);
+          window.location.href = '/login.html';
+          return;
+        }
+
+        console.log('User authenticated:', user.email);
+
+        const isAdmin = user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin';
+
+        if (!isAdmin) {
+          console.warn('User is not admin');
+          showMessage('Access denied: Admin role required', 'error');
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
         window.location.href = '/login.html';
-        return;
-      }
-
-      const { data: userData, error } = await supabase
-        .from('auth.users')
-        .select('raw_app_meta_data')
-        .eq('id', user.id)
-        .single();
-
-      if (error || userData?.raw_app_meta_data?.role !== 'admin') {
-        window.location.href = '/';
       }
     }
 
