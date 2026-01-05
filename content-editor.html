@@ -28,6 +28,8 @@
           <option value="home">Home</option>
           <option value="about">About</option>
           <option value="jobs">Jobs</option>
+          <option value="insights">Insights</option>
+          <option value="apply">Apply</option>
         </select>
       </div>
       <div>
@@ -105,34 +107,16 @@
 
     async function loadTranslations(page, language) {
       try {
-        // Try multiple paths to find the translation file
-        const paths = [
-          `/src/locales/${language}.json`,
-          `./src/locales/${language}.json`,
-          `/locales/${language}.json`
-        ];
+        const path = `/locales-${language}.json`;
+        const response = await fetch(path);
 
-        let data = null;
-        let lastError = null;
-
-        for (const path of paths) {
-          try {
-            const response = await fetch(path);
-            if (response.ok) {
-              data = await response.json();
-              console.log(`Loaded translations from ${path}`);
-              break;
-            }
-          } catch (err) {
-            lastError = err;
-          }
+        if (!response.ok) {
+          throw new Error(`Failed to load translations from ${path}`);
         }
 
-        if (!data) {
-          throw new Error(`Failed to load translations: ${lastError?.message || 'File not found'}`);
-        }
-
-        console.log('Loaded translations:', data);
+        const data = await response.json();
+        console.log(`Loaded translations from ${path}`);
+        console.log('Translation data:', data);
         return data[page] || {};
       } catch (error) {
         console.error('Error loading translations:', error);

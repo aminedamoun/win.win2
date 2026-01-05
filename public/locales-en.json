@@ -1,0 +1,436 @@
+{
+  "nav": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "insights": "Insights",
+    "apply": "Apply",
+    "viewPositions": "View Positions",
+    "joinTeam": "Join the Team"
+  },
+  "home": {
+    "hero": {
+      "title": "Build Your Career with Win Win",
+      "subtitle": "Sales Team",
+      "description": "We are a results-driven sales company specialized in selling telecommunications solutions for B2C and B2B through field sales, call center, and direct promotions at strategic locations with higher commissions than other providers.",
+      "joinTeam": "Join the Team",
+      "viewPositions": "View Open Positions"
+    },
+    "about": {
+      "title": "Who We Are",
+      "description": "Win Win d.o.o. is a team of experienced sales managers and professionals specializing in direct marketing and long-term customer relationships. We operate from multiple locations across Slovenia and build an environment where professionalism, effort, discipline, and persistence are rewarded.",
+      "stats": {
+        "deals": "Completed Deals",
+        "locations": "Locations",
+        "team": "Team Members",
+        "experience": "Years Experience"
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "description": "Comprehensive sales solutions and support systems that drive results",
+      "b2cField": "OUR SERVICES",
+      "internalSupport": "Internal Support Services",
+      "marketFocus": "Market Focus",
+      "core": {
+        "promotions": {
+          "title": "Promotions in Shopping Centers",
+          "description": "On-site promotional activities and direct customer engagement in high-traffic retail locations across Slovenia."
+        },
+        "callCenter": {
+          "title": "Call Center",
+          "description": "Professional outbound telemarketing with structured scripts, KPI-driven performance, and CRM-based customer management."
+        },
+        "b2b": {
+          "title": "B2B Professional Sales",
+          "description": "Business-to-business sales solutions, corporate telecommunications, and professional service offerings."
+        }
+      },
+      "support": {
+        "training": {
+          "title": "Sales Training & Coaching",
+          "description": "Monthly programs, mentoring, role-play simulations, and skill development workshops."
+        },
+        "teamDevelopment": {
+          "title": "Team Development",
+          "description": "14-day onboarding, selection programs, performance improvement, and career path planning."
+        },
+        "leadership": {
+          "title": "Leadership & Management",
+          "description": "KPI tracking, performance monitoring, process optimization, and coaching for team leaders."
+        },
+        "crm": {
+          "title": "CRM & Process Optimization",
+          "description": "Modern CRM systems, script optimization, lead management, and structured daily targets."
+        }
+      },
+      "market": {
+        "b2c": {
+          "title": "B2C Market Specialization",
+          "description": "Primary focus on residential customers, households, and individual end users."
+        },
+        "b2b": {
+          "title": "B2B Sales Support",
+          "description": "Secondary focus on business telecom solutions and ICT-related offers."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Why Choose Win Win",
+      "description": "We provide everything you need to build a successful career in sales",
+      "items": {
+        "training": {
+          "title": "Monthly Training & Mentoring",
+          "description": "Continuous coaching and skill development from experienced sales professionals"
+        },
+        "career": {
+          "title": "Clear Career Paths",
+          "description": "Structured progression from Sales Advisor to Team Leader and beyond"
+        },
+        "earning": {
+          "title": "High Earning Potential",
+          "description": "Competitive base salary plus performance-based commission structure"
+        },
+        "tools": {
+          "title": "Modern Tools & Scripts",
+          "description": "Access to proven sales scripts, CRM systems, and qualified leads"
+        },
+        "locations": {
+          "title": "Multiple Locations",
+          "description": "Offices in Trzin and Kranj with nationwide field operations"
+        },
+        "performance": {
+          "title": "Performance-Driven",
+          "description": "Clear KPIs and transparent metrics to track your success"
+        }
+      }
+    },
+    "joinSection": {
+      "title": "Join Slovenia's Leading Sales Team",
+      "description": "We're building the most effective and respected sales organization in Slovenia. Our team members benefit from industry-leading training, competitive compensation, and a culture that celebrates success.",
+      "startJourney": "Start Your Journey",
+      "learnMore": "Learn More"
+    },
+    "partners": {
+      "title": "Our Trusted Partners"
+    },
+    "cta": {
+      "title": "Ready to Start Your Sales Career?",
+      "description": "Join a team of dedicated professionals who are committed to excellence, growth, and results. We're looking for motivated individuals ready to take their career to the next level.",
+      "explore": "Explore Opportunities",
+      "learnMore": "Learn More About Us"
+    },
+    "process": {
+      "title": "Our Process",
+      "description": "A simple, transparent path to joining our team",
+      "steps": {
+        "apply": {
+          "title": "Apply Online",
+          "desc": "Submit your application through our portal"
+        },
+        "interview": {
+          "title": "Interview",
+          "desc": "Meet with our team and discuss opportunities"
+        },
+        "selection": {
+          "title": "Selection Program",
+          "desc": "14-day training and evaluation period"
+        },
+        "start": {
+          "title": "Start Working",
+          "desc": "Sign contract and begin your career"
+        }
+      },
+      "startApplication": "Start Your Application"
+    },
+    "app": {
+      "title": "Apply On The Go",
+      "description": "Track your application, get instant updates, and stay connected with our mobile app",
+      "comingSoon": "Coming Soon"
+    },
+    "faq": {
+      "title": "Frequently Asked <span class=\"text-red-500\">Questions</span>",
+      "description": "Everything you need to know about joining Win Win",
+      "stillQuestions": "Still have questions?",
+      "getInTouch": "Get in Touch",
+      "items": {
+        "experience": {
+          "q": "Do I need previous sales experience?",
+          "a": "No. Previous sales experience is an advantage, but it is not mandatory. We provide structured onboarding, scripts, and continuous coaching. What matters most is motivation, discipline, and the willingness to learn."
+        },
+        "type": {
+          "q": "What type of sales will I be doing?",
+          "a": "You will work in B2C sales, either door-to-door field sales or call center sales. You will sell telecommunications services, including Internet, TV, and Mobile contracts for end customers."
+        },
+        "employment": {
+          "q": "Is this a full-time position or freelance work?",
+          "a": "Both options are possible. Depending on your profile and agreement, you can work as a full-time employee or as a freelancer (s.p. / company collaboration)."
+        },
+        "hours": {
+          "q": "What are the working hours?",
+          "a": "Working hours are structured and clearly defined. Field and call center schedules are organized to support productivity and work-life balance. Specific schedules are discussed during the interview."
+        },
+        "payment": {
+          "q": "How does payment work?",
+          "a": "You receive a base salary or hourly rate plus performance-based commission. Your earnings depend directly on your results. High performers can achieve above-average monthly income."
+        },
+        "advancement": {
+          "q": "How quickly can I advance within the company?",
+          "a": "Career progression is performance-based. Successful Sales Advisors can advance to Senior Sales Advisor, Sales Team Leader, or Sales Manager. We actively promote from within."
+        },
+        "training": {
+          "q": "Do you provide training and support?",
+          "a": "Yes. You receive structured onboarding, sales scripts and CRM tools, monthly coaching and mentoring, and regular sales training and feedback sessions. You are never left alone."
+        },
+        "locations": {
+          "q": "Where are your offices located?",
+          "a": "We operate from offices in Trzin and Kranj. Field sales cover all of Slovenia."
+        },
+        "remote": {
+          "q": "Is remote work possible?",
+          "a": "For experienced candidates and leadership positions, remote or hybrid work may be possible. This is evaluated individually."
+        },
+        "selection": {
+          "q": "What is the selection process?",
+          "a": "The process includes: online application, personal interview & sales simulation, 14-day selection and onboarding program, and contract signing and long-term cooperation."
+        },
+        "profile": {
+          "q": "What kind of people are you looking for?",
+          "a": "We are looking for people who are competitive by nature, goal-oriented, positive and disciplined, motivated to grow professionally and financially, and ready to take responsibility for their success."
+        },
+        "different": {
+          "q": "What makes Win Win different from other sales companies?",
+          "a": "We combine clear structure, honest communication, strong coaching culture, long-term career opportunities, and a results-driven but supportive environment. At Win Win, success is not luck — it is a system."
+        }
+      }
+    },
+    "blog": {
+      "title": "From Our Blog",
+      "subtitle": "Latest Insights",
+      "description": "Sales strategies, career advice, and stories from the Win Win team",
+      "viewAll": "View All Articles",
+      "noArticles": "No articles available yet. Check back soon!"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Win Win",
+      "description": "We are a team that lives sales. Win Win d.o.o. was built on the belief that sales can be done differently — honestly, ethically, and with a long-term mindset."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To become the most effective and respected sales company in Slovenia, known for our integrity, results, and commitment to both clients and team members."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "To deliver more value to customers than they expect, through trust, structure, and top-level sales expertise. We build long-term relationships that benefit everyone involved."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "description": "These principles guide everything we do and define who we are as a company",
+      "items": {
+        "integrity": {
+          "title": "Integrity & Honesty",
+          "description": "We build trust through transparent communication and ethical business practices"
+        },
+        "reliability": {
+          "title": "Reliability",
+          "description": "Our clients and team members can count on us to deliver on our commitments"
+        },
+        "communication": {
+          "title": "Professional Communication",
+          "description": "Clear, respectful, and effective communication in every interaction"
+        },
+        "performance": {
+          "title": "Performance & Growth",
+          "description": "Continuous improvement and measurable results drive our success"
+        },
+        "support": {
+          "title": "Team Support",
+          "description": "We succeed together through collaboration and mutual support"
+        },
+        "excellence": {
+          "title": "Excellence",
+          "description": "We strive for the highest standards in everything we do"
+        }
+      }
+    },
+    "culture": {
+      "title": "Company Culture",
+      "description": "We've built an environment where talented professionals can thrive",
+      "items": [
+        "Results-driven mindset with clear KPIs",
+        "Team collaboration and knowledge sharing",
+        "Continuous learning and skill development",
+        "Coaching and mentoring programs",
+        "Recognition and rewards for excellence",
+        "Work-life balance and flexibility"
+      ]
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "We operate from multiple locations across Slovenia with a growing team of dedicated sales professionals",
+      "stats": {
+        "members": "Active Team Members",
+        "field": "Field Sales",
+        "callCenter": "Call Center",
+        "locations": "Multiple Locations"
+      },
+      "fieldText": "Field",
+      "callCenterText": "Call Center",
+      "locationsText": "Trzin, Kranj & Field"
+    }
+  },
+  "jobs": {
+    "title": "Open Positions",
+    "description": "Join our team of high-performing sales professionals. We offer competitive compensation, comprehensive training, and clear career progression.",
+    "viewDetails": "View Details",
+    "applyNow": "Apply Now",
+    "loading": "Loading positions...",
+    "noJobs": "No open positions at the moment. Check back soon!",
+    "noPosition": "Don't See the Right Position?",
+    "noPositionDesc": "We're always looking for talented sales professionals. Send us your application and we'll keep you in mind for future opportunities.",
+    "submitGeneral": "Submit General Application",
+    "backToAll": "Back to All Positions",
+    "fullTime": "Full-time",
+    "applyForPosition": "Apply for This Position",
+    "responsibilities": "Main Responsibilities",
+    "whatWeOffer": "What We Offer",
+    "requirements": "What We Expect",
+    "readyToApply": "Ready to",
+    "apply": "Apply?",
+    "applyDescription": "Take the first step towards building your career with Win Win. Submit your application today and join our team of high-performing sales professionals.",
+    "filters": {
+      "all": "All Positions",
+      "location": "Location",
+      "type": "Type"
+    },
+    "detail": {
+      "overview": "Overview",
+      "responsibilities": "Responsibilities",
+      "requirements": "Requirements",
+      "benefits": "Benefits",
+      "location": "Location",
+      "type": "Type",
+      "salary": "Salary",
+      "backToJobs": "Back to Positions",
+      "apply": "Apply for this Position"
+    }
+  },
+  "insights": {
+    "title": "Insights from the World of Sales",
+    "subtitle": "Knowledge Hub",
+    "description": "Sales strategies, team culture, career growth, and real stories from the Win Win team.",
+    "readMore": "Read More",
+    "loading": "Loading articles...",
+    "loadingText": "Loading articles...",
+    "noArticles": "No articles available yet. Check back soon!",
+    "latest": "Latest Insights",
+    "backToInsights": "Back to Insights",
+    "shareArticle": "Share Article",
+    "error": {
+      "title": "Unable to Load Content",
+      "retry": "Retry",
+      "loadFailed": "Unable to load articles"
+    }
+  },
+  "apply": {
+    "title": "Apply to Win Win",
+    "description": "Take the first step towards building your sales career. Fill out the form below and we'll get back to you within 24 hours.",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "john.doe@example.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+386 31 234 567",
+      "preferredTime": "Preferred Interview Time",
+      "preferredTimePlaceholder": "e.g., Weekday mornings, Afternoons",
+      "message": "Additional Message",
+      "messagePlaceholder": "Tell us about yourself, your experience, and why you want to join Win Win...",
+      "resume": "Resume / CV (PDF, max 5MB)",
+      "uploadResume": "Click to upload your resume",
+      "uploadInfo": "PDF only, max 5MB",
+      "gdprConsent": "I agree to the processing of my personal data in accordance with the Privacy Policy and Cookie Policy.",
+      "privacyPolicy": "Privacy Policy",
+      "cookiePolicy": "Cookie Policy",
+      "submit": "Submit Application",
+      "submitting": "Submitting...",
+      "uploadingResume": "Uploading Resume...",
+      "success": "Application Submitted!",
+      "successMessage": "Thank you for your interest in joining Win Win. We've received your application and will contact you within 24 hours at",
+      "error": "An error occurred. Please try again."
+    },
+    "contact": {
+      "prefer": "Prefer to schedule an interview directly? Contact us at",
+      "or": "or call"
+    },
+    "process": {
+      "title": "What Happens Next?",
+      "step1": {
+        "title": "We Review",
+        "desc": "Your application is reviewed by our recruitment team"
+      },
+      "step2": {
+        "title": "We Contact",
+        "desc": "We'll reach out within 24 hours to schedule an interview"
+      },
+      "step3": {
+        "title": "You Start",
+        "desc": "Join our selection program and begin your career"
+      }
+    }
+  },
+  "footer": {
+    "description": "Building careers in sales. We are a performance-driven sales company specializing in B2C field sales and telecommunications.",
+    "company": "Company",
+    "legal": "Legal",
+    "contact": "Contact",
+    "links": {
+      "aboutUs": "About Us",
+      "careers": "Careers",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy",
+      "terms": "Terms of Service"
+    },
+    "address": "Trzin, Kranj, Slovenia",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "readTime": "min read",
+    "loading": "Loading...",
+    "error": "Error",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "close": "Close"
+  },
+  "seo": {
+    "home": {
+      "title": "Sales Jobs in Slovenia - Join Win Win Sales Team",
+      "content": "<p><strong>Win Win Sales Team – Your Opportunity for a Successful Sales Career in Slovenia</strong></p><p>Looking for a sales job in Ljubljana, Maribor, or other cities across Slovenia? Win Win Sales Team is a leading Slovenian direct sales company offering exceptional opportunities for sales employment, career development, and personal growth. Our sales team operates throughout Slovenia and offers competitive employment conditions for anyone wanting to build a successful career in sales.</p><p><strong>Sales Employment – Best Opportunities for Work in Slovenia</strong></p><p>Employment in the Win Win sales team means more than just a job – it means entering a dynamic environment where results, persistence, and ambition are valued. We offer sales jobs for beginners without experience, as well as for experienced sales professionals who want to advance into leadership positions. Our sales company operates in various segments: direct field sales (B2C sales), call center sales, telecommunications services, and B2B business sales.</p><p>If you're looking for employment in Ljubljana, Maribor, Celje, Kranj, or any other city in Slovenia, we're the right choice. Win Win Sales Team employs sales representatives, team leaders, sales managers, and other sales professionals at various locations throughout Slovenia. Our offices are located in Slovenia's largest cities, enabling employment close to your home.</p><p><strong>Salesperson Job – Opportunities for All Generations</strong></p><p>A salesperson position at Win Win is suitable for students looking for student work in sales, young people without work experience who want to gain sales experience, as well as experienced sales professionals who want to upgrade their knowledge and earnings. We offer flexible employment forms: full-time, part-time, student work, and work-from-home options for certain call center positions.</p><p>Employment as a salesperson at Win Win Sales Team enables high earnings dependent on your results. Our commission-based reward system means the more you sell, the more you earn. The best salespeople in our team achieve monthly earnings exceeding the Slovenian average, proving that a sales job can be extremely profitable for those willing to put in the effort and energy.</p><p><strong>Career in Sales – From Salesperson to Manager</strong></p><p>Win Win Sales Team offers a clear career path for all sales employees. You can start as a field sales consultant or in the call center, then advance to sales team leader, sales manager, or even regional director. Our company actively invests in employee education and training, meaning you'll acquire sales knowledge, communication skills, sales techniques, negotiation skills, and leadership competencies with us.</p><p>Regular sales training, workshops, seminars, and coaching sessions are part of our employee development culture. Employees at Win Win Sales Team have the opportunity to obtain certificates in sales, telecommunications, leadership, and management, strengthening their competitiveness in the job market.</p><p><strong>Win Win Sales Team – Culture of Success and Teamwork</strong></p><p>Our sales team consists of ambitious individuals who share common values: persistence, honesty, results, and team spirit. We operate in a dynamic and motivating environment where every success is celebrated, every sale counts, and every team member contributes to the common goal. Win Win Sales Team organizes regular team buildings, motivational events, awards for top salespeople, and annual meetings where we celebrate shared successes.</p><p>A job in the Win Win sales team isn't just employment – it's a lifestyle, an opportunity for personal growth, financial independence, and a long-term career in one of Slovenia's fastest-growing sectors.</p><p><strong>Call Center Jobs – Work from Home and in the Office</strong></p><p>Win Win Sales Team also employs salespeople in the call center, where they make outbound calls to customers throughout Slovenia. A call center job is suitable for everyone who enjoys communicating by phone, has good speaking abilities, and is results-oriented. We offer the option of working in the office as well as working from home for experienced call center employees.</p><p>Employment in the Win Win call center includes an organized work environment, modern CRM software, sales scripts, regular training, fixed salary, and sales commissions. The best call operators achieve high earnings and have the opportunity to advance to call center supervisors or sales team leaders.</p><p><strong>Telecommunications and Mobile Services Sales in Slovenia</strong></p><p>Win Win Sales Team specializes in selling telecommunications services in Slovenia. We collaborate with the largest telecom operators and offer sales of mobile packages, internet connections, business telecom solutions, and additional services. Our salespeople operate in shopping centers, at promotional events, in the field, and in the call center.</p><p>If you're interested in employment in telecommunications, we're the right choice. We offer thorough training in telecom services, technical support, sales materials, and high commissions for every signed contract. Mobile services sales is one of the most dynamic segments of our business and offers excellent earnings for successful salespeople.</p><p><strong>Shopping Center Promotions – Direct Sales to Customers</strong></p><p>One of our key activities is organizing promotions in shopping centers throughout Slovenia. Our promoters and salespeople operate in the largest shopping centers such as BTC Ljubljana, City Park Ljubljana, Europark Maribor, Supernova Celje, and others. A promoter job includes direct customer contact, presenting telecom offers, customer consulting, and contract signing.</p><p>Work in a shopping center is dynamic, social, and suitable for everyone who enjoys communicating with people. Employees at promotions have flexible work schedules, the option of working on weekends for higher commissions, and the opportunity for quick earnings.</p><p><strong>B2B Sales – Business Sales for Experienced Professionals</strong></p><p>Win Win Sales Team also engages in business sales (B2B), where our sales consultants work with Slovenian companies, offering telecom solutions for businesses, business packages, corporate services, and larger business projects. A B2B sales job requires experience, professional presentation, negotiation skills, and understanding of business processes.</p><p>If you're an experienced salesperson looking for a challenge in business sales, we invite you to apply. B2B positions at Win Win offer high commissions, access to larger projects, the opportunity to build long-term business relationships, and advancement into leadership positions.</p><p><strong>Student Work in Sales – First Employment for Students</strong></p><p>Win Win Sales Team regularly employs students who want to do student work in sales alongside their studies. Student work includes flexible schedules, work in afternoon hours or on weekends, the option of working in shopping centers or the call center, and attractive earnings. Students gain valuable work experience with us, develop communication skills, and get to know the world of sales.</p><p>For students who show good results, we offer the possibility of employment after graduation, advancement into leadership positions, and a long-term career in our company. Student work at Win Win is an excellent stepping stone for a successful career in sales or marketing.</p><p><strong>Job Without Experience – All Beginners Welcome</strong></p><p>At Win Win Sales Team, we believe that anyone can succeed in sales if they have the right mindset, motivation, and willingness to work. That's why we offer sales jobs without prior experience. We provide comprehensive training for all new employees, where you learn sales techniques, customer approaches, use of CRM tools, telephone sales, and field work.</p><p>Employment without experience at Win Win is an opportunity to enter the world of sales where you can build a career from the ground up. Our trainers and mentors will guide you through the first weeks and months of work and help you develop the necessary skills for success in sales.</p><p><strong>High Earnings in Sales – How Much Can You Earn?</strong></p><p>Win Win Sales Team offers one of the best payment systems in the sales industry in Slovenia. Our commission system enables the best salespeople to achieve monthly incomes from 1,500 EUR to over 3,000 EUR net, depending on results. In addition to commissions, we also offer bonuses, rewards for achieved goals, competitions with prizes, and regular motivational recognition.</p><p>High earnings in sales aren't accessible only to the select few – anyone willing to work hard, be persistent, and follow sales processes can achieve above-average earnings at Win Win Sales Team. Our company transparently rewards results and ensures that the best salespeople are the most financially rewarded.</p><p><strong>Employment Locations Throughout Slovenia – Where You Want to Work</strong></p><p>Win Win Sales Team has offices and operational points in all of Slovenia's largest cities and regions: Ljubljana, Maribor, Celje, Kranj, Koper, Novo Mesto, Velenje, Nova Gorica, Murska Sobota, Ptuj, and other cities. This means you can find a sales job close to your home or apply for work in other regions of Slovenia.</p><p>Our sales teams also operate in smaller towns and places where we organize promotional events, field sales, and call sales. Regardless of where in Slovenia you live, Win Win Sales Team likely has an opportunity for you.</p><p><strong>How to Apply for a Job at Win Win Sales Team?</strong></p><p>Applying for a job at Win Win Sales Team is quick and simple. Visit our website, select the position you're interested in (field salesperson, call operator, team leader, B2B consultant, etc.) and fill out the application form. Attach a brief resume and cover letter and answer a few basic questions.</p><p>Our HR department will review your application and invite you for an interview if suitable. The interview takes place in a relaxed atmosphere where you'll meet our team, learn about work organization, and career development opportunities. After a successful interview, brief training follows, then starting work in the sales team.</p><p><strong>Conclusion – Your Future in Sales Starts Here</strong></p><p>Win Win Sales Team is the right company for everyone who wants to build a successful sales career in Slovenia. Whether you're a beginner without experience, a student, an experienced salesperson, or management personnel – you'll find an opportunity with us that matches your ambitions. We offer sales employment with high earnings, a clear career path, a modern work environment, regular training, and support from experienced mentors.</p><p>Join a successful sales team operating throughout Slovenia and achieving exceptional results. Become part of Win Win Sales Team and discover how far a sales career can take you. We invite you to view our open positions, apply, and start your path to success today!</p>"
+    },
+    "about": {
+      "title": "About Win Win Sales Team - Leading Sales Company in Slovenia",
+      "content": "<p><strong>Win Win Sales Team – Success Story of a Slovenian Sales Company</strong></p><p>Win Win Sales Team is a leading Slovenian company specializing in direct sales, field sales, call center, and telecommunications services. We were founded with the vision of becoming the best sales company in Slovenia, offering employment, career development, and financial independence to everyone willing to put in the effort and energy to achieve results. Our sales team operates throughout Slovenia and collaborates with leading Slovenian and international partners.</p><p><strong>Our Mission and Values</strong></p><p>The mission of Win Win Sales Team is to create an environment where every individual can develop their sales potential, achieve their financial goals, and build a long-term career in sales. Our values are based on honesty, transparency, teamwork, persistence, and continuous improvement. We believe that success is the result of hard work, disciplined execution, and the right mindset.</p><p><strong>Our Sales Team – Field Experts</strong></p><p>At Win Win Sales Team, we employ experienced sales professionals, team leaders, managers, and sales directors who have rich experience in direct sales, B2C sales, B2B sales, telecommunications, marketing, and leadership. Our employees regularly participate in sales training, conferences, and workshops where they upgrade their knowledge and skills.</p><p>Win Win sales consultants are trained for field work, in shopping centers, at promotions, in the call center, and at customers' homes. We use the most modern CRM tools, sales platforms, analytical tools, and communication systems that enable efficient work and real-time results tracking.</p><p><strong>Sales Programs and Training</strong></p><p>Win Win Sales Team conducts regular sales programs and training for all employees, regardless of their experience. Our training program includes: sales techniques, communication skills, negotiation strategies, objection handling, closing sales, use of CRM systems, telephone sales, field sales, leading sales teams, and management skills.</p><p>New employees go through an intensive onboarding program that includes theoretical training, practical exercises, shadowing experienced salespeople, and independent work under mentor supervision. After successfully completing training, they receive a certificate and become full members of the sales team.</p><p><strong>Our Services – Comprehensive Sales Solutions</strong></p><p>Win Win Sales Team offers a wide spectrum of sales services including: direct field sales, shopping center promotions, call sales, telemarketing, business sales (B2B), telecommunications services, customer consulting, customer relationship management (CRM), and long-term partnerships.</p><p>We operate in multiple segments: telecommunications (mobile packages, internet, television), energy (electricity and gas sales), insurance, banking products, consumer products, promotional services, and other B2C and B2B services. Our sales network covers all of Slovenia and select locations in other Southeast European countries.</p><p><strong>Partnerships and Collaborations</strong></p><p>Win Win Sales Team collaborates with leading Slovenian and international companies that trust us to represent their products and services in the Slovenian market. Our partners come from various industries: telecommunications, energy, banking, insurance, retail, technology, and services. Long-term partnerships are based on trust, transparency, achieving agreed goals, and mutual respect.</p><p>Thanks to strong partnerships, we can offer employees a diverse product portfolio, employment stability, regular earnings, and growth opportunities. Our salespeople have access to exclusive offers, promotional campaigns, and bonus programs offered by our partners.</p><p><strong>Technology and Tools for Successful Sales</strong></p><p>Win Win Sales Team uses the most modern technology to support sales processes. Employees have access to mobile CRM applications that enable customer management, sales activity tracking, visit logging, results monitoring, and access to sales materials. We also use advanced analytical systems for tracking KPIs, sales forecasting, customer segmentation, and sales strategy optimization.</p><p>Our offices are equipped with modern IT infrastructure, VoIP telephone systems, video conferencing tools, and ergonomic furniture. Call center employees have professional headsets, high-speed internet, CRM platforms, and automated calling systems available.</p><p><strong>Company Culture – Environment That Encourages Success</strong></p><p>At Win Win Sales Team, we build a culture of success where effort, results, innovation, and team spirit are valued. We organize regular team buildings, motivational events, awards for top salespeople, annual meetings, and success celebrations. Our leadership is accessible, supports employees, and actively participates in developing individual career paths.</p><p>We believe in transparent communication, open feedback, and a meritocratic advancement system. Every employee has the opportunity to advance based on their results, competencies, and commitment to the company. The best salespeople become team leaders, managers, trainers, or partners in the company.</p><p><strong>Career Opportunities and Advancement</strong></p><p>A career at Win Win Sales Team starts as a sales consultant in the field or call center. With proven results, you advance to higher positions: senior sales consultant, sales team leader, sales manager, regional manager, sales director, or company partner. Each position brings higher earnings, greater responsibility, leading larger teams, and access to bonus programs.</p><p>The company actively invests in developing leadership personnel and offers opportunities for additional training, certificates, international conferences, and training with partners. Employees who demonstrate leadership abilities are included in a mentoring program where they learn from experienced managers and directors.</p><p><strong>Our Locations Throughout Slovenia</strong></p><p>Win Win Sales Team has offices in Slovenia's largest cities: Ljubljana (main office), Maribor, Celje, Kranj, Koper, Novo Mesto, Velenje, Nova Gorica, Murska Sobota, Ptuj, and other locations. Our sales teams also operate in smaller towns and municipalities where we organize promotional events, field sales, and call sales from the central call center.</p><p>Each office is equipped with modern infrastructure, workspaces, meeting rooms, break rooms, and all necessary tools for efficient work. Employees have the option of working at multiple locations, rotating between teams, and occasional work from home for certain positions.</p><p><strong>Social Responsibility and Ethics</strong></p><p>Win Win Sales Team operates in accordance with the highest ethical standards and respect for legislation. Our sales practice is transparent, fair, and focused on customer satisfaction. We are committed to fair treatment of employees, partners, and customers. We participate in local events, support young talents, collaborate with educational institutions, and contribute to local community development.</p><p><strong>How to Become Part of Win Win Sales Team?</strong></p><p>If you want to become part of our successful sales team, visit our website, view open positions, and apply for a position that interests you. We accept applications from candidates with various profiles: beginners without experience, students, experienced salespeople, management personnel, and professionals in sales, marketing, or telecommunications.</p><p>Our employment process is fast, transparent, and professional. After reviewing applications, we invite you for an interview where you meet our team, company culture, and development opportunities. Successful candidates go through training and start their sales career with our support and mentorship.</p><p><strong>Join the Winning Team</strong></p><p>Win Win Sales Team is more than a company – it's a community of ambitious individuals who share common values and goals. If you want to build a successful sales career, achieve financial independence, develop your skills, and become part of the best sales team in Slovenia, we're the right choice for you. Join us and discover what it means to win together!</p>"
+    },
+    "jobs": {
+      "title": "Open Sales Positions Throughout Slovenia",
+      "content": "<p><strong>Sales Employment – Discover Open Positions at Win Win Sales Team</strong></p><p>Win Win Sales Team regularly posts open positions for various sales roles throughout Slovenia. If you're looking for a sales job offering high earnings, advancement opportunities, and a dynamic work environment, you're in the right place. Our company employs field salespeople, call operators, sales team leaders, B2B consultants, promoters, team leaders, sales managers, and other professionals in sales and marketing.</p><p><strong>Open Positions – Currently Available Roles</strong></p><p>Win Win Sales Team has the following sales positions available:</p><p><strong>1. Field Sales Consultant (Ljubljana, Maribor, Celje, Kranj, Koper)</strong><br/>We're looking for dynamic and communicative individuals for field sales of telecommunications services. Work includes visiting customers at promotional locations, shopping centers, and other points. We offer: thorough training, high commissions, advancement opportunities, work equipment, and support from experienced mentors. Suitable for beginners and experienced salespeople.</p><p><strong>2. Call Operator / Telephone Salesperson (Ljubljana, Maribor)</strong><br/>For work in our call center, we're looking for salespeople with good communication skills and results orientation. Work includes outbound calls to customers, offer presentations, consulting, and telephone contract signing. We offer: fixed salary + commissions, flexible work hours, work-from-home option, training, CRM tools. Suitable for students, beginners, and experienced professionals.</p><p><strong>3. Sales Team Leader (Ljubljana, Maribor, Celje)</strong><br/>We're looking for experienced sales professionals with leadership abilities to lead sales teams. Tasks include: leading a team of 5-10 salespeople, coaching, results monitoring, sales strategy implementation, team motivation. We offer: higher base salary, bonuses for team results, car allowance, training, clear career path. Sales and leadership experience required.</p><p><strong>4. B2B Sales Consultant (All Slovenia)</strong><br/>For business sales, we're looking for experienced salespeople who will handle acquiring new business customers, building relationships with companies, and selling telecom solutions for businesses. Work includes: meetings with business customers, quote preparation, negotiations, signing larger contracts. We offer: high commissions for B2B deals, company car, expense allowance, access to business customers, back-office team support.</p><p><strong>5. Promoter (Shopping Centers Throughout Slovenia)</strong><br/>For promotional activities in shopping centers, we're looking for promoters to present telecom offers to customers. Work includes: booths in shopping centers, direct customer contact, consulting, contract signing. We offer: flexible work schedules, weekend work, attractive commissions, training, promotional materials. Suitable for students, high school students (18+), beginners.</p><p><strong>6. Sales Manager (Ljubljana)</strong><br/>For leading larger sales units, we're looking for an experienced sales manager with proven results. Responsibilities include: leading multiple sales teams, sales strategy, planning, results analysis, reporting to management, developing new sales channels. We offer: management salary, bonuses, company car, partnership opportunity in the company, access to top management.</p><p><strong>7. Sales Trainer / Sales Coach (Ljubljana, Maribor)</strong><br/>We're looking for a professional to train sales teams. Tasks: conducting sales training, coaching, preparing educational materials, tracking progress, developing sales programs. Sales experience, training abilities, and communication skills required. We offer: fixed salary, bonuses, dynamic environment, project collaboration opportunities.</p><p><strong>8. Student Work in Sales (Ljubljana, Maribor, Celje, Kranj)</strong><br/>For students who want to work alongside their studies, we offer student work in field sales or call center. Work includes: flexible schedules (afternoons, weekends), training, earning opportunity, gaining work experience. Suitable for students of all disciplines who want to develop sales and communication skills.</p><p><strong>How to Apply for Open Positions?</strong></p><p>Applying for a position at Win Win Sales Team is simple. Visit our website, select the position you're interested in, and fill out the application form. Attach your resume (CV) and a brief cover letter describing why you want to work in sales and what you can bring to our team.</p><p>After submitting your application, our HR team will review your application and invite you for an interview if suitable. The interview can take place in person at our office or via video call, depending on your location and the position you're applying for.</p><p><strong>What to Expect in a Sales Job Interview?</strong></p><p>The interview for employment at Win Win Sales Team takes place in a relaxed and friendly atmosphere. The purpose of the interview is to get to know you, your ambitions, motivation, and determine if you're suitable for work in our sales team. The interview typically includes: company presentation, your introduction, questions about your experience, motivation for sales work, sales situation scenarios, and answers to your questions.</p><p>After a successful interview, a job or student work offer follows, along with an agreement on training dates. Training lasts from a few days to two weeks, depending on the position, and includes theory, practical exercises, and practical work with a mentor.</p><p><strong>What Are the Requirements for Sales Work?</strong></p><p>Requirements for employment at Win Win Sales Team depend on the position, but basic requirements are as follows:<br/>- Minimum age 18 years<br/>- Good knowledge of Slovenian language (native or excellent knowledge)<br/>- Communicativeness, confidence, motivation<br/>- Results and goal orientation<br/>- Willingness to work in the field, call center, or office<br/>- Punctuality, reliability, team player</p><p>For some positions (team leader, manager, B2B), sales, leadership, or business environment experience is required. For entry positions (sales consultant, call operator, promoter), experience is not necessary – we provide thorough training.</p><p><strong>Why Choose a Sales Career at Win Win Sales Team?</strong></p><p>A sales career at Win Win Sales Team offers numerous advantages:<br/>- High earnings: commission system enables monthly incomes from 1,500 to 3,500 EUR net<br/>- Fast advancement: from salesperson to team leader in 6-12 months<br/>- Thorough training: sales techniques, communication, CRM tools<br/>- Dynamic environment: work with customers, teamwork, motivational events<br/>- Flexibility: choice of work hours, locations, positions<br/>- Stability: work with leading partners, long-term employment, legal security<br/>- Career development: clear career path, mentorship, training<br/>- Extras: bonuses, awards, competitions, team buildings, recognition</p><p><strong>Sales Career for Students – Student Work with High Earnings</strong></p><p>Win Win Sales Team is an excellent choice for students who want to do student work in sales alongside their studies. We offer flexible schedules adapted to study obligations, the option of working in afternoon hours, on weekends, or during holidays. Students gain valuable work experience with us, develop communication and sales skills, and earn more than at typical student jobs (food delivery, retail work, hostess).</p><p>Many of our successful team leaders and managers started their career as student work at Win Win. After graduation, they were employed with us full-time and are building a long-term sales career.</p><p><strong>Employment Without Experience – Start Your Career With Us</strong></p><p>If you don't have sales experience, that's not a problem. Win Win Sales Team offers sales jobs for beginners without experience. Our training program is designed so you'll quickly master sales techniques, communication skills, use of CRM tools, telephone sales, field work, and all other skills needed for successful sales work.</p><p>All new employees receive mentorship from experienced salespeople and leaders who guide them through the first weeks of work, help them with first sales, and encourage them to achieve results. With the right approach and motivation, even beginners without experience can quickly become successful salespeople with high earnings.</p><p><strong>Employment for Experienced Salespeople – Advance to Leadership Positions</strong></p><p>If you're an experienced salesperson looking for new challenges, higher earnings, and opportunities to advance into leadership positions, Win Win Sales Team is the right choice. We offer positions as team leaders, sales managers, trainers, B2B consultants, and other leadership roles where you can contribute to company success and sales team development with your experience.</p><p>Experienced salespeople at Win Win have access to larger projects, business customers, bonus programs, and the opportunity for partnership in the company. We value experience, knowledge, and results and offer competitive employment conditions.</p><p><strong>Career Stories – Meet Our Best Salespeople</strong></p><p>Many of our employees started as sales consultants without experience and today lead their own sales teams, achieve monthly earnings over 3,000 EUR, and enjoy successful sales careers. Their stories are inspiration for new employees and prove that exceptional results are possible at Win Win Sales Team if you're willing to put in the effort, be persistent, and follow sales processes.</p><p><strong>Apply Today and Start Your Sales Career!</strong></p><p>Don't wait any longer – open sales positions at Win Win Sales Team are available today. Visit our website, view open positions, choose one that matches your ambitions, and apply. Your path to a successful sales career starts here. Become part of the winning Win Win Sales Team and discover how far a sales career can take you!</p>"
+    },
+    "insights": {
+      "title": "Tips for Successful Sales and Career Development",
+      "content": "<p><strong>Sales Tips, Strategies, and Insights for Sales Success</strong></p><p>Win Win Sales Team shares professional sales tips, strategies, techniques, and insights in direct sales, field marketing, call sales, B2B sales, and sales career development. In our blog, you'll find useful articles that will help you improve sales skills, increase earnings, advance into leadership positions, and become a successful salesperson in Slovenia.</p><p><strong>How to Become a Successful Salesperson – Key Skills and Traits</strong></p><p>A successful salesperson has developed specific skills and personality traits that enable achieving above-average results. The most important include: excellent communication abilities, active listening, empathy, confidence, persistence, goal orientation, adaptability, positive attitude, problem-solving ability, and high motivation.</p><p>In addition to personality traits, technical skills are also important: knowledge of sales techniques (SPIN selling, consultative selling, solution selling), mastery of sales tools (CRM systems, analytics), use of digital channels (email, LinkedIn, social selling), telephone sales, negotiation skills, and deal-closing ability.</p><p>Win Win Sales Team offers regular training where employees develop all these skills and learn best practices from the sales world. Our salespeople have access to mentors, trainers, and educational materials that help them continuously progress.</p><p><strong>Sales Techniques That Work in Slovenia – From Approach to Close</strong></p><p>Successful sales is based on a structured process that includes multiple phases: lead generation, first contact, needs identification, solution presentation, objection handling, negotiations, and closing. Each phase requires specific techniques and approaches.</p><p><strong>1. First Approach and Making Contact</strong><br/>First impression is crucial. In direct field sales or promotions, confident presentation, smile, eye contact, and friendly greeting are important. In telephone sales, tone of voice, speech clarity, and immediately capturing the listener's interest are key. It's important to establish trust and interest in the first seconds.</p><p><strong>2. Needs Identification – Questions Are Your Power</strong><br/>The best salespeople don't talk constantly – they ask questions and listen. With open questions, you discover what the customer needs, what their problems are, what they expect, and how you can help them. Techniques like SPIN selling (Situation, Problem, Implication, Need-payoff) are extremely effective in uncovering the customer's real need.</p><p><strong>3. Solution Presentation – You Sell Benefits, Not Features</strong><br/>Customers aren't interested in technical product specifications – they're interested in benefits they'll have. Instead of \"This mobile plan has 50 GB of data,\" say \"With 50 GB, you'll never worry about running out of internet – you can watch movies, listen to music, and browse without limits.\" The presentation must be adapted to customer needs.</p><p><strong>4. Objection Handling – Objections Are Opportunities</strong><br/>Every salesperson faces objections: \"It's too expensive,\" \"I need to think about it,\" \"I'm already with another provider.\" Objections aren't rejection – they're an opportunity for additional clarification. Objection handling techniques include: empathy (I understand your concerns), question for additional information (what concerns you most?), and solution offer (let me show you...).</p><p><strong>5. Closing the Sale – No Fear of Closing</strong><br/>Many salespeople present the product excellently but fail to close the sale. Closing requires confidence and the right moment. Closing techniques include: alternative question (\"Does package A or B suit you better?\"), trial close (\"If we agree on terms, can we proceed?\"), or direct close (\"Great, let's sign the contract\").</p><p><strong>How to Increase Sales in Call Center – Telephone Sales That Works</strong></p><p>Telephone sales is a skill that requires special techniques. When calling customers, what's key is: using a script (but not reading), clear and confident tone of voice, quick interest capture (first 10 seconds are crucial), using customer's name, listening and adapting, objection handling, and clearly leading toward close.</p><p>Successful call operators achieve high conversion rates using CRM tools that enable call tracking, information logging, scheduling follow-up calls, and performance analysis. At Win Win Sales Team, we use the most modern call platforms that optimize work and increase sales results.</p><p><strong>B2B Sales – How to Sell to Companies and Larger Customers</strong></p><p>Business sales (B2B) differs from selling to end consumers (B2C). In B2B sales, sales cycles are longer, multiple decision-makers are involved, deals are larger, and require a professional approach. Key elements of successful B2B sales include: thorough company research, understanding their industry and challenges, preparing personalized offers, building trust with decision-makers, negotiating at value level (not price), and long-term partnership.</p><p>Win Win Sales Team B2B salespeople work with larger Slovenian companies and offer telecommunications solutions, corporate packages, and professional services. They're trained for complex negotiations, quote preparation, and managing multi-phase sales processes.</p><p><strong>How to Advance in Sales – From Salesperson to Manager</strong></p><p>A sales career offers a clear advancement path. You start as a sales consultant, focusing on achieving personal results. With proven results, leadership abilities, and ambition, you advance to team leader, where you lead a small group of salespeople, train them, and motivate them.</p><p>The next step is sales manager, who leads multiple teams, plans sales strategies, analyzes results, and reports to management. The pinnacle of a sales career are positions like regional director, sales director, or company partner, where you have responsibility for the entire sales function, strategic decisions, and business results.</p><p>Win Win Sales Team actively supports internal talent development and promotes employees based on their results and competencies. Every year, more than 20% of our salespeople advance to higher positions.</p><p><strong>Sales Strategies for the Slovenian Market – What Works with Slovenian Customers</strong></p><p>Slovenian customers value honesty, transparency, quality, and personal approach. When selling in the Slovenian market, it's important to: build trust, don't over-promise, offer clear information, respect the customer, offer value for money, and provide post-sale support.</p><p>The Slovenian market is small and customers value recommendations, relationships, and long-term partnerships. The best salespeople in Slovenia build their customer network, care for existing customers, and actively ask for recommendations. A satisfied customer is the best source of new customers.</p><p><strong>Using CRM Tools in Sales – Why Technology Is Key</strong></p><p>Modern sales is based on using CRM (Customer Relationship Management) systems that enable contact management, sales activity tracking, results analysis, and process automation. Salespeople who use CRM achieve 30-50% better results than those working without technology.</p><p>Win Win Sales Team uses advanced CRM platforms, mobile applications, analytical tools, and integrations with other systems, enabling employees to work efficiently, view results in real-time, and respond quickly to opportunities.</p><p><strong>Motivation in Sales – How to Stay Motivated Long-term</strong></p><p>Sales is a demanding profession that brings ups and downs. The best salespeople stay motivated with clear goals, success visualization, regular results tracking, learning from failures, working in a supportive environment, and celebrating successes. Internal motivation is also important – why you work, what your ambitions are, what you want to achieve.</p><p>At Win Win Sales Team, we care for employee motivation with regular team buildings, motivational events, awards for top salespeople, bonuses, recognition, and management support. Our culture is based on encouragement, not criticism.</p><p><strong>Future of Sales in Slovenia – Trends and Opportunities</strong></p><p>The sales industry is rapidly evolving. Digitalization, use of artificial intelligence, automation, social selling, video sales, and hybrid sales models are becoming part of modern sales. However, direct customer contact, personal approach, and trust-building remain key, especially in the Slovenian market.</p><p>Win Win Sales Team actively monitors trends, invests in new technologies, trains employees for digital channels, and develops hybrid sales models that combine the best of both worlds. The future of sales is in connecting the best from both worlds.</p><p><strong>Conclusion – Become a Sales Professional with Win Win Sales Team</strong></p><p>If you want to develop sales skills, advance in your career, increase your earnings, and become a successful salesperson in Slovenia, Win Win Sales Team is the right place for you. We offer training, mentorship, access to best practices, modern tools, and a supportive environment where you can reach your full potential. Join us and discover the world of successful sales!</p>"
+    }
+  }
+}
