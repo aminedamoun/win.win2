@@ -149,7 +149,7 @@
       "comingSoon": "Coming Soon"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "Frequently Asked <span class=\"text-red-500\">Questions</span>",
       "description": "Everything you need to know about joining Win Win",
       "stillQuestions": "Still have questions?",
       "getInTouch": "Get in Touch",
@@ -273,7 +273,7 @@
       "stats": {
         "members": "Active Team Members",
         "field": "Field Sales",
-        "callCenter": "Support",
+        "callCenter": "Call Center",
         "locations": "Multiple Locations"
       },
       "fieldText": "Field",
