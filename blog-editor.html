@@ -276,8 +276,16 @@ You can use HTML tags for formatting:
           </label>
         </div>
 
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="published" style="width:auto;margin:0" checked>
+            <span>Publish Article</span>
+          </label>
+          <p class="help-text">Uncheck to hide article from website</p>
+        </div>
+
         <div class="flex" style="margin-top:32px;flex-direction:column;gap:8px">
-          <button type="submit" class="btn" style="width:100%">Publish Article</button>
+          <button type="submit" class="btn" style="width:100%">Save Article</button>
           <button type="button" class="btn-secondary" onclick="window.location.href='admin.html'" style="width:100%">Cancel</button>
         </div>
       </div>
@@ -422,6 +430,7 @@ async function loadArticle(){
   document.getElementById("author").value = data.author || "Win Win Team";
   document.getElementById("readTime").value = data.read_time || 5;
   document.getElementById("featured").checked = data.is_featured || false;
+  document.getElementById("published").checked = data.published !== false;
 
   if(data.featured_image_url){
     const preview = document.getElementById("imagePreview");
@@ -536,6 +545,7 @@ document.getElementById("blogForm").addEventListener("submit", async (e) => {
     author: document.getElementById("author").value,
     read_time: parseInt(document.getElementById("readTime").value),
     is_featured: document.getElementById("featured").checked,
+    published: document.getElementById("published").checked,
     published_at: new Date().toISOString()
   };
 

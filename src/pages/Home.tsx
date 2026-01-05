@@ -116,6 +116,7 @@ export default function Home() {
         const { data, error } = await supabase
           .from('articles')
           .select('*')
+          .eq('published', true)
           .order('created_at', { ascending: false })
           .limit(3);
 

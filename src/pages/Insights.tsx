@@ -55,6 +55,7 @@ export default function Insights() {
       const { data, error: fetchError } = await supabase
         .from('articles')
         .select('*')
+        .eq('published', true)
         .order('created_at', { ascending: false });
 
       if (fetchError) throw fetchError;

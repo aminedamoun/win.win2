@@ -44,6 +44,7 @@ export default function InsightDetail() {
         .from('articles')
         .select('*')
         .eq('slug', slug)
+        .eq('published', true)
         .maybeSingle();
 
       if (fetchError) throw fetchError;
@@ -58,6 +59,7 @@ export default function InsightDetail() {
       const { data: relatedData } = await supabase
         .from('articles')
         .select('*')
+        .eq('published', true)
         .neq('id', articleData.id)
         .order('created_at', { ascending: false })
         .limit(3);
