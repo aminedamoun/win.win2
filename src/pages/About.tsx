@@ -1,4 +1,4 @@
-import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake } from 'lucide-react';
+import { Target, Heart, Shield, TrendingUp, Users, Award, MessageCircle, Handshake, MapPin, Headset } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import FAQ from '../components/FAQ';
@@ -250,7 +250,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               <div className="glass-card p-6 sm:p-8 text-center">
                 <Users className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
                 <h3 className="text-xl sm:text-2xl font-bold mb-2">50+</h3>
@@ -258,9 +258,15 @@ export default function About() {
               </div>
 
               <div className="glass-card p-6 sm:p-8 text-center">
-                <Target className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('about.team.operationsText')}</h3>
-                <p className="text-gray-400">{t('about.team.stats.operations')}</p>
+                <MapPin className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('about.team.fieldText')}</h3>
+                <p className="text-gray-400">{t('about.team.stats.field')}</p>
+              </div>
+
+              <div className="glass-card p-6 sm:p-8 text-center">
+                <Headset className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('about.team.callCenterText')}</h3>
+                <p className="text-gray-400">{t('about.team.stats.callCenter')}</p>
               </div>
 
               <div className="glass-card p-6 sm:p-8 text-center">

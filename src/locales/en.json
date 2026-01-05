@@ -272,10 +272,12 @@
       "description": "We operate from multiple locations across Slovenia with a growing team of dedicated sales professionals",
       "stats": {
         "members": "Active Team Members",
-        "operations": "Hybrid Operations",
+        "field": "Field Sales",
+        "callCenter": "Call Center",
         "locations": "Multiple Locations"
       },
-      "operationsText": "Field + Call Center",
+      "fieldText": "Field",
+      "callCenterText": "Call Center",
       "locationsText": "Trzin, Kranj & Field"
     }
   },

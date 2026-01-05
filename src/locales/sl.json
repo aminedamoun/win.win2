@@ -272,10 +272,12 @@
       "description": "Delujemo z več lokacij po Sloveniji z rastočo ekipo predanih prodajnih strokovnjakov",
       "stats": {
         "members": "Aktivnih članov ekipe",
-        "operations": "Hibridne operacije",
+        "field": "Terenska prodaja",
+        "callCenter": "Klicni center",
         "locations": "Več lokacij"
       },
-      "operationsText": "Teren + Klicni center",
+      "fieldText": "Teren",
+      "callCenterText": "Klicni center",
       "locationsText": "Trzin, Kranj in teren"
     }
   },
