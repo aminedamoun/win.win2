@@ -35,8 +35,6 @@ export default function Home() {
   const [partnerLogo2, setPartnerLogo2] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80');
   const [partnerLogo3, setPartnerLogo3] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80');
   const [mainLogo, setMainLogo] = useState('/logo2.png');
-  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
-  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -133,35 +131,6 @@ export default function Home() {
     fetchRecentArticles();
   }, []);
 
-  useEffect(() => {
-    if (visibleSections.has(0) && !hasAnimated) {
-      setHasAnimated(true);
-      const statValues = [500, 50, 3, 15];
-      const duration = 2000;
-      const startTime = performance.now();
-      let rafId: number;
-
-      const animate = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        setAnimatedStats(statValues.map((value) => Math.round(value * progress)));
-
-        if (progress < 1) {
-          rafId = requestAnimationFrame(animate);
-        }
-      };
-
-      rafId = requestAnimationFrame(animate);
-
-      return () => {
-        if (rafId) cancelAnimationFrame(rafId);
-      };
-    } else if (!visibleSections.has(0) && hasAnimated) {
-      setHasAnimated(false);
-      setAnimatedStats([0, 0, 0, 0]);
-    }
-  }, [visibleSections, hasAnimated]);
 
   const benefits = [
     {
@@ -471,7 +440,7 @@ export default function Home() {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="text-3xl font-bold text-white mb-1">
-                      {animatedStats[index]}{stat.suffix}
+                      {stat.value.toLocaleString()}{stat.suffix}
                     </div>
                     <div className="text-gray-400 text-xs">{stat.label}</div>
                   </div>
