@@ -15,6 +15,8 @@ import Insights from './pages/Insights';
 import InsightDetail from './pages/InsightDetail';
 
 function App() {
+  console.log('App.tsx: App component rendering');
+
   return (
     <>
       <PageLoader />
