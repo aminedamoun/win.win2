@@ -15,16 +15,13 @@ import Insights from './pages/Insights';
 import InsightDetail from './pages/InsightDetail';
 
 function App() {
-  console.log('App.tsx: App component rendering');
-
-  try {
-    return (
-      <>
-        <PageLoader />
-        <Router>
-        <TrackingScripts />
-        <CookieConsent />
-        <Header />
+  return (
+    <>
+      <PageLoader />
+      <Router>
+      <TrackingScripts />
+      <CookieConsent />
+      <Header />
 
         <main>
           <Route path="/">
@@ -131,15 +128,6 @@ function App() {
         </Router>
       </>
     );
-  } catch (error) {
-    console.error('App.tsx: Error rendering app:', error);
-    return (
-      <div style={{ color: 'white', padding: '20px' }}>
-        <h1>Error loading app</h1>
-        <p>{String(error)}</p>
-      </div>
-    );
-  }
 }
 
 export default App;
