@@ -1,4 +1,3 @@
-<!-- public/admin.html (or admin.html) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +43,6 @@
       padding:20px;
       margin-bottom:16px;
     }
-    .card h3{margin-top:0}
     .grid{display:grid;gap:16px}
     .grid-2{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
     .grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
@@ -74,7 +72,6 @@
       overflow-y:auto;
     }
     .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-    .modal-header h3{margin:0}
     .close-btn{background:transparent;color:#999;font-size:24px;padding:0;width:32px;height:32px}
     .close-btn:hover{color:#fff}
     .article-item{
@@ -120,7 +117,9 @@
       font-weight:600;
       background:rgba(225,29,46,.2);
       color:#e11d2e;
+      margin-left:8px;
     }
+    .badge-muted{background:rgba(156,163,175,0.2);color:#9ca3af}
     .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .flex-end{justify-content:flex-end}
     .loading{text-align:center;padding:40px;color:#999}
@@ -139,7 +138,7 @@
         <polyline points="9 22 9 12 15 12 15 22"></polyline>
       </svg>
     </button>
-    <button id="logoutBtn" class="btn-secondary" onclick="logout()">Logout</button>
+    <button id="logoutBtn" class="btn-secondary" type="button">Logout</button>
   </div>
 </header>
 
@@ -151,28 +150,31 @@
     <button class="tab" onclick="window.location.href='/content-editor.html'">Website Content</button>
   </div>
 
+  <!-- JOBS -->
   <div id="jobs-tab" class="tab-content active">
     <div class="card">
       <div class="flex flex-end">
-        <button class="btn" onclick="createNewJob()">+ Create New Job Position</button>
+        <button class="btn" type="button" onclick="createNewJob()">+ Create New Job Position</button>
       </div>
     </div>
     <div id="jobList" class="loading">Loading job positions...</div>
   </div>
 
+  <!-- BLOGS -->
   <div id="blogs-tab" class="tab-content">
     <div class="card">
       <div class="flex flex-end">
-        <button class="btn" onclick="createNewBlog()">+ Create New Article</button>
+        <button class="btn" type="button" onclick="createNewBlog()">+ Create New Article</button>
       </div>
     </div>
     <div id="blogList" class="loading">Loading articles...</div>
   </div>
 
+  <!-- IMAGES -->
   <div id="images-tab" class="tab-content">
     <div class="card">
       <div class="flex flex-end">
-        <button class="btn" onclick="openImageModal()">+ Add Image</button>
+        <button class="btn" type="button" onclick="openImageModal()">+ Add Image</button>
       </div>
     </div>
 
@@ -192,11 +194,12 @@
   </div>
 </div>
 
+<!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <h3 id="imageModalTitle">Add Image</h3>
-      <button class="close-btn" onclick="closeImageModal()">×</button>
+      <button class="close-btn" type="button" onclick="closeImageModal()">×</button>
     </div>
 
     <form onsubmit="saveImage(event)">
@@ -263,6 +266,7 @@
           </optgroup>
           <optgroup label="Home Page">
             <option value="home-hero">Home - Hero Background</option>
+            <option value="home-hero-mobile">Home - Hero Background (Mobile)</option>
             <option value="home-about">Home - About Section Background</option>
             <option value="home-join-team">Home - Join Team Section Background</option>
             <option value="home-why-choose">Home - Why Choose Image</option>
@@ -304,14 +308,29 @@
 <script>
   let allImages = [];
 
-  function showFatalError(message) {
-    console.error(message);
-    alert(message);
+  function fatal(msg) {
+    console.error(msg);
+    alert(msg);
+  }
+
+  function escapeAttr(str) {
+    return String(str ?? "").replaceAll('"', "&quot;");
+  }
+
+  function enc(obj) { return encodeURIComponent(JSON.stringify(obj)); }
+  function dec(s) { return JSON.parse(decodeURIComponent(s)); }
+  function encText(s) { return encodeURIComponent(String(s ?? "")); }
+  function decText(s) { return decodeURIComponent(String(s ?? "")); }
+
+  function renderLoadError(containerEl, label, error) {
+    const msg = error?.message ? error.message : String(error);
+    console.error(label, error);
+    containerEl.innerHTML = `<div class="empty">${label}<br/><small style="color:#777">${escapeAttr(msg)}</small></div>`;
   }
 
   async function requireSessionOrRedirect() {
     if (!window.supabaseClient) {
-      showFatalError("Supabase client not loaded. Check /js/supabaseClient.js");
+      fatal("Supabase client not loaded. Create /js/supabaseClient.js in public_html/js/");
       location.href = "/login.html";
       return null;
     }
@@ -331,22 +350,11 @@
     return data.session;
   }
 
-  (async () => {
-    const session = await requireSessionOrRedirect();
-    if (!session) return;
-
-    window.supabaseClient.auth.onAuthStateChange((_event, newSession) => {
-      if (!newSession) location.href = "/login.html";
-    });
-
-    await loadJobs();
-    await loadBlogs();
-    await loadImages();
-  })();
-
   async function logout() {
     try {
       await window.supabaseClient.auth.signOut();
+    } catch (e) {
+      console.error("signOut error:", e);
     } finally {
       location.href = "/login.html";
     }
@@ -360,13 +368,26 @@
     if (pane) pane.classList.add("active");
   }
 
-  function renderLoadError(containerEl, label, error) {
-    const msg = error?.message ? error.message : String(error);
-    console.error(label, error);
-    containerEl.innerHTML = `<div class="empty">${label}<br/><small style="color:#777">${msg}</small></div>`;
-  }
+  document.getElementById("logoutBtn").addEventListener("click", logout);
 
-  // === JOB FUNCTIONS ===
+  // Boot
+  (async () => {
+    const session = await requireSessionOrRedirect();
+    if (!session) return;
+
+    // If session becomes invalid, kick out
+    window.supabaseClient.auth.onAuthStateChange((_event, newSession) => {
+      if (!newSession) location.href = "/login.html";
+    });
+
+    await loadJobs();
+    await loadBlogs();
+    await loadImages();
+  })();
+
+  // ======================
+  // JOBS
+  // ======================
   async function loadJobs() {
     const list = document.getElementById("jobList");
     list.innerHTML = '<div class="loading">Loading job positions...</div>';
@@ -387,25 +408,28 @@
       return;
     }
 
-    list.innerHTML = data.map(job => `
-      <div class="article-item">
-        <div class="article-content" style="flex: 2">
-          <h4>
-            ${job.title_sl || job.title_en || job.title || "Untitled"}
-            ${!job.is_active ? '<span class="badge" style="background:rgba(156,163,175,0.2);color:#9ca3af">INACTIVE</span>' : ''}
-            <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order ?? "-"}</span>
-          </h4>
-          <p><strong>Type:</strong> ${job.type ?? "-"} | <strong>Location:</strong> ${job.location ?? "-"}</p>
-          <p><strong>Salary:</strong> ${job.salary_range ?? "-"}</p>
-          <p style="margin-top:4px">${job.short_description_sl || job.short_description_en || job.short_description || ""}</p>
+    list.innerHTML = data.map(job => {
+      const title = job.title_sl || job.title_en || job.title || "Untitled";
+      return `
+        <div class="article-item">
+          <div class="article-content" style="flex: 2">
+            <h4>
+              ${escapeAttr(title)}
+              ${!job.is_active ? '<span class="badge badge-muted">INACTIVE</span>' : ''}
+              <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order ?? "-"}</span>
+            </h4>
+            <p><strong>Type:</strong> ${escapeAttr(job.type ?? "-")} | <strong>Location:</strong> ${escapeAttr(job.location ?? "-")}</p>
+            <p><strong>Salary:</strong> ${escapeAttr(job.salary_range ?? "-")}</p>
+            <p style="margin-top:4px">${escapeAttr(job.short_description_sl || job.short_description_en || job.short_description || "")}</p>
+          </div>
+          <div class="article-actions" style="flex-direction:column">
+            <button class="btn-secondary btn-sm" type="button" onclick="window.location.href='job-editor.html?id=${job.id}'">Edit</button>
+            <button class="btn btn-sm" type="button" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
+            <button class="btn-danger btn-sm" type="button" onclick="deleteJob('${job.id}', '${encText(title)}')">Delete</button>
+          </div>
         </div>
-        <div class="article-actions" style="flex-direction:column">
-          <button class="btn-secondary btn-sm" onclick="window.location.href='job-editor.html?id=${job.id}'">Edit</button>
-          <button class="btn btn-sm" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
-          <button class="btn-danger btn-sm" onclick="deleteJob('${job.id}', '${(job.title_sl || job.title_en || job.title || "").replaceAll("'", "\\'")}')">Delete</button>
-        </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
   }
 
   function createNewJob() {
@@ -422,11 +446,11 @@
       alert("Error updating job status: " + error.message);
       return;
     }
-
     loadJobs();
   }
 
-  async function deleteJob(id, title) {
+  async function deleteJob(id, encodedTitle) {
+    const title = decText(encodedTitle);
     if (!confirm(`Delete job position "${title}"?\n\nThis action cannot be undone.`)) return;
 
     const { error } = await window.supabaseClient.from("jobs").delete().eq("id", id);
@@ -435,11 +459,12 @@
       alert("Error deleting job: " + error.message);
       return;
     }
-
     loadJobs();
   }
 
-  // === BLOG FUNCTIONS ===
+  // ======================
+  // BLOGS (publish/unpublish)
+  // ======================
   async function loadBlogs() {
     const list = document.getElementById("blogList");
     list.innerHTML = '<div class="loading">Loading articles...</div>';
@@ -459,31 +484,47 @@
       return;
     }
 
-    list.innerHTML = '<div class="grid grid-2">' + data.map(a => `
-      <div class="card" style="cursor:pointer;transition:transform .2s,box-shadow .2s"
-           onclick="window.location.href='blog-editor.html?id=${a.id}'"
-           onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(225,29,46,0.3)'"
-           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-        <img src="${a.featured_image_url || 'https://via.placeholder.com/400x250'}"
-             alt="${(a.title || "").replaceAll('"', "&quot;")}"
-             style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:16px">
-        <h3 style="margin:0 0 8px 0;font-size:18px">
-          ${a.title || "Untitled"}
-          ${a.is_featured ? '<span class="badge" style="margin-left:8px">FEATURED</span>' : ''}
-          ${!a.published ? '<span class="badge" style="margin-left:8px;background:rgba(156,163,175,0.2);color:#9ca3af">UNPUBLISHED</span>' : ''}
-        </h3>
-        <p style="margin:0 0 12px 0;color:#999;font-size:14px">${(a.excerpt || (a.content ? a.content.substring(0, 120) : "") || "").replaceAll("<", "&lt;")}...</p>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
-          <span>${a.article_categories?.name || 'Uncategorized'}</span>
-          <span>${a.author || "Unknown"} • ${a.read_time || 0} min</span>
+    list.innerHTML = '<div class="grid grid-2">' + data.map(a => {
+      const title = a.title || "Untitled";
+      const excerpt = a.excerpt || (a.content ? a.content.substring(0, 120) : "");
+      const category = a.article_categories?.name || "Uncategorized";
+      const author = a.author || "Unknown";
+      const readTime = a.read_time || 0;
+
+      return `
+        <div class="card" style="cursor:pointer;transition:transform .2s,box-shadow .2s"
+             onclick="window.location.href='blog-editor.html?id=${a.id}'"
+             onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(225,29,46,0.3)'"
+             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <img src="${a.featured_image_url || 'https://via.placeholder.com/400x250'}"
+               alt="${escapeAttr(title)}"
+               style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:16px">
+          <h3 style="margin:0 0 8px 0;font-size:18px">
+            ${escapeAttr(title)}
+            ${a.is_featured ? '<span class="badge">FEATURED</span>' : ''}
+            ${!a.published ? '<span class="badge badge-muted">UNPUBLISHED</span>' : ''}
+          </h3>
+          <p style="margin:0 0 12px 0;color:#999;font-size:14px">${escapeAttr(excerpt)}...</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
+            <span>${escapeAttr(category)}</span>
+            <span>${escapeAttr(author)} • ${readTime} min</span>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-secondary btn-sm" type="button"
+              onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
+
+            <button class="btn btn-sm" type="button"
+              onclick="event.stopPropagation();toggleBlogPublish('${a.id}', ${!a.published})" style="flex:1">
+              ${a.published ? 'Unpublish' : 'Publish'}
+            </button>
+
+            <button class="btn-danger btn-sm" type="button"
+              onclick="event.stopPropagation();deleteBlog('${a.id}', '${encText(title)}')" style="flex:1">Delete</button>
+          </div>
         </div>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn-secondary btn-sm" onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
-          <button class="btn btn-sm" onclick="event.stopPropagation();toggleBlogPublish('${a.id}', ${!a.published})" style="flex:1">${a.published ? 'Unpublish' : 'Publish'}</button>
-          <button class="btn-danger btn-sm" onclick="event.stopPropagation();deleteBlog('${a.id}', '${(a.title || "").replaceAll("'", "\\'")}')" style="flex:1">Delete</button>
-        </div>
-      </div>
-    `).join("") + '</div>';
+      `;
+    }).join("") + '</div>';
   }
 
   function createNewBlog() {
@@ -500,11 +541,11 @@
       alert("Error updating article status: " + error.message);
       return;
     }
-
     loadBlogs();
   }
 
-  async function deleteBlog(id, title) {
+  async function deleteBlog(id, encodedTitle) {
+    const title = decText(encodedTitle);
     if (!confirm(`Delete article "${title}"?\n\nThis action cannot be undone.`)) return;
 
     const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
@@ -513,11 +554,12 @@
       alert("Error deleting article: " + error.message);
       return;
     }
-
     loadBlogs();
   }
 
-  // === IMAGE FUNCTIONS ===
+  // ======================
+  // IMAGES
+  // ======================
   async function loadImages() {
     const gallery = document.getElementById("imageGallery");
     gallery.innerHTML = '<div class="loading">Loading images...</div>';
@@ -544,26 +586,33 @@
       return;
     }
 
-    gallery.innerHTML = '<div class="grid grid-3">' + images.map(img => `
-      <div class="image-item">
-        <img src="${img.url}" alt="${(img.alt_text || img.name || "").replaceAll('"', "&quot;")}">
-        <div class="image-info">
-          <h4>${img.name || "Unnamed"}</h4>
-          <p><span class="badge">${img.category || "general"}</span></p>
-          <p>${img.usage_location || 'No location'}</p>
-          <div class="image-actions">
-            <button class="btn-secondary btn-sm" onclick='editImage(${JSON.stringify(img).replaceAll("'", "\\'")})'>Edit</button>
-            <button class="btn-danger btn-sm" onclick="deleteImage('${img.id}', '${(img.name || "").replaceAll("'", "\\'")}')">Delete</button>
+    gallery.innerHTML =
+      '<div class="grid grid-3">' +
+      images.map(img => `
+        <div class="image-item">
+          <img src="${img.url}" alt="${escapeAttr(img.alt_text || img.name || "")}">
+          <div class="image-info">
+            <h4>${escapeAttr(img.name || "Unnamed")}</h4>
+            <p><span class="badge">${escapeAttr(img.category || "general")}</span></p>
+            <p>${escapeAttr(img.usage_location || "No location")}</p>
+            <div class="image-actions">
+              <button class="btn-secondary btn-sm" type="button" onclick="editImageFromEncoded('${enc(img)}')">Edit</button>
+              <button class="btn-danger btn-sm" type="button" onclick="deleteImage('${img.id}', '${encText(img.name || "")}')">Delete</button>
+            </div>
           </div>
         </div>
-      </div>
-    `).join("") + '</div>';
+      `).join("") +
+      "</div>";
   }
 
   function filterImages() {
     const filter = document.getElementById("imageFilter").value;
     if (filter === "all") displayImages(allImages);
     else displayImages(allImages.filter(img => img.category === filter));
+  }
+
+  function editImageFromEncoded(encoded) {
+    editImage(dec(encoded));
   }
 
   function openImageModal() {
@@ -592,7 +641,6 @@
 
     const imageIdInput = document.getElementById("imageId");
     imageIdInput.value = image.id;
-    imageIdInput.dataset.storagePath = image.storage_path || "";
 
     document.getElementById("imageUrl").value = image.url || "";
     document.getElementById("imageUrlInput").value = "";
@@ -605,11 +653,11 @@
     document.getElementById("uploadSection").style.display = "block";
     document.getElementById("urlSection").style.display = "none";
 
-    const locationSelect = document.getElementById("imageLocation");
     const usageLocation = image.usage_location || "";
+    const locationSelect = document.getElementById("imageLocation");
     const validLocations = [
       "main-logo","partner-logo-1","partner-logo-2","partner-logo-3",
-      "home-hero","home-about","home-join-team","home-why-choose","home-benefits",
+      "home-hero","home-hero-mobile","home-about","home-join-team","home-why-choose","home-benefits",
       "about-hero","insights-hero"
     ];
 
@@ -655,18 +703,10 @@
 
   function toggleImageSource() {
     const source = document.querySelector('input[name="imageSource"]:checked').value;
-    const uploadSection = document.getElementById("uploadSection");
-    const urlSection = document.getElementById("urlSection");
-
-    if (source === "upload") {
-      uploadSection.style.display = "block";
-      urlSection.style.display = "none";
-      document.getElementById("imageUrlInput").value = "";
-    } else {
-      uploadSection.style.display = "none";
-      urlSection.style.display = "block";
-      document.getElementById("imageFile").value = "";
-    }
+    document.getElementById("uploadSection").style.display = source === "upload" ? "block" : "none";
+    document.getElementById("urlSection").style.display = source === "url" ? "block" : "none";
+    if (source === "upload") document.getElementById("imageUrlInput").value = "";
+    if (source === "url") document.getElementById("imageFile").value = "";
   }
 
   function handleUrlInput() {
@@ -717,17 +757,13 @@
     let oldStoragePath = null;
     let oldUsageLocation = null;
 
+    // Read old record for cleanup (if editing)
     if (id) {
-      const { data: existingImage, error: existingError } = await window.supabaseClient
+      const { data: existingImage } = await window.supabaseClient
         .from("website_images")
         .select("storage_path, usage_location")
         .eq("id", id)
         .maybeSingle();
-
-      if (existingError) {
-        alert("Error reading image record: " + existingError.message);
-        return;
-      }
 
       if (existingImage) {
         oldStoragePath = existingImage.storage_path;
@@ -735,6 +771,7 @@
       }
     }
 
+    // URL mode
     if (source === "url" && urlInput) {
       imageUrl = urlInput;
       fileName = null;
@@ -742,7 +779,10 @@
       if (id && oldStoragePath) {
         await window.supabaseClient.storage.from("website-images").remove([oldStoragePath]);
       }
-    } else if (source === "upload" && file) {
+    }
+
+    // Upload mode
+    if (source === "upload" && file) {
       const fileExt = file.name.split(".").pop();
       fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
 
@@ -790,13 +830,12 @@
 
     if (file || urlInput) {
       payload.url = imageUrl;
-      payload.storage_path = fileName;
+      payload.storage_path = fileName; // null for URL mode
     }
 
     let result;
-    if (id) {
-      result = await window.supabaseClient.from("website_images").update(payload).eq("id", id);
-    } else {
+    if (id) result = await window.supabaseClient.from("website_images").update(payload).eq("id", id);
+    else {
       payload.url = imageUrl;
       payload.storage_path = fileName;
       result = await window.supabaseClient.from("website_images").insert([payload]);
@@ -807,21 +846,24 @@
       return;
     }
 
-    const clearCache = (location) => {
-      const cacheMap = {
-        "home-hero": "home-hero-image",
-        "home-about": "home-about-image",
-        "home-join-team": "home-join-team-image",
-        "home-why-choose": "home-why-choose-image",
-        "home-benefits": "home-benefits-image",
-        "about-hero": "about-hero-image",
-        "insights-hero": "insights-hero-image",
-      };
-      if (cacheMap[location]) localStorage.removeItem(cacheMap[location]);
+    // clear caches (add your keys here)
+    const cacheMap = {
+      "home-hero": "home-hero-image",
+      "home-hero-mobile": "home-hero-image-mobile",
+      "home-about": "home-about-image",
+      "home-join-team": "home-join-team-image",
+      "home-why-choose": "home-why-choose-image",
+      "home-benefits": "home-benefits-image",
+      "about-hero": "about-hero-image",
+      "insights-hero": "insights-hero-image",
+    };
+
+    const clearCache = (loc) => {
+      const key = cacheMap[loc];
+      if (key) localStorage.removeItem(key);
     };
 
     clearCache(payload.usage_location);
-
     if (id && oldUsageLocation && oldUsageLocation !== payload.usage_location) {
       clearCache(oldUsageLocation);
     }
@@ -830,7 +872,8 @@
     loadImages();
   }
 
-  async function deleteImage(id, name) {
+  async function deleteImage(id, encodedName) {
+    const name = decText(encodedName);
     if (!confirm(`Delete image "${name}"?`)) return;
 
     const { data: imageData, error: readError } = await window.supabaseClient
@@ -855,26 +898,25 @@
       return;
     }
 
-    if (imageData?.usage_location) {
-      const cacheMap = {
-        "home-hero": "home-hero-image",
-        "home-about": "home-about-image",
-        "home-join-team": "home-join-team-image",
-        "home-why-choose": "home-why-choose-image",
-        "home-benefits": "home-benefits-image",
-        "about-hero": "about-hero-image",
-        "insights-hero": "insights-hero-image",
-      };
-      const cacheKey = cacheMap[imageData.usage_location];
-      if (cacheKey) localStorage.removeItem(cacheKey);
-    }
+    // clear cache
+    const cacheMap = {
+      "home-hero": "home-hero-image",
+      "home-hero-mobile": "home-hero-image-mobile",
+      "home-about": "home-about-image",
+      "home-join-team": "home-join-team-image",
+      "home-why-choose": "home-why-choose-image",
+      "home-benefits": "home-benefits-image",
+      "about-hero": "about-hero-image",
+      "insights-hero": "insights-hero-image",
+    };
+    const key = cacheMap[imageData?.usage_location];
+    if (key) localStorage.removeItem(key);
 
     loadImages();
   }
 
   document.getElementById("imageLocation").addEventListener("change", (e) => {
-    const customLocationGroup = document.getElementById("customLocationGroup");
-    customLocationGroup.style.display = e.target.value === "other" ? "block" : "none";
+    document.getElementById("customLocationGroup").style.display = e.target.value === "other" ? "block" : "none";
   });
 </script>
 
