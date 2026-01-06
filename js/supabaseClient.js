@@ -3,6 +3,13 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 if (!window.supabaseClient) {
   const { createClient } = window.supabase;
-  window.supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  window.supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      storage: window.localStorage,
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: false
+    }
+  });
 }
 window.supabase = window.supabaseClient;

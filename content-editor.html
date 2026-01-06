@@ -11,7 +11,10 @@
   <div class="container mx-auto px-4 py-8">
     <div class="mb-8">
       <div class="flex items-center justify-between mb-4">
-        <h1 class="text-4xl font-bold">Website Content Management</h1>
+        <div>
+          <h1 class="text-4xl font-bold">Website Content Management</h1>
+          <p id="authStatus" class="text-sm mt-2"></p>
+        </div>
         <button onclick="window.location.href='/admin.html'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium">
           ← Back to Admin
         </button>
@@ -71,7 +74,14 @@
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93dnVmb3Zmbm5ncWRoYnNjb2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTEwOTQsImV4cCI6MjA4MTk4NzA5NH0.sDDk9dKx_jHCEArBsyFzOrEMbSfHHnmZmcMD8znP2_I";
 
     const { createClient } = supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        storage: window.localStorage,
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: false
+      }
+    });
 
     const pageSelect = document.getElementById('pageSelect');
     const languageSelect = document.getElementById('languageSelect');
@@ -82,6 +92,7 @@
     const saveAll = document.getElementById('saveAll');
     const loading = document.getElementById('loading');
     const message = document.getElementById('message');
+    const authStatus = document.getElementById('authStatus');
 
     let currentSections = {};
     let originalTranslations = {};
@@ -287,30 +298,43 @@
 
     async function checkAuth() {
       try {
+        // Check session
+        const session = await supabaseClient.auth.getSession();
+        console.log('Session check:', session.data.session ? 'Has session' : 'No session');
+
         const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
         if (userError || !user) {
-          console.warn('No user authenticated - content viewing only');
-          showMessage('Not logged in - viewing mode only. Login to save changes.', 'error');
+          console.warn('No user authenticated');
+          console.warn('Auth error:', userError);
+          authStatus.innerHTML = '<span class="text-red-400">🔒 Not logged in - <a href="/login.html" class="underline hover:text-red-300">Login here</a></span>';
+          showMessage('Not logged in - Go to /login.html first', 'error');
           saveAll.disabled = true;
           saveAll.classList.add('opacity-50', 'cursor-not-allowed');
           return;
         }
 
-        console.log('User authenticated:', user.email);
+        console.log('✓ User authenticated:', user.email);
+        console.log('  User ID:', user.id);
+        console.log('  app_metadata:', user.app_metadata);
+        console.log('  user_metadata:', user.user_metadata);
 
         const isAdmin = user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin';
 
         if (!isAdmin) {
-          console.warn('User is not admin');
-          showMessage('Not admin - viewing mode only', 'error');
+          console.warn('✗ User is not admin');
+          authStatus.innerHTML = `<span class="text-yellow-400">⚠️ Logged in: ${user.email} (Not Admin - no save access)</span>`;
+          showMessage('Not admin - Contact administrator for access', 'error');
           saveAll.disabled = true;
           saveAll.classList.add('opacity-50', 'cursor-not-allowed');
         } else {
-          console.log('Admin access granted');
+          console.log('✓ Admin access granted');
+          authStatus.innerHTML = `<span class="text-green-400">✓ Logged in as Admin: ${user.email}</span>`;
+          setTimeout(() => showMessage('Admin access verified', 'success'), 500);
         }
       } catch (error) {
         console.error('Auth check failed:', error);
+        authStatus.innerHTML = '<span class="text-red-400">❌ Auth check failed</span>';
         showMessage('Auth check failed - viewing mode only', 'error');
         saveAll.disabled = true;
         saveAll.classList.add('opacity-50', 'cursor-not-allowed');
