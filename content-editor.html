@@ -21,6 +21,11 @@
         </button>
       </div>
       <p class="text-gray-400">Edit website text content page by page and section by section</p>
+      <div class="mt-3 bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+        <p class="text-blue-300 text-sm">
+          <strong>Note:</strong> After saving changes, refresh the main website (Ctrl+F5 or Cmd+Shift+R) to see your updates.
+        </p>
+      </div>
     </div>
 
     <div class="mb-6 flex gap-4">
@@ -285,7 +290,7 @@
           throw error;
         }
 
-        showMessage('All changes saved successfully!', 'success');
+        showMessage('✓ Changes saved! Refresh the main website to see updates.', 'success');
       } catch (error) {
         console.error('Error saving:', error);
         const errorMsg = error?.message || error?.error_description || 'Unknown error';
