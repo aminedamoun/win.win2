@@ -28,6 +28,7 @@ export default function Home() {
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
   const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
+  const [heroMobileImageUrl, setHeroMobileImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
   const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=800');
@@ -46,6 +47,7 @@ export default function Home() {
           .select('url, usage_location')
           .in('usage_location', [
             'home-hero',
+            'home-hero-mobile',
             'home-about',
             'home-join-team',
             'home-why-choose',
@@ -60,6 +62,8 @@ export default function Home() {
           images.forEach(img => {
             if (img.usage_location === 'home-hero') {
               setHeroImageUrl(img.url);
+            } else if (img.usage_location === 'home-hero-mobile') {
+              setHeroMobileImageUrl(img.url);
             } else if (img.usage_location === 'home-about') {
               setAboutSectionImageUrl(img.url);
             } else if (img.usage_location === 'home-join-team') {
@@ -300,7 +304,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="relative h-[45vh] overflow-hidden">
             <img
-              src={heroImageUrl}
+              src={heroMobileImageUrl}
               alt="Win Win Sales Team"
               className="w-full h-full object-cover"
               fetchPriority="high"
