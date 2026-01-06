@@ -1,3 +1,4 @@
+<!-- public/login.html (or login.html in your project) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +38,7 @@
       border:1px solid rgba(255,255,255,.2);
       background:rgba(255,255,255,.08);
       color:#fff;
+      outline:none;
     }
     button{
       width:100%;
@@ -48,6 +50,7 @@
       font-weight:600;
       cursor:pointer;
     }
+    button:disabled{opacity:.7; cursor:not-allowed;}
     .error{
       display:none;
       margin-bottom:16px;
@@ -56,79 +59,111 @@
       background:rgba(220,38,38,.15);
       color:#ff6b6b;
       font-size:14px;
+      line-height:1.35;
+      word-break:break-word;
+    }
+    .hint{
+      margin-top:14px;
+      font-size:12px;
+      color:#888;
+      text-align:center;
     }
   </style>
 </head>
+
 <body>
+  <div class="card">
+    <h1>Win Win<span>.</span></h1>
+    <p>Admin Login</p>
 
-<div class="card">
-  <h1>Win Win<span>.</span></h1>
-  <p>Admin Login</p>
+    <div id="error" class="error"></div>
 
-  <div id="error" class="error"></div>
+    <form id="loginForm">
+      <label>Email</label>
+      <input id="email" type="email" autocomplete="email" required />
 
-  <form id="loginForm">
-    <label>Email</label>
-    <input id="email" type="email" required />
+      <label>Password</label>
+      <input id="password" type="password" autocomplete="current-password" required />
 
-    <label>Password</label>
-    <input id="password" type="password" required />
+      <button type="submit">Sign In</button>
+    </form>
 
-    <button>Sign In</button>
-  </form>
-</div>
+    <div class="hint">If you’re already logged in, you’ll be redirected to Admin.</div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/js/supabaseClient.js"></script>
+  <!-- Supabase JS library (v2) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  const errorBox = document.getElementById("error");
-  const loginForm = document.getElementById("loginForm");
-  const submitButton = loginForm.querySelector("button");
+  <script>
+    // ✅ PUT YOUR VALUES HERE (same ones you used in your React app)
+    const SUPABASE_URL = "https://owvufovfnngqdhbscoci.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93dnVmb3Zmbm5ncWRoYnNjb2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTEwOTQsImV4cCI6MjA4MTk4NzA5NH0.sDDk9dKx_jHCEArBsyFzOrEMbSfHHnmZmcMD8znP2_I";
 
-  async function checkSession(){
-    try {
-      const { data } = await window.supabase.auth.getSession();
-      if(data.session){
-        location.href = "/admin.html";
-      }
-    } catch(err) {
-      console.error("Session check error:", err);
+    // Create a CLIENT (this is what has .auth)
+    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+
+  <script>
+    const errorBox = document.getElementById("error");
+    const loginForm = document.getElementById("loginForm");
+    const submitButton = loginForm.querySelector("button");
+
+    function showError(message) {
+      errorBox.textContent = message || "Login failed. Please try again.";
+      errorBox.style.display = "block";
     }
-  }
-  checkSession();
 
-  loginForm.onsubmit = async (e)=>{
-    e.preventDefault();
-    errorBox.style.display="none";
-    submitButton.disabled = true;
-    submitButton.textContent = "Signing in...";
-
-    try {
-      const emailValue = document.getElementById("email").value;
-      const passwordValue = document.getElementById("password").value;
-
-      const { data, error } = await window.supabase.auth.signInWithPassword({
-        email: emailValue,
-        password: passwordValue
-      });
-
-      if(error){
-        throw error;
-      }
-
-      if(data.session){
-        location.href = "/admin.html";
-      }
-    } catch(error) {
-      console.error("Login error:", error);
-      errorBox.textContent = error.message || "Login failed. Please try again.";
-      errorBox.style.display="block";
-      submitButton.disabled = false;
-      submitButton.textContent = "Sign In";
+    function clearError() {
+      errorBox.textContent = "";
+      errorBox.style.display = "none";
     }
-  };
-</script>
 
+    async function checkSession() {
+      try {
+        const { data, error } = await window.supabaseClient.auth.getSession();
+        if (error) throw error;
+        if (data?.session) {
+          location.href = "/admin.html";
+        }
+      } catch (err) {
+        console.error("Session check error:", err);
+      }
+    }
+
+    checkSession();
+
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      clearError();
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Signing in...";
+
+      try {
+        const emailValue = document.getElementById("email").value.trim();
+        const passwordValue = document.getElementById("password").value;
+
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+          email: emailValue,
+          password: passwordValue,
+        });
+
+        if (error) throw error;
+
+        if (data?.session) {
+          location.href = "/admin.html";
+          return;
+        }
+
+        showError("No session returned. Please try again.");
+      } catch (err) {
+        console.error("Login error:", err);
+        showError(err?.message);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign In";
+      }
+    };
+  </script>
 </body>
 </html>
