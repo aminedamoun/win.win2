@@ -470,14 +470,16 @@
         <h3 style="margin:0 0 8px 0;font-size:18px">
           ${a.title || "Untitled"}
           ${a.is_featured ? '<span class="badge" style="margin-left:8px">FEATURED</span>' : ''}
+          ${!a.published ? '<span class="badge" style="margin-left:8px;background:rgba(156,163,175,0.2);color:#9ca3af">UNPUBLISHED</span>' : ''}
         </h3>
         <p style="margin:0 0 12px 0;color:#999;font-size:14px">${(a.excerpt || (a.content ? a.content.substring(0, 120) : "") || "").replaceAll("<", "&lt;")}...</p>
         <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
           <span>${a.article_categories?.name || 'Uncategorized'}</span>
           <span>${a.author || "Unknown"} • ${a.read_time || 0} min</span>
         </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn-secondary btn-sm" onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
+          <button class="btn btn-sm" onclick="event.stopPropagation();toggleBlogPublish('${a.id}', ${!a.published})" style="flex:1">${a.published ? 'Unpublish' : 'Publish'}</button>
           <button class="btn-danger btn-sm" onclick="event.stopPropagation();deleteBlog('${a.id}', '${(a.title || "").replaceAll("'", "\\'")}')" style="flex:1">Delete</button>
         </div>
       </div>
@@ -486,6 +488,20 @@
 
   function createNewBlog() {
     window.location.href = "blog-editor.html";
+  }
+
+  async function toggleBlogPublish(id, newStatus) {
+    const { error } = await window.supabaseClient
+      .from("articles")
+      .update({ published: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      alert("Error updating article status: " + error.message);
+      return;
+    }
+
+    loadBlogs();
   }
 
   async function deleteBlog(id, title) {
