@@ -6,6 +6,7 @@
   <title>Content Management - Win Win Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabaseClient.js"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
   <div class="container mx-auto px-4 py-8">
@@ -70,18 +71,8 @@
   </div>
 
   <script>
-    const SUPABASE_URL = "https://owvufovfnngqdhbscoci.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93dnVmb3Zmbm5ncWRoYnNjb2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0MTEwOTQsImV4cCI6MjA4MTk4NzA5NH0.sDDk9dKx_jHCEArBsyFzOrEMbSfHHnmZmcMD8znP2_I";
-
-    const { createClient } = supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: {
-        storage: window.localStorage,
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: false
-      }
-    });
+    // Use the shared Supabase client
+    const supabaseClient = window.supabaseClient;
 
     const pageSelect = document.getElementById('pageSelect');
     const languageSelect = document.getElementById('languageSelect');
@@ -281,16 +272,24 @@
       }
 
       try {
-        const { error } = await supabaseClient
+        console.log('Attempting to save updates:', updates);
+
+        const { data, error } = await supabaseClient
           .from('website_content')
           .upsert(updates, { onConflict: 'page,section,language' });
 
-        if (error) throw error;
+        console.log('Save response:', { data, error });
+
+        if (error) {
+          console.error('Database error details:', error);
+          throw error;
+        }
 
         showMessage('All changes saved successfully!', 'success');
       } catch (error) {
         console.error('Error saving:', error);
-        showMessage('Error saving changes', 'error');
+        const errorMsg = error?.message || error?.error_description || 'Unknown error';
+        showMessage('Error saving: ' + errorMsg, 'error');
       } finally {
         loading.classList.add('hidden');
       }
