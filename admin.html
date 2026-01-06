@@ -1,132 +1,131 @@
+<!-- public/admin.html (or admin.html) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Admin – Win Win</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin – Win Win</title>
 
-<style>
-* { box-sizing: border-box; }
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
-header{
-  background:#000;
-  padding:16px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid rgba(225,29,46,.3);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-header h2{margin:0}
-header span{color:#e11d2e}
-button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
-button:hover{transform:translateY(-1px)}
-.btn{background:#e11d2e;color:#fff}
-.btn:hover{background:#c11828}
-.btn-secondary{background:#333;color:#fff}
-.btn-secondary:hover{background:#444}
-.btn-danger{background:#dc2626;color:#fff}
-.btn-danger:hover{background:#b91c1c}
-.btn-sm{padding:6px 12px;font-size:14px}
-.container{max-width:1400px;margin:auto;padding:24px}
-.tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid rgba(255,255,255,.1)}
-.tab{padding:12px 24px;background:transparent;border:none;color:#999;cursor:pointer;font-size:16px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px}
-.tab.active{color:#e11d2e;border-bottom-color:#e11d2e}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;
-  padding:20px;
-  margin-bottom:16px;
-}
-.card h3{margin-top:0}
-.grid{display:grid;gap:16px}
-.grid-2{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
-.grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-input,textarea,select{
-  width:100%;
-  padding:10px 12px;
-  margin-bottom:12px;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  font-family:inherit;
-}
-textarea{min-height:150px;resize:vertical}
-label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
-.form-group{margin-bottom:16px}
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
-.modal.active{display:flex}
-.modal-content{
-  background:#1a1a1a;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;
-  padding:24px;
-  max-width:800px;
-  width:90%;
-  max-height:90vh;
-  overflow-y:auto;
-}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.modal-header h3{margin:0}
-.close-btn{background:transparent;color:#999;font-size:24px;padding:0;width:32px;height:32px}
-.close-btn:hover{color:#fff}
-.article-item{
-  display:flex;
-  gap:16px;
-  align-items:start;
-  padding:16px;
-  background:rgba(255,255,255,.03);
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,.1);
-}
-.article-item img{width:120px;height:80px;object-fit:cover;border-radius:6px}
-.article-content{flex:1}
-.article-content h4{margin:0 0 8px 0}
-.article-content p{margin:0;color:#999;font-size:14px}
-.article-actions{display:flex;gap:8px}
-.image-item{
-  position:relative;
-  border-radius:8px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.03);
-}
-.image-item img{width:100%;height:200px;object-fit:cover;display:block}
-.image-info{padding:12px}
-.image-info h4{margin:0 0 4px 0;font-size:14px}
-.image-info p{margin:0;font-size:12px;color:#999}
-.image-actions{display:flex;gap:4px;margin-top:8px}
-.upload-area{
-  border:2px dashed rgba(255,255,255,.3);
-  border-radius:8px;
-  padding:40px;
-  text-align:center;
-  cursor:pointer;
-  transition:all .2s;
-}
-.upload-area:hover{border-color:#e11d2e;background:rgba(225,29,46,.05)}
-.upload-area.dragover{border-color:#e11d2e;background:rgba(225,29,46,.1)}
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:4px;
-  font-size:12px;
-  font-weight:600;
-  background:rgba(225,29,46,.2);
-  color:#e11d2e;
-}
-.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.flex-end{justify-content:flex-end}
-.loading{text-align:center;padding:40px;color:#999}
-.empty{text-align:center;padding:60px 20px;color:#999}
-.empty svg{margin:0 auto 16px;opacity:.5}
-</style>
+  <style>
+    * { box-sizing: border-box; }
+    body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
+    header{
+      background:#000;
+      padding:16px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(225,29,46,.3);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    header h2{margin:0}
+    header span{color:#e11d2e}
+    button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
+    button:hover{transform:translateY(-1px)}
+    .btn{background:#e11d2e;color:#fff}
+    .btn:hover{background:#c11828}
+    .btn-secondary{background:#333;color:#fff}
+    .btn-secondary:hover{background:#444}
+    .btn-danger{background:#dc2626;color:#fff}
+    .btn-danger:hover{background:#b91c1c}
+    .btn-sm{padding:6px 12px;font-size:14px}
+    .container{max-width:1400px;margin:auto;padding:24px}
+    .tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid rgba(255,255,255,.1)}
+    .tab{padding:12px 24px;background:transparent;border:none;color:#999;cursor:pointer;font-size:16px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px}
+    .tab.active{color:#e11d2e;border-bottom-color:#e11d2e}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+    .card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:12px;
+      padding:20px;
+      margin-bottom:16px;
+    }
+    .card h3{margin-top:0}
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+    input,textarea,select{
+      width:100%;
+      padding:10px 12px;
+      margin-bottom:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-family:inherit;
+    }
+    textarea{min-height:150px;resize:vertical}
+    label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
+    .form-group{margin-bottom:16px}
+    .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
+    .modal.active{display:flex}
+    .modal-content{
+      background:#1a1a1a;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:12px;
+      padding:24px;
+      max-width:800px;
+      width:90%;
+      max-height:90vh;
+      overflow-y:auto;
+    }
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .modal-header h3{margin:0}
+    .close-btn{background:transparent;color:#999;font-size:24px;padding:0;width:32px;height:32px}
+    .close-btn:hover{color:#fff}
+    .article-item{
+      display:flex;
+      gap:16px;
+      align-items:start;
+      padding:16px;
+      background:rgba(255,255,255,.03);
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .article-content{flex:1}
+    .article-content h4{margin:0 0 8px 0}
+    .article-content p{margin:0;color:#999;font-size:14px}
+    .article-actions{display:flex;gap:8px}
+    .image-item{
+      position:relative;
+      border-radius:8px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+    }
+    .image-item img{width:100%;height:200px;object-fit:cover;display:block}
+    .image-info{padding:12px}
+    .image-info h4{margin:0 0 4px 0;font-size:14px}
+    .image-info p{margin:0;font-size:12px;color:#999}
+    .image-actions{display:flex;gap:4px;margin-top:8px}
+    .upload-area{
+      border:2px dashed rgba(255,255,255,.3);
+      border-radius:8px;
+      padding:40px;
+      text-align:center;
+      cursor:pointer;
+      transition:all .2s;
+    }
+    .upload-area:hover{border-color:#e11d2e;background:rgba(225,29,46,.05)}
+    .upload-area.dragover{border-color:#e11d2e;background:rgba(225,29,46,.1)}
+    .badge{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:4px;
+      font-size:12px;
+      font-weight:600;
+      background:rgba(225,29,46,.2);
+      color:#e11d2e;
+    }
+    .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .flex-end{justify-content:flex-end}
+    .loading{text-align:center;padding:40px;color:#999}
+    .empty{text-align:center;padding:60px 20px;color:#999}
+  </style>
 </head>
 
 <body>
@@ -140,41 +139,36 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
         <polyline points="9 22 9 12 15 12 15 22"></polyline>
       </svg>
     </button>
-    <button class="btn-secondary" onclick="logout()">Logout</button>
+    <button id="logoutBtn" class="btn-secondary" onclick="logout()">Logout</button>
   </div>
 </header>
 
 <div class="container">
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('jobs')">Jobs Management</button>
-    <button class="tab" onclick="switchTab('blogs')">Blog Management</button>
-    <button class="tab" onclick="switchTab('images')">Image Management</button>
+    <button class="tab active" onclick="switchTab('jobs', this)">Jobs Management</button>
+    <button class="tab" onclick="switchTab('blogs', this)">Blog Management</button>
+    <button class="tab" onclick="switchTab('images', this)">Image Management</button>
     <button class="tab" onclick="window.location.href='/content-editor.html'">Website Content</button>
   </div>
 
-  <!-- JOBS MANAGEMENT TAB -->
   <div id="jobs-tab" class="tab-content active">
     <div class="card">
       <div class="flex flex-end">
         <button class="btn" onclick="createNewJob()">+ Create New Job Position</button>
       </div>
     </div>
-
     <div id="jobList" class="loading">Loading job positions...</div>
   </div>
 
-  <!-- BLOG MANAGEMENT TAB -->
   <div id="blogs-tab" class="tab-content">
     <div class="card">
       <div class="flex flex-end">
         <button class="btn" onclick="createNewBlog()">+ Create New Article</button>
       </div>
     </div>
-
     <div id="blogList" class="loading">Loading articles...</div>
   </div>
 
-  <!-- IMAGE MANAGEMENT TAB -->
   <div id="images-tab" class="tab-content">
     <div class="card">
       <div class="flex flex-end">
@@ -190,6 +184,7 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
         <option value="blog">Blog Images</option>
         <option value="team">Team Images</option>
         <option value="general">General</option>
+        <option value="logo">Logo</option>
       </select>
     </div>
 
@@ -197,13 +192,13 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
   </div>
 </div>
 
-<!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <h3 id="imageModalTitle">Add Image</h3>
       <button class="close-btn" onclick="closeImageModal()">×</button>
     </div>
+
     <form onsubmit="saveImage(event)">
       <input type="hidden" id="imageId">
 
@@ -267,8 +262,7 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
             <option value="partner-logo-3">Partner Logo 3</option>
           </optgroup>
           <optgroup label="Home Page">
-            <option value="home-hero">Home - Hero Background (Desktop)</option>
-            <option value="home-hero-mobile">Home - Hero Background (Mobile)</option>
+            <option value="home-hero">Home - Hero Background</option>
             <option value="home-about">Home - About Section Background</option>
             <option value="home-join-team">Home - Join Team Section Background</option>
             <option value="home-why-choose">Home - Why Choose Image</option>
@@ -286,7 +280,7 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
         </select>
       </div>
 
-      <div class="form-group" id="customLocationGroup" style="display: none;">
+      <div class="form-group" id="customLocationGroup" style="display:none;">
         <label>Custom Location</label>
         <input type="text" id="customLocation" placeholder="e.g., about-team-member">
       </div>
@@ -308,552 +302,564 @@ label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
 <script src="/js/supabaseClient.js"></script>
 
 <script>
-let allImages = [];
+  let allImages = [];
 
-(async()=>{
-  const { data } = await window.supabase.auth.getSession();
-  if(!data.session) location.href="/login.html";
-  await loadJobs();
-  await loadBlogs();
-  await loadImages();
-})();
-
-async function logout(){
-  await window.supabase.auth.signOut();
-  location.href="/login.html";
-}
-
-function switchTab(tab){
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(tab + '-tab').classList.add('active');
-}
-
-// === JOB FUNCTIONS ===
-async function loadJobs(){
-  const list = document.getElementById("jobList");
-  list.innerHTML = '<div class="loading">Loading job positions...</div>';
-
-  const { data, error } = await window.supabase
-    .from("jobs")
-    .select("*")
-    .order("display_order", {ascending: true})
-    .order("created_at", {ascending: false});
-
-  if(error){
-    list.innerHTML = '<div class="empty">Error loading jobs</div>';
-    console.error(error);
-    return;
+  function showFatalError(message) {
+    console.error(message);
+    alert(message);
   }
 
-  if(!data || data.length === 0){
-    list.innerHTML = '<div class="empty"><p>No job positions yet. Create your first one!</p></div>';
-    return;
-  }
-
-  list.innerHTML = data.map(job => `
-    <div class="article-item">
-      <div class="article-content" style="flex: 2">
-        <h4>
-          ${job.title_sl || job.title_en || job.title}
-          ${!job.is_active ? '<span class="badge" style="background:rgba(156,163,175,0.2);color:#9ca3af">INACTIVE</span>' : ''}
-          <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order}</span>
-        </h4>
-        <p><strong>Type:</strong> ${job.type} | <strong>Location:</strong> ${job.location}</p>
-        <p><strong>Salary:</strong> ${job.salary_range}</p>
-        <p style="margin-top:4px">${job.short_description_sl || job.short_description_en || job.short_description}</p>
-      </div>
-      <div class="article-actions" style="flex-direction:column">
-        <button class="btn-secondary btn-sm" onclick="window.location.href='job-editor.html?id=${job.id}'">Edit</button>
-        <button class="btn btn-sm" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
-        <button class="btn-danger btn-sm" onclick="deleteJob('${job.id}', '${job.title_sl || job.title_en || job.title}')">Delete</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-function createNewJob(){
-  window.location.href = 'job-editor.html';
-}
-
-async function toggleJobStatus(id, newStatus){
-  const { error } = await window.supabase
-    .from("jobs")
-    .update({ is_active: newStatus, updated_at: new Date().toISOString() })
-    .eq("id", id);
-
-  if(error){
-    alert("Error updating job status: " + error.message);
-    return;
-  }
-
-  loadJobs();
-}
-
-async function deleteJob(id, title){
-  if(!confirm(`Delete job position "${title}"?\n\nThis action cannot be undone.`)) return;
-
-  const { error } = await window.supabase.from("jobs").delete().eq("id", id);
-
-  if(error){
-    alert("Error deleting job: " + error.message);
-    return;
-  }
-
-  loadJobs();
-}
-
-// === BLOG FUNCTIONS ===
-async function loadBlogs(){
-  const list = document.getElementById("blogList");
-  list.innerHTML = '<div class="loading">Loading articles...</div>';
-
-  const { data, error } = await window.supabase
-    .from("articles")
-    .select("*, article_categories(name)")
-    .order("created_at", {ascending: false});
-
-  if(error){
-    list.innerHTML = '<div class="empty">Error loading articles</div>';
-    return;
-  }
-
-  if(!data || data.length === 0){
-    list.innerHTML = '<div class="empty"><p>No articles yet. Create your first one!</p></div>';
-    return;
-  }
-
-  list.innerHTML = '<div class="grid grid-2">' + data.map(a => `
-    <div class="card" style="cursor:pointer;transition:transform .2s,box-shadow .2s"
-         onclick="window.location.href='blog-editor.html?id=${a.id}'"
-         onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(225,29,46,0.3)'"
-         onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-      <img src="${a.featured_image_url || 'https://via.placeholder.com/400x250'}"
-           alt="${a.title}"
-           style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:16px">
-      <h3 style="margin:0 0 8px 0;font-size:18px">
-        ${a.title}
-        ${a.is_featured ? '<span class="badge" style="margin-left:8px">FEATURED</span>' : ''}
-      </h3>
-      <p style="margin:0 0 12px 0;color:#999;font-size:14px">${a.excerpt || a.content.substring(0, 120)}...</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
-        <span>${a.article_categories?.name || 'Uncategorized'}</span>
-        <span>${a.author} • ${a.read_time} min</span>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button class="btn-secondary btn-sm" onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
-        <button class="btn-danger btn-sm" onclick="event.stopPropagation();deleteBlog('${a.id}', '${a.title}')" style="flex:1">Delete</button>
-      </div>
-    </div>
-  `).join("") + '</div>';
-}
-
-function createNewBlog(){
-  window.location.href = 'blog-editor.html';
-}
-
-async function deleteBlog(id, title){
-  if(!confirm(`Delete article "${title}"?\n\nThis action cannot be undone.`)) return;
-
-  const { error } = await window.supabase.from("articles").delete().eq("id", id);
-
-  if(error){
-    alert("Error deleting article: " + error.message);
-    return;
-  }
-
-  loadBlogs();
-}
-
-// === IMAGE FUNCTIONS ===
-async function loadImages(){
-  const gallery = document.getElementById("imageGallery");
-  gallery.innerHTML = '<div class="loading">Loading images...</div>';
-
-  const { data, error } = await window.supabase
-    .from("website_images")
-    .select("*")
-    .order("created_at", {ascending: false});
-
-  if(error){
-    gallery.innerHTML = '<div class="empty">Error loading images</div>';
-    return;
-  }
-
-  allImages = data || [];
-  displayImages(allImages);
-}
-
-function displayImages(images){
-  const gallery = document.getElementById("imageGallery");
-
-  if(!images || images.length === 0){
-    gallery.innerHTML = '<div class="empty"><p>No images yet. Add your first one!</p></div>';
-    return;
-  }
-
-  gallery.innerHTML = '<div class="grid grid-3">' + images.map(img => `
-    <div class="image-item">
-      <img src="${img.url}" alt="${img.alt_text || img.name}">
-      <div class="image-info">
-        <h4>${img.name}</h4>
-        <p><span class="badge">${img.category}</span></p>
-        <p>${img.usage_location || 'No location'}</p>
-        <div class="image-actions">
-          <button class="btn-secondary btn-sm" onclick='editImage(${JSON.stringify(img)})'>Edit</button>
-          <button class="btn-danger btn-sm" onclick="deleteImage('${img.id}', '${img.name}')">Delete</button>
-        </div>
-      </div>
-    </div>
-  `).join("") + '</div>';
-}
-
-function filterImages(){
-  const filter = document.getElementById("imageFilter").value;
-  if(filter === 'all'){
-    displayImages(allImages);
-  } else {
-    displayImages(allImages.filter(img => img.category === filter));
-  }
-}
-
-function openImageModal(){
-  document.getElementById("imageModalTitle").textContent = "Add Image";
-  document.getElementById("imageModal").classList.add("active");
-  document.getElementById("imageId").value = "";
-  document.getElementById("imageUrl").value = "";
-  document.getElementById("imageUrlInput").value = "";
-  document.getElementById("imageName").value = "";
-  document.getElementById("imageCategory").value = "general";
-  document.getElementById("imageLocation").value = "";
-  document.getElementById("customLocation").value = "";
-  document.getElementById("customLocationGroup").style.display = "none";
-  document.getElementById("imageAlt").value = "";
-  document.getElementById("imageFile").value = "";
-  document.getElementById("currentImagePreview").style.display = "none";
-  document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
-  document.getElementById("uploadSection").style.display = "block";
-  document.getElementById("urlSection").style.display = "none";
-  uploadArea.querySelector("p").textContent = "Click to upload or drag and drop";
-}
-
-function editImage(image){
-  document.getElementById("imageModalTitle").textContent = "Edit Image";
-  document.getElementById("imageModal").classList.add("active");
-  const imageIdInput = document.getElementById("imageId");
-  imageIdInput.value = image.id;
-  imageIdInput.dataset.storagePath = image.storage_path || "";
-  document.getElementById("imageUrl").value = image.url;
-  document.getElementById("imageUrlInput").value = "";
-  document.getElementById("imageName").value = image.name;
-  document.getElementById("imageCategory").value = image.category;
-  document.getElementById("imageAlt").value = image.alt_text || "";
-  document.getElementById("imageFile").value = "";
-
-  // Set to upload mode by default when editing
-  document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
-  document.getElementById("uploadSection").style.display = "block";
-  document.getElementById("urlSection").style.display = "none";
-
-  // Handle usage location - check if it's in the dropdown
-  const locationSelect = document.getElementById("imageLocation");
-  const usageLocation = image.usage_location || "";
-  const validLocations = ['main-logo', 'partner-logo-1', 'partner-logo-2', 'partner-logo-3', 'home-hero', 'home-about', 'home-join-team', 'home-why-choose', 'home-benefits', 'about-hero', 'insights-hero'];
-
-  if (validLocations.includes(usageLocation)) {
-    locationSelect.value = usageLocation;
-    document.getElementById("customLocationGroup").style.display = "none";
-  } else if (usageLocation) {
-    locationSelect.value = "other";
-    document.getElementById("customLocation").value = usageLocation;
-    document.getElementById("customLocationGroup").style.display = "block";
-  } else {
-    locationSelect.value = "";
-    document.getElementById("customLocationGroup").style.display = "none";
-  }
-
-  // Show current image preview
-  if(image.url){
-    const previewContainer = document.getElementById("currentImagePreview");
-    const previewImg = document.getElementById("previewImg");
-    previewImg.src = image.url;
-    previewContainer.style.display = "block";
-    uploadArea.querySelector("p").textContent = "Current image shown below. Upload new file or enter URL to replace.";
-  }
-}
-
-function closeImageModal(){
-  document.getElementById("imageModal").classList.remove("active");
-}
-
-// File upload handling
-const uploadArea = document.getElementById("uploadArea");
-uploadArea.addEventListener("click", () => document.getElementById("imageFile").click());
-uploadArea.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  uploadArea.classList.add("dragover");
-});
-uploadArea.addEventListener("dragleave", () => {
-  uploadArea.classList.remove("dragover");
-});
-uploadArea.addEventListener("drop", (e) => {
-  e.preventDefault();
-  uploadArea.classList.remove("dragover");
-  const files = e.dataTransfer.files;
-  if(files.length > 0) {
-    document.getElementById("imageFile").files = files;
-    handleFileSelect({target: {files}});
-  }
-});
-
-function toggleImageSource(){
-  const source = document.querySelector('input[name="imageSource"]:checked').value;
-  const uploadSection = document.getElementById("uploadSection");
-  const urlSection = document.getElementById("urlSection");
-
-  if(source === "upload"){
-    uploadSection.style.display = "block";
-    urlSection.style.display = "none";
-    document.getElementById("imageUrlInput").value = "";
-  } else {
-    uploadSection.style.display = "none";
-    urlSection.style.display = "block";
-    document.getElementById("imageFile").value = "";
-  }
-}
-
-function handleUrlInput(){
-  const url = document.getElementById("imageUrlInput").value;
-  if(url){
-    const previewContainer = document.getElementById("currentImagePreview");
-    const previewImg = document.getElementById("previewImg");
-    previewImg.src = url;
-    previewContainer.style.display = "block";
-
-    // Auto-fill name if empty
-    if(!document.getElementById("imageName").value){
-      const urlParts = url.split('/');
-      const filename = urlParts[urlParts.length - 1].split('?')[0];
-      document.getElementById("imageName").value = filename.replace(/\.[^/.]+$/, "") || "Image";
-    }
-  }
-}
-
-function handleFileSelect(e){
-  const file = e.target.files[0];
-  if(file){
-    uploadArea.querySelector("p").textContent = `Selected: ${file.name}`;
-    if(!document.getElementById("imageName").value){
-      document.getElementById("imageName").value = file.name.replace(/\.[^/.]+$/, "");
+  async function requireSessionOrRedirect() {
+    if (!window.supabaseClient) {
+      showFatalError("Supabase client not loaded. Check /js/supabaseClient.js");
+      location.href = "/login.html";
+      return null;
     }
 
-    // Show image preview
-    const reader = new FileReader();
-    reader.onload = function(event){
-      const previewContainer = document.getElementById("currentImagePreview");
-      const previewImg = document.getElementById("previewImg");
-      previewImg.src = event.target.result;
-      previewContainer.style.display = "block";
-    };
-    reader.readAsDataURL(file);
+    const { data, error } = await window.supabaseClient.auth.getSession();
+    if (error) {
+      console.error("getSession error:", error);
+      location.href = "/login.html";
+      return null;
+    }
+
+    if (!data?.session) {
+      location.href = "/login.html";
+      return null;
+    }
+
+    return data.session;
   }
-}
 
-async function saveImage(e){
-  e.preventDefault();
+  (async () => {
+    const session = await requireSessionOrRedirect();
+    if (!session) return;
 
-  const id = document.getElementById("imageId").value;
-  const source = document.querySelector('input[name="imageSource"]:checked').value;
-  const file = document.getElementById("imageFile").files[0];
-  const urlInput = document.getElementById("imageUrlInput").value;
-  let imageUrl = document.getElementById("imageUrl").value;
-  let fileName = null;
-  let oldStoragePath = null;
-  let oldUsageLocation = null;
+    window.supabaseClient.auth.onAuthStateChange((_event, newSession) => {
+      if (!newSession) location.href = "/login.html";
+    });
 
-  // If editing, get the old storage path and usage location from database first
-  if(id){
-    const { data: existingImage } = await window.supabase
-      .from('website_images')
-      .select('storage_path, usage_location')
-      .eq('id', id)
-      .maybeSingle();
+    await loadJobs();
+    await loadBlogs();
+    await loadImages();
+  })();
 
-    if(existingImage){
-      oldStoragePath = existingImage.storage_path;
-      oldUsageLocation = existingImage.usage_location;
+  async function logout() {
+    try {
+      await window.supabaseClient.auth.signOut();
+    } finally {
+      location.href = "/login.html";
     }
   }
 
-  // Handle URL source
-  if(source === "url" && urlInput){
-    imageUrl = urlInput;
-    fileName = null; // No storage path for URL-based images
-
-    // If editing and switching from uploaded file to URL, delete the old file
-    if(id && oldStoragePath){
-      await window.supabase.storage
-        .from('website-images')
-        .remove([oldStoragePath]);
-    }
+  function switchTab(tab, el) {
+    document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach((t) => t.classList.remove("active"));
+    if (el) el.classList.add("active");
+    const pane = document.getElementById(tab + "-tab");
+    if (pane) pane.classList.add("active");
   }
-  // Handle file upload source
-  else if(source === "upload" && file){
-    const fileExt = file.name.split('.').pop();
-    fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const { data: uploadData, error: uploadError } = await window.supabase.storage
-      .from('website-images')
-      .upload(fileName, file);
 
-    if(uploadError){
-      alert("Error uploading file: " + uploadError.message);
+  function renderLoadError(containerEl, label, error) {
+    const msg = error?.message ? error.message : String(error);
+    console.error(label, error);
+    containerEl.innerHTML = `<div class="empty">${label}<br/><small style="color:#777">${msg}</small></div>`;
+  }
+
+  // === JOB FUNCTIONS ===
+  async function loadJobs() {
+    const list = document.getElementById("jobList");
+    list.innerHTML = '<div class="loading">Loading job positions...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("jobs")
+      .select("*")
+      .order("display_order", { ascending: true })
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(list, "Error loading jobs", error);
       return;
     }
 
-    const { data: urlData } = window.supabase.storage
-      .from('website-images')
-      .getPublicUrl(fileName);
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="empty"><p>No job positions yet. Create your first one!</p></div>';
+      return;
+    }
 
-    imageUrl = urlData.publicUrl;
+    list.innerHTML = data.map(job => `
+      <div class="article-item">
+        <div class="article-content" style="flex: 2">
+          <h4>
+            ${job.title_sl || job.title_en || job.title || "Untitled"}
+            ${!job.is_active ? '<span class="badge" style="background:rgba(156,163,175,0.2);color:#9ca3af">INACTIVE</span>' : ''}
+            <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order ?? "-"}</span>
+          </h4>
+          <p><strong>Type:</strong> ${job.type ?? "-"} | <strong>Location:</strong> ${job.location ?? "-"}</p>
+          <p><strong>Salary:</strong> ${job.salary_range ?? "-"}</p>
+          <p style="margin-top:4px">${job.short_description_sl || job.short_description_en || job.short_description || ""}</p>
+        </div>
+        <div class="article-actions" style="flex-direction:column">
+          <button class="btn-secondary btn-sm" onclick="window.location.href='job-editor.html?id=${job.id}'">Edit</button>
+          <button class="btn btn-sm" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
+          <button class="btn-danger btn-sm" onclick="deleteJob('${job.id}', '${(job.title_sl || job.title_en || job.title || "").replaceAll("'", "\\'")}')">Delete</button>
+        </div>
+      </div>
+    `).join("");
+  }
 
-    // If editing and had an old storage file, delete it
-    if(id && oldStoragePath){
-      await window.supabase.storage
-        .from('website-images')
-        .remove([oldStoragePath]);
+  function createNewJob() {
+    window.location.href = "job-editor.html";
+  }
+
+  async function toggleJobStatus(id, newStatus) {
+    const { error } = await window.supabaseClient
+      .from("jobs")
+      .update({ is_active: newStatus, updated_at: new Date().toISOString() })
+      .eq("id", id);
+
+    if (error) {
+      alert("Error updating job status: " + error.message);
+      return;
+    }
+
+    loadJobs();
+  }
+
+  async function deleteJob(id, title) {
+    if (!confirm(`Delete job position "${title}"?\n\nThis action cannot be undone.`)) return;
+
+    const { error } = await window.supabaseClient.from("jobs").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting job: " + error.message);
+      return;
+    }
+
+    loadJobs();
+  }
+
+  // === BLOG FUNCTIONS ===
+  async function loadBlogs() {
+    const list = document.getElementById("blogList");
+    list.innerHTML = '<div class="loading">Loading articles...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("articles")
+      .select("*, article_categories(name)")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(list, "Error loading articles", error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="empty"><p>No articles yet. Create your first one!</p></div>';
+      return;
+    }
+
+    list.innerHTML = '<div class="grid grid-2">' + data.map(a => `
+      <div class="card" style="cursor:pointer;transition:transform .2s,box-shadow .2s"
+           onclick="window.location.href='blog-editor.html?id=${a.id}'"
+           onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(225,29,46,0.3)'"
+           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <img src="${a.featured_image_url || 'https://via.placeholder.com/400x250'}"
+             alt="${(a.title || "").replaceAll('"', "&quot;")}"
+             style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:16px">
+        <h3 style="margin:0 0 8px 0;font-size:18px">
+          ${a.title || "Untitled"}
+          ${a.is_featured ? '<span class="badge" style="margin-left:8px">FEATURED</span>' : ''}
+        </h3>
+        <p style="margin:0 0 12px 0;color:#999;font-size:14px">${(a.excerpt || (a.content ? a.content.substring(0, 120) : "") || "").replaceAll("<", "&lt;")}...</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
+          <span>${a.article_categories?.name || 'Uncategorized'}</span>
+          <span>${a.author || "Unknown"} • ${a.read_time || 0} min</span>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn-secondary btn-sm" onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
+          <button class="btn-danger btn-sm" onclick="event.stopPropagation();deleteBlog('${a.id}', '${(a.title || "").replaceAll("'", "\\'")}')" style="flex:1">Delete</button>
+        </div>
+      </div>
+    `).join("") + '</div>';
+  }
+
+  function createNewBlog() {
+    window.location.href = "blog-editor.html";
+  }
+
+  async function deleteBlog(id, title) {
+    if (!confirm(`Delete article "${title}"?\n\nThis action cannot be undone.`)) return;
+
+    const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting article: " + error.message);
+      return;
+    }
+
+    loadBlogs();
+  }
+
+  // === IMAGE FUNCTIONS ===
+  async function loadImages() {
+    const gallery = document.getElementById("imageGallery");
+    gallery.innerHTML = '<div class="loading">Loading images...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("website_images")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(gallery, "Error loading images", error);
+      return;
+    }
+
+    allImages = data || [];
+    displayImages(allImages);
+  }
+
+  function displayImages(images) {
+    const gallery = document.getElementById("imageGallery");
+
+    if (!images || images.length === 0) {
+      gallery.innerHTML = '<div class="empty"><p>No images yet. Add your first one!</p></div>';
+      return;
+    }
+
+    gallery.innerHTML = '<div class="grid grid-3">' + images.map(img => `
+      <div class="image-item">
+        <img src="${img.url}" alt="${(img.alt_text || img.name || "").replaceAll('"', "&quot;")}">
+        <div class="image-info">
+          <h4>${img.name || "Unnamed"}</h4>
+          <p><span class="badge">${img.category || "general"}</span></p>
+          <p>${img.usage_location || 'No location'}</p>
+          <div class="image-actions">
+            <button class="btn-secondary btn-sm" onclick='editImage(${JSON.stringify(img).replaceAll("'", "\\'")})'>Edit</button>
+            <button class="btn-danger btn-sm" onclick="deleteImage('${img.id}', '${(img.name || "").replaceAll("'", "\\'")}')">Delete</button>
+          </div>
+        </div>
+      </div>
+    `).join("") + '</div>';
+  }
+
+  function filterImages() {
+    const filter = document.getElementById("imageFilter").value;
+    if (filter === "all") displayImages(allImages);
+    else displayImages(allImages.filter(img => img.category === filter));
+  }
+
+  function openImageModal() {
+    document.getElementById("imageModalTitle").textContent = "Add Image";
+    document.getElementById("imageModal").classList.add("active");
+    document.getElementById("imageId").value = "";
+    document.getElementById("imageUrl").value = "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementById("imageName").value = "";
+    document.getElementById("imageCategory").value = "general";
+    document.getElementById("imageLocation").value = "";
+    document.getElementById("customLocation").value = "";
+    document.getElementById("customLocationGroup").style.display = "none";
+    document.getElementById("imageAlt").value = "";
+    document.getElementById("imageFile").value = "";
+    document.getElementById("currentImagePreview").style.display = "none";
+    document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+    document.getElementById("uploadSection").style.display = "block";
+    document.getElementById("urlSection").style.display = "none";
+    uploadArea.querySelector("p").textContent = "Click to upload or drag and drop";
+  }
+
+  function editImage(image) {
+    document.getElementById("imageModalTitle").textContent = "Edit Image";
+    document.getElementById("imageModal").classList.add("active");
+
+    const imageIdInput = document.getElementById("imageId");
+    imageIdInput.value = image.id;
+    imageIdInput.dataset.storagePath = image.storage_path || "";
+
+    document.getElementById("imageUrl").value = image.url || "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementById("imageName").value = image.name || "";
+    document.getElementById("imageCategory").value = image.category || "general";
+    document.getElementById("imageAlt").value = image.alt_text || "";
+    document.getElementById("imageFile").value = "";
+
+    document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+    document.getElementById("uploadSection").style.display = "block";
+    document.getElementById("urlSection").style.display = "none";
+
+    const locationSelect = document.getElementById("imageLocation");
+    const usageLocation = image.usage_location || "";
+    const validLocations = [
+      "main-logo","partner-logo-1","partner-logo-2","partner-logo-3",
+      "home-hero","home-about","home-join-team","home-why-choose","home-benefits",
+      "about-hero","insights-hero"
+    ];
+
+    if (validLocations.includes(usageLocation)) {
+      locationSelect.value = usageLocation;
+      document.getElementById("customLocationGroup").style.display = "none";
+    } else if (usageLocation) {
+      locationSelect.value = "other";
+      document.getElementById("customLocation").value = usageLocation;
+      document.getElementById("customLocationGroup").style.display = "block";
+    } else {
+      locationSelect.value = "";
+      document.getElementById("customLocationGroup").style.display = "none";
+    }
+
+    if (image.url) {
+      const previewContainer = document.getElementById("currentImagePreview");
+      const previewImg = document.getElementById("previewImg");
+      previewImg.src = image.url;
+      previewContainer.style.display = "block";
+      uploadArea.querySelector("p").textContent = "Current image shown below. Upload new file or enter URL to replace.";
     }
   }
 
-  // Validation: Need either an existing URL (when editing) or new source
-  if(!imageUrl && !id){
-    alert("Please upload an image file or enter an image URL");
-    return;
+  function closeImageModal() {
+    document.getElementById("imageModal").classList.remove("active");
   }
 
-  // Get usage location - use custom if "other" is selected
-  const selectedLocation = document.getElementById("imageLocation").value;
-  const usageLocation = selectedLocation === 'other'
-    ? document.getElementById("customLocation").value
-    : selectedLocation;
+  // File upload handling
+  const uploadArea = document.getElementById("uploadArea");
+  uploadArea.addEventListener("click", () => document.getElementById("imageFile").click());
+  uploadArea.addEventListener("dragover", (e) => { e.preventDefault(); uploadArea.classList.add("dragover"); });
+  uploadArea.addEventListener("dragleave", () => { uploadArea.classList.remove("dragover"); });
+  uploadArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove("dragover");
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      document.getElementById("imageFile").files = files;
+      handleFileSelect({ target: { files } });
+    }
+  });
 
-  if (!usageLocation) {
-    alert("Please select a usage location");
-    return;
+  function toggleImageSource() {
+    const source = document.querySelector('input[name="imageSource"]:checked').value;
+    const uploadSection = document.getElementById("uploadSection");
+    const urlSection = document.getElementById("urlSection");
+
+    if (source === "upload") {
+      uploadSection.style.display = "block";
+      urlSection.style.display = "none";
+      document.getElementById("imageUrlInput").value = "";
+    } else {
+      uploadSection.style.display = "none";
+      urlSection.style.display = "block";
+      document.getElementById("imageFile").value = "";
+    }
   }
 
-  const data = {
-    name: document.getElementById("imageName").value,
-    category: document.getElementById("imageCategory").value,
-    usage_location: usageLocation,
-    alt_text: document.getElementById("imageAlt").value
-  };
+  function handleUrlInput() {
+    const url = document.getElementById("imageUrlInput").value;
+    if (url) {
+      const previewContainer = document.getElementById("currentImagePreview");
+      const previewImg = document.getElementById("previewImg");
+      previewImg.src = url;
+      previewContainer.style.display = "block";
 
-  // Update URL and storage path based on source
-  if(file || urlInput){
-    data.url = imageUrl;
-    data.storage_path = fileName; // Will be null for URL-based images
+      if (!document.getElementById("imageName").value) {
+        const urlParts = url.split("/");
+        const filename = urlParts[urlParts.length - 1].split("?")[0];
+        document.getElementById("imageName").value = filename.replace(/\.[^/.]+$/, "") || "Image";
+      }
+    }
   }
 
-  let result;
-  if(id){
-    result = await window.supabase.from("website_images").update(data).eq("id", id);
-  } else {
-    // For new images, URL is required but storage_path can be null for URL-based images
-    data.url = imageUrl;
-    data.storage_path = fileName;
-    result = await window.supabase.from("website_images").insert([data]);
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+      uploadArea.querySelector("p").textContent = `Selected: ${file.name}`;
+      if (!document.getElementById("imageName").value) {
+        document.getElementById("imageName").value = file.name.replace(/\.[^/.]+$/, "");
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const previewContainer = document.getElementById("currentImagePreview");
+        const previewImg = document.getElementById("previewImg");
+        previewImg.src = event.target.result;
+        previewContainer.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
-  if(result.error){
-    alert("Error saving image: " + result.error.message);
-    return;
-  }
+  async function saveImage(e) {
+    e.preventDefault();
 
-  // Clear localStorage cache for both old and new locations
-  const clearCache = (location) => {
-    const cacheMap = {
-      'home-hero': 'home-hero-image',
-      'home-about': 'home-about-image',
-      'home-join-team': 'home-join-team-image',
-      'home-why-choose': 'home-why-choose-image',
-      'home-benefits': 'home-benefits-image',
-      'about-hero': 'about-hero-image',
-      'insights-hero': 'insights-hero-image'
+    const id = document.getElementById("imageId").value;
+    const source = document.querySelector('input[name="imageSource"]:checked').value;
+    const file = document.getElementById("imageFile").files[0];
+    const urlInput = document.getElementById("imageUrlInput").value;
+    let imageUrl = document.getElementById("imageUrl").value;
+
+    let fileName = null;
+    let oldStoragePath = null;
+    let oldUsageLocation = null;
+
+    if (id) {
+      const { data: existingImage, error: existingError } = await window.supabaseClient
+        .from("website_images")
+        .select("storage_path, usage_location")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (existingError) {
+        alert("Error reading image record: " + existingError.message);
+        return;
+      }
+
+      if (existingImage) {
+        oldStoragePath = existingImage.storage_path;
+        oldUsageLocation = existingImage.usage_location;
+      }
+    }
+
+    if (source === "url" && urlInput) {
+      imageUrl = urlInput;
+      fileName = null;
+
+      if (id && oldStoragePath) {
+        await window.supabaseClient.storage.from("website-images").remove([oldStoragePath]);
+      }
+    } else if (source === "upload" && file) {
+      const fileExt = file.name.split(".").pop();
+      fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+      const { error: uploadError } = await window.supabaseClient.storage
+        .from("website-images")
+        .upload(fileName, file);
+
+      if (uploadError) {
+        alert("Error uploading file: " + uploadError.message);
+        return;
+      }
+
+      const { data: urlData } = window.supabaseClient.storage
+        .from("website-images")
+        .getPublicUrl(fileName);
+
+      imageUrl = urlData.publicUrl;
+
+      if (id && oldStoragePath) {
+        await window.supabaseClient.storage.from("website-images").remove([oldStoragePath]);
+      }
+    }
+
+    if (!imageUrl && !id) {
+      alert("Please upload an image file or enter an image URL");
+      return;
+    }
+
+    const selectedLocation = document.getElementById("imageLocation").value;
+    const usageLocation = selectedLocation === "other"
+      ? document.getElementById("customLocation").value
+      : selectedLocation;
+
+    if (!usageLocation) {
+      alert("Please select a usage location");
+      return;
+    }
+
+    const payload = {
+      name: document.getElementById("imageName").value,
+      category: document.getElementById("imageCategory").value,
+      usage_location: usageLocation,
+      alt_text: document.getElementById("imageAlt").value,
     };
 
-    if(cacheMap[location]){
-      localStorage.removeItem(cacheMap[location]);
+    if (file || urlInput) {
+      payload.url = imageUrl;
+      payload.storage_path = fileName;
     }
-  };
 
-  // Clear cache for the new location
-  clearCache(data.usage_location);
+    let result;
+    if (id) {
+      result = await window.supabaseClient.from("website_images").update(payload).eq("id", id);
+    } else {
+      payload.url = imageUrl;
+      payload.storage_path = fileName;
+      result = await window.supabaseClient.from("website_images").insert([payload]);
+    }
 
-  // If editing and location changed, also clear old location cache
-  if(id && oldUsageLocation && oldUsageLocation !== data.usage_location){
-    clearCache(oldUsageLocation);
-  }
+    if (result.error) {
+      alert("Error saving image: " + result.error.message);
+      return;
+    }
 
-  closeImageModal();
-  loadImages();
-}
-
-async function deleteImage(id, name){
-  if(!confirm(`Delete image "${name}"?`)) return;
-
-  // Get the usage_location and storage_path before deleting
-  const { data: imageData } = await window.supabase
-    .from("website_images")
-    .select("usage_location, storage_path")
-    .eq("id", id)
-    .maybeSingle();
-
-  // Delete the file from storage first
-  if(imageData && imageData.storage_path){
-    await window.supabase.storage
-      .from('website-images')
-      .remove([imageData.storage_path]);
-  }
-
-  // Then delete the database record
-  const { error } = await window.supabase.from("website_images").delete().eq("id", id);
-
-  if(error){
-    alert("Error deleting image: " + error.message);
-    return;
-  }
-
-  // Clear localStorage cache for the deleted location
-  if(imageData){
-    const cacheMap = {
-      'home-hero': 'home-hero-image',
-      'home-about': 'home-about-image',
-      'home-join-team': 'home-join-team-image',
-      'home-why-choose': 'home-why-choose-image',
-      'home-benefits': 'home-benefits-image',
-      'about-hero': 'about-hero-image',
-      'insights-hero': 'insights-hero-image'
+    const clearCache = (location) => {
+      const cacheMap = {
+        "home-hero": "home-hero-image",
+        "home-about": "home-about-image",
+        "home-join-team": "home-join-team-image",
+        "home-why-choose": "home-why-choose-image",
+        "home-benefits": "home-benefits-image",
+        "about-hero": "about-hero-image",
+        "insights-hero": "insights-hero-image",
+      };
+      if (cacheMap[location]) localStorage.removeItem(cacheMap[location]);
     };
 
-    const cacheKey = cacheMap[imageData.usage_location];
-    if(cacheKey){
-      localStorage.removeItem(cacheKey);
+    clearCache(payload.usage_location);
+
+    if (id && oldUsageLocation && oldUsageLocation !== payload.usage_location) {
+      clearCache(oldUsageLocation);
     }
+
+    closeImageModal();
+    loadImages();
   }
 
-  loadImages();
-}
+  async function deleteImage(id, name) {
+    if (!confirm(`Delete image "${name}"?`)) return;
 
-// Handle image location dropdown change
-document.getElementById("imageLocation").addEventListener("change", (e) => {
-  const customLocationGroup = document.getElementById("customLocationGroup");
-  if (e.target.value === "other") {
-    customLocationGroup.style.display = "block";
-  } else {
-    customLocationGroup.style.display = "none";
+    const { data: imageData, error: readError } = await window.supabaseClient
+      .from("website_images")
+      .select("usage_location, storage_path")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (readError) {
+      alert("Error reading image: " + readError.message);
+      return;
+    }
+
+    if (imageData?.storage_path) {
+      await window.supabaseClient.storage.from("website-images").remove([imageData.storage_path]);
+    }
+
+    const { error } = await window.supabaseClient.from("website_images").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting image: " + error.message);
+      return;
+    }
+
+    if (imageData?.usage_location) {
+      const cacheMap = {
+        "home-hero": "home-hero-image",
+        "home-about": "home-about-image",
+        "home-join-team": "home-join-team-image",
+        "home-why-choose": "home-why-choose-image",
+        "home-benefits": "home-benefits-image",
+        "about-hero": "about-hero-image",
+        "insights-hero": "insights-hero-image",
+      };
+      const cacheKey = cacheMap[imageData.usage_location];
+      if (cacheKey) localStorage.removeItem(cacheKey);
+    }
+
+    loadImages();
   }
-});
+
+  document.getElementById("imageLocation").addEventListener("change", (e) => {
+    const customLocationGroup = document.getElementById("customLocationGroup");
+    customLocationGroup.style.display = e.target.value === "other" ? "block" : "none";
+  });
 </script>
 
 </body>
