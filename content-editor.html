@@ -47,9 +47,12 @@
           <option value="sl">Slovenian</option>
         </select>
       </div>
-      <div class="flex items-end">
+      <div class="flex items-end gap-2">
         <button id="loadContent" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium">
           Load Content
+        </button>
+        <button id="syncAll" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium">
+          Sync All Languages
         </button>
       </div>
     </div>
@@ -279,6 +282,7 @@
       try {
         console.log('Attempting to save updates:', updates);
 
+        // Save to website_content table
         const { data, error } = await supabaseClient
           .from('website_content')
           .upsert(updates, { onConflict: 'page,section,language' });
@@ -290,11 +294,80 @@
           throw error;
         }
 
-        showMessage('✓ Changes saved! Refresh the main website to see updates.', 'success');
+        // Rebuild and update site_locales for real-time updates
+        await rebuildSiteLocales(language);
+
+        showMessage('✓ Changes saved and published!', 'success');
       } catch (error) {
         console.error('Error saving:', error);
         const errorMsg = error?.message || error?.error_description || 'Unknown error';
         showMessage('Error saving: ' + errorMsg, 'error');
+      } finally {
+        loading.classList.add('hidden');
+      }
+    });
+
+    async function rebuildSiteLocales(language) {
+      try {
+        // Fetch all content for this language
+        const { data: allContent, error: fetchError } = await supabaseClient
+          .from('website_content')
+          .select('page, section, content')
+          .eq('language', language);
+
+        if (fetchError) throw fetchError;
+
+        // Build nested JSON structure
+        const localeData = {};
+        allContent.forEach(item => {
+          const keys = item.section.split('.');
+          let current = localeData;
+
+          // Navigate/create nested structure
+          for (let i = 0; i < keys.length - 1; i++) {
+            const key = keys[i];
+            if (!current[key]) current[key] = {};
+            current = current[key];
+          }
+
+          // Set the final value
+          const lastKey = keys[keys.length - 1];
+          current[lastKey] = item.content;
+        });
+
+        // Update site_locales table
+        const { error: upsertError } = await supabaseClient
+          .from('site_locales')
+          .upsert({
+            lang: language,
+            content: localeData,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'lang' });
+
+        if (upsertError) throw upsertError;
+
+        console.log('✓ site_locales updated for language:', language);
+      } catch (error) {
+        console.error('Error rebuilding site_locales:', error);
+        throw error;
+      }
+    }
+
+    // Sync all languages button
+    document.getElementById('syncAll').addEventListener('click', async () => {
+      if (!confirm('This will rebuild all translations from website_content. Continue?')) {
+        return;
+      }
+
+      loading.classList.remove('hidden');
+
+      try {
+        await rebuildSiteLocales('en');
+        await rebuildSiteLocales('sl');
+        showMessage('✓ All languages synced successfully!', 'success');
+      } catch (error) {
+        console.error('Error syncing:', error);
+        showMessage('Error syncing: ' + error.message, 'error');
       } finally {
         loading.classList.add('hidden');
       }

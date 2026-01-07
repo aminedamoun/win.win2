@@ -12,9 +12,7 @@ function getSavedLang() {
   return saved === "sl" ? "sl" : "en";
 }
 
-export async function initI18nRemote() {
-  const lang = getSavedLang();
-
+async function loadTranslations() {
   const { data, error } = await supabase
     .from("site_locales")
     .select("lang, content")
@@ -31,6 +29,13 @@ export async function initI18nRemote() {
   if (!resources.en) resources.en = { translation: {} };
   if (!resources.sl) resources.sl = { translation: {} };
 
+  return resources;
+}
+
+export async function initI18nRemote() {
+  const lang = getSavedLang();
+  const resources = await loadTranslations();
+
   if (!i18n.isInitialized) {
     await i18n.use(initReactI18next).init({
       resources,
@@ -44,5 +49,60 @@ export async function initI18nRemote() {
       i18n.addResourceBundle(l, "translation", resources[l].translation, true, true);
     });
     await i18n.changeLanguage(lang);
+  }
+
+  // Set up realtime updates
+  setupRealtimeUpdates();
+}
+
+function setupRealtimeUpdates() {
+  supabase
+    .channel('site_locales_changes')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'site_locales'
+      },
+      async (payload) => {
+        console.log('Translation update detected:', payload);
+        try {
+          const resources = await loadTranslations();
+          const currentLang = i18n.language;
+
+          // Update all language bundles
+          Object.keys(resources).forEach((lang) => {
+            i18n.addResourceBundle(lang, "translation", resources[lang].translation, true, true);
+          });
+
+          // Trigger a language change to force re-render
+          await i18n.changeLanguage(currentLang);
+
+          console.log('✓ Translations reloaded successfully');
+        } catch (error) {
+          console.error('Error reloading translations:', error);
+        }
+      }
+    )
+    .subscribe();
+}
+
+// Manual refresh function
+export async function refreshTranslations() {
+  try {
+    const resources = await loadTranslations();
+    const currentLang = i18n.language;
+
+    Object.keys(resources).forEach((lang) => {
+      i18n.addResourceBundle(lang, "translation", resources[lang].translation, true, true);
+    });
+
+    await i18n.changeLanguage(currentLang);
+    console.log('✓ Translations refreshed');
+    return true;
+  } catch (error) {
+    console.error('Error refreshing translations:', error);
+    return false;
   }
 }
