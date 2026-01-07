@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin – Win Win</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
+    header{
+      background:#000;
+      padding:16px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(225,29,46,.3);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    header h2{margin:0}
+    header span{color:#e11d2e}
+    button{padding:10px 16px;border-radius:6px;border:none;font-weight:600;cursor:pointer;transition:all .2s}
+    button:hover{transform:translateY(-1px)}
+    .btn{background:#e11d2e;color:#fff}
+    .btn:hover{background:#c11828}
+    .btn-secondary{background:#333;color:#fff}
+    .btn-secondary:hover{background:#444}
+    .btn-danger{background:#dc2626;color:#fff}
+    .btn-danger:hover{background:#b91c1c}
+    .btn-sm{padding:6px 12px;font-size:14px}
+    .container{max-width:1400px;margin:auto;padding:24px}
+    .tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid rgba(255,255,255,.1)}
+    .tab{padding:12px 24px;background:transparent;border:none;color:#999;cursor:pointer;font-size:16px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px}
+    .tab.active{color:#e11d2e;border-bottom-color:#e11d2e}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+    .card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:12px;
+      padding:20px;
+      margin-bottom:16px;
+    }
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+    input,textarea,select{
+      width:100%;
+      padding:10px 12px;
+      margin-bottom:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-family:inherit;
+    }
+    textarea{min-height:150px;resize:vertical}
+    label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#ccc}
+    .form-group{margin-bottom:16px}
+    .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
+    .modal.active{display:flex}
+    .modal-content{
+      background:#1a1a1a;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:12px;
+      padding:24px;
+      max-width:800px;
+      width:90%;
+      max-height:90vh;
+      overflow-y:auto;
+    }
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .close-btn{background:transparent;color:#999;font-size:24px;padding:0;width:32px;height:32px}
+    .close-btn:hover{color:#fff}
+    .article-item{
+      display:flex;
+      gap:16px;
+      align-items:start;
+      padding:16px;
+      background:rgba(255,255,255,.03);
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .article-content{flex:1}
+    .article-content h4{margin:0 0 8px 0}
+    .article-content p{margin:0;color:#999;font-size:14px}
+    .article-actions{display:flex;gap:8px}
+    .image-item{
+      position:relative;
+      border-radius:8px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+    }
+    .image-item img{width:100%;height:200px;object-fit:cover;display:block}
+    .image-info{padding:12px}
+    .image-info h4{margin:0 0 4px 0;font-size:14px}
+    .image-info p{margin:0;font-size:12px;color:#999}
+    .image-actions{display:flex;gap:4px;margin-top:8px}
+    .upload-area{
+      border:2px dashed rgba(255,255,255,.3);
+      border-radius:8px;
+      padding:40px;
+      text-align:center;
+      cursor:pointer;
+      transition:all .2s;
+    }
+    .upload-area:hover{border-color:#e11d2e;background:rgba(225,29,46,.05)}
+    .upload-area.dragover{border-color:#e11d2e;background:rgba(225,29,46,.1)}
+    .badge{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:4px;
+      font-size:12px;
+      font-weight:600;
+      background:rgba(225,29,46,.2);
+      color:#e11d2e;
+      margin-left:8px;
+    }
+    .badge-muted{background:rgba(156,163,175,0.2);color:#9ca3af}
+    .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .flex-end{justify-content:flex-end}
+    .loading{text-align:center;padding:40px;color:#999}
+    .empty{text-align:center;padding:60px 20px;color:#999}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Win Win<span>.</span> Admin</h2>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="btn-secondary" onclick="window.location.href='/'" title="Back to Website" style="padding:10px 12px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    </button>
+    <button id="logoutBtn" class="btn-secondary" type="button">Logout</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('jobs', this)">Jobs Management</button>
+    <button class="tab" onclick="switchTab('blogs', this)">Blog Management</button>
+    <button class="tab" onclick="switchTab('images', this)">Image Management</button>
+    <button class="tab" onclick="window.location.href='/content-editor.html'">Website Content</button>
+  </div>
+
+  <!-- JOBS -->
+  <div id="jobs-tab" class="tab-content active">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" type="button" onclick="createNewJob()">+ Create New Job Position</button>
+      </div>
+    </div>
+    <div id="jobList" class="loading">Loading job positions...</div>
+  </div>
+
+  <!-- BLOGS -->
+  <div id="blogs-tab" class="tab-content">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" type="button" onclick="createNewBlog()">+ Create New Article</button>
+      </div>
+    </div>
+    <div id="blogList" class="loading">Loading articles...</div>
+  </div>
+
+  <!-- IMAGES -->
+  <div id="images-tab" class="tab-content">
+    <div class="card">
+      <div class="flex flex-end">
+        <button class="btn" type="button" onclick="openImageModal()">+ Add Image</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Filter by Category:</label>
+      <select id="imageFilter" onchange="filterImages()">
+        <option value="all">All Images</option>
+        <option value="hero">Hero Images</option>
+        <option value="blog">Blog Images</option>
+        <option value="team">Team Images</option>
+        <option value="general">General</option>
+        <option value="logo">Logo</option>
+      </select>
+    </div>
+
+    <div id="imageGallery" class="loading">Loading images...</div>
+  </div>
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="imageModalTitle">Add Image</h3>
+      <button class="close-btn" type="button" onclick="closeImageModal()">×</button>
+    </div>
+
+    <form onsubmit="saveImage(event)">
+      <input type="hidden" id="imageId">
+
+      <div class="form-group">
+        <label>Image Source *</label>
+        <div style="display:flex;gap:16px;margin-bottom:12px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="radio" name="imageSource" value="upload" checked onchange="toggleImageSource()">
+            <span>Upload File</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="radio" name="imageSource" value="url" onchange="toggleImageSource()">
+            <span>Use URL</span>
+          </label>
+        </div>
+
+        <div id="uploadSection">
+          <div class="upload-area" id="uploadArea">
+            <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+            <p>Click to upload or drag and drop</p>
+            <p style="font-size:12px;color:#999">JPG, PNG, GIF, WebP (max 5MB)</p>
+          </div>
+        </div>
+
+        <div id="urlSection" style="display:none">
+          <input type="url" id="imageUrlInput" placeholder="https://example.com/image.jpg" onchange="handleUrlInput()">
+          <p style="font-size:12px;color:#999;margin-top:4px">Enter the full URL of the image</p>
+        </div>
+
+        <div id="currentImagePreview" style="margin-top:12px;display:none">
+          <img id="previewImg" style="max-width:200px;max-height:200px;border-radius:8px" />
+        </div>
+      </div>
+
+      <input type="hidden" id="imageUrl">
+
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="imageName" required>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="imageCategory">
+          <option value="general">General</option>
+          <option value="hero">Hero</option>
+          <option value="blog">Blog</option>
+          <option value="team">Team</option>
+          <option value="logo">Logo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Usage Location</label>
+        <select id="imageLocation">
+          <option value="">Select a location</option>
+          <optgroup label="Logos">
+            <option value="main-logo">Main Logo</option>
+            <option value="partner-logo-1">Partner Logo 1</option>
+            <option value="partner-logo-2">Partner Logo 2</option>
+            <option value="partner-logo-3">Partner Logo 3</option>
+          </optgroup>
+          <optgroup label="Home Page">
+            <option value="home-hero">Home - Hero Background</option>
+            <option value="home-hero-mobile">Home - Hero Background (Mobile)</option>
+            <option value="home-about">Home - About Section Background</option>
+            <option value="home-join-team">Home - Join Team Section Background</option>
+            <option value="home-why-choose">Home - Why Choose Image</option>
+            <option value="home-benefits">Home - Benefits Image</option>
+          </optgroup>
+          <optgroup label="About Page">
+            <option value="about-hero">About - Hero Background</option>
+          </optgroup>
+          <optgroup label="Insights Page">
+            <option value="insights-hero">Insights - Hero Background</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="other">Other (Custom)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group" id="customLocationGroup" style="display:none;">
+        <label>Custom Location</label>
+        <input type="text" id="customLocation" placeholder="e.g., about-team-member">
+      </div>
+
+      <div class="form-group">
+        <label>Alt Text</label>
+        <input type="text" id="imageAlt" placeholder="Describe the image for accessibility">
+      </div>
+
+      <div class="flex flex-end">
+        <button type="button" class="btn-secondary" onclick="closeImageModal()">Cancel</button>
+        <button type="submit" class="btn">Save Image</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+
+<script>
+  let allImages = [];
+
+  function fatal(msg) {
+    console.error(msg);
+    alert(msg);
+  }
+
+  function escapeAttr(str) {
+    return String(str ?? "").replaceAll('"', "&quot;");
+  }
+
+  function enc(obj) { return encodeURIComponent(JSON.stringify(obj)); }
+  function dec(s) { return JSON.parse(decodeURIComponent(s)); }
+  function encText(s) { return encodeURIComponent(String(s ?? "")); }
+  function decText(s) { return decodeURIComponent(String(s ?? "")); }
+
+  function renderLoadError(containerEl, label, error) {
+    const msg = error?.message ? error.message : String(error);
+    console.error(label, error);
+    containerEl.innerHTML = `<div class="empty">${label}<br/><small style="color:#777">${escapeAttr(msg)}</small></div>`;
+  }
+
+  async function requireSessionOrRedirect() {
+    if (!window.supabaseClient) {
+      fatal("Supabase client not loaded. Create /js/supabaseClient.js in public_html/js/");
+      location.href = "/login.html";
+      return null;
+    }
+
+    const { data, error } = await window.supabaseClient.auth.getSession();
+    if (error) {
+      console.error("getSession error:", error);
+      location.href = "/login.html";
+      return null;
+    }
+
+    if (!data?.session) {
+      location.href = "/login.html";
+      return null;
+    }
+
+    return data.session;
+  }
+
+  async function logout() {
+    try {
+      await window.supabaseClient.auth.signOut();
+    } catch (e) {
+      console.error("signOut error:", e);
+    } finally {
+      location.href = "/login.html";
+    }
+  }
+
+  function switchTab(tab, el) {
+    document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach((t) => t.classList.remove("active"));
+    if (el) el.classList.add("active");
+    const pane = document.getElementById(tab + "-tab");
+    if (pane) pane.classList.add("active");
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", logout);
+
+  // Boot
+  (async () => {
+    const session = await requireSessionOrRedirect();
+    if (!session) return;
+
+    // If session becomes invalid, kick out
+    window.supabaseClient.auth.onAuthStateChange((_event, newSession) => {
+      if (!newSession) location.href = "/login.html";
+    });
+
+    await loadJobs();
+    await loadBlogs();
+    await loadImages();
+  })();
+
+  // ======================
+  // JOBS
+  // ======================
+  async function loadJobs() {
+    const list = document.getElementById("jobList");
+    list.innerHTML = '<div class="loading">Loading job positions...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("jobs")
+      .select("*")
+      .order("display_order", { ascending: true })
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(list, "Error loading jobs", error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="empty"><p>No job positions yet. Create your first one!</p></div>';
+      return;
+    }
+
+    list.innerHTML = data.map(job => {
+      const title = job.title_sl || job.title_en || job.title || "Untitled";
+      return `
+        <div class="article-item">
+          <div class="article-content" style="flex: 2">
+            <h4>
+              ${escapeAttr(title)}
+              ${!job.is_active ? '<span class="badge badge-muted">INACTIVE</span>' : ''}
+              <span style="font-size:12px;color:#999;font-weight:normal;margin-left:8px">Order: ${job.display_order ?? "-"}</span>
+            </h4>
+            <p><strong>Type:</strong> ${escapeAttr(job.type ?? "-")} | <strong>Location:</strong> ${escapeAttr(job.location ?? "-")}</p>
+            <p><strong>Salary:</strong> ${escapeAttr(job.salary_range ?? "-")}</p>
+            <p style="margin-top:4px">${escapeAttr(job.short_description_sl || job.short_description_en || job.short_description || "")}</p>
+          </div>
+          <div class="article-actions" style="flex-direction:column">
+            <button class="btn-secondary btn-sm" type="button" onclick="window.location.href='job-editor.html?id=${job.id}'">Edit</button>
+            <button class="btn btn-sm" type="button" onclick="toggleJobStatus('${job.id}', ${!job.is_active})">${job.is_active ? 'Deactivate' : 'Activate'}</button>
+            <button class="btn-danger btn-sm" type="button" onclick="deleteJob('${job.id}', '${encText(title)}')">Delete</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function createNewJob() {
+    window.location.href = "job-editor.html";
+  }
+
+  async function toggleJobStatus(id, newStatus) {
+    const { error } = await window.supabaseClient
+      .from("jobs")
+      .update({ is_active: newStatus, updated_at: new Date().toISOString() })
+      .eq("id", id);
+
+    if (error) {
+      alert("Error updating job status: " + error.message);
+      return;
+    }
+    loadJobs();
+  }
+
+  async function deleteJob(id, encodedTitle) {
+    const title = decText(encodedTitle);
+    if (!confirm(`Delete job position "${title}"?\n\nThis action cannot be undone.`)) return;
+
+    const { error } = await window.supabaseClient.from("jobs").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting job: " + error.message);
+      return;
+    }
+    loadJobs();
+  }
+
+  // ======================
+  // BLOGS (publish/unpublish)
+  // ======================
+  async function loadBlogs() {
+    const list = document.getElementById("blogList");
+    list.innerHTML = '<div class="loading">Loading articles...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("articles")
+      .select("*, article_categories(name)")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(list, "Error loading articles", error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="empty"><p>No articles yet. Create your first one!</p></div>';
+      return;
+    }
+
+    list.innerHTML = '<div class="grid grid-2">' + data.map(a => {
+      const title = a.title || "Untitled";
+      const excerpt = a.excerpt || (a.content ? a.content.substring(0, 120) : "");
+      const category = a.article_categories?.name || "Uncategorized";
+      const author = a.author || "Unknown";
+      const readTime = a.read_time || 0;
+
+      return `
+        <div class="card" style="cursor:pointer;transition:transform .2s,box-shadow .2s"
+             onclick="window.location.href='blog-editor.html?id=${a.id}'"
+             onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(225,29,46,0.3)'"
+             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <img src="${a.featured_image_url || 'https://via.placeholder.com/400x250'}"
+               alt="${escapeAttr(title)}"
+               style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:16px">
+          <h3 style="margin:0 0 8px 0;font-size:18px">
+            ${escapeAttr(title)}
+            ${a.is_featured ? '<span class="badge">FEATURED</span>' : ''}
+            ${!a.published ? '<span class="badge badge-muted">UNPUBLISHED</span>' : ''}
+          </h3>
+          <p style="margin:0 0 12px 0;color:#999;font-size:14px">${escapeAttr(excerpt)}...</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666">
+            <span>${escapeAttr(category)}</span>
+            <span>${escapeAttr(author)} • ${readTime} min</span>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-secondary btn-sm" type="button"
+              onclick="event.stopPropagation();window.location.href='blog-editor.html?id=${a.id}'" style="flex:1">Edit</button>
+
+            <button class="btn btn-sm" type="button"
+              onclick="event.stopPropagation();toggleBlogPublish('${a.id}', ${!a.published})" style="flex:1">
+              ${a.published ? 'Unpublish' : 'Publish'}
+            </button>
+
+            <button class="btn-danger btn-sm" type="button"
+              onclick="event.stopPropagation();deleteBlog('${a.id}', '${encText(title)}')" style="flex:1">Delete</button>
+          </div>
+        </div>
+      `;
+    }).join("") + '</div>';
+  }
+
+  function createNewBlog() {
+    window.location.href = "blog-editor.html";
+  }
+
+  async function toggleBlogPublish(id, newStatus) {
+    const { error } = await window.supabaseClient
+      .from("articles")
+      .update({ published: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      alert("Error updating article status: " + error.message);
+      return;
+    }
+    loadBlogs();
+  }
+
+  async function deleteBlog(id, encodedTitle) {
+    const title = decText(encodedTitle);
+    if (!confirm(`Delete article "${title}"?\n\nThis action cannot be undone.`)) return;
+
+    const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting article: " + error.message);
+      return;
+    }
+    loadBlogs();
+  }
+
+  // ======================
+  // IMAGES
+  // ======================
+  async function loadImages() {
+    const gallery = document.getElementById("imageGallery");
+    gallery.innerHTML = '<div class="loading">Loading images...</div>';
+
+    const { data, error } = await window.supabaseClient
+      .from("website_images")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      renderLoadError(gallery, "Error loading images", error);
+      return;
+    }
+
+    allImages = data || [];
+    displayImages(allImages);
+  }
+
+  function displayImages(images) {
+    const gallery = document.getElementById("imageGallery");
+
+    if (!images || images.length === 0) {
+      gallery.innerHTML = '<div class="empty"><p>No images yet. Add your first one!</p></div>';
+      return;
+    }
+
+    gallery.innerHTML =
+      '<div class="grid grid-3">' +
+      images.map(img => `
+        <div class="image-item">
+          <img src="${img.url}" alt="${escapeAttr(img.alt_text || img.name || "")}">
+          <div class="image-info">
+            <h4>${escapeAttr(img.name || "Unnamed")}</h4>
+            <p><span class="badge">${escapeAttr(img.category || "general")}</span></p>
+            <p>${escapeAttr(img.usage_location || "No location")}</p>
+            <div class="image-actions">
+              <button class="btn-secondary btn-sm" type="button" onclick="editImageFromEncoded('${enc(img)}')">Edit</button>
+              <button class="btn-danger btn-sm" type="button" onclick="deleteImage('${img.id}', '${encText(img.name || "")}')">Delete</button>
+            </div>
+          </div>
+        </div>
+      `).join("") +
+      "</div>";
+  }
+
+  function filterImages() {
+    const filter = document.getElementById("imageFilter").value;
+    if (filter === "all") displayImages(allImages);
+    else displayImages(allImages.filter(img => img.category === filter));
+  }
+
+  function editImageFromEncoded(encoded) {
+    editImage(dec(encoded));
+  }
+
+  function openImageModal() {
+    document.getElementById("imageModalTitle").textContent = "Add Image";
+    document.getElementById("imageModal").classList.add("active");
+    document.getElementById("imageId").value = "";
+    document.getElementById("imageUrl").value = "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementById("imageName").value = "";
+    document.getElementById("imageCategory").value = "general";
+    document.getElementById("imageLocation").value = "";
+    document.getElementById("customLocation").value = "";
+    document.getElementById("customLocationGroup").style.display = "none";
+    document.getElementById("imageAlt").value = "";
+    document.getElementById("imageFile").value = "";
+    document.getElementById("currentImagePreview").style.display = "none";
+    document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+    document.getElementById("uploadSection").style.display = "block";
+    document.getElementById("urlSection").style.display = "none";
+    uploadArea.querySelector("p").textContent = "Click to upload or drag and drop";
+  }
+
+  function editImage(image) {
+    document.getElementById("imageModalTitle").textContent = "Edit Image";
+    document.getElementById("imageModal").classList.add("active");
+
+    const imageIdInput = document.getElementById("imageId");
+    imageIdInput.value = image.id;
+
+    document.getElementById("imageUrl").value = image.url || "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementById("imageName").value = image.name || "";
+    document.getElementById("imageCategory").value = image.category || "general";
+    document.getElementById("imageAlt").value = image.alt_text || "";
+    document.getElementById("imageFile").value = "";
+
+    document.querySelector('input[name="imageSource"][value="upload"]').checked = true;
+    document.getElementById("uploadSection").style.display = "block";
+    document.getElementById("urlSection").style.display = "none";
+
+    const usageLocation = image.usage_location || "";
+    const locationSelect = document.getElementById("imageLocation");
+    const validLocations = [
+      "main-logo","partner-logo-1","partner-logo-2","partner-logo-3",
+      "home-hero","home-hero-mobile","home-about","home-join-team","home-why-choose","home-benefits",
+      "about-hero","insights-hero"
+    ];
+
+    if (validLocations.includes(usageLocation)) {
+      locationSelect.value = usageLocation;
+      document.getElementById("customLocationGroup").style.display = "none";
+    } else if (usageLocation) {
+      locationSelect.value = "other";
+      document.getElementById("customLocation").value = usageLocation;
+      document.getElementById("customLocationGroup").style.display = "block";
+    } else {
+      locationSelect.value = "";
+      document.getElementById("customLocationGroup").style.display = "none";
+    }
+
+    if (image.url) {
+      const previewContainer = document.getElementById("currentImagePreview");
+      const previewImg = document.getElementById("previewImg");
+      previewImg.src = image.url;
+      previewContainer.style.display = "block";
+      uploadArea.querySelector("p").textContent = "Current image shown below. Upload new file or enter URL to replace.";
+    }
+  }
+
+  function closeImageModal() {
+    document.getElementById("imageModal").classList.remove("active");
+  }
+
+  // File upload handling
+  const uploadArea = document.getElementById("uploadArea");
+  uploadArea.addEventListener("click", () => document.getElementById("imageFile").click());
+  uploadArea.addEventListener("dragover", (e) => { e.preventDefault(); uploadArea.classList.add("dragover"); });
+  uploadArea.addEventListener("dragleave", () => { uploadArea.classList.remove("dragover"); });
+  uploadArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove("dragover");
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      document.getElementById("imageFile").files = files;
+      handleFileSelect({ target: { files } });
+    }
+  });
+
+  function toggleImageSource() {
+    const source = document.querySelector('input[name="imageSource"]:checked').value;
+    document.getElementById("uploadSection").style.display = source === "upload" ? "block" : "none";
+    document.getElementById("urlSection").style.display = source === "url" ? "block" : "none";
+    if (source === "upload") document.getElementById("imageUrlInput").value = "";
+    if (source === "url") document.getElementById("imageFile").value = "";
+  }
+
+  function handleUrlInput() {
+    const url = document.getElementById("imageUrlInput").value;
+    if (url) {
+      const previewContainer = document.getElementById("currentImagePreview");
+      const previewImg = document.getElementById("previewImg");
+      previewImg.src = url;
+      previewContainer.style.display = "block";
+
+      if (!document.getElementById("imageName").value) {
+        const urlParts = url.split("/");
+        const filename = urlParts[urlParts.length - 1].split("?")[0];
+        document.getElementById("imageName").value = filename.replace(/\.[^/.]+$/, "") || "Image";
+      }
+    }
+  }
+
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+      uploadArea.querySelector("p").textContent = `Selected: ${file.name}`;
+      if (!document.getElementById("imageName").value) {
+        document.getElementById("imageName").value = file.name.replace(/\.[^/.]+$/, "");
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const previewContainer = document.getElementById("currentImagePreview");
+        const previewImg = document.getElementById("previewImg");
+        previewImg.src = event.target.result;
+        previewContainer.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async function saveImage(e) {
+    e.preventDefault();
+
+    const id = document.getElementById("imageId").value;
+    const source = document.querySelector('input[name="imageSource"]:checked').value;
+    const file = document.getElementById("imageFile").files[0];
+    const urlInput = document.getElementById("imageUrlInput").value;
+    let imageUrl = document.getElementById("imageUrl").value;
+
+    let fileName = null;
+    let oldStoragePath = null;
+    let oldUsageLocation = null;
+
+    // Read old record for cleanup (if editing)
+    if (id) {
+      const { data: existingImage } = await window.supabaseClient
+        .from("website_images")
+        .select("storage_path, usage_location")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (existingImage) {
+        oldStoragePath = existingImage.storage_path;
+        oldUsageLocation = existingImage.usage_location;
+      }
+    }
+
+    // URL mode
+    if (source === "url" && urlInput) {
+      imageUrl = urlInput;
+      fileName = null;
+
+      if (id && oldStoragePath) {
+        await window.supabaseClient.storage.from("website-images").remove([oldStoragePath]);
+      }
+    }
+
+    // Upload mode
+    if (source === "upload" && file) {
+      const fileExt = file.name.split(".").pop();
+      fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+      const { error: uploadError } = await window.supabaseClient.storage
+        .from("website-images")
+        .upload(fileName, file);
+
+      if (uploadError) {
+        alert("Error uploading file: " + uploadError.message);
+        return;
+      }
+
+      const { data: urlData } = window.supabaseClient.storage
+        .from("website-images")
+        .getPublicUrl(fileName);
+
+      imageUrl = urlData.publicUrl;
+
+      if (id && oldStoragePath) {
+        await window.supabaseClient.storage.from("website-images").remove([oldStoragePath]);
+      }
+    }
+
+    if (!imageUrl && !id) {
+      alert("Please upload an image file or enter an image URL");
+      return;
+    }
+
+    const selectedLocation = document.getElementById("imageLocation").value;
+    const usageLocation = selectedLocation === "other"
+      ? document.getElementById("customLocation").value
+      : selectedLocation;
+
+    if (!usageLocation) {
+      alert("Please select a usage location");
+      return;
+    }
+
+    const payload = {
+      name: document.getElementById("imageName").value,
+      category: document.getElementById("imageCategory").value,
+      usage_location: usageLocation,
+      alt_text: document.getElementById("imageAlt").value,
+    };
+
+    if (file || urlInput) {
+      payload.url = imageUrl;
+      payload.storage_path = fileName; // null for URL mode
+    }
+
+    let result;
+    if (id) result = await window.supabaseClient.from("website_images").update(payload).eq("id", id);
+    else {
+      payload.url = imageUrl;
+      payload.storage_path = fileName;
+      result = await window.supabaseClient.from("website_images").insert([payload]);
+    }
+
+    if (result.error) {
+      alert("Error saving image: " + result.error.message);
+      return;
+    }
+
+    // clear caches (add your keys here)
+    const cacheMap = {
+      "home-hero": "home-hero-image",
+      "home-hero-mobile": "home-hero-image-mobile",
+      "home-about": "home-about-image",
+      "home-join-team": "home-join-team-image",
+      "home-why-choose": "home-why-choose-image",
+      "home-benefits": "home-benefits-image",
+      "about-hero": "about-hero-image",
+      "insights-hero": "insights-hero-image",
+    };
+
+    const clearCache = (loc) => {
+      const key = cacheMap[loc];
+      if (key) localStorage.removeItem(key);
+    };
+
+    clearCache(payload.usage_location);
+    if (id && oldUsageLocation && oldUsageLocation !== payload.usage_location) {
+      clearCache(oldUsageLocation);
+    }
+
+    closeImageModal();
+    loadImages();
+  }
+
+  async function deleteImage(id, encodedName) {
+    const name = decText(encodedName);
+    if (!confirm(`Delete image "${name}"?`)) return;
+
+    const { data: imageData, error: readError } = await window.supabaseClient
+      .from("website_images")
+      .select("usage_location, storage_path")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (readError) {
+      alert("Error reading image: " + readError.message);
+      return;
+    }
+
+    if (imageData?.storage_path) {
+      await window.supabaseClient.storage.from("website-images").remove([imageData.storage_path]);
+    }
+
+    const { error } = await window.supabaseClient.from("website_images").delete().eq("id", id);
+
+    if (error) {
+      alert("Error deleting image: " + error.message);
+      return;
+    }
+
+    // clear cache
+    const cacheMap = {
+      "home-hero": "home-hero-image",
+      "home-hero-mobile": "home-hero-image-mobile",
+      "home-about": "home-about-image",
+      "home-join-team": "home-join-team-image",
+      "home-why-choose": "home-why-choose-image",
+      "home-benefits": "home-benefits-image",
+      "about-hero": "about-hero-image",
+      "insights-hero": "insights-hero-image",
+    };
+    const key = cacheMap[imageData?.usage_location];
+    if (key) localStorage.removeItem(key);
+
+    loadImages();
+  }
+
+  document.getElementById("imageLocation").addEventListener("change", (e) => {
+    document.getElementById("customLocationGroup").style.display = e.target.value === "other" ? "block" : "none";
+  });
+</script>
+
+</body>
+</html>

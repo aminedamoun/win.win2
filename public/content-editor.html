@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Management - Win Win Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabaseClient.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h1 class="text-4xl font-bold">Website Content Management</h1>
+          <p id="authStatus" class="text-sm mt-2"></p>
+        </div>
+        <button onclick="window.location.href='/admin.html'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium">
+          ← Back to Admin
+        </button>
+      </div>
+      <p class="text-gray-400">Edit website text content page by page and section by section</p>
+      <div class="mt-3 bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+        <p class="text-blue-300 text-sm">
+          <strong>Note:</strong> After saving changes, refresh the main website (Ctrl+F5 or Cmd+Shift+R) to see your updates.
+        </p>
+      </div>
+    </div>
+
+    <div class="mb-6 flex gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-2">Select Page</label>
+        <select id="pageSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white">
+          <option value="">-- Select Page --</option>
+          <option value="home">Home</option>
+          <option value="about">About</option>
+          <option value="jobs">Jobs</option>
+          <option value="insights">Insights</option>
+          <option value="apply">Apply</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Select Language</label>
+        <select id="languageSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white">
+          <option value="en">English</option>
+          <option value="sl">Slovenian</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button id="loadContent" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium">
+          Load Content
+        </button>
+      </div>
+    </div>
+
+    <div id="contentContainer" class="space-y-4 hidden">
+      <div class="bg-gray-800 rounded-lg p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold" id="pageTitle">Content Sections</h2>
+          <button id="saveAll" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium">
+            Save All Changes
+          </button>
+        </div>
+        <div id="sectionsContainer" class="space-y-4">
+        </div>
+      </div>
+    </div>
+
+    <div id="loading" class="text-center py-12 hidden">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+      <p class="mt-4 text-gray-400">Loading content...</p>
+    </div>
+
+    <div id="message" class="fixed bottom-4 right-4 hidden"></div>
+  </div>
+
+  <script>
+    // Use the shared Supabase client
+    const supabaseClient = window.supabaseClient;
+
+    const pageSelect = document.getElementById('pageSelect');
+    const languageSelect = document.getElementById('languageSelect');
+    const loadContent = document.getElementById('loadContent');
+    const contentContainer = document.getElementById('contentContainer');
+    const sectionsContainer = document.getElementById('sectionsContainer');
+    const pageTitle = document.getElementById('pageTitle');
+    const saveAll = document.getElementById('saveAll');
+    const loading = document.getElementById('loading');
+    const message = document.getElementById('message');
+    const authStatus = document.getElementById('authStatus');
+
+    let currentSections = {};
+    let originalTranslations = {};
+
+    function showMessage(text, type = 'success') {
+      message.textContent = text;
+      message.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg font-medium ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      } text-white`;
+      message.classList.remove('hidden');
+      setTimeout(() => message.classList.add('hidden'), 3000);
+    }
+
+    function flattenObject(obj, prefix = '') {
+      const result = {};
+      for (const key in obj) {
+        const newKey = prefix ? `${prefix}.${key}` : key;
+        if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+          Object.assign(result, flattenObject(obj[key], newKey));
+        } else {
+          result[newKey] = obj[key];
+        }
+      }
+      return result;
+    }
+
+    async function loadTranslations(page, language) {
+      try {
+        const path = `/locales-${language}.json`;
+        console.log('Fetching translations from:', path);
+        const response = await fetch(path);
+
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+          throw new Error(`Failed to load translations from ${path} - Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(`Loaded translations from ${path}`);
+        console.log('Available pages in translation:', Object.keys(data));
+        console.log('Requested page:', page);
+        console.log('Page data exists:', page in data);
+
+        if (!data[page]) {
+          console.warn(`Page "${page}" not found in translations`);
+          return {};
+        }
+
+        return data[page];
+      } catch (error) {
+        console.error('Error loading translations:', error);
+        showMessage(`Error loading translations: ${error.message}`, 'error');
+        return {};
+      }
+    }
+
+    async function loadDatabaseContent(page, language) {
+      const { data, error } = await supabaseClient
+        .from('website_content')
+        .select('*')
+        .eq('page', page)
+        .eq('language', language);
+
+      if (error) {
+        console.error('Error loading database content:', error);
+        return {};
+      }
+
+      const result = {};
+      data.forEach(item => {
+        result[item.section] = item.content;
+      });
+      return result;
+    }
+
+    loadContent.addEventListener('click', async () => {
+      const page = pageSelect.value;
+      const language = languageSelect.value;
+
+      if (!page) {
+        showMessage('Please select a page', 'error');
+        return;
+      }
+
+      console.log('Loading content for:', page, language);
+
+      loading.classList.remove('hidden');
+      contentContainer.classList.add('hidden');
+
+      try {
+        originalTranslations = await loadTranslations(page, language);
+        console.log('Original translations loaded:', Object.keys(originalTranslations).length, 'top-level keys');
+
+        const dbContent = await loadDatabaseContent(page, language);
+        console.log('Database content loaded:', Object.keys(dbContent).length, 'entries');
+
+        const flattened = flattenObject(originalTranslations);
+        console.log('Flattened sections:', Object.keys(flattened).length, 'keys');
+
+        currentSections = {};
+
+        for (const key in flattened) {
+          currentSections[key] = dbContent[key] || flattened[key];
+        }
+
+        if (Object.keys(currentSections).length === 0) {
+          showMessage('No content sections found for this page', 'error');
+          loading.classList.add('hidden');
+          return;
+        }
+
+        renderSections(page, language);
+
+        loading.classList.add('hidden');
+        contentContainer.classList.remove('hidden');
+
+        showMessage(`Loaded ${Object.keys(currentSections).length} content sections`, 'success');
+      } catch (error) {
+        console.error('Error in loadContent:', error);
+        showMessage('Error loading content: ' + error.message, 'error');
+        loading.classList.add('hidden');
+      }
+    });
+
+    function renderSections(page, language) {
+      pageTitle.textContent = `${page.charAt(0).toUpperCase() + page.slice(1)} - ${language.toUpperCase()}`;
+      sectionsContainer.innerHTML = '';
+
+      const sortedKeys = Object.keys(currentSections).sort();
+
+      sortedKeys.forEach(key => {
+        const value = currentSections[key];
+        const isLongText = typeof value === 'string' && value.length > 100;
+
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'bg-gray-700 rounded-lg p-4';
+
+        const label = document.createElement('label');
+        label.className = 'block text-sm font-medium mb-2 text-gray-300';
+        label.textContent = key;
+
+        let input;
+        if (isLongText) {
+          input = document.createElement('textarea');
+          input.rows = 4;
+          input.className = 'w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white';
+        } else {
+          input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white';
+        }
+
+        input.value = Array.isArray(value) ? JSON.stringify(value) : String(value);
+        input.dataset.section = key;
+
+        sectionDiv.appendChild(label);
+        sectionDiv.appendChild(input);
+        sectionsContainer.appendChild(sectionDiv);
+      });
+    }
+
+    saveAll.addEventListener('click', async () => {
+      const page = pageSelect.value;
+      const language = languageSelect.value;
+
+      if (!page || !language) {
+        showMessage('Please select page and language', 'error');
+        return;
+      }
+
+      loading.classList.remove('hidden');
+
+      const inputs = sectionsContainer.querySelectorAll('input, textarea');
+      const updates = [];
+
+      for (const input of inputs) {
+        const section = input.dataset.section;
+        const content = input.value;
+
+        updates.push({
+          page,
+          section,
+          language,
+          content
+        });
+      }
+
+      try {
+        console.log('Attempting to save updates:', updates);
+
+        const { data, error } = await supabaseClient
+          .from('website_content')
+          .upsert(updates, { onConflict: 'page,section,language' });
+
+        console.log('Save response:', { data, error });
+
+        if (error) {
+          console.error('Database error details:', error);
+          throw error;
+        }
+
+        showMessage('✓ Changes saved! Refresh the main website to see updates.', 'success');
+      } catch (error) {
+        console.error('Error saving:', error);
+        const errorMsg = error?.message || error?.error_description || 'Unknown error';
+        showMessage('Error saving: ' + errorMsg, 'error');
+      } finally {
+        loading.classList.add('hidden');
+      }
+    });
+
+    async function checkAuth() {
+      try {
+        // Check session
+        const session = await supabaseClient.auth.getSession();
+        console.log('Session check:', session.data.session ? 'Has session' : 'No session');
+
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+          console.warn('No user authenticated');
+          console.warn('Auth error:', userError);
+          authStatus.innerHTML = '<span class="text-red-400">🔒 Not logged in - <a href="/login.html" class="underline hover:text-red-300">Login here</a></span>';
+          showMessage('Not logged in - Go to /login.html first', 'error');
+          saveAll.disabled = true;
+          saveAll.classList.add('opacity-50', 'cursor-not-allowed');
+          return;
+        }
+
+        console.log('✓ User authenticated:', user.email);
+        console.log('  User ID:', user.id);
+        console.log('  app_metadata:', user.app_metadata);
+        console.log('  user_metadata:', user.user_metadata);
+
+        const isAdmin = user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin';
+
+        if (!isAdmin) {
+          console.warn('✗ User is not admin');
+          authStatus.innerHTML = `<span class="text-yellow-400">⚠️ Logged in: ${user.email} (Not Admin - no save access)</span>`;
+          showMessage('Not admin - Contact administrator for access', 'error');
+          saveAll.disabled = true;
+          saveAll.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          console.log('✓ Admin access granted');
+          authStatus.innerHTML = `<span class="text-green-400">✓ Logged in as Admin: ${user.email}</span>`;
+          setTimeout(() => showMessage('Admin access verified', 'success'), 500);
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        authStatus.innerHTML = '<span class="text-red-400">❌ Auth check failed</span>';
+        showMessage('Auth check failed - viewing mode only', 'error');
+        saveAll.disabled = true;
+        saveAll.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    checkAuth();
+  </script>
+</body>
+</html>
