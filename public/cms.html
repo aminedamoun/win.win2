@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Management - Win Win</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-900 text-white">
+  <div id="app">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center">
+      <div class="bg-gray-800 p-8 rounded-lg shadow-xl w-96">
+        <h1 class="text-2xl font-bold mb-6">Content Management Login</h1>
+        <input type="email" id="emailInput" placeholder="Email" class="w-full px-4 py-2 bg-gray-700 rounded mb-3">
+        <input type="password" id="passwordInput" placeholder="Password" class="w-full px-4 py-2 bg-gray-700 rounded mb-4">
+        <button id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold">Login</button>
+        <div id="loginError" class="mt-3 text-red-400 text-sm hidden"></div>
+      </div>
+    </div>
+
+    <!-- Main CMS Screen -->
+    <div id="cmsScreen" class="hidden">
+      <!-- Header -->
+      <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <h1 class="text-2xl font-bold">Content Management</h1>
+          <div class="flex items-center gap-4">
+            <select id="langSelect" class="bg-gray-700 px-4 py-2 rounded">
+              <option value="en">English</option>
+              <option value="sl">Slovenian</option>
+            </select>
+            <button id="saveBtn" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded font-semibold">Save Changes</button>
+            <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Loading -->
+      <div id="loading" class="flex items-center justify-center h-64 hidden">
+        <div class="text-xl">Loading...</div>
+      </div>
+
+      <!-- Content Editor -->
+      <div id="contentArea" class="max-w-7xl mx-auto px-6 py-8 hidden">
+        <div class="mb-4 p-4 bg-blue-900 rounded" id="saveMessage" style="display: none;"></div>
+
+        <div id="editorContainer" class="space-y-6"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://uqkpdvugzqcdbzxnbzue.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxa3BkdnVnenFjZGJ6eG5ienVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4ODMyNTgsImV4cCI6MjA1MDQ1OTI1OH0.K0_QAmBOAKIAhMhfcITd1KIq2Tnr4Qc-D1HoJtgKYK8'
+    );
+
+    let currentLang = 'en';
+    let contentData = {};
+
+    // Check if already logged in
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      showCMS();
+    }
+
+    // Login
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value;
+      const password = document.getElementById('passwordInput').value;
+      const errorEl = document.getElementById('loginError');
+
+      try {
+        const { data, error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        showCMS();
+      } catch (error) {
+        errorEl.textContent = error.message;
+        errorEl.classList.remove('hidden');
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      location.reload();
+    });
+
+    // Language switch
+    document.getElementById('langSelect').addEventListener('change', async (e) => {
+      currentLang = e.target.value;
+      await loadContent();
+    });
+
+    // Save
+    document.getElementById('saveBtn').addEventListener('click', saveContent);
+
+    async function showCMS() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('cmsScreen').classList.remove('hidden');
+      await loadContent();
+    }
+
+    async function loadContent() {
+      const loading = document.getElementById('loading');
+      const contentArea = document.getElementById('contentArea');
+
+      loading.classList.remove('hidden');
+      contentArea.classList.add('hidden');
+
+      try {
+        const { data, error } = await sb
+          .from('site_locales')
+          .select('content')
+          .eq('lang', currentLang)
+          .single();
+
+        if (error) throw error;
+
+        contentData = data.content;
+        renderEditor(contentData);
+
+        loading.classList.add('hidden');
+        contentArea.classList.remove('hidden');
+      } catch (error) {
+        alert('Error loading content: ' + error.message);
+        loading.classList.add('hidden');
+      }
+    }
+
+    function renderEditor(data, path = '', container = null) {
+      if (!container) {
+        container = document.getElementById('editorContainer');
+        container.innerHTML = '';
+      }
+
+      // Sort keys for better organization
+      const sortedKeys = Object.keys(data).sort();
+
+      for (const key of sortedKeys) {
+        const value = data[key];
+        const currentPath = path ? `${path}.${key}` : key;
+
+        if (typeof value === 'string') {
+          // Create text input/textarea
+          const fieldDiv = document.createElement('div');
+          fieldDiv.className = 'bg-gray-800 p-4 rounded';
+
+          const label = document.createElement('label');
+          label.className = 'block text-sm font-semibold text-gray-400 mb-2';
+          label.textContent = currentPath;
+
+          let input;
+          if (value.length > 100) {
+            input = document.createElement('textarea');
+            input.rows = 6;
+            input.className = 'w-full px-3 py-2 bg-gray-700 rounded text-white font-mono text-sm';
+          } else {
+            input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'w-full px-3 py-2 bg-gray-700 rounded text-white';
+          }
+
+          input.value = value;
+          input.dataset.path = currentPath;
+
+          fieldDiv.appendChild(label);
+          fieldDiv.appendChild(input);
+          container.appendChild(fieldDiv);
+
+        } else if (typeof value === 'object' && value !== null) {
+          // Create section
+          const section = document.createElement('div');
+          section.className = 'border border-gray-700 rounded-lg p-4 mb-4';
+
+          const heading = document.createElement('h2');
+          heading.className = 'text-xl font-bold mb-4 text-blue-400';
+          heading.textContent = currentPath || 'Root';
+
+          section.appendChild(heading);
+          container.appendChild(section);
+
+          renderEditor(value, currentPath, section);
+        }
+      }
+    }
+
+    async function saveContent() {
+      const saveBtn = document.getElementById('saveBtn');
+      const saveMessage = document.getElementById('saveMessage');
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving...';
+
+      try {
+        // Collect all input values
+        const inputs = document.querySelectorAll('input[data-path], textarea[data-path]');
+
+        inputs.forEach(input => {
+          const path = input.dataset.path;
+          const keys = path.split('.');
+
+          let current = contentData;
+          for (let i = 0; i < keys.length - 1; i++) {
+            current = current[keys[i]];
+          }
+
+          current[keys[keys.length - 1]] = input.value;
+        });
+
+        // Save to database
+        const { error } = await sb
+          .from('site_locales')
+          .update({
+            content: contentData,
+            updated_at: new Date().toISOString()
+          })
+          .eq('lang', currentLang);
+
+        if (error) throw error;
+
+        saveMessage.textContent = '✓ Changes saved successfully!';
+        saveMessage.className = 'mb-4 p-4 bg-green-900 text-green-200 rounded';
+        saveMessage.style.display = 'block';
+
+        setTimeout(() => {
+          saveMessage.style.display = 'none';
+        }, 3000);
+
+      } catch (error) {
+        saveMessage.textContent = '✗ Error: ' + error.message;
+        saveMessage.className = 'mb-4 p-4 bg-red-900 text-red-200 rounded';
+        saveMessage.style.display = 'block';
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Changes';
+      }
+    }
+
+    // Allow Enter key on password field
+    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('loginBtn').click();
+      }
+    });
+  </script>
+</body>
+</html>
