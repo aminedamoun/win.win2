@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Translations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Translation Debug Tool</h1>
+
+    <div class="mb-4">
+      <button id="loadEn" class="bg-blue-500 px-4 py-2 rounded mr-2">Load English</button>
+      <button id="loadSl" class="bg-green-500 px-4 py-2 rounded">Load Slovenian</button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <h2 class="text-xl font-bold mb-2">Current Structure in site_locales</h2>
+        <pre id="output" class="bg-gray-800 p-4 rounded text-sm overflow-auto max-h-screen"></pre>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-2">Test Values</h2>
+        <div id="testValues" class="bg-gray-800 p-4 rounded"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabaseUrl = 'https://uqkpdvugzqcdbzxnbzue.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxa3BkdnVnenFjZGJ6eG5ienVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4ODMyNTgsImV4cCI6MjA1MDQ1OTI1OH0.K0_QAmBOAKIAhMhfcITd1KIq2Tnr4Qc-D1HoJtgKYK8';
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    async function loadLanguage(lang) {
+      const output = document.getElementById('output');
+      const testValues = document.getElementById('testValues');
+
+      output.textContent = 'Loading...';
+      testValues.innerHTML = 'Loading...';
+
+      try {
+        const { data, error } = await supabase
+          .from('site_locales')
+          .select('lang, content, updated_at')
+          .eq('lang', lang)
+          .single();
+
+        if (error) throw error;
+
+        output.textContent = JSON.stringify(data, null, 2);
+
+        // Test specific values
+        const content = data.content;
+        testValues.innerHTML = `
+          <div class="space-y-2">
+            <div><strong>Language:</strong> ${data.lang}</div>
+            <div><strong>Updated:</strong> ${new Date(data.updated_at).toLocaleString()}</div>
+            <div class="mt-4"><strong>Test Values:</strong></div>
+            <div class="ml-4">
+              <div>home.faq.title: <span class="text-yellow-400">${content?.home?.faq?.title || 'NOT FOUND'}</span></div>
+              <div>home.hero.title: <span class="text-yellow-400">${content?.home?.hero?.title || 'NOT FOUND'}</span></div>
+              <div>home.hero.description: <span class="text-yellow-400">${content?.home?.hero?.description?.substring(0, 100) || 'NOT FOUND'}...</span></div>
+              <div>home.benefits.title: <span class="text-yellow-400">${content?.home?.benefits?.title || 'NOT FOUND'}</span></div>
+            </div>
+            <div class="mt-4"><strong>Top Level Keys:</strong></div>
+            <div class="ml-4 text-sm text-gray-400">${Object.keys(content || {}).join(', ')}</div>
+          </div>
+        `;
+      } catch (error) {
+        output.textContent = 'Error: ' + error.message;
+        testValues.innerHTML = '<div class="text-red-400">Error: ' + error.message + '</div>';
+      }
+    }
+
+    document.getElementById('loadEn').addEventListener('click', () => loadLanguage('en'));
+    document.getElementById('loadSl').addEventListener('click', () => loadLanguage('sl'));
+
+    // Load English by default
+    loadLanguage('en');
+  </script>
+</body>
+</html>

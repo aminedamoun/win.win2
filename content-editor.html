@@ -298,9 +298,11 @@
         }
 
         // Rebuild and update site_locales for real-time updates
+        console.log('Rebuilding site_locales for language:', language);
         await rebuildSiteLocales(language);
+        console.log('Rebuild complete!');
 
-        showMessage('✓ Changes saved and published!', 'success');
+        showMessage('✓ Changes saved! Check your main website now (open in new tab).', 'success');
       } catch (error) {
         console.error('Error saving:', error);
         const errorMsg = error?.message || error?.error_description || 'Unknown error';
@@ -338,6 +340,15 @@
           // Set the final value
           const lastKey = keys[keys.length - 1];
           current[lastKey] = item.content;
+        });
+
+        // Log the structure being saved
+        console.log('Built structure for', language, ':', {
+          topLevelKeys: Object.keys(localeData),
+          sampleData: localeData.home ? {
+            'home.faq.title': localeData.home?.faq?.title,
+            'home.hero.title': localeData.home?.hero?.title
+          } : 'No home key'
         });
 
         // Update site_locales table
