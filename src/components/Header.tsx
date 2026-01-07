@@ -25,7 +25,7 @@ export default function Header() {
   useEffect(() => {
     checkAuth();
     fetchLogo();
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAuthenticated(!!session);
     });
 
@@ -53,11 +53,6 @@ export default function Header() {
   const checkAuth = async () => {
     const { data } = await supabase.auth.getSession();
     setIsAuthenticated(!!data.session);
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setIsAuthenticated(false);
   };
 
   const handleAdminClick = () => {

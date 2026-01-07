@@ -1,4 +1,4 @@
-import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, CheckCircle2, Smartphone, Download, Phone, Wifi, MessageSquare, UserCheck, GraduationCap, LineChart, Settings, Building2, Home as HomeIcon, HelpCircle, ChevronDown, BookOpen, ShoppingBag } from 'lucide-react';
+import { TrendingUp, Users, Award, MapPin, Target, Briefcase, ArrowRight, Smartphone, Download, Phone, UserCheck, GraduationCap, LineChart, Settings, Building2, HelpCircle, ChevronDown, BookOpen, ShoppingBag } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,19 +24,17 @@ export default function Home() {
   const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
   const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
   const [heroMobileImageUrl, setHeroMobileImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
   const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920');
   const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  const [whyChooseImageUrl, setWhyChooseImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7).png?auto=compress&cs=tinysrgb&w=800');
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
   const [partnerLogo1, setPartnerLogo1] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80');
   const [partnerLogo2, setPartnerLogo2] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80');
   const [partnerLogo3, setPartnerLogo3] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80');
-  const [mainLogo, setMainLogo] = useState('/logo2.png');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -50,12 +48,10 @@ export default function Home() {
             'home-hero-mobile',
             'home-about',
             'home-join-team',
-            'home-why-choose',
             'home-benefits',
             'partner-logo-1',
             'partner-logo-2',
-            'partner-logo-3',
-            'main-logo'
+            'partner-logo-3'
           ]);
 
         if (images) {
@@ -68,8 +64,6 @@ export default function Home() {
               setAboutSectionImageUrl(img.url);
             } else if (img.usage_location === 'home-join-team') {
               setJoinTeamImageUrl(img.url);
-            } else if (img.usage_location === 'home-why-choose') {
-              setWhyChooseImageUrl(img.url);
             } else if (img.usage_location === 'home-benefits') {
               setBenefitsImageUrl(img.url);
             } else if (img.usage_location === 'partner-logo-1') {
@@ -78,8 +72,6 @@ export default function Home() {
               setPartnerLogo2(img.url);
             } else if (img.usage_location === 'partner-logo-3') {
               setPartnerLogo3(img.url);
-            } else if (img.usage_location === 'main-logo') {
-              setMainLogo(img.url);
             }
           });
         }

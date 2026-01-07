@@ -18,11 +18,9 @@ export default function FeaturedArticle({
   title,
   excerpt,
   category,
-  categorySlug,
   featuredImageUrl,
   readTime,
   publishedAt,
-  author,
 }: FeaturedArticleProps) {
   const { navigate } = useRouter();
 

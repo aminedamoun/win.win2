@@ -18,11 +18,9 @@ export default function ArticleCard({
   title,
   excerpt,
   category,
-  categorySlug,
   featuredImageUrl,
   readTime,
   publishedAt,
-  author,
 }: ArticleCardProps) {
   const { navigate } = useRouter();
 

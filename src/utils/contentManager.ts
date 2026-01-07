@@ -1,13 +1,6 @@
 import { supabase } from './supabase';
 import i18n from '../i18n';
 
-interface ContentOverride {
-  page: string;
-  section: string;
-  language: string;
-  content: string;
-}
-
 const contentCache = new Map<string, Map<string, string>>();
 
 export async function loadPageContent(page: string, language: string): Promise<Map<string, string>> {
@@ -30,7 +23,7 @@ export async function loadPageContent(page: string, language: string): Promise<M
     }
 
     const contentMap = new Map<string, string>();
-    data?.forEach((item: ContentOverride) => {
+    data?.forEach((item) => {
       contentMap.set(item.section, item.content);
     });
 

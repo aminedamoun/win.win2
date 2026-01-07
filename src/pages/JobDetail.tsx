@@ -14,7 +14,7 @@ export default function JobDetail() {
   const [jobData, setJobData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     if (jobId) {
@@ -213,7 +213,7 @@ export default function JobDetail() {
               <div className="glass-card p-8">
                 <h2 className="text-3xl font-bold mb-6">{t('jobs.responsibilities')}</h2>
                 <ul className="space-y-4">
-                  {responsibilities.map((item, index) => (
+                  {responsibilities.map((item: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">{item}</span>
@@ -227,7 +227,7 @@ export default function JobDetail() {
               <div className="glass-card p-8">
                 <h2 className="text-3xl font-bold mb-6">{t('jobs.whatWeOffer')}</h2>
                 <ul className="space-y-4">
-                  {whatWeOffer.map((item, index) => (
+                  {whatWeOffer.map((item: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">{item}</span>
@@ -241,7 +241,7 @@ export default function JobDetail() {
               <div className="glass-card p-8">
                 <h2 className="text-3xl font-bold mb-6">{t('jobs.requirements')}</h2>
                 <ul className="space-y-4">
-                  {requirements.map((item, index) => (
+                  {requirements.map((item: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="text-red-500 flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">{item}</span>

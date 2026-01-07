@@ -37,7 +37,7 @@ export default function Apply() {
         const fileName = `${Date.now()}_${formData.firstName}_${formData.lastName}.${fileExt}`;
         const filePath = `${fileName}`;
 
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from('resumes')
           .upload(filePath, resumeFile, {
             cacheControl: '3600',

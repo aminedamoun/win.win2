@@ -12,7 +12,7 @@ export default function Jobs() {
   const { navigate } = useRouter();
   const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -82,7 +82,7 @@ export default function Jobs() {
     }
   };
 
-  const getJobIcon = (type: string) => {
+  const getJobIcon = () => {
     return <Briefcase className="text-gray-400" size={24} />;
   };
 
@@ -147,7 +147,7 @@ export default function Jobs() {
                     <div className="flex-1">
                       <div className="flex items-start gap-4 mb-4">
                         <div className="w-12 h-12 bg-gray-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gray-500/20 transition-colors">
-                          {getJobIcon(job.type)}
+                          {getJobIcon()}
                         </div>
                         <div>
                           <h3 className="text-2xl font-bold mb-2 transition-colors">
