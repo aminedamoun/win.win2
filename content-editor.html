@@ -54,6 +54,9 @@
         <button id="syncAll" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium">
           Sync All Languages
         </button>
+        <button id="forceRebuild" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium">
+          Force Rebuild (Server)
+        </button>
       </div>
     </div>
 
@@ -317,10 +320,12 @@
 
         if (fetchError) throw fetchError;
 
-        // Build nested JSON structure
+        // Build nested JSON structure with page as top level
         const localeData = {};
         allContent.forEach(item => {
-          const keys = item.section.split('.');
+          // Include the page in the path: page.section.subsection...
+          const fullPath = `${item.page}.${item.section}`;
+          const keys = fullPath.split('.');
           let current = localeData;
 
           // Navigate/create nested structure
@@ -368,6 +373,39 @@
       } catch (error) {
         console.error('Error syncing:', error);
         showMessage('Error syncing: ' + error.message, 'error');
+      } finally {
+        loading.classList.add('hidden');
+      }
+    });
+
+    // Force rebuild button (calls edge function)
+    document.getElementById('forceRebuild').addEventListener('click', async () => {
+      if (!confirm('This will force rebuild all translations using the server. Continue?')) {
+        return;
+      }
+
+      loading.classList.remove('hidden');
+
+      try {
+        const response = await fetch(`${supabaseUrl}/functions/v1/rebuild-locales`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || 'Failed to rebuild');
+        }
+
+        console.log('Rebuild result:', result);
+        showMessage('✓ All translations rebuilt successfully!', 'success');
+      } catch (error) {
+        console.error('Error rebuilding:', error);
+        showMessage('Error rebuilding: ' + error.message, 'error');
       } finally {
         loading.classList.add('hidden');
       }

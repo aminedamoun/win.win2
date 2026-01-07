@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rebuild Locales</title>
+</head>
+<body>
+  <h1>Rebuilding site_locales...</h1>
+  <pre id="output"></pre>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabaseUrl = 'https://uqkpdvugzqcdbzxnbzue.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxa3BkdnVnenFjZGJ6eG5ienVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4ODMyNTgsImV4cCI6MjA1MDQ1OTI1OH0.K0_QAmBOAKIAhMhfcITd1KIq2Tnr4Qc-D1HoJtgKYK8';
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const output = document.getElementById('output');
+
+    async function rebuildSiteLocales(language) {
+      output.textContent += `\nRebuilding ${language}...\n`;
+
+      const { data: allContent, error: fetchError } = await supabase
+        .from('website_content')
+        .select('page, section, content')
+        .eq('language', language);
+
+      if (fetchError) throw fetchError;
+
+      output.textContent += `Found ${allContent.length} content items\n`;
+
+      // Build nested JSON structure with page as top level
+      const localeData = {};
+      allContent.forEach(item => {
+        const fullPath = `${item.page}.${item.section}`;
+        const keys = fullPath.split('.');
+        let current = localeData;
+
+        for (let i = 0; i < keys.length - 1; i++) {
+          const key = keys[i];
+          if (!current[key]) current[key] = {};
+          current = current[key];
+        }
+
+        const lastKey = keys[keys.length - 1];
+        current[lastKey] = item.content;
+      });
+
+      output.textContent += `Built structure with pages: ${Object.keys(localeData).join(', ')}\n`;
+
+      const { error: upsertError } = await supabase
+        .from('site_locales')
+        .upsert({
+          lang: language,
+          content: localeData,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'lang' });
+
+      if (upsertError) throw upsertError;
+
+      output.textContent += `✓ site_locales updated for ${language}\n`;
+    }
+
+    async function main() {
+      try {
+        await rebuildSiteLocales('en');
+        await rebuildSiteLocales('sl');
+        output.textContent += `\n✅ ALL DONE! Close this page and check your website.\n`;
+      } catch (error) {
+        output.textContent += `\n❌ ERROR: ${error.message}\n`;
+        console.error(error);
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>
