@@ -150,9 +150,11 @@ export default function About() {
               <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Target className="text-red-500" size={28} />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('about.vision.title')}</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
+                <span dangerouslySetInnerHTML={{ __html: t('about.vision.title') }} />
+              </h2>
               <p className="text-gray-300 text-lg leading-relaxed">
-                {t('about.vision.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('about.vision.description') }} />
               </p>
             </div>
 
@@ -160,9 +162,11 @@ export default function About() {
               <div className="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
                 <Heart className="text-red-500" size={28} />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('about.mission.title')}</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
+                <span dangerouslySetInnerHTML={{ __html: t('about.mission.title') }} />
+              </h2>
               <p className="text-gray-300 text-lg leading-relaxed">
-                {t('about.mission.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('about.mission.description') }} />
               </p>
             </div>
           </div>

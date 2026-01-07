@@ -309,12 +309,12 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-12">
             <div className="glass-card p-6 sm:p-8 backdrop-blur-xl bg-black/40 border-white/20">
               <h1 className="text-3xl sm:text-4xl font-bold mb-4 animate-fade-in-up leading-tight text-center">
-                {t('home.hero.title')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.title') }} />
                 <br />
-                {t('home.hero.subtitle')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.subtitle') }} />
               </h1>
               <p className="text-base sm:text-lg text-gray-200 mb-6 animate-fade-in-up leading-relaxed text-center" style={{ animationDelay: '0.2s' }}>
-                {t('home.hero.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.description') }} />
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
@@ -354,12 +354,12 @@ export default function Home() {
           <div className="relative h-full flex items-center justify-end">
             <div className="px-16 xl:px-24 max-w-3xl">
               <h1 className="text-5xl xl:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
-                {t('home.hero.title')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.title') }} />
                 <br />
-                {t('home.hero.subtitle')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.subtitle') }} />
               </h1>
               <p className="text-xl xl:text-2xl text-gray-200 mb-10 animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
-                {t('home.hero.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.hero.description') }} />
               </p>
               <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 <button
@@ -438,10 +438,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                {t('home.about.title')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.about.title') }} />
               </h2>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                {t('home.about.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.about.description') }} />
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, index) => (
@@ -486,10 +486,10 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              {t('home.services.title')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.services.title') }} />
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              {t('home.services.description')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.services.description') }} />
             </p>
           </div>
 
@@ -497,7 +497,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.b2cField')}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                  <span dangerouslySetInnerHTML={{ __html: t('home.services.b2cField') }} />
+                </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {coreServices.map((service, index) => (
@@ -519,7 +521,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.internalSupport')}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                  <span dangerouslySetInnerHTML={{ __html: t('home.services.internalSupport') }} />
+                </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {supportServices.map((service, index) => (
@@ -541,7 +545,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-1 bg-gray-500 rounded-full" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">{t('home.services.marketFocus')}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                  <span dangerouslySetInnerHTML={{ __html: t('home.services.marketFocus') }} />
+                </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {marketFocus.map((service, index) => (
@@ -575,10 +581,10 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              {t('home.benefits.title')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.benefits.title') }} />
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              {t('home.benefits.description')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.benefits.description') }} />
             </p>
           </div>
 
@@ -622,10 +628,10 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="glass-card p-8 sm:p-10 lg:p-12 backdrop-blur-xl bg-black/40 border-white/20">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-center">
-                {t('home.joinSection.title')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.joinSection.title') }} />
               </h2>
               <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed text-center max-w-3xl mx-auto">
-                {t('home.joinSection.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.joinSection.description') }} />
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
@@ -673,10 +679,10 @@ export default function Home() {
 
               <div className="order-1 lg:order-2">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                  {t('home.cta.title')}
+                  <span dangerouslySetInnerHTML={{ __html: t('home.cta.title') }} />
                 </h2>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                  {t('home.cta.description')}
+                  <span dangerouslySetInnerHTML={{ __html: t('home.cta.description') }} />
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
@@ -711,10 +717,10 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              {t('home.process.title')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.process.title') }} />
             </h2>
             <p className="text-lg text-gray-300 mb-12">
-              {t('home.process.description')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.process.description') }} />
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -770,10 +776,10 @@ export default function Home() {
 
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-                    {t('home.app.title')}
+                    <span dangerouslySetInnerHTML={{ __html: t('home.app.title') }} />
                   </h2>
                   <p className="text-gray-300 mb-6">
-                    {t('home.app.description')}
+                    <span dangerouslySetInnerHTML={{ __html: t('home.app.description') }} />
                   </p>
                   <button className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold inline-flex items-center gap-2">
                     <Download size={20} />
@@ -802,10 +808,10 @@ export default function Home() {
                 <HelpCircle className="text-gray-400" size={32} />
               </div>
               <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-                {t('home.faq.title')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.faq.title') }} />
               </h2>
               <p className="text-lg text-gray-300">
-                {t('home.faq.description')}
+                <span dangerouslySetInnerHTML={{ __html: t('home.faq.description') }} />
               </p>
             </div>
 
@@ -872,10 +878,10 @@ export default function Home() {
               <span className="text-gray-300 font-semibold">{t('home.blog.subtitle')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              {t('home.blog.title')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.blog.title') }} />
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              {t('home.blog.description')}
+              <span dangerouslySetInnerHTML={{ __html: t('home.blog.description') }} />
             </p>
           </div>
 
