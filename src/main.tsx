@@ -1,14 +1,23 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
-import ErrorBoundary from './components/ErrorBoundary';
-import './index.css';
-import './i18n';
+import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import App from "./App";
+import { initI18nRemote } from "./i18nRemote";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ErrorBoundary>
+async function bootstrap() {
+  try {
+    await initI18nRemote();
+  } catch (e) {
+    console.error("i18nRemote init failed, continuing with keys:", e);
+  }
+
+  const rootEl = document.getElementById("root");
+  if (!rootEl) throw new Error("#root not found");
+
+  ReactDOM.createRoot(rootEl).render(
+    <StrictMode>
       <App />
-    </ErrorBoundary>
-  </StrictMode>
-);
+    </StrictMode>
+  );
+}
+
+bootstrap();

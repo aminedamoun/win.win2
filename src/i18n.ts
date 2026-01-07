@@ -1,101 +1,46 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import sl from './locales/sl.json';
-import en from './locales/en.json';
-import { supabase } from './utils/supabase';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { supabase } from "./lib/supabase";
 
-let savedLanguage = 'sl';
-try {
-  savedLanguage = localStorage.getItem('language') || 'sl';
-} catch (e) {
-  console.warn('localStorage not available, using default language');
-}
+type LocaleRow = {
+  lang: string;
+  content: Record<string, any>;
+  updated_at?: string;
+};
 
-function setNestedProperty(obj: any, path: string, value: any) {
-  const keys = path.split('.');
-  let current = obj;
+export async function initI18n() {
+  // Fallback if Supabase is down
+  const resources: Record<string, { translation: any }> = {
+    en: { translation: {} },
+    sl: { translation: {} },
+  };
 
-  for (let i = 0; i < keys.length - 1; i++) {
-    const key = keys[i];
-    if (!current[key] || typeof current[key] !== 'object') {
-      current[key] = {};
-    }
-    current = current[key];
-  }
-
-  current[keys[keys.length - 1]] = value;
-}
-
-async function loadDatabaseContent() {
   try {
     const { data, error } = await supabase
-      .from('website_content')
-      .select('*');
+      .from("site_locales")
+      .select("lang, content, updated_at");
 
-    if (error) {
-      console.error('Error loading database content:', error);
-      return { sl, en };
-    }
+    if (error) throw error;
 
-    const slTranslations = JSON.parse(JSON.stringify(sl));
-    const enTranslations = JSON.parse(JSON.stringify(en));
-
-    data?.forEach((item) => {
-      const translations = item.language === 'sl' ? slTranslations : enTranslations;
-
-      if (!translations[item.page]) {
-        translations[item.page] = {};
+    (data as LocaleRow[] | null)?.forEach((row) => {
+      if (row?.lang && row?.content) {
+        resources[row.lang] = { translation: row.content };
       }
-
-      setNestedProperty(translations[item.page], item.section, item.content);
     });
-
-    return {
-      sl: slTranslations,
-      en: enTranslations,
-    };
-  } catch (error) {
-    console.error('Error in loadDatabaseContent:', error);
-    return { sl, en };
+  } catch (e) {
+    console.error("Failed to load site_locales from Supabase:", e);
   }
-}
 
-async function initializeI18n() {
-  const translations = await loadDatabaseContent();
+  const savedLang = localStorage.getItem("i18n_lang") || "sl";
 
-  i18n
-    .use(initReactI18next)
-    .init({
-      resources: {
-        sl: { translation: translations.sl },
-        en: { translation: translations.en },
-      },
-      lng: savedLanguage,
-      fallbackLng: 'sl',
-      interpolation: {
-        escapeValue: false,
-      },
-    });
-
-  i18n.on('languageChanged', (lng) => {
-    try {
-      localStorage.setItem('language', lng);
-    } catch (e) {
-      console.warn('Failed to save language preference');
-    }
+  await i18n.use(initReactI18next).init({
+    resources,
+    lng: savedLang,
+    fallbackLng: "en",
+    interpolation: { escapeValue: false },
   });
-}
 
-initializeI18n();
-
-export async function reloadTranslations() {
-  const translations = await loadDatabaseContent();
-
-  i18n.addResourceBundle('sl', 'translation', translations.sl, true, true);
-  i18n.addResourceBundle('en', 'translation', translations.en, true, true);
-
-  const currentLang = i18n.language;
-  await i18n.changeLanguage(currentLang);
+  return i18n;
 }
 
 export default i18n;
