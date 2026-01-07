@@ -117,51 +117,40 @@
 
     async function loadTranslations(page, language) {
       try {
-        const path = `/locales-${language}.json`;
-        console.log('Fetching translations from:', path);
-        const response = await fetch(path);
+        console.log('Fetching translations from site_locales table for:', language);
 
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-          throw new Error(`Failed to load translations from ${path} - Status: ${response.status}`);
+        const { data, error } = await supabaseClient
+          .from('site_locales')
+          .select('content')
+          .eq('lang', language)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error loading from site_locales:', error);
+          throw new Error(`Failed to load translations: ${error.message}`);
         }
 
-        const data = await response.json();
-        console.log(`Loaded translations from ${path}`);
-        console.log('Available pages in translation:', Object.keys(data));
-        console.log('Requested page:', page);
-        console.log('Page data exists:', page in data);
+        if (!data || !data.content) {
+          console.warn('No content found in site_locales');
+          return {};
+        }
 
-        if (!data[page]) {
+        const content = data.content;
+        console.log('Available pages in translation:', Object.keys(content));
+        console.log('Requested page:', page);
+        console.log('Page data exists:', page in content);
+
+        if (!content[page]) {
           console.warn(`Page "${page}" not found in translations`);
           return {};
         }
 
-        return data[page];
+        return content[page];
       } catch (error) {
         console.error('Error loading translations:', error);
         showMessage(`Error loading translations: ${error.message}`, 'error');
         return {};
       }
-    }
-
-    async function loadDatabaseContent(page, language) {
-      const { data, error } = await supabaseClient
-        .from('website_content')
-        .select('*')
-        .eq('page', page)
-        .eq('language', language);
-
-      if (error) {
-        console.error('Error loading database content:', error);
-        return {};
-      }
-
-      const result = {};
-      data.forEach(item => {
-        result[item.section] = item.content;
-      });
-      return result;
     }
 
     loadContent.addEventListener('click', async () => {
@@ -182,17 +171,10 @@
         originalTranslations = await loadTranslations(page, language);
         console.log('Original translations loaded:', Object.keys(originalTranslations).length, 'top-level keys');
 
-        const dbContent = await loadDatabaseContent(page, language);
-        console.log('Database content loaded:', Object.keys(dbContent).length, 'entries');
-
         const flattened = flattenObject(originalTranslations);
         console.log('Flattened sections:', Object.keys(flattened).length, 'keys');
 
-        currentSections = {};
-
-        for (const key in flattened) {
-          currentSections[key] = dbContent[key] || flattened[key];
-        }
+        currentSections = flattened;
 
         if (Object.keys(currentSections).length === 0) {
           showMessage('No content sections found for this page', 'error');
@@ -261,34 +243,46 @@
 
       loading.classList.remove('hidden');
 
-      const inputs = sectionsContainer.querySelectorAll('input, textarea');
-      const updates = [];
-
-      for (const input of inputs) {
-        const section = input.dataset.section;
-        const content = input.value;
-
-        updates.push({
-          page,
-          section,
-          language,
-          content
-        });
-      }
-
       try {
-        console.log('Attempting to save updates:', updates);
+        const { data: currentData, error: fetchError } = await supabaseClient
+          .from('site_locales')
+          .select('content')
+          .eq('lang', language)
+          .maybeSingle();
 
-        const { data, error } = await supabaseClient
-          .from('website_content')
-          .upsert(updates, { onConflict: 'page,section,language' });
+        if (fetchError) throw fetchError;
 
-        console.log('Save response:', { data, error });
+        const allContent = currentData?.content || {};
+        const inputs = sectionsContainer.querySelectorAll('input, textarea');
 
-        if (error) {
-          console.error('Database error details:', error);
-          throw error;
+        const updatedPageContent = {};
+
+        for (const input of inputs) {
+          const section = input.dataset.section;
+          const value = input.value;
+
+          const keys = section.split('.');
+          let current = updatedPageContent;
+
+          for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) current[keys[i]] = {};
+            current = current[keys[i]];
+          }
+
+          current[keys[keys.length - 1]] = value;
         }
+
+        allContent[page] = updatedPageContent;
+
+        const { error: updateError } = await supabaseClient
+          .from('site_locales')
+          .update({
+            content: allContent,
+            updated_at: new Date().toISOString()
+          })
+          .eq('lang', language);
+
+        if (updateError) throw updateError;
 
         showMessage('✓ Changes saved! Refresh the main website to see updates.', 'success');
       } catch (error) {
