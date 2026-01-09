@@ -791,6 +791,779 @@
       `;
     }
 
+    function renderAboutContent(content) {
+      return `
+        <!-- Hero Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🎯 About Hero</h3>
+            <span class="text-sm text-gray-400">Page introduction</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Hero Title</label>
+              <input type="text" class="field-input" data-path="hero.title" value="${content.hero?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Hero Description</label>
+              <textarea class="field-input field-textarea" data-path="hero.description">${content.hero?.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vision Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🔮 Vision</h3>
+            <span class="text-sm text-gray-400">Company vision statement</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Vision Title</label>
+              <input type="text" class="field-input" data-path="vision.title" value="${content.vision?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Vision Description</label>
+              <textarea class="field-input field-textarea" data-path="vision.description">${content.vision?.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🎯 Mission</h3>
+            <span class="text-sm text-gray-400">Company mission statement</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Mission Title</label>
+              <input type="text" class="field-input" data-path="mission.title" value="${content.mission?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Mission Description</label>
+              <textarea class="field-input field-textarea" data-path="mission.description">${content.mission?.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Values Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>⭐ Core Values</h3>
+            <span class="text-sm text-gray-400">Company values</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Values Title</label>
+              <input type="text" class="field-input" data-path="values.title" value="${content.values?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Values Description</label>
+              <textarea class="field-input field-textarea" data-path="values.description">${content.values?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Value Items (6 values)</h4>
+              <div class="grid-2">
+                ${['integrity', 'reliability', 'communication', 'performance', 'support', 'excellence'].map(key => `
+                  <div>
+                    <div class="field-group">
+                      <label class="field-label">${key.charAt(0).toUpperCase() + key.slice(1)} - Title</label>
+                      <input type="text" class="field-input" data-path="values.items.${key}.title" value="${content.values?.items?.[key]?.title || ''}">
+                    </div>
+                    <div class="field-group">
+                      <label class="field-label">${key.charAt(0).toUpperCase() + key.slice(1)} - Description</label>
+                      <textarea class="field-input field-textarea" data-path="values.items.${key}.description">${content.values?.items?.[key]?.description || ''}</textarea>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Culture Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🏢 Company Culture</h3>
+            <span class="text-sm text-gray-400">Culture description</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Culture Title</label>
+              <input type="text" class="field-input" data-path="culture.title" value="${content.culture?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Culture Description</label>
+              <textarea class="field-input field-textarea" data-path="culture.description">${content.culture?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Culture Items (6 items)</h4>
+              ${(content.culture?.items || []).map((item, index) => `
+                <div class="field-group">
+                  <label class="field-label">Item ${index + 1}</label>
+                  <input type="text" class="field-input" data-path="culture.items.${index}" value="${item || ''}">
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>👥 Our Team</h3>
+            <span class="text-sm text-gray-400">Team information</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Team Title</label>
+              <input type="text" class="field-input" data-path="team.title" value="${content.team?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Team Description</label>
+              <textarea class="field-input field-textarea" data-path="team.description">${content.team?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Team Statistics Labels</h4>
+              <div class="grid-2">
+                <div class="field-group">
+                  <label class="field-label">Members Stat Label</label>
+                  <input type="text" class="field-input" data-path="team.stats.members" value="${content.team?.stats?.members || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Field Stat Label</label>
+                  <input type="text" class="field-input" data-path="team.stats.field" value="${content.team?.stats?.field || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Call Center Stat Label</label>
+                  <input type="text" class="field-input" data-path="team.stats.callCenter" value="${content.team?.stats?.callCenter || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Locations Stat Label</label>
+                  <input type="text" class="field-input" data-path="team.stats.locations" value="${content.team?.stats?.locations || ''}">
+                </div>
+              </div>
+              <div class="grid-2 mt-4">
+                <div class="field-group">
+                  <label class="field-label">Field Text</label>
+                  <input type="text" class="field-input" data-path="team.fieldText" value="${content.team?.fieldText || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Call Center Text</label>
+                  <input type="text" class="field-input" data-path="team.callCenterText" value="${content.team?.callCenterText || ''}">
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Locations Text</label>
+                <input type="text" class="field-input" data-path="team.locationsText" value="${content.team?.locationsText || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderJobsContent(content) {
+      return `
+        <!-- Jobs Page Header -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>💼 Jobs Header</h3>
+            <span class="text-sm text-gray-400">Page header content</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input type="text" class="field-input" data-path="title" value="${content.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Description</label>
+              <textarea class="field-input field-textarea" data-path="description">${content.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Listings Labels -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🏷️ Job Listing Labels</h3>
+            <span class="text-sm text-gray-400">Button and action labels</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">View Details Button</label>
+                <input type="text" class="field-input" data-path="viewDetails" value="${content.viewDetails || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Apply Now Button</label>
+                <input type="text" class="field-input" data-path="applyNow" value="${content.applyNow || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Loading Text</label>
+                <input type="text" class="field-input" data-path="loading" value="${content.loading || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">No Jobs Message</label>
+                <input type="text" class="field-input" data-path="noJobs" value="${content.noJobs || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Full-Time Label</label>
+                <input type="text" class="field-input" data-path="fullTime" value="${content.fullTime || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Back to All Positions</label>
+                <input type="text" class="field-input" data-path="backToAll" value="${content.backToAll || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Position Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📝 No Position Found</h3>
+            <span class="text-sm text-gray-400">General application section</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">No Position Title</label>
+              <input type="text" class="field-input" data-path="noPosition" value="${content.noPosition || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">No Position Description</label>
+              <textarea class="field-input field-textarea" data-path="noPositionDesc">${content.noPositionDesc || ''}</textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Submit General Application Button</label>
+              <input type="text" class="field-input" data-path="submitGeneral" value="${content.submitGeneral || ''}">
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Detail Page -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📄 Job Detail Page</h3>
+            <span class="text-sm text-gray-400">Single job view labels</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Apply for Position Text</label>
+              <input type="text" class="field-input" data-path="applyForPosition" value="${content.applyForPosition || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Responsibilities Section</label>
+              <input type="text" class="field-input" data-path="responsibilities" value="${content.responsibilities || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">What We Offer Section</label>
+              <input type="text" class="field-input" data-path="whatWeOffer" value="${content.whatWeOffer || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Requirements Section</label>
+              <input type="text" class="field-input" data-path="requirements" value="${content.requirements || ''}">
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Ready to Apply Text</label>
+                <input type="text" class="field-input" data-path="readyToApply" value="${content.readyToApply || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Apply Text</label>
+                <input type="text" class="field-input" data-path="apply" value="${content.apply || ''}">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Apply Description</label>
+              <textarea class="field-input field-textarea" data-path="applyDescription">${content.applyDescription || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🔍 Filters</h3>
+            <span class="text-sm text-gray-400">Filter labels</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">All Positions</label>
+                <input type="text" class="field-input" data-path="filters.all" value="${content.filters?.all || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Location Filter</label>
+                <input type="text" class="field-input" data-path="filters.location" value="${content.filters?.location || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Type Filter</label>
+                <input type="text" class="field-input" data-path="filters.type" value="${content.filters?.type || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Page Labels -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📋 Detail Page Labels</h3>
+            <span class="text-sm text-gray-400">Job detail sections</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Overview</label>
+                <input type="text" class="field-input" data-path="detail.overview" value="${content.detail?.overview || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Responsibilities</label>
+                <input type="text" class="field-input" data-path="detail.responsibilities" value="${content.detail?.responsibilities || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Requirements</label>
+                <input type="text" class="field-input" data-path="detail.requirements" value="${content.detail?.requirements || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Benefits</label>
+                <input type="text" class="field-input" data-path="detail.benefits" value="${content.detail?.benefits || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Location</label>
+                <input type="text" class="field-input" data-path="detail.location" value="${content.detail?.location || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Type</label>
+                <input type="text" class="field-input" data-path="detail.type" value="${content.detail?.type || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Salary</label>
+                <input type="text" class="field-input" data-path="detail.salary" value="${content.detail?.salary || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Back to Jobs</label>
+                <input type="text" class="field-input" data-path="detail.backToJobs" value="${content.detail?.backToJobs || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Apply Button</label>
+                <input type="text" class="field-input" data-path="detail.apply" value="${content.detail?.apply || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderInsightsContent(content) {
+      return `
+        <!-- Insights Header -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📰 Insights Header</h3>
+            <span class="text-sm text-gray-400">Page header</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input type="text" class="field-input" data-path="title" value="${content.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Subtitle</label>
+              <input type="text" class="field-input" data-path="subtitle" value="${content.subtitle || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Description</label>
+              <textarea class="field-input field-textarea" data-path="description">${content.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article Labels -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🏷️ Article Labels</h3>
+            <span class="text-sm text-gray-400">Article listing labels</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Read More Button</label>
+                <input type="text" class="field-input" data-path="readMore" value="${content.readMore || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Loading Text</label>
+                <input type="text" class="field-input" data-path="loading" value="${content.loading || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Loading Articles Text</label>
+                <input type="text" class="field-input" data-path="loadingText" value="${content.loadingText || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">No Articles Message</label>
+                <input type="text" class="field-input" data-path="noArticles" value="${content.noArticles || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Latest Insights</label>
+                <input type="text" class="field-input" data-path="latest" value="${content.latest || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Back to Insights</label>
+                <input type="text" class="field-input" data-path="backToInsights" value="${content.backToInsights || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Share Article</label>
+                <input type="text" class="field-input" data-path="shareArticle" value="${content.shareArticle || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Messages -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>⚠️ Error Messages</h3>
+            <span class="text-sm text-gray-400">Error states</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Error Title</label>
+                <input type="text" class="field-input" data-path="error.title" value="${content.error?.title || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Retry Button</label>
+                <input type="text" class="field-input" data-path="error.retry" value="${content.error?.retry || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Load Failed Message</label>
+                <input type="text" class="field-input" data-path="error.loadFailed" value="${content.error?.loadFailed || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderApplyContent(content) {
+      return `
+        <!-- Apply Header -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📝 Apply Header</h3>
+            <span class="text-sm text-gray-400">Page header</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input type="text" class="field-input" data-path="title" value="${content.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Description</label>
+              <textarea class="field-input field-textarea" data-path="description">${content.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Form -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📋 Application Form Fields</h3>
+            <span class="text-sm text-gray-400">Form labels and placeholders</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">First Name Label</label>
+                <input type="text" class="field-input" data-path="form.firstName" value="${content.form?.firstName || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">First Name Placeholder</label>
+                <input type="text" class="field-input" data-path="form.firstNamePlaceholder" value="${content.form?.firstNamePlaceholder || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Last Name Label</label>
+                <input type="text" class="field-input" data-path="form.lastName" value="${content.form?.lastName || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Last Name Placeholder</label>
+                <input type="text" class="field-input" data-path="form.lastNamePlaceholder" value="${content.form?.lastNamePlaceholder || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Email Label</label>
+                <input type="text" class="field-input" data-path="form.email" value="${content.form?.email || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Email Placeholder</label>
+                <input type="text" class="field-input" data-path="form.emailPlaceholder" value="${content.form?.emailPlaceholder || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Phone Label</label>
+                <input type="text" class="field-input" data-path="form.phone" value="${content.form?.phone || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Phone Placeholder</label>
+                <input type="text" class="field-input" data-path="form.phonePlaceholder" value="${content.form?.phonePlaceholder || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Preferred Time Label</label>
+                <input type="text" class="field-input" data-path="form.preferredTime" value="${content.form?.preferredTime || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Preferred Time Placeholder</label>
+                <input type="text" class="field-input" data-path="form.preferredTimePlaceholder" value="${content.form?.preferredTimePlaceholder || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Message Label</label>
+                <input type="text" class="field-input" data-path="form.message" value="${content.form?.message || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Message Placeholder</label>
+                <input type="text" class="field-input" data-path="form.messagePlaceholder" value="${content.form?.messagePlaceholder || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resume Upload -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📎 Resume Upload</h3>
+            <span class="text-sm text-gray-400">File upload section</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Resume Label</label>
+                <input type="text" class="field-input" data-path="form.resume" value="${content.form?.resume || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Upload Resume Text</label>
+                <input type="text" class="field-input" data-path="form.uploadResume" value="${content.form?.uploadResume || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Upload Info</label>
+                <input type="text" class="field-input" data-path="form.uploadInfo" value="${content.form?.uploadInfo || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Uploading Resume Text</label>
+                <input type="text" class="field-input" data-path="form.uploadingResume" value="${content.form?.uploadingResume || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GDPR & Submit -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>✅ GDPR & Submit</h3>
+            <span class="text-sm text-gray-400">Consent and submission</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">GDPR Consent Text</label>
+              <textarea class="field-input field-textarea" data-path="form.gdprConsent">${content.form?.gdprConsent || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Privacy Policy Link</label>
+                <input type="text" class="field-input" data-path="form.privacyPolicy" value="${content.form?.privacyPolicy || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Cookie Policy Link</label>
+                <input type="text" class="field-input" data-path="form.cookiePolicy" value="${content.form?.cookiePolicy || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Submit Button</label>
+                <input type="text" class="field-input" data-path="form.submit" value="${content.form?.submit || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Submitting Text</label>
+                <input type="text" class="field-input" data-path="form.submitting" value="${content.form?.submitting || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Success Title</label>
+                <input type="text" class="field-input" data-path="form.success" value="${content.form?.success || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Success Message</label>
+                <input type="text" class="field-input" data-path="form.successMessage" value="${content.form?.successMessage || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Error Message</label>
+                <input type="text" class="field-input" data-path="form.error" value="${content.form?.error || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📞 Contact Info</h3>
+            <span class="text-sm text-gray-400">Alternative contact</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Prefer Text</label>
+                <input type="text" class="field-input" data-path="contact.prefer" value="${content.contact?.prefer || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Or Call Text</label>
+                <input type="text" class="field-input" data-path="contact.or" value="${content.contact?.or || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Process Steps -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📋 What Happens Next</h3>
+            <span class="text-sm text-gray-400">Application process</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Process Title</label>
+              <input type="text" class="field-input" data-path="process.title" value="${content.process?.title || ''}">
+            </div>
+            <div class="grid-2">
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Step 1 Title</label>
+                  <input type="text" class="field-input" data-path="process.step1.title" value="${content.process?.step1?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Step 1 Description</label>
+                  <input type="text" class="field-input" data-path="process.step1.desc" value="${content.process?.step1?.desc || ''}">
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Step 2 Title</label>
+                  <input type="text" class="field-input" data-path="process.step2.title" value="${content.process?.step2?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Step 2 Description</label>
+                  <input type="text" class="field-input" data-path="process.step2.desc" value="${content.process?.step2?.desc || ''}">
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Step 3 Title</label>
+                  <input type="text" class="field-input" data-path="process.step3.title" value="${content.process?.step3?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Step 3 Description</label>
+                  <input type="text" class="field-input" data-path="process.step3.desc" value="${content.process?.step3?.desc || ''}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFooterContent(content) {
+      return `
+        <!-- Footer Description -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📄 Footer Description</h3>
+            <span class="text-sm text-gray-400">Company description in footer</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Description</label>
+              <textarea class="field-input field-textarea" data-path="description">${content.description || ''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Sections -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🔗 Footer Sections</h3>
+            <span class="text-sm text-gray-400">Section headers</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Company Section</label>
+                <input type="text" class="field-input" data-path="company" value="${content.company || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Legal Section</label>
+                <input type="text" class="field-input" data-path="legal" value="${content.legal || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Contact Section</label>
+                <input type="text" class="field-input" data-path="contact" value="${content.contact || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🔗 Footer Links</h3>
+            <span class="text-sm text-gray-400">Link labels</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">About Us Link</label>
+                <input type="text" class="field-input" data-path="links.aboutUs" value="${content.links?.aboutUs || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Careers Link</label>
+                <input type="text" class="field-input" data-path="links.careers" value="${content.links?.careers || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Contact Link</label>
+                <input type="text" class="field-input" data-path="links.contact" value="${content.links?.contact || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Privacy Policy Link</label>
+                <input type="text" class="field-input" data-path="links.privacy" value="${content.links?.privacy || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Cookie Policy Link</label>
+                <input type="text" class="field-input" data-path="links.cookies" value="${content.links?.cookies || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Terms of Service Link</label>
+                <input type="text" class="field-input" data-path="links.terms" value="${content.links?.terms || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📍 Footer Bottom</h3>
+            <span class="text-sm text-gray-400">Address and copyright</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Address</label>
+                <input type="text" class="field-input" data-path="address" value="${content.address || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Rights Text</label>
+                <input type="text" class="field-input" data-path="rights" value="${content.rights || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderGenericContent(content, pageName) {
       const flattened = flattenObject(content);
       const keys = Object.keys(flattened).sort();
@@ -887,6 +1660,16 @@
 
         if (page === 'home') {
           sectionsContainer.innerHTML = renderHomeContent(currentContent);
+        } else if (page === 'about') {
+          sectionsContainer.innerHTML = renderAboutContent(currentContent);
+        } else if (page === 'jobs') {
+          sectionsContainer.innerHTML = renderJobsContent(currentContent);
+        } else if (page === 'insights') {
+          sectionsContainer.innerHTML = renderInsightsContent(currentContent);
+        } else if (page === 'apply') {
+          sectionsContainer.innerHTML = renderApplyContent(currentContent);
+        } else if (page === 'footer') {
+          sectionsContainer.innerHTML = renderFooterContent(currentContent);
         } else {
           sectionsContainer.innerHTML = renderGenericContent(currentContent, page);
         }
