@@ -380,6 +380,204 @@
           </div>
         </div>
 
+        <!-- Support Services Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🎓 Support Services</h3>
+            <span class="text-sm text-gray-400">Internal support offerings</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Training Title</label>
+                  <input type="text" class="field-input" data-path="services.support.training.title" value="${content.services?.support?.training?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Training Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.support.training.description">${content.services?.support?.training?.description || ''}</textarea>
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Team Development Title</label>
+                  <input type="text" class="field-input" data-path="services.support.teamDevelopment.title" value="${content.services?.support?.teamDevelopment?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Team Development Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.support.teamDevelopment.description">${content.services?.support?.teamDevelopment?.description || ''}</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div>
+                <div class="field-group">
+                  <label class="field-label">Leadership Title</label>
+                  <input type="text" class="field-input" data-path="services.support.leadership.title" value="${content.services?.support?.leadership?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Leadership Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.support.leadership.description">${content.services?.support?.leadership?.description || ''}</textarea>
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
+                  <label class="field-label">CRM Title</label>
+                  <input type="text" class="field-input" data-path="services.support.crm.title" value="${content.services?.support?.crm?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">CRM Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.support.crm.description">${content.services?.support?.crm?.description || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Market Focus Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🎯 Market Focus</h3>
+            <span class="text-sm text-gray-400">Target markets</span>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div>
+                <div class="field-group">
+                  <label class="field-label">B2C Market Title</label>
+                  <input type="text" class="field-input" data-path="services.market.b2c.title" value="${content.services?.market?.b2c?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">B2C Market Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.market.b2c.description">${content.services?.market?.b2c?.description || ''}</textarea>
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
+                  <label class="field-label">B2B Support Title</label>
+                  <input type="text" class="field-input" data-path="services.market.b2b.title" value="${content.services?.market?.b2b?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">B2B Support Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.market.b2b.description">${content.services?.market?.b2b?.description || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>⭐ Benefits / Why Choose Us</h3>
+            <span class="text-sm text-gray-400">Company advantages</span>
+          </div>
+          <div class="section-body">
+            ${createImagePlaceholder('home-benefits')}
+            <div class="field-group">
+              <label class="field-label">Benefits Title</label>
+              <input type="text" class="field-input" data-path="benefits.title" value="${content.benefits?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Benefits Description</label>
+              <textarea class="field-input field-textarea" data-path="benefits.description">${content.benefits?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Benefit Items</h4>
+              <div class="grid-2">
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Training Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.training.title" value="${content.benefits?.items?.training?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Training Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.training.description">${content.benefits?.items?.training?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Career Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.career.title" value="${content.benefits?.items?.career?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Career Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.career.description">${content.benefits?.items?.career?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Earning Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.earning.title" value="${content.benefits?.items?.earning?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Earning Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.earning.description">${content.benefits?.items?.earning?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Tools Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.tools.title" value="${content.benefits?.items?.tools?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Tools Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.tools.description">${content.benefits?.items?.tools?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Locations Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.locations.title" value="${content.benefits?.items?.locations?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Locations Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.locations.description">${content.benefits?.items?.locations?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Performance Benefit Title</label>
+                    <input type="text" class="field-input" data-path="benefits.items.performance.title" value="${content.benefits?.items?.performance?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Performance Benefit Description</label>
+                    <textarea class="field-input field-textarea" data-path="benefits.items.performance.description">${content.benefits?.items?.performance?.description || ''}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Join Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>💼 Join Section</h3>
+            <span class="text-sm text-gray-400">Additional CTA section</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Join Section Title</label>
+              <input type="text" class="field-input" data-path="joinSection.title" value="${content.joinSection?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Join Section Description</label>
+              <textarea class="field-input field-textarea" data-path="joinSection.description">${content.joinSection?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Start Journey Button</label>
+                <input type="text" class="field-input" data-path="joinSection.startJourney" value="${content.joinSection?.startJourney || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Learn More Button</label>
+                <input type="text" class="field-input" data-path="joinSection.learnMore" value="${content.joinSection?.learnMore || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Partners Section -->
         <div class="section-preview">
           <div class="section-header">
@@ -396,6 +594,198 @@
               ${createImagePlaceholder('partner-logo-2')}
             </div>
             ${createImagePlaceholder('partner-logo-3')}
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📢 Call to Action</h3>
+            <span class="text-sm text-gray-400">Main CTA section</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">CTA Title</label>
+              <input type="text" class="field-input" data-path="cta.title" value="${content.cta?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">CTA Description</label>
+              <textarea class="field-input field-textarea" data-path="cta.description">${content.cta?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Explore Button</label>
+                <input type="text" class="field-input" data-path="cta.explore" value="${content.cta?.explore || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Learn More Button</label>
+                <input type="text" class="field-input" data-path="cta.learnMore" value="${content.cta?.learnMore || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Process Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📋 Application Process</h3>
+            <span class="text-sm text-gray-400">Step-by-step process</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Process Title</label>
+              <input type="text" class="field-input" data-path="process.title" value="${content.process?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Process Description</label>
+              <textarea class="field-input field-textarea" data-path="process.description">${content.process?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Process Steps</h4>
+              <div class="grid-2">
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Step 1: Apply Title</label>
+                    <input type="text" class="field-input" data-path="process.steps.apply.title" value="${content.process?.steps?.apply?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Step 1: Apply Description</label>
+                    <input type="text" class="field-input" data-path="process.steps.apply.desc" value="${content.process?.steps?.apply?.desc || ''}">
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Step 2: Interview Title</label>
+                    <input type="text" class="field-input" data-path="process.steps.interview.title" value="${content.process?.steps?.interview?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Step 2: Interview Description</label>
+                    <input type="text" class="field-input" data-path="process.steps.interview.desc" value="${content.process?.steps?.interview?.desc || ''}">
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Step 3: Selection Title</label>
+                    <input type="text" class="field-input" data-path="process.steps.selection.title" value="${content.process?.steps?.selection?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Step 3: Selection Description</label>
+                    <input type="text" class="field-input" data-path="process.steps.selection.desc" value="${content.process?.steps?.selection?.desc || ''}">
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Step 4: Start Title</label>
+                    <input type="text" class="field-input" data-path="process.steps.start.title" value="${content.process?.steps?.start?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Step 4: Start Description</label>
+                    <input type="text" class="field-input" data-path="process.steps.start.desc" value="${content.process?.steps?.start?.desc || ''}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field-group mt-4">
+              <label class="field-label">Start Application Button</label>
+              <input type="text" class="field-input" data-path="process.startApplication" value="${content.process?.startApplication || ''}">
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile App Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📱 Mobile App Section</h3>
+            <span class="text-sm text-gray-400">App promotion</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">App Title</label>
+              <input type="text" class="field-input" data-path="app.title" value="${content.app?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">App Description</label>
+              <textarea class="field-input field-textarea" data-path="app.description">${content.app?.description || ''}</textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Coming Soon Text</label>
+              <input type="text" class="field-input" data-path="app.comingSoon" value="${content.app?.comingSoon || ''}">
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>❓ FAQ Section</h3>
+            <span class="text-sm text-gray-400">Frequently asked questions</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">FAQ Title (HTML allowed)</label>
+              <input type="text" class="field-input" data-path="faq.title" value="${content.faq?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">FAQ Description</label>
+              <textarea class="field-input field-textarea" data-path="faq.description">${content.faq?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Still Questions Text</label>
+                <input type="text" class="field-input" data-path="faq.stillQuestions" value="${content.faq?.stillQuestions || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Get In Touch Button</label>
+                <input type="text" class="field-input" data-path="faq.getInTouch" value="${content.faq?.getInTouch || ''}">
+              </div>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">FAQ Items (12 questions)</h4>
+              ${['experience', 'type', 'employment', 'hours', 'payment', 'advancement', 'training', 'locations', 'remote', 'selection', 'profile', 'different'].map(key => `
+                <div class="bg-gray-700/50 rounded p-4 mb-3">
+                  <div class="field-group">
+                    <label class="field-label">${key.toUpperCase()} - Question</label>
+                    <input type="text" class="field-input" data-path="faq.items.${key}.q" value="${content.faq?.items?.[key]?.q || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">${key.toUpperCase()} - Answer</label>
+                    <textarea class="field-input field-textarea" data-path="faq.items.${key}.a">${content.faq?.items?.[key]?.a || ''}</textarea>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Blog Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📰 Blog Section</h3>
+            <span class="text-sm text-gray-400">Latest articles display</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Blog Title</label>
+              <input type="text" class="field-input" data-path="blog.title" value="${content.blog?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Blog Subtitle</label>
+              <input type="text" class="field-input" data-path="blog.subtitle" value="${content.blog?.subtitle || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Blog Description</label>
+              <textarea class="field-input field-textarea" data-path="blog.description">${content.blog?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">View All Button</label>
+                <input type="text" class="field-input" data-path="blog.viewAll" value="${content.blog?.viewAll || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">No Articles Message</label>
+                <input type="text" class="field-input" data-path="blog.noArticles" value="${content.blog?.noArticles || ''}">
+              </div>
+            </div>
           </div>
         </div>
       `;
