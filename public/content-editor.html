@@ -7,78 +7,186 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/js/supabaseClient.js"></script>
+  <style>
+    .section-preview {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      background: rgba(225,29,46,0.1);
+      border-bottom: 2px solid rgba(225,29,46,0.3);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #e11d2e;
+    }
+    .section-body {
+      padding: 24px;
+    }
+    .field-group {
+      margin-bottom: 20px;
+    }
+    .field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #9ca3af;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .field-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .field-input:focus {
+      outline: none;
+      border-color: #e11d2e;
+      background: rgba(255,255,255,0.1);
+    }
+    .field-textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+    .image-placeholder {
+      background: rgba(0,0,0,0.3);
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #6b7280;
+      margin: 16px 0;
+    }
+    .image-placeholder svg {
+      display: inline-block;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast.success { background: #10b981; }
+    .toast.error { background: #ef4444; }
+
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
-  <div class="container mx-auto px-4 py-8">
-    <div class="mb-8">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h1 class="text-4xl font-bold">Website Content Management</h1>
-          <p id="authStatus" class="text-sm mt-2"></p>
+  <div class="sticky top-0 z-50 bg-black border-b border-gray-800 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold">Website Content Editor</h1>
+        <p id="authStatus" class="text-sm text-gray-400 mt-1"></p>
+      </div>
+      <button onclick="window.location.href='/admin.html'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition">
+        ← Back to Admin
+      </button>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <!-- Controls -->
+    <div class="bg-gray-800 rounded-lg p-6 mb-8">
+      <div class="flex gap-4 items-end flex-wrap">
+        <div class="flex-1 min-w-[200px]">
+          <label class="block text-sm font-medium mb-2">Select Page</label>
+          <select id="pageSelect" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white">
+            <option value="">-- Select Page --</option>
+            <option value="home">Home</option>
+            <option value="about">About</option>
+            <option value="jobs">Jobs</option>
+            <option value="insights">Insights</option>
+            <option value="apply">Apply</option>
+          </select>
         </div>
-        <button onclick="window.location.href='/admin.html'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium">
-          ← Back to Admin
+        <div class="flex-1 min-w-[200px]">
+          <label class="block text-sm font-medium mb-2">Select Language</label>
+          <select id="languageSelect" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white">
+            <option value="sl">Slovenian</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <button id="loadContent" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-medium transition">
+          Load Content
         </button>
       </div>
-      <p class="text-gray-400">Edit website text content page by page and section by section</p>
-      <div class="mt-3 bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+      <div class="mt-4 bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
         <p class="text-blue-300 text-sm">
-          <strong>Note:</strong> After saving changes, refresh the main website (Ctrl+F5 or Cmd+Shift+R) to see your updates.
+          <strong>Note:</strong> Changes are shown in a structured layout. After saving, refresh the main website to see updates.
         </p>
       </div>
     </div>
 
-    <div class="mb-6 flex gap-4">
-      <div>
-        <label class="block text-sm font-medium mb-2">Select Page</label>
-        <select id="pageSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white">
-          <option value="">-- Select Page --</option>
-          <option value="home">Home</option>
-          <option value="about">About</option>
-          <option value="jobs">Jobs</option>
-          <option value="insights">Insights</option>
-          <option value="apply">Apply</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-2">Select Language</label>
-        <select id="languageSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white">
-          <option value="en">English</option>
-          <option value="sl">Slovenian</option>
-        </select>
-      </div>
-      <div class="flex items-end">
-        <button id="loadContent" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium">
-          Load Content
-        </button>
-      </div>
-    </div>
-
-    <div id="contentContainer" class="space-y-4 hidden">
-      <div class="bg-gray-800 rounded-lg p-6">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-2xl font-bold" id="pageTitle">Content Sections</h2>
-          <button id="saveAll" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium">
-            Save All Changes
+    <!-- Content Container -->
+    <div id="contentContainer" class="hidden">
+      <div class="bg-gray-800 rounded-lg p-6 mb-6 sticky top-[90px] z-40">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold" id="pageTitle">Content Sections</h2>
+          <button id="saveAll" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-medium transition">
+            💾 Save All Changes
           </button>
         </div>
-        <div id="sectionsContainer" class="space-y-4">
-        </div>
       </div>
+
+      <div id="sectionsContainer"></div>
     </div>
 
-    <div id="loading" class="text-center py-12 hidden">
-      <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
-      <p class="mt-4 text-gray-400">Loading content...</p>
+    <!-- Loading State -->
+    <div id="loading" class="text-center py-20 hidden">
+      <div class="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-red-500"></div>
+      <p class="mt-6 text-gray-400 text-lg">Loading content...</p>
     </div>
-
-    <div id="message" class="fixed bottom-4 right-4 hidden"></div>
   </div>
 
-  <script>
-    // Use the shared Supabase client
-    const supabaseClient = window.supabaseClient;
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
 
+  <script>
+    const supabaseClient = window.supabaseClient;
     const pageSelect = document.getElementById('pageSelect');
     const languageSelect = document.getElementById('languageSelect');
     const loadContent = document.getElementById('loadContent');
@@ -87,19 +195,239 @@
     const pageTitle = document.getElementById('pageTitle');
     const saveAll = document.getElementById('saveAll');
     const loading = document.getElementById('loading');
-    const message = document.getElementById('message');
+    const toast = document.getElementById('toast');
     const authStatus = document.getElementById('authStatus');
 
-    let currentSections = {};
-    let originalTranslations = {};
+    let currentPage = '';
+    let currentLang = '';
+    let currentContent = {};
 
-    function showMessage(text, type = 'success') {
-      message.textContent = text;
-      message.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg font-medium ${
-        type === 'success' ? 'bg-green-500' : 'bg-red-500'
-      } text-white`;
-      message.classList.remove('hidden');
-      setTimeout(() => message.classList.add('hidden'), 3000);
+    function showToast(text, type = 'success') {
+      toast.textContent = text;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function createImagePlaceholder(location) {
+      return `
+        <div class="image-placeholder">
+          <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <div><strong>Image Location:</strong> ${location}</div>
+          <div class="text-xs mt-1">Manage images in Admin → Image Management</div>
+        </div>
+      `;
+    }
+
+    function renderHomeContent(content) {
+      return `
+        <!-- Hero Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🎯 Hero Section</h3>
+            <span class="text-sm text-gray-400">Main landing section</span>
+          </div>
+          <div class="section-body">
+            ${createImagePlaceholder('home-hero (desktop) & home-hero-mobile (mobile)')}
+            <div class="field-group">
+              <label class="field-label">Hero Title</label>
+              <input type="text" class="field-input" data-path="hero.title" value="${content.hero?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Hero Subtitle</label>
+              <input type="text" class="field-input" data-path="hero.subtitle" value="${content.hero?.subtitle || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Hero Description</label>
+              <textarea class="field-input field-textarea" data-path="hero.description">${content.hero?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Primary Button Text</label>
+                <input type="text" class="field-input" data-path="hero.joinTeam" value="${content.hero?.joinTeam || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Secondary Button Text</label>
+                <input type="text" class="field-input" data-path="hero.viewPositions" value="${content.hero?.viewPositions || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>👥 About Section</h3>
+            <span class="text-sm text-gray-400">Company introduction</span>
+          </div>
+          <div class="section-body">
+            ${createImagePlaceholder('home-about')}
+            <div class="field-group">
+              <label class="field-label">About Title</label>
+              <input type="text" class="field-input" data-path="about.title" value="${content.about?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">About Description</label>
+              <textarea class="field-input field-textarea" data-path="about.description">${content.about?.description || ''}</textarea>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Statistics</h4>
+              <div class="stats-grid">
+                <div class="field-group">
+                  <label class="field-label">Deals Label</label>
+                  <input type="text" class="field-input" data-path="about.stats.deals" value="${content.about?.stats?.deals || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Locations Label</label>
+                  <input type="text" class="field-input" data-path="about.stats.locations" value="${content.about?.stats?.locations || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Team Label</label>
+                  <input type="text" class="field-input" data-path="about.stats.team" value="${content.about?.stats?.team || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Experience Label</label>
+                  <input type="text" class="field-input" data-path="about.stats.experience" value="${content.about?.stats?.experience || ''}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>💼 Services Section</h3>
+            <span class="text-sm text-gray-400">What we offer</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Services Title</label>
+              <input type="text" class="field-input" data-path="services.title" value="${content.services?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Services Description</label>
+              <textarea class="field-input field-textarea" data-path="services.description">${content.services?.description || ''}</textarea>
+            </div>
+
+            <div class="mt-8">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Core Services</h4>
+              <div class="grid-2">
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Promotions Title</label>
+                    <input type="text" class="field-input" data-path="services.core.promotions.title" value="${content.services?.core?.promotions?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Promotions Description</label>
+                    <textarea class="field-input field-textarea" data-path="services.core.promotions.description">${content.services?.core?.promotions?.description || ''}</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">Call Center Title</label>
+                    <input type="text" class="field-input" data-path="services.core.callCenter.title" value="${content.services?.core?.callCenter?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Call Center Description</label>
+                    <textarea class="field-input field-textarea" data-path="services.core.callCenter.description">${content.services?.core?.callCenter?.description || ''}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <div class="field-group">
+                  <label class="field-label">B2B Sales Title</label>
+                  <input type="text" class="field-input" data-path="services.core.b2b.title" value="${content.services?.core?.b2b?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">B2B Sales Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.core.b2b.description">${content.services?.core?.b2b?.description || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Join Team Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🚀 Join Team Section</h3>
+            <span class="text-sm text-gray-400">Call to action</span>
+          </div>
+          <div class="section-body">
+            ${createImagePlaceholder('home-join-team')}
+            <div class="field-group">
+              <label class="field-label">Join Team Title</label>
+              <input type="text" class="field-input" data-path="joinTeam.title" value="${content.joinTeam?.title || ''}">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Join Team Description</label>
+              <textarea class="field-input field-textarea" data-path="joinTeam.description">${content.joinTeam?.description || ''}</textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Apply Button Text</label>
+                <input type="text" class="field-input" data-path="joinTeam.applyNow" value="${content.joinTeam?.applyNow || ''}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Positions Button Text</label>
+                <input type="text" class="field-input" data-path="joinTeam.viewPositions" value="${content.joinTeam?.viewPositions || ''}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🤝 Partners Section</h3>
+            <span class="text-sm text-gray-400">Partner logos</span>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <label class="field-label">Partners Title</label>
+              <input type="text" class="field-input" data-path="partners.title" value="${content.partners?.title || ''}">
+            </div>
+            <div class="grid-2">
+              ${createImagePlaceholder('partner-logo-1')}
+              ${createImagePlaceholder('partner-logo-2')}
+            </div>
+            ${createImagePlaceholder('partner-logo-3')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGenericContent(content, pageName) {
+      const flattened = flattenObject(content);
+      const keys = Object.keys(flattened).sort();
+
+      return `
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>📄 ${pageName} Content</h3>
+            <span class="text-sm text-gray-400">${keys.length} fields</span>
+          </div>
+          <div class="section-body">
+            ${keys.map(key => {
+              const value = flattened[key];
+              const isLong = typeof value === 'string' && value.length > 100;
+              return `
+                <div class="field-group">
+                  <label class="field-label">${key}</label>
+                  ${isLong
+                    ? `<textarea class="field-input field-textarea" data-path="${key}">${value}</textarea>`
+                    : `<input type="text" class="field-input" data-path="${key}" value="${escapeHtml(value)}">`
+                  }
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
     }
 
     function flattenObject(obj, prefix = '') {
@@ -115,40 +443,28 @@
       return result;
     }
 
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     async function loadTranslations(page, language) {
       try {
-        console.log('Fetching translations from site_locales table for:', language);
-
         const { data, error } = await supabaseClient
           .from('site_locales')
           .select('content')
           .eq('lang', language)
           .maybeSingle();
 
-        if (error) {
-          console.error('Error loading from site_locales:', error);
-          throw new Error(`Failed to load translations: ${error.message}`);
-        }
+        if (error) throw error;
+        if (!data || !data.content) return {};
+        if (!data.content[page]) return {};
 
-        if (!data || !data.content) {
-          console.warn('No content found in site_locales');
-          return {};
-        }
-
-        const content = data.content;
-        console.log('Available pages in translation:', Object.keys(content));
-        console.log('Requested page:', page);
-        console.log('Page data exists:', page in content);
-
-        if (!content[page]) {
-          console.warn(`Page "${page}" not found in translations`);
-          return {};
-        }
-
-        return content[page];
+        return data.content[page];
       } catch (error) {
         console.error('Error loading translations:', error);
-        showMessage(`Error loading translations: ${error.message}`, 'error');
+        showToast(`Error loading: ${error.message}`, 'error');
         return {};
       }
     }
@@ -158,86 +474,46 @@
       const language = languageSelect.value;
 
       if (!page) {
-        showMessage('Please select a page', 'error');
+        showToast('Please select a page', 'error');
         return;
       }
 
-      console.log('Loading content for:', page, language);
+      currentPage = page;
+      currentLang = language;
 
       loading.classList.remove('hidden');
       contentContainer.classList.add('hidden');
 
       try {
-        originalTranslations = await loadTranslations(page, language);
-        console.log('Original translations loaded:', Object.keys(originalTranslations).length, 'top-level keys');
+        currentContent = await loadTranslations(page, language);
 
-        const flattened = flattenObject(originalTranslations);
-        console.log('Flattened sections:', Object.keys(flattened).length, 'keys');
-
-        currentSections = flattened;
-
-        if (Object.keys(currentSections).length === 0) {
-          showMessage('No content sections found for this page', 'error');
+        if (Object.keys(currentContent).length === 0) {
+          showToast('No content found for this page', 'error');
           loading.classList.add('hidden');
           return;
         }
 
-        renderSections(page, language);
+        pageTitle.textContent = `${page.charAt(0).toUpperCase() + page.slice(1)} - ${language.toUpperCase()}`;
+
+        if (page === 'home') {
+          sectionsContainer.innerHTML = renderHomeContent(currentContent);
+        } else {
+          sectionsContainer.innerHTML = renderGenericContent(currentContent, page);
+        }
 
         loading.classList.add('hidden');
         contentContainer.classList.remove('hidden');
-
-        showMessage(`Loaded ${Object.keys(currentSections).length} content sections`, 'success');
+        showToast(`Loaded ${page} content`, 'success');
       } catch (error) {
-        console.error('Error in loadContent:', error);
-        showMessage('Error loading content: ' + error.message, 'error');
+        console.error('Error:', error);
+        showToast('Error loading content', 'error');
         loading.classList.add('hidden');
       }
     });
 
-    function renderSections(page, language) {
-      pageTitle.textContent = `${page.charAt(0).toUpperCase() + page.slice(1)} - ${language.toUpperCase()}`;
-      sectionsContainer.innerHTML = '';
-
-      const sortedKeys = Object.keys(currentSections).sort();
-
-      sortedKeys.forEach(key => {
-        const value = currentSections[key];
-        const isLongText = typeof value === 'string' && value.length > 100;
-
-        const sectionDiv = document.createElement('div');
-        sectionDiv.className = 'bg-gray-700 rounded-lg p-4';
-
-        const label = document.createElement('label');
-        label.className = 'block text-sm font-medium mb-2 text-gray-300';
-        label.textContent = key;
-
-        let input;
-        if (isLongText) {
-          input = document.createElement('textarea');
-          input.rows = 4;
-          input.className = 'w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white';
-        } else {
-          input = document.createElement('input');
-          input.type = 'text';
-          input.className = 'w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white';
-        }
-
-        input.value = Array.isArray(value) ? JSON.stringify(value) : String(value);
-        input.dataset.section = key;
-
-        sectionDiv.appendChild(label);
-        sectionDiv.appendChild(input);
-        sectionsContainer.appendChild(sectionDiv);
-      });
-    }
-
     saveAll.addEventListener('click', async () => {
-      const page = pageSelect.value;
-      const language = languageSelect.value;
-
-      if (!page || !language) {
-        showMessage('Please select page and language', 'error');
+      if (!currentPage || !currentLang) {
+        showToast('Please load content first', 'error');
         return;
       }
 
@@ -247,7 +523,7 @@
         const { data: currentData, error: fetchError } = await supabaseClient
           .from('site_locales')
           .select('content')
-          .eq('lang', language)
+          .eq('lang', currentLang)
           .maybeSingle();
 
         if (fetchError) throw fetchError;
@@ -258,10 +534,10 @@
         const updatedPageContent = {};
 
         for (const input of inputs) {
-          const section = input.dataset.section;
+          const path = input.dataset.path;
           const value = input.value;
 
-          const keys = section.split('.');
+          const keys = path.split('.');
           let current = updatedPageContent;
 
           for (let i = 0; i < keys.length - 1; i++) {
@@ -272,7 +548,7 @@
           current[keys[keys.length - 1]] = value;
         }
 
-        allContent[page] = updatedPageContent;
+        allContent[currentPage] = updatedPageContent;
 
         const { error: updateError } = await supabaseClient
           .from('site_locales')
@@ -280,15 +556,14 @@
             content: allContent,
             updated_at: new Date().toISOString()
           })
-          .eq('lang', language);
+          .eq('lang', currentLang);
 
         if (updateError) throw updateError;
 
-        showMessage('✓ Changes saved! Refresh the main website to see updates.', 'success');
+        showToast('✓ Changes saved successfully!', 'success');
       } catch (error) {
         console.error('Error saving:', error);
-        const errorMsg = error?.message || error?.error_description || 'Unknown error';
-        showMessage('Error saving: ' + errorMsg, 'error');
+        showToast(`Error: ${error.message}`, 'error');
       } finally {
         loading.classList.add('hidden');
       }
@@ -296,44 +571,29 @@
 
     async function checkAuth() {
       try {
-        // Check session
-        const session = await supabaseClient.auth.getSession();
-        console.log('Session check:', session.data.session ? 'Has session' : 'No session');
+        const { data: { user }, error } = await supabaseClient.auth.getUser();
 
-        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-
-        if (userError || !user) {
-          console.warn('No user authenticated');
-          console.warn('Auth error:', userError);
+        if (error || !user) {
           authStatus.innerHTML = '<span class="text-red-400">🔒 Not logged in - <a href="/login.html" class="underline hover:text-red-300">Login here</a></span>';
-          showMessage('Not logged in - Go to /login.html first', 'error');
+          showToast('Not logged in', 'error');
           saveAll.disabled = true;
           saveAll.classList.add('opacity-50', 'cursor-not-allowed');
           return;
         }
 
-        console.log('✓ User authenticated:', user.email);
-        console.log('  User ID:', user.id);
-        console.log('  app_metadata:', user.app_metadata);
-        console.log('  user_metadata:', user.user_metadata);
-
         const isAdmin = user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin';
 
         if (!isAdmin) {
-          console.warn('✗ User is not admin');
-          authStatus.innerHTML = `<span class="text-yellow-400">⚠️ Logged in: ${user.email} (Not Admin - no save access)</span>`;
-          showMessage('Not admin - Contact administrator for access', 'error');
+          authStatus.innerHTML = `<span class="text-yellow-400">⚠️ ${user.email} (Not Admin)</span>`;
+          showToast('Not admin - viewing only', 'error');
           saveAll.disabled = true;
           saveAll.classList.add('opacity-50', 'cursor-not-allowed');
         } else {
-          console.log('✓ Admin access granted');
-          authStatus.innerHTML = `<span class="text-green-400">✓ Logged in as Admin: ${user.email}</span>`;
-          setTimeout(() => showMessage('Admin access verified', 'success'), 500);
+          authStatus.innerHTML = `<span class="text-green-400">✓ Admin: ${user.email}</span>`;
         }
       } catch (error) {
         console.error('Auth check failed:', error);
         authStatus.innerHTML = '<span class="text-red-400">❌ Auth check failed</span>';
-        showMessage('Auth check failed - viewing mode only', 'error');
         saveAll.disabled = true;
         saveAll.classList.add('opacity-50', 'cursor-not-allowed');
       }
