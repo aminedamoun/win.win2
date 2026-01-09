@@ -9,7 +9,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function getSavedLang() {
   const saved = localStorage.getItem("lang");
-  return saved === "sl" ? "sl" : "en";
+  if (!saved) return "sl";
+  return saved === "en" ? "en" : "sl";
 }
 
 async function loadTranslations() {
@@ -40,7 +41,7 @@ export async function initI18nRemote() {
     await i18n.use(initReactI18next).init({
       resources,
       lng: lang,
-      fallbackLng: "en",
+      fallbackLng: "sl",
       interpolation: { escapeValue: false },
     });
   } else {

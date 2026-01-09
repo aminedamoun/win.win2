@@ -58,6 +58,40 @@ export default function SEO({
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', canonical);
+
+    const currentPath = window.location.pathname;
+    const currentUrl = `https://www.win-win.si${currentPath}`;
+
+    let hreflangSl = document.querySelector('link[hreflang="sl"]');
+    if (!hreflangSl) {
+      hreflangSl = document.createElement('link');
+      hreflangSl.setAttribute('rel', 'alternate');
+      hreflangSl.setAttribute('hreflang', 'sl');
+      document.head.appendChild(hreflangSl);
+    }
+    hreflangSl.setAttribute('href', currentUrl);
+
+    let hreflangEn = document.querySelector('link[hreflang="en"]');
+    if (!hreflangEn) {
+      hreflangEn = document.createElement('link');
+      hreflangEn.setAttribute('rel', 'alternate');
+      hreflangEn.setAttribute('hreflang', 'en');
+      document.head.appendChild(hreflangEn);
+    }
+    hreflangEn.setAttribute('href', `${currentUrl}?lang=en`);
+
+    let hreflangDefault = document.querySelector('link[hreflang="x-default"]');
+    if (!hreflangDefault) {
+      hreflangDefault = document.createElement('link');
+      hreflangDefault.setAttribute('rel', 'alternate');
+      hreflangDefault.setAttribute('hreflang', 'x-default');
+      document.head.appendChild(hreflangDefault);
+    }
+    hreflangDefault.setAttribute('href', currentUrl);
+
+    const htmlElement = document.documentElement;
+    const currentLang = localStorage.getItem('lang') || 'sl';
+    htmlElement.setAttribute('lang', currentLang);
   }, [title, description, image, canonical]);
 
   return null;

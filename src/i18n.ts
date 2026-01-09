@@ -36,7 +36,7 @@ export async function initI18n() {
   await i18n.use(initReactI18next).init({
     resources,
     lng: savedLang,
-    fallbackLng: "en",
+    fallbackLng: "sl",
     interpolation: { escapeValue: false },
   });
 
