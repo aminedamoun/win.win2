@@ -1715,45 +1715,34 @@
       loading.classList.remove('hidden');
 
       try {
-        const { data: currentData, error: fetchError } = await supabaseClient
-          .from('site_locales')
-          .select('content')
-          .eq('lang', currentLang)
-          .maybeSingle();
-
-        if (fetchError) throw fetchError;
-
-        const allContent = currentData?.content || {};
         const inputs = sectionsContainer.querySelectorAll('input, textarea');
+        const updates = [];
 
-        const updatedPageContent = {};
-
+        // Save each field to website_content table
         for (const input of inputs) {
-          const path = input.dataset.path;
-          const value = input.value;
+          const section = input.dataset.path;
+          const content = input.value;
 
-          const keys = path.split('.');
-          let current = updatedPageContent;
-
-          for (let i = 0; i < keys.length - 1; i++) {
-            if (!current[keys[i]]) current[keys[i]] = {};
-            current = current[keys[i]];
-          }
-
-          current[keys[keys.length - 1]] = value;
+          updates.push({
+            page: currentPage,
+            section: section,
+            language: currentLang,
+            content: content
+          });
         }
 
-        allContent[currentPage] = updatedPageContent;
+        // Upsert all records to website_content
+        const { error: upsertError } = await supabaseClient
+          .from('website_content')
+          .upsert(updates, {
+            onConflict: 'page,section,language',
+            ignoreDuplicates: false
+          });
 
-        const { error: updateError } = await supabaseClient
-          .from('site_locales')
-          .update({
-            content: allContent,
-            updated_at: new Date().toISOString()
-          })
-          .eq('lang', currentLang);
+        if (upsertError) throw upsertError;
 
-        if (updateError) throw updateError;
+        // Rebuild site_locales from website_content
+        await rebuildSiteLocales(currentLang);
 
         showToast('✓ Changes saved successfully!', 'success');
       } catch (error) {
@@ -1763,6 +1752,54 @@
         loading.classList.add('hidden');
       }
     });
+
+    async function rebuildSiteLocales(language) {
+      try {
+        // Fetch all content for this language
+        const { data: allContent, error: fetchError } = await supabaseClient
+          .from('website_content')
+          .select('page, section, content')
+          .eq('language', language);
+
+        if (fetchError) throw fetchError;
+
+        // Build nested JSON structure with page as top level
+        const localeData = {};
+        allContent.forEach(item => {
+          // Include the page in the path: page.section.subsection...
+          const fullPath = `${item.page}.${item.section}`;
+          const keys = fullPath.split('.');
+          let current = localeData;
+
+          // Navigate/create nested structure
+          for (let i = 0; i < keys.length - 1; i++) {
+            const key = keys[i];
+            if (!current[key]) current[key] = {};
+            current = current[key];
+          }
+
+          // Set the final value
+          const lastKey = keys[keys.length - 1];
+          current[lastKey] = item.content;
+        });
+
+        // Update site_locales table
+        const { error: upsertError } = await supabaseClient
+          .from('site_locales')
+          .upsert({
+            lang: language,
+            content: localeData,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'lang' });
+
+        if (upsertError) throw upsertError;
+
+        console.log('✓ site_locales updated for language:', language);
+      } catch (error) {
+        console.error('Error rebuilding site_locales:', error);
+        throw error;
+      }
+    }
 
     async function checkAuth() {
       try {
