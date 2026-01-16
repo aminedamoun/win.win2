@@ -99,7 +99,7 @@ export default function About() {
   const culture = t('about.culture.items', { returnObjects: true }) as string[];
 
   const seoTitle = i18n.language === 'sl'
-    ? 'O nas | Win Win - Agencija za zaposlovanje'
+    ? 'Win Win - Agencija za zaposlovanje | Prodajna kariera / Telefonska prodaja / B2B'
     : 'About Us - Win Win | Leading Employment Agency in Slovenia';
 
   const seoDescription = i18n.language === 'sl'
