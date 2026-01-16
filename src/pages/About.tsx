@@ -98,9 +98,7 @@ export default function About() {
 
   const culture = t('about.culture.items', { returnObjects: true }) as string[];
 
-  const seoTitle = i18n.language === 'sl'
-    ? 'Win Win - Agencija za zaposlovanje | Prodajna kariera / Telefonska prodaja / B2B'
-    : 'About Us - Win Win | Leading Employment Agency in Slovenia';
+  const seoTitle = t('seo.about.metaTitle');
 
   const seoDescription = i18n.language === 'sl'
     ? 'Spoznajte Win Win - uspešno agencijo za zaposlovanje s fokusom na prodajne kariere. Naša vizija, vrednote in poslanstvo za razvoj najboljših prodajnih talentov v Sloveniji.'

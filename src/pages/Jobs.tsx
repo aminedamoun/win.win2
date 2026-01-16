@@ -86,9 +86,7 @@ export default function Jobs() {
     return <Briefcase className="text-gray-400" size={24} />;
   };
 
-  const seoTitle = i18n.language === 'sl'
-    ? 'Prosta delovna mesta | Win Win'
-    : 'Job Openings | Win Win - Sales Careers in Slovenia';
+  const seoTitle = t('seo.jobs.metaTitle');
 
   const seoDescription = i18n.language === 'sl'
     ? 'Odkrijte prosta delovna mesta pri Win Win. Iščemo prodajnike, svetovalce za stranke in call center agente. Pridružite se našemu dinamičnemu timu in začnite svojo prodajno kariero danes.'

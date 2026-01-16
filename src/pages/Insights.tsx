@@ -87,9 +87,7 @@ export default function Insights() {
   const featuredArticle = articles[0];
   const regularArticles = articles.slice(1);
 
-  const seoTitle = i18n.language === 'sl'
-    ? 'Vpogledi | Win Win'
-    : 'Insights & Tips | Win Win - Sales Career Blog';
+  const seoTitle = t('seo.insights.metaTitle');
 
   const seoDescription = i18n.language === 'sl'
     ? 'Preberite naše strokovne članke, vpoglede in nasvete o prodajnih karierah, poslovnem uspehu in osebnem razvoju. Naučite se najboljših praks v prodaji in napredujte v svoji karieri.'

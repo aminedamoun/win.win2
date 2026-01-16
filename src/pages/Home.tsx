@@ -280,9 +280,7 @@ export default function Home() {
     },
   ];
 
-  const seoTitle = i18n.language === 'sl'
-    ? 'Iščemo prodajne svetovalce / terenska prodaja / promocije / klicni center'
-    : 'Win Win - Employment Agency | Sales Jobs in Slovenia';
+  const seoTitle = t('seo.home.metaTitle');
 
   const seoDescription = i18n.language === 'sl'
     ? 'Win Win je vodilna agencija za zaposlovanje, specializirana za prodajna delovna mesta, telefonsko prodajo, call center in telekomunikacije po Sloveniji. Pridružite se uspešnemu timu prodajnikov.'
