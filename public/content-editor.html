@@ -822,7 +822,11 @@
             <span class="text-sm text-gray-400">Footer contact & social links</span>
           </div>
           <div class="section-body">
-            <h4 class="text-sm font-semibold text-gray-300 mb-4">Contact Information</h4>
+            <div class="field-group">
+              <label class="field-label">Footer Description</label>
+              <textarea class="field-input field-textarea" data-path="footer.description">${content.footer?.description || ''}</textarea>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-300 mb-4 mt-6">Contact Information</h4>
             <div class="grid-2">
               <div class="field-group">
                 <label class="field-label">Phone Number</label>

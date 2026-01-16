@@ -9,6 +9,7 @@ export default function Footer() {
   const { t, i18n } = useTranslation();
   const [logoUrl, setLogoUrl] = useState('/logo2.png');
   const [footerContent, setFooterContent] = useState({
+    description: '',
     phone: '+386 31 678 732',
     email: 'office@win-win.si',
     social: {
@@ -75,7 +76,7 @@ export default function Footer() {
               <img src={logoUrl} alt="Win Win" className="h-12 w-auto" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
-              {t('footer.description')}
+              {footerContent.description || t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a
