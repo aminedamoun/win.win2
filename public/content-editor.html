@@ -328,6 +328,18 @@
                 </div>
                 <div>
                   <div class="field-group">
+                    <label class="field-label">Promotional Sales Title</label>
+                    <input type="text" class="field-input" data-path="services.market.promotional.title" value="${content.services?.market?.promotional?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Promotional Sales Description</label>
+                    <textarea class="field-input field-textarea" data-path="services.market.promotional.description">${content.services?.market?.promotional?.description || ''}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-2 mt-4">
+                <div>
+                  <div class="field-group">
                     <label class="field-label">Call Center Title</label>
                     <input type="text" class="field-input" data-path="services.core.callCenter.title" value="${content.services?.core?.callCenter?.title || ''}">
                   </div>
@@ -336,15 +348,15 @@
                     <textarea class="field-input field-textarea" data-path="services.core.callCenter.description">${content.services?.core?.callCenter?.description || ''}</textarea>
                   </div>
                 </div>
-              </div>
-              <div class="mt-4">
-                <div class="field-group">
-                  <label class="field-label">B2B Sales Title</label>
-                  <input type="text" class="field-input" data-path="services.core.b2b.title" value="${content.services?.core?.b2b?.title || ''}">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">B2B Sales Description</label>
-                  <textarea class="field-input field-textarea" data-path="services.core.b2b.description">${content.services?.core?.b2b?.description || ''}</textarea>
+                <div>
+                  <div class="field-group">
+                    <label class="field-label">B2B Sales Title</label>
+                    <input type="text" class="field-input" data-path="services.core.b2b.title" value="${content.services?.core?.b2b?.title || ''}">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">B2B Sales Description</label>
+                    <textarea class="field-input field-textarea" data-path="services.core.b2b.description">${content.services?.core?.b2b?.description || ''}</textarea>
+                  </div>
                 </div>
               </div>
             </div>
