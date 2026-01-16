@@ -1,0 +1,2 @@
+-- Reading from the generated file
+-- This will be replaced with actual content
