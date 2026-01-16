@@ -177,6 +177,11 @@ export default function Home() {
       description: t('home.services.core.promotions.description'),
     },
     {
+      icon: Megaphone,
+      title: t('home.services.market.promotional.title'),
+      description: t('home.services.market.promotional.description'),
+    },
+    {
       icon: Phone,
       title: t('home.services.core.callCenter.title'),
       description: t('home.services.core.callCenter.description'),
@@ -216,11 +221,6 @@ export default function Home() {
       icon: UserCheck,
       title: t('home.services.market.b2c.title'),
       description: t('home.services.market.b2c.description'),
-    },
-    {
-      icon: Megaphone,
-      title: t('home.services.market.promotional.title'),
-      description: t('home.services.market.promotional.description'),
     },
     {
       icon: Building2,
@@ -506,7 +506,7 @@ export default function Home() {
                   <span dangerouslySetInnerHTML={{ __html: t('home.services.b2cField') }} />
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {coreServices.map((service, index) => (
                   <div
                     key={index}
@@ -554,7 +554,7 @@ export default function Home() {
                   <span dangerouslySetInnerHTML={{ __html: t('home.services.marketFocus') }} />
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {marketFocus.map((service, index) => (
                   <div
                     key={index}
