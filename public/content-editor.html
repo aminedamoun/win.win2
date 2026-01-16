@@ -460,6 +460,16 @@
             <div class="grid-2">
               <div>
                 <div class="field-group">
+                  <label class="field-label">Promotional Sales Title</label>
+                  <input type="text" class="field-input" data-path="services.market.promotional.title" value="${content.services?.market?.promotional?.title || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Promotional Sales Description</label>
+                  <textarea class="field-input field-textarea" data-path="services.market.promotional.description">${content.services?.market?.promotional?.description || ''}</textarea>
+                </div>
+              </div>
+              <div>
+                <div class="field-group">
                   <label class="field-label">B2C Market Specialization Title</label>
                   <input type="text" class="field-input" data-path="services.market.b2c.title" value="${content.services?.market?.b2c?.title || ''}">
                 </div>
@@ -468,24 +478,16 @@
                   <textarea class="field-input field-textarea" data-path="services.market.b2c.description">${content.services?.market?.b2c?.description || ''}</textarea>
                 </div>
               </div>
-              <div>
-                <div class="field-group">
-                  <label class="field-label">B2B Market Title</label>
-                  <input type="text" class="field-input" data-path="services.market.b2b.title" value="${content.services?.market?.b2b?.title || ''}">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">B2B Market Description</label>
-                  <textarea class="field-input field-textarea" data-path="services.market.b2b.description">${content.services?.market?.b2b?.description || ''}</textarea>
-                </div>
+            </div>
+            <div class="mt-4">
+              <div class="field-group">
+                <label class="field-label">B2B Market Title</label>
+                <input type="text" class="field-input" data-path="services.market.b2b.title" value="${content.services?.market?.b2b?.title || ''}">
               </div>
-            </div>
-            <div class="field-group mt-4">
-              <label class="field-label">Promotional Sales Title</label>
-              <input type="text" class="field-input" data-path="services.market.promotional.title" value="${content.services?.market?.promotional?.title || ''}">
-            </div>
-            <div class="field-group">
-              <label class="field-label">Promotional Sales Description</label>
-              <textarea class="field-input field-textarea" data-path="services.market.promotional.description">${content.services?.market?.promotional?.description || ''}</textarea>
+              <div class="field-group">
+                <label class="field-label">B2B Market Description</label>
+                <textarea class="field-input field-textarea" data-path="services.market.b2b.description">${content.services?.market?.b2b?.description || ''}</textarea>
+              </div>
             </div>
           </div>
         </div>
