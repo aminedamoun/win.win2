@@ -6,28 +6,52 @@ import { supabase } from '../utils/supabase';
 
 export default function Footer() {
   const { navigate } = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [logoUrl, setLogoUrl] = useState('/logo2.png');
+  const [footerContent, setFooterContent] = useState({
+    phone: '+386 31 678 732',
+    email: 'office@win-win.si',
+    social: {
+      facebook: 'https://facebook.com',
+      instagram: 'https://instagram.com'
+    }
+  });
 
   useEffect(() => {
-    const fetchLogo = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await supabase
+        // Fetch logo
+        const { data: logoData } = await supabase
           .from('website_images')
           .select('url')
           .eq('usage_location', 'main-logo')
           .maybeSingle();
 
-        if (data && data.url) {
-          setLogoUrl(data.url);
+        if (logoData && logoData.url) {
+          setLogoUrl(logoData.url);
+        }
+
+        // Fetch footer content
+        const { data: contentData } = await supabase
+          .from('website_content')
+          .select('content')
+          .eq('lang', i18n.language)
+          .eq('page', 'home')
+          .maybeSingle();
+
+        if (contentData?.content?.footer) {
+          setFooterContent(prev => ({
+            ...prev,
+            ...contentData.content.footer
+          }));
         }
       } catch (err) {
-        console.error('Error fetching logo:', err);
+        console.error('Error fetching data:', err);
       }
     };
 
-    fetchLogo();
-  }, []);
+    fetchData();
+  }, [i18n.language]);
 
   const footerLinks = {
     [t('footer.company')]: [
@@ -55,7 +79,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
+                href={footerContent.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-red-500 transition-colors"
@@ -64,7 +88,7 @@ export default function Footer() {
                 <Facebook size={20} />
               </a>
               <a
-                href="https://instagram.com"
+                href={footerContent.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-red-500 transition-colors"
@@ -102,11 +126,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2 text-gray-400 text-sm">
                 <Phone size={16} className="flex-shrink-0 text-red-500" />
-                <span>+386 31 678 732</span>
+                <span>{footerContent.phone}</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-400 text-sm">
                 <Mail size={16} className="flex-shrink-0 text-red-500" />
-                <span>office@win-win.si</span>
+                <span>{footerContent.email}</span>
               </li>
             </ul>
           </div>

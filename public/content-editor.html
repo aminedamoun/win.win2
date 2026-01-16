@@ -814,6 +814,38 @@
             </div>
           </div>
         </div>
+
+        <!-- Footer Section -->
+        <div class="section-preview">
+          <div class="section-header">
+            <h3>🔗 Footer</h3>
+            <span class="text-sm text-gray-400">Footer contact & social links</span>
+          </div>
+          <div class="section-body">
+            <h4 class="text-sm font-semibold text-gray-300 mb-4">Contact Information</h4>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Phone Number</label>
+                <input type="text" class="field-input" data-path="footer.phone" value="${content.footer?.phone || '+386 31 678 732'}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Email Address</label>
+                <input type="text" class="field-input" data-path="footer.email" value="${content.footer?.email || 'office@win-win.si'}">
+              </div>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-300 mb-4 mt-6">Social Media Links</h4>
+            <div class="grid-2">
+              <div class="field-group">
+                <label class="field-label">Facebook URL</label>
+                <input type="text" class="field-input" data-path="footer.social.facebook" value="${content.footer?.social?.facebook || 'https://facebook.com'}">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Instagram URL</label>
+                <input type="text" class="field-input" data-path="footer.social.instagram" value="${content.footer?.social?.instagram || 'https://instagram.com'}">
+              </div>
+            </div>
+          </div>
+        </div>
       `;
     }
 
