@@ -69,6 +69,10 @@
           "title": "B2C tržna specializacija",
           "description": "Primarni fokus na stanovanjske stranke, gospodinjstva in posamezne končne uporabnike."
         },
+        "promotional": {
+          "title": "Promocijska Prodaja",
+          "description": "Direktne promocijske aktivnosti na strateških lokacijah z osebnim angažmanom strank ter krepitvijo prepoznavnosti blagovne znamke skozi ciljno usmerjene kampanje na dogodkih, sejmih in v trgovskih centrih."
+        },
         "b2b": {
           "title": "B2B Prodaja",
           "description": "Sekundarni fokus na poslovne telekomunikacijske rešitve in ponudbe povezane z IKT."

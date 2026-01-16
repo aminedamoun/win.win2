@@ -69,6 +69,10 @@
           "title": "B2C Market Specialization",
           "description": "Primary focus on residential customers, households, and individual end users."
         },
+        "promotional": {
+          "title": "Promotional Sales",
+          "description": "Direct promotional activities at strategic locations with personal customer engagement and brand awareness building through targeted campaigns at events, fairs, and shopping centers."
+        },
         "b2b": {
           "title": "B2B Sales Support",
           "description": "Secondary focus on business telecom solutions and ICT-related offers."
