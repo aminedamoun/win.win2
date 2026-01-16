@@ -276,7 +276,7 @@ export default function Home() {
   ];
 
   const seoTitle = i18n.language === 'sl'
-    ? 'Win Win - Agencija za zaposlovanje | Prodajna delovna mesta v Sloveniji'
+    ? 'Iščemo prodajne svetovalce / terenska prodaja / promocije / klicni center'
     : 'Win Win - Employment Agency | Sales Jobs in Slovenia';
 
   const seoDescription = i18n.language === 'sl'

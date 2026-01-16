@@ -132,7 +132,7 @@ export default function Apply() {
   };
 
   const seoTitle = i18n.language === 'sl'
-    ? 'Prijavi se zdaj | Win Win - Začni svojo prodajno kariero'
+    ? 'Prijava | Win Win'
     : 'Apply Now | Win Win - Start Your Sales Career';
 
   const seoDescription = i18n.language === 'sl'

@@ -88,7 +88,7 @@ export default function Insights() {
   const regularArticles = articles.slice(1);
 
   const seoTitle = i18n.language === 'sl'
-    ? 'Vpogledi in nasveti | Win Win - Blog o prodajnih karierah'
+    ? 'Vpogledi | Win Win'
     : 'Insights & Tips | Win Win - Sales Career Blog';
 
   const seoDescription = i18n.language === 'sl'

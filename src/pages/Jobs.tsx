@@ -87,7 +87,7 @@ export default function Jobs() {
   };
 
   const seoTitle = i18n.language === 'sl'
-    ? 'Prosta delovna mesta | Win Win - Prodajne kariere v Sloveniji'
+    ? 'Prosta delovna mesta | Win Win'
     : 'Job Openings | Win Win - Sales Careers in Slovenia';
 
   const seoDescription = i18n.language === 'sl'
