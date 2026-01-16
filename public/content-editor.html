@@ -1724,10 +1724,13 @@
         if (fetchError) throw fetchError;
 
         const allContent = currentData?.content || {};
+
+        // Start with the existing page content to preserve all fields
+        const updatedPageContent = JSON.parse(JSON.stringify(allContent[currentPage] || {}));
+
         const inputs = sectionsContainer.querySelectorAll('input, textarea');
 
-        const updatedPageContent = {};
-
+        // Only update fields that are in the form
         for (const input of inputs) {
           const path = input.dataset.path;
           const value = input.value;
