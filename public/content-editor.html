@@ -314,6 +314,24 @@
             </div>
 
             <div class="mt-8">
+              <h4 class="text-sm font-semibold text-gray-300 mb-4">Section Titles</h4>
+              <div class="grid-2">
+                <div class="field-group">
+                  <label class="field-label">Core Services Section Title</label>
+                  <input type="text" class="field-input" data-path="services.b2cField" value="${content.services?.b2cField || ''}">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Support Services Section Title</label>
+                  <input type="text" class="field-input" data-path="services.internalSupport" value="${content.services?.internalSupport || ''}">
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Market Focus Section Title</label>
+                <input type="text" class="field-input" data-path="services.marketFocus" value="${content.services?.marketFocus || ''}">
+              </div>
+            </div>
+
+            <div class="mt-8">
               <h4 class="text-sm font-semibold text-gray-300 mb-4">Core Services (Main offerings)</h4>
               <div class="grid-2">
                 <div>
