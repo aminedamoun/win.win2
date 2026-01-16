@@ -35,15 +35,29 @@ export default function Footer() {
         // Fetch footer content
         const { data: contentData } = await supabase
           .from('website_content')
-          .select('content')
-          .eq('lang', i18n.language)
+          .select('section, content')
+          .eq('language', i18n.language)
           .eq('page', 'home')
-          .maybeSingle();
+          .like('section', 'footer.%');
 
-        if (contentData?.content?.footer) {
+        if (contentData && contentData.length > 0) {
+          const footerData: any = { social: {} };
+          contentData.forEach((item: any) => {
+            const key = item.section.replace('footer.', '');
+            if (key.startsWith('social.')) {
+              const socialKey = key.replace('social.', '');
+              footerData.social[socialKey] = item.content;
+            } else {
+              footerData[key] = item.content;
+            }
+          });
           setFooterContent(prev => ({
             ...prev,
-            ...contentData.content.footer
+            ...footerData,
+            social: {
+              ...prev.social,
+              ...footerData.social
+            }
           }));
         }
       } catch (err) {

@@ -1798,6 +1798,33 @@
 
         if (updateError) throw updateError;
 
+        // Also save footer fields to website_content table for direct component access
+        if (currentPage === 'home' && updatedPageContent.footer) {
+          const footerFields = [
+            { section: 'footer.description', value: updatedPageContent.footer.description },
+            { section: 'footer.phone', value: updatedPageContent.footer.phone },
+            { section: 'footer.email', value: updatedPageContent.footer.email },
+            { section: 'footer.social.facebook', value: updatedPageContent.footer.social?.facebook },
+            { section: 'footer.social.instagram', value: updatedPageContent.footer.social?.instagram }
+          ];
+
+          for (const field of footerFields) {
+            if (field.value !== undefined) {
+              await supabaseClient
+                .from('website_content')
+                .upsert({
+                  page: 'home',
+                  section: field.section,
+                  language: currentLang,
+                  content: field.value,
+                  updated_at: new Date().toISOString()
+                }, {
+                  onConflict: 'page,section,language'
+                });
+            }
+          }
+        }
+
         showToast('✓ Changes saved successfully!', 'success');
       } catch (error) {
         console.error('Error saving:', error);
