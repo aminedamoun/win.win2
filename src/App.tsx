@@ -13,6 +13,9 @@ import JobDetail from './pages/JobDetail';
 import Apply from './pages/Apply';
 import Insights from './pages/Insights';
 import InsightDetail from './pages/InsightDetail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import CookiePolicy from './pages/CookiePolicy';
+import TermsOfUse from './pages/TermsOfUse';
 
 function App() {
   return (
@@ -81,45 +84,15 @@ function App() {
           </Route>
 
           <Route path="/privacy">
-            <SEO title="Privacy Policy - Win Win" />
-            <div className="min-h-screen bg-black pt-20 pb-20">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div className="max-w-4xl mx-auto">
-                  <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-                  <div className="glass-card p-8 text-gray-300 space-y-4">
-                    <p>Privacy policy content placeholder. Add your company's privacy policy here.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PrivacyPolicy />
           </Route>
 
           <Route path="/cookies">
-            <SEO title="Cookie Policy - Win Win" />
-            <div className="min-h-screen bg-black pt-20 pb-20">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div className="max-w-4xl mx-auto">
-                  <h1 className="text-4xl font-bold mb-8">Cookie Policy</h1>
-                  <div className="glass-card p-8 text-gray-300 space-y-4">
-                    <p>Cookie policy content placeholder. Add your company's cookie policy here.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CookiePolicy />
           </Route>
 
           <Route path="/terms">
-            <SEO title="Terms of Service - Win Win" />
-            <div className="min-h-screen bg-black pt-20 pb-20">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div className="max-w-4xl mx-auto">
-                  <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
-                  <div className="glass-card p-8 text-gray-300 space-y-4">
-                    <p>Terms of service content placeholder. Add your company's terms of service here.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TermsOfUse />
           </Route>
         </main>
 
