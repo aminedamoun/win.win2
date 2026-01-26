@@ -91,22 +91,22 @@ Vpis: Okrožno sodišče Novo mesto, 16. 06. 2014`
         title={isEnglish ? 'Terms of Use' : 'Pogoji uporabe'}
         description={isEnglish ? 'Terms of Use for Win-Win' : 'Pogoji uporabe Win-Win'}
       />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-black">
         <div className="max-w-4xl mx-auto px-6 py-24">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 md:p-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="bg-gradient-to-b from-neutral-900 to-black rounded-lg border border-red-900/20 p-8 md:p-12">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {content.title}
             </h1>
-            <p className="text-sm text-gray-600 mb-4">{content.lastUpdated}</p>
-            <p className="text-gray-700 mb-8">{content.intro}</p>
+            <p className="text-sm text-gray-400 mb-4">{content.lastUpdated}</p>
+            <p className="text-gray-300 mb-8">{content.intro}</p>
 
             <div className="space-y-8">
               {content.sections.map((section, index) => (
                 <div key={index}>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                  <h2 className="text-xl font-semibold text-white mb-3">
                     {section.title}
                   </h2>
-                  <div className="text-gray-700 whitespace-pre-line leading-relaxed">
+                  <div className="text-gray-300 whitespace-pre-line leading-relaxed">
                     {section.content}
                   </div>
                 </div>
