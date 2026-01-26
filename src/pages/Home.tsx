@@ -34,7 +34,6 @@ export default function Home() {
   const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
   const [partnerLogo1, setPartnerLogo1] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80');
   const [partnerLogo2, setPartnerLogo2] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80');
-  const [partnerLogo3, setPartnerLogo3] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/logo12.png?auto=format&w=200&q=80');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -50,8 +49,7 @@ export default function Home() {
             'home-join-team',
             'home-benefits',
             'partner-logo-1',
-            'partner-logo-2',
-            'partner-logo-3'
+            'partner-logo-2'
           ]);
 
         if (images) {
@@ -70,8 +68,6 @@ export default function Home() {
               setPartnerLogo1(img.url);
             } else if (img.usage_location === 'partner-logo-2') {
               setPartnerLogo2(img.url);
-            } else if (img.usage_location === 'partner-logo-3') {
-              setPartnerLogo3(img.url);
             }
           });
         }
@@ -396,7 +392,7 @@ export default function Home() {
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
                 src={partnerLogo1}
-                alt="Partner 1"
+                alt="Optispin"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
                 loading="lazy"
                 width="200"
@@ -407,18 +403,7 @@ export default function Home() {
             <div className="group transition-all duration-300 flex items-center justify-center">
               <img
                 src={partnerLogo2}
-                alt="Partner 2"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
-                loading="lazy"
-                width="200"
-                height="64"
-              />
-            </div>
-
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src={partnerLogo3}
-                alt="Partner 3"
+                alt="Temach"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
                 loading="lazy"
                 width="200"
