@@ -366,7 +366,7 @@ export default function ChatWidget() {
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
-              {t('chat.poweredBy')}
+              Powered by Win Win AI
             </p>
           </div>
         </>

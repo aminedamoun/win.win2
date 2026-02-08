@@ -419,28 +419,6 @@
     "sort": "Sort",
     "close": "Close"
   },
-  "chat": {
-    "title": "Win Win Assistant",
-    "status": "Online",
-    "initialMessage": "Hello! Welcome to Win Win. I'm here to help answer your questions about our sales programs and career opportunities. How can I assist you today?",
-    "placeholder": "Type your message...",
-    "poweredBy": "Powered by Win Win AI",
-    "errorMessage": "I'm sorry, I'm having trouble processing your request right now. Please try again or contact us directly at office@win-win.si",
-    "appointment": {
-      "title": "Schedule an Appointment",
-      "name": "Full Name *",
-      "email": "Email *",
-      "phone": "Phone Number *",
-      "date": "Preferred Date *",
-      "time": "Preferred Time *",
-      "message": "Additional Message (Optional)",
-      "submit": "Schedule Appointment",
-      "cancel": "Cancel",
-      "requiredFields": "Please fill in all required fields",
-      "success": "Great! Your appointment has been scheduled successfully. We'll contact you at the provided email and phone number to confirm the details. Is there anything else I can help you with?",
-      "error": "I'm sorry, there was an error scheduling your appointment. Please try again or contact us directly at office@win-win.si"
-    }
-  },
   "seo": {
     "home": {
       "title": "Sales Jobs in Slovenia - Join Win Win Sales Team",
