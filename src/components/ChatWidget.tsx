@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send, Minimize2, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,12 +19,13 @@ interface AppointmentData {
 }
 
 export default function ChatWidget() {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! Welcome to Win Win. I'm here to help answer your questions about our sales programs and career opportunities. How can I assist you today?",
+      content: t('chat.initialMessage'),
       timestamp: new Date(),
     },
   ]);
@@ -50,6 +52,16 @@ export default function ChatWidget() {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    setMessages([
+      {
+        role: 'assistant',
+        content: t('chat.initialMessage'),
+        timestamp: new Date(),
+      },
+    ]);
+  }, [i18n.language, t]);
+
   const sendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -74,6 +86,7 @@ export default function ChatWidget() {
           sessionId,
           message: inputValue,
           conversationId,
+          language: i18n.language,
         }),
       });
 
@@ -98,7 +111,7 @@ export default function ChatWidget() {
       console.error('Error sending message:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm sorry, I'm having trouble processing your request right now. Please try again or contact us directly at office@win-win.si",
+        content: t('chat.errorMessage'),
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -117,7 +130,7 @@ export default function ChatWidget() {
   const submitAppointment = async () => {
     if (!appointmentData.name || !appointmentData.email || !appointmentData.phone ||
         !appointmentData.preferred_date || !appointmentData.preferred_time) {
-      alert('Please fill in all required fields');
+      alert(t('chat.appointment.requiredFields'));
       return;
     }
 
@@ -141,7 +154,7 @@ export default function ChatWidget() {
       if (result.success) {
         const successMessage: Message = {
           role: 'assistant',
-          content: "Great! Your appointment has been scheduled successfully. We'll contact you at the provided email and phone number to confirm the details. Is there anything else I can help you with?",
+          content: t('chat.appointment.success'),
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, successMessage]);
@@ -161,7 +174,7 @@ export default function ChatWidget() {
       console.error('Error submitting appointment:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm sorry, there was an error scheduling your appointment. Please try again or contact us directly at office@win-win.si",
+        content: t('chat.appointment.error'),
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -194,10 +207,10 @@ export default function ChatWidget() {
             <MessageCircle size={20} className="text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-white">Win Win Assistant</h3>
+            <h3 className="font-semibold text-white">{t('chat.title')}</h3>
             <p className="text-xs text-green-400 flex items-center gap-1">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-              Online
+              {t('chat.status')}
             </p>
           </div>
         </div>
@@ -257,13 +270,13 @@ export default function ChatWidget() {
               <div className="bg-white/5 border border-white/10 rounded-2xl p-4 animate-fade-in">
                 <div className="flex items-center gap-2 mb-4">
                   <Calendar size={20} className="text-red-500" />
-                  <h3 className="font-semibold text-white">Schedule an Appointment</h3>
+                  <h3 className="font-semibold text-white">{t('chat.appointment.title')}</h3>
                 </div>
 
                 <div className="space-y-3">
                   <input
                     type="text"
-                    placeholder="Full Name *"
+                    placeholder={t('chat.appointment.name')}
                     value={appointmentData.name}
                     onChange={(e) => setAppointmentData({ ...appointmentData, name: e.target.value })}
                     className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-white text-sm placeholder-gray-500"
@@ -271,7 +284,7 @@ export default function ChatWidget() {
 
                   <input
                     type="email"
-                    placeholder="Email *"
+                    placeholder={t('chat.appointment.email')}
                     value={appointmentData.email}
                     onChange={(e) => setAppointmentData({ ...appointmentData, email: e.target.value })}
                     className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-white text-sm placeholder-gray-500"
@@ -279,7 +292,7 @@ export default function ChatWidget() {
 
                   <input
                     type="tel"
-                    placeholder="Phone Number *"
+                    placeholder={t('chat.appointment.phone')}
                     value={appointmentData.phone}
                     onChange={(e) => setAppointmentData({ ...appointmentData, phone: e.target.value })}
                     className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-white text-sm placeholder-gray-500"
@@ -287,7 +300,7 @@ export default function ChatWidget() {
 
                   <input
                     type="date"
-                    placeholder="Preferred Date *"
+                    placeholder={t('chat.appointment.date')}
                     value={appointmentData.preferred_date}
                     onChange={(e) => setAppointmentData({ ...appointmentData, preferred_date: e.target.value })}
                     className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-white text-sm"
@@ -295,14 +308,14 @@ export default function ChatWidget() {
 
                   <input
                     type="time"
-                    placeholder="Preferred Time *"
+                    placeholder={t('chat.appointment.time')}
                     value={appointmentData.preferred_time}
                     onChange={(e) => setAppointmentData({ ...appointmentData, preferred_time: e.target.value })}
                     className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-white text-sm"
                   />
 
                   <textarea
-                    placeholder="Additional Message (Optional)"
+                    placeholder={t('chat.appointment.message')}
                     value={appointmentData.message}
                     onChange={(e) => setAppointmentData({ ...appointmentData, message: e.target.value })}
                     rows={2}
@@ -315,14 +328,14 @@ export default function ChatWidget() {
                       disabled={isLoading}
                       className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 text-sm font-medium"
                     >
-                      Schedule Appointment
+                      {t('chat.appointment.submit')}
                     </button>
                     <button
                       onClick={() => setShowAppointmentForm(false)}
                       disabled={isLoading}
                       className="px-4 py-2 bg-white/5 text-gray-300 rounded-lg hover:bg-white/10 transition-colors text-sm"
                     >
-                      Cancel
+                      {t('chat.appointment.cancel')}
                     </button>
                   </div>
                 </div>
@@ -339,7 +352,7 @@ export default function ChatWidget() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
+                placeholder={t('chat.placeholder')}
                 className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-white placeholder-gray-500 text-sm"
                 disabled={isLoading}
               />
@@ -353,7 +366,7 @@ export default function ChatWidget() {
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
-              Powered by Win Win AI
+              {t('chat.poweredBy')}
             </p>
           </div>
         </>

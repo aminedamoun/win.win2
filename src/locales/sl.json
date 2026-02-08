@@ -419,6 +419,28 @@
     "sort": "Razvrsti",
     "close": "Zapri"
   },
+  "chat": {
+    "title": "Win Win Pomočnik",
+    "status": "Na voljo",
+    "initialMessage": "Pozdravljeni! Dobrodošli pri Win Win. Tu sem, da vam pomagam odgovoriti na vaša vprašanja o naših prodajnih programih in kariernih priložnostih. Kako vam lahko pomagam danes?",
+    "placeholder": "Vnesite vaše sporočilo...",
+    "poweredBy": "Tehnologija Win Win AI",
+    "errorMessage": "Oprostite, trenutno imam težave pri obdelavi vaše zahteve. Prosim poskusite znova ali nas kontaktirajte neposredno na office@win-win.si",
+    "appointment": {
+      "title": "Dogovorite se za sestanek",
+      "name": "Polno ime *",
+      "email": "E-pošta *",
+      "phone": "Telefonska številka *",
+      "date": "Želeni datum *",
+      "time": "Želena ura *",
+      "message": "Dodatno sporočilo (Neobvezno)",
+      "submit": "Dogovorite sestanek",
+      "cancel": "Prekliči",
+      "requiredFields": "Prosimo izpolnite vsa obvezna polja",
+      "success": "Odlično! Vaš sestanek je bil uspešno dogovorjen. Kontaktirali vas bomo na navedeni e-pošti in telefonski številki za potrditev podrobnosti. Lahko vam še kako pomagam?",
+      "error": "Oprostite, prišlo je do napake pri dogovarjanju vašega sestanka. Prosim poskusite znova ali nas kontaktirajte neposredno na office@win-win.si"
+    }
+  },
   "seo": {
     "home": {
   "title": "Poslovna priložnost v prodaji – Pridruži se Win Win prodajni ekipi",
