@@ -5,33 +5,12 @@ import FAQ from '../components/FAQ';
 import SEOContent from '../components/SEOContent';
 import SEO from '../components/SEO';
 import ScrollIndicator from '../components/ScrollIndicator';
-import { supabase } from '../utils/supabase';
 
 export default function About() {
   const { t, i18n } = useTranslation();
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png?auto=compress&cs=tinysrgb&w=1920');
-
-  useEffect(() => {
-    const fetchHeroImage = async () => {
-      try {
-        const { data } = await supabase
-          .from('website_images')
-          .select('url')
-          .eq('usage_location', 'about-hero')
-          .maybeSingle();
-
-        if (data && data.url) {
-          setHeroImageUrl(data.url);
-        }
-      } catch (err) {
-        console.error('Error fetching hero image:', err);
-      }
-    };
-
-    fetchHeroImage();
-  }, []);
+  const heroImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/slomap.png?auto=compress&cs=tinysrgb&w=1920';
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {

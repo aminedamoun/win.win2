@@ -1,30 +1,9 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [logoUrl, setLogoUrl] = useState('/logo2.png');
-
-  useEffect(() => {
-    const fetchLogo = async () => {
-      try {
-        const { data } = await supabase
-          .from('website_images')
-          .select('url')
-          .eq('usage_location', 'main-logo')
-          .maybeSingle();
-
-        if (data && data.url) {
-          setLogoUrl(data.url);
-        }
-      } catch (err) {
-        console.error('Error fetching logo:', err);
-      }
-    };
-
-    fetchLogo();
-  }, []);
+  const logoUrl = '/logo2.png';
 
   useEffect(() => {
     const minLoadTime = 1000;

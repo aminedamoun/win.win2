@@ -9,7 +9,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [logoUrl, setLogoUrl] = useState('/logo2.png');
+  const logoUrl = '/logo2.png';
   const { navigate, currentPath } = useRouter();
   const { t } = useTranslation();
 
@@ -24,7 +24,6 @@ export default function Header() {
 
   useEffect(() => {
     checkAuth();
-    fetchLogo();
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAuthenticated(!!session);
     });
@@ -33,22 +32,6 @@ export default function Header() {
       authListener?.subscription.unsubscribe();
     };
   }, []);
-
-  const fetchLogo = async () => {
-    try {
-      const { data } = await supabase
-        .from('website_images')
-        .select('url')
-        .eq('usage_location', 'main-logo')
-        .maybeSingle();
-
-      if (data && data.url) {
-        setLogoUrl(data.url);
-      }
-    } catch (err) {
-      console.error('Error fetching logo:', err);
-    }
-  };
 
   const checkAuth = async () => {
     const { data } = await supabase.auth.getSession();

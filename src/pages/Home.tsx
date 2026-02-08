@@ -27,57 +27,14 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
-  const [heroImageUrl, setHeroImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
-  const [heroMobileImageUrl, setHeroMobileImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920');
-  const [aboutSectionImageUrl, setAboutSectionImageUrl] = useState('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  const [joinTeamImageUrl, setJoinTeamImageUrl] = useState('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  const [benefitsImageUrl, setBenefitsImageUrl] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800');
-  const [partnerLogo1, setPartnerLogo1] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80');
-  const [partnerLogo2, setPartnerLogo2] = useState('https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80');
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        // Fetch all images from database
-        const { data: images } = await supabase
-          .from('website_images')
-          .select('url, usage_location')
-          .in('usage_location', [
-            'home-hero',
-            'home-hero-mobile',
-            'home-about',
-            'home-join-team',
-            'home-benefits',
-            'partner-logo-1',
-            'partner-logo-2'
-          ]);
-
-        if (images) {
-          images.forEach(img => {
-            if (img.usage_location === 'home-hero') {
-              setHeroImageUrl(img.url);
-            } else if (img.usage_location === 'home-hero-mobile') {
-              setHeroMobileImageUrl(img.url);
-            } else if (img.usage_location === 'home-about') {
-              setAboutSectionImageUrl(img.url);
-            } else if (img.usage_location === 'home-join-team') {
-              setJoinTeamImageUrl(img.url);
-            } else if (img.usage_location === 'home-benefits') {
-              setBenefitsImageUrl(img.url);
-            } else if (img.usage_location === 'partner-logo-1') {
-              setPartnerLogo1(img.url);
-            } else if (img.usage_location === 'partner-logo-2') {
-              setPartnerLogo2(img.url);
-            }
-          });
-        }
-      } catch (err) {
-        console.error('Error fetching images:', err);
-      }
-    };
-
-    fetchImages();
-  }, []);
+  const heroImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920';
+  const heroMobileImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920';
+  const aboutSectionImageUrl = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  const joinTeamImageUrl = 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  const benefitsImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800';
+  const partnerLogo1 = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80';
+  const partnerLogo2 = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80';
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {

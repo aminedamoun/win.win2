@@ -1,72 +1,19 @@
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import { useRouter } from '../utils/router';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
 
 export default function Footer() {
   const { navigate } = useRouter();
-  const { t, i18n } = useTranslation();
-  const [logoUrl, setLogoUrl] = useState('/logo2.png');
-  const [footerContent, setFooterContent] = useState({
-    description: '',
+  const { t } = useTranslation();
+  const logoUrl = '/logo2.png';
+  const footerContent = {
     phone: '+386 31 678 732',
     email: 'office@win-win.si',
     social: {
       facebook: 'https://facebook.com',
       instagram: 'https://instagram.com'
     }
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch logo
-        const { data: logoData } = await supabase
-          .from('website_images')
-          .select('url')
-          .eq('usage_location', 'main-logo')
-          .maybeSingle();
-
-        if (logoData && logoData.url) {
-          setLogoUrl(logoData.url);
-        }
-
-        // Fetch footer content
-        const { data: contentData } = await supabase
-          .from('website_content')
-          .select('section, content')
-          .eq('language', i18n.language)
-          .eq('page', 'home')
-          .like('section', 'footer.%');
-
-        if (contentData && contentData.length > 0) {
-          const footerData: any = { social: {} };
-          contentData.forEach((item: any) => {
-            const key = item.section.replace('footer.', '');
-            if (key.startsWith('social.')) {
-              const socialKey = key.replace('social.', '');
-              footerData.social[socialKey] = item.content;
-            } else {
-              footerData[key] = item.content;
-            }
-          });
-          setFooterContent(prev => ({
-            ...prev,
-            ...footerData,
-            social: {
-              ...prev.social,
-              ...footerData.social
-            }
-          }));
-        }
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      }
-    };
-
-    fetchData();
-  }, [i18n.language]);
+  };
 
   const footerLinks = {
     [t('footer.company')]: [
