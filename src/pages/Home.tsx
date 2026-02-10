@@ -33,8 +33,6 @@ export default function Home() {
   const aboutSectionImageUrl = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920';
   const joinTeamImageUrl = 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920';
   const benefitsImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800';
-  const partnerLogo1 = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/optispin-logo.png?auto=format&w=200&q=80';
-  const partnerLogo2 = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/Group-6636-1.png?auto=format&w=200&q=80';
 
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
@@ -332,40 +330,6 @@ export default function Home() {
                   {t('home.hero.viewPositions')}
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 overflow-hidden bg-black/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-gray-400 text-sm uppercase tracking-wider">
-              {t('home.partners.title')}
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 max-w-4xl mx-auto">
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src={partnerLogo1}
-                alt="Optispin"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
-                loading="lazy"
-                width="200"
-                height="64"
-              />
-            </div>
-
-            <div className="group transition-all duration-300 flex items-center justify-center">
-              <img
-                src={partnerLogo2}
-                alt="Temach"
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-all duration-300"
-                loading="lazy"
-                width="200"
-                height="64"
-              />
             </div>
           </div>
         </div>
