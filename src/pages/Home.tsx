@@ -30,7 +30,7 @@ export default function Home() {
 
   const heroImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.webp?auto=compress&cs=tinysrgb&w=1920';
   const heroMobileImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg';
-  const aboutSectionImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/winwin.jpg';
+  const aboutSectionImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(7)%20(1)%20(1).webp';
   const joinTeamImageUrl = 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920';
   const benefitsImageUrl = 'https://6949b72b30e1aa8ca4b7eef2.imgix.net/image-gen%20(9).png?auto=compress&cs=tinysrgb&w=800';
 
