@@ -176,17 +176,9 @@ export default function JobDetail() {
                 </div>
               </div>
 
-              {fullDescription && (
-                <div className="mt-6 pt-6 border-t border-gray-800">
-                  <div className="text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: fullDescription }} />
-                </div>
-              )}
-
-              {!fullDescription && (
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  {job.shortDescription}
-                </p>
-              )}
+              <p className="text-lg text-gray-300 leading-relaxed">
+                {job.shortDescription}
+              </p>
             </div>
 
             <button
@@ -200,6 +192,19 @@ export default function JobDetail() {
           </div>
         </div>
       </section>
+
+      {fullDescription && (
+        <section className="py-12 bg-gradient-to-b from-black to-neutral-950">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="glass-card p-8 animate-fade-in-up">
+                <h2 className="text-3xl font-bold mb-6">{t('jobs.fullDescription')}</h2>
+                <div className="text-gray-300 leading-relaxed prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: fullDescription }} />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
