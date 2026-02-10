@@ -420,6 +420,27 @@
     "sort": "Razvrsti",
     "close": "Zapri"
   },
+  "chat": {
+    "title": "Win Win Asistent",
+    "status": "Na voljo",
+    "initialMessage": "Pozdravljeni! Tu sem, da vam pomagam z informacijami o Win Win programih, kariernih priložnostih in razporejanju sestankov. Kako vam lahko pomagam?",
+    "placeholder": "Napišite sporočilo...",
+    "errorMessage": "Oprostite, prišlo je do težave. Prosim poskusite ponovno.",
+    "appointment": {
+      "title": "Razporedi sestanek",
+      "name": "Polno ime",
+      "email": "E-poštni naslov",
+      "phone": "Telefonska številka",
+      "date": "Želeni datum",
+      "time": "Želeni čas",
+      "message": "Dodatno sporočilo (Neobvezno)",
+      "submit": "Oddaj",
+      "cancel": "Prekliči",
+      "success": "Hvala! Vaša prošnja za sestanek je bila oddana. Kmalu vas bomo kontaktirali.",
+      "error": "Oprostite, nismo mogli oddati vašega sestanka. Prosim poskusite ponovno.",
+      "requiredFields": "Prosim izpolnite vsa zahtevana polja."
+    }
+  },
   "seo": {
     "home": {
       "title": "Služba v prodaji v Sloveniji - Pridruži se Win Win Sales Team",
